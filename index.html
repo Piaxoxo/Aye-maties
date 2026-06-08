@@ -97,8 +97,9 @@
   @media(max-width:880px){ .hero-flag{ display:none; } }
   .loader-mark{
     font-family:var(--display);font-size:clamp(28px,5vw,46px);letter-spacing:.35em;
-    color:var(--gold-soft);opacity:.9;
+    color:var(--gold-soft);opacity:.9;display:flex;
   }
+  .lm-char{ display:inline-block;opacity:0;transform:translateY(26px) rotateX(60deg);transform-origin:bottom center; }
   .loader-bar{width:220px;height:1px;background:rgba(255,255,255,.12);position:relative;overflow:hidden;}
   .loader-bar span{position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;
     transition:transform 1.4s cubic-bezier(.65,0,.2,1);}
@@ -159,7 +160,19 @@
     position:relative;height:100vh;min-height:680px;display:flex;align-items:flex-end;
     overflow:hidden;
   }
-  .hero-bg{position:absolute;inset:0;z-index:0;}
+  .hero-bg{position:absolute;inset:0;z-index:0;overflow:hidden;}
+  .hv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;
+    transition:opacity 1.1s var(--ease);will-change:transform,opacity;}
+  .hv.active{opacity:1;}
+  .hero-bg-switch{ position:absolute;left:32px;bottom:140px;z-index:5;display:flex;align-items:center;gap:10px;
+    padding:11px 20px 11px 14px;border-radius:50px;border:1px solid rgba(255,255,255,.22);
+    background:rgba(7,13,22,.4);backdrop-filter:blur(8px);color:var(--ink);
+    font-size:10px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;
+    transition:border-color .4s ease, background .4s ease; }
+  .hero-bg-switch:hover{ border-color:rgba(216,184,115,.5);background:rgba(216,184,115,.1);color:var(--gold-soft); }
+  .hero-bg-switch svg{width:16px;height:16px;transition:transform .6s var(--ease);}
+  .hero-bg-switch:hover svg{transform:rotate(180deg);}
+  @media(max-width:640px){ .hero-bg-switch{left:20px;bottom:118px;font-size:9px;padding:9px 16px 9px 12px;} }
   .hero-bg video{
     position:absolute;top:50%;left:50%;width:100%;height:100%;object-fit:cover;
     transform:translate(-50%,-50%) scale(1.08);
@@ -241,6 +254,17 @@
   .crew-teaser .compass{ right:-90px;top:8%; }
   .crew-inner{ position:relative;z-index:2;max-width:760px;margin:0 auto;text-align:center; }
   .crew-inner .lead{margin:26px auto 0;max-width:660px;}
+  .crew-grid{ position:relative;z-index:2;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+    gap:22px;margin:64px 0; }
+  .ccard{ position:relative;padding:30px 26px;border:1px solid rgba(255,255,255,.08);border-radius:18px;
+    background:rgba(255,255,255,.02);backdrop-filter:blur(6px);transition:transform .5s var(--ease), border-color .5s ease; }
+  .ccard:hover{ transform:translateY(-7px);border-color:rgba(216,184,115,.35); }
+  .cavatar{ width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-family:var(--display);font-size:16px;letter-spacing:.06em;color:var(--deep);
+    background:linear-gradient(135deg, var(--gold-soft), var(--foam));margin-bottom:18px; }
+  .ccard h3{ font-family:var(--display);font-size:18px;font-weight:400;color:var(--ink);margin-bottom:4px; }
+  .crole{ display:block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:12px; }
+  .ccard p{ font-size:13.5px;line-height:1.7;color:var(--muted); }
   .loading-block{ margin:62px auto 0;max-width:520px; }
   .loading-label{ display:flex;justify-content:space-between;font-size:11px;letter-spacing:.28em;
     text-transform:uppercase;color:var(--muted);margin-bottom:14px; }
@@ -279,6 +303,22 @@
   .fcard .num{ font-family:var(--display);font-size:13px;color:var(--gold-soft);letter-spacing:.2em; }
   .fcard h3{ font-family:var(--display);font-size:19px;font-weight:400;margin:14px 0 10px;color:var(--ink); }
   .fcard p{ font-size:14px;line-height:1.7;color:var(--muted); }
+
+  /* ---- our goals / green roadmap ---- */
+  .goals{ position:relative;padding:150px 0;background:linear-gradient(180deg, var(--deep), var(--deep2) 60%, var(--deep)); }
+  .goals .lead{max-width:680px;margin-top:20px;}
+  .goal-track{ display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:0;margin-top:70px;
+    border-top:1px solid rgba(255,255,255,.1); }
+  .gcard{ position:relative;padding:34px 28px 28px;border-right:1px solid rgba(255,255,255,.1);
+    transition:background .5s ease; }
+  .gcard:last-child{border-right:none;}
+  .gcard:hover{ background:rgba(216,184,115,.04); }
+  .gyear{ display:inline-block;font-size:11px;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--gold-soft);padding:6px 14px;border:1px solid rgba(216,184,115,.35);border-radius:50px;margin-bottom:18px; }
+  .gcard h3{ font-family:var(--display);font-size:21px;font-weight:400;color:var(--ink);margin-bottom:10px; }
+  .gcard p{ font-size:13.5px;line-height:1.7;color:var(--muted); }
+  @media(max-width:760px){ .gcard{border-right:none;border-bottom:1px solid rgba(255,255,255,.1);} }
+
   .scroll-cue{
     display:flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.3em;
     text-transform:uppercase;color:var(--muted);
@@ -360,6 +400,20 @@
 
   /* Cursor enhancements */
   #cursorTrail{position:fixed;inset:0;width:100vw;height:100vh;z-index:9997;pointer-events:none;}
+  .sound-toggle{ position:fixed;right:28px;bottom:28px;z-index:9000;display:flex;align-items:center;gap:10px;
+    padding:12px 18px;border-radius:50px;border:1px solid rgba(255,255,255,.18);
+    background:rgba(7,13,22,.55);backdrop-filter:blur(10px);color:var(--muted);
+    font-size:10px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;
+    transition:border-color .4s ease, color .4s ease, background .4s ease; }
+  .sound-toggle:hover{ color:var(--gold-soft);border-color:rgba(216,184,115,.4); }
+  .sound-toggle svg{width:22px;height:16px;}
+  .sound-toggle .wave{ stroke-dasharray:30;stroke-dashoffset:0;transition:stroke .4s ease; }
+  .sound-toggle.on{ color:var(--gold-soft);border-color:rgba(216,184,115,.45);background:rgba(216,184,115,.08); }
+  .sound-toggle.on .wave{ animation:waveFlow 1.6s linear infinite; }
+  .sound-toggle.on .w2{ animation-delay:-.3s; }
+  .sound-toggle.on .w3{ animation-delay:-.6s; }
+  @keyframes waveFlow{ 0%{ stroke-dashoffset:0; } 100%{ stroke-dashoffset:-30; } }
+  @media(max-width:640px){ .sound-toggle span{display:none;} .sound-toggle{padding:12px;} }
   .cursor-glow{
     position:fixed;top:0;left:0;width:240px;height:240px;border-radius:50%;pointer-events:none;z-index:9996;
     background:radial-gradient(circle, rgba(216,184,115,.16), transparent 70%);
@@ -519,6 +573,14 @@
 <body>
 
 <canvas id="cursorTrail"></canvas>
+<button id="soundToggle" class="sound-toggle" aria-label="Toggle ocean sound" aria-pressed="false">
+  <svg viewBox="0 0 24 24" fill="none">
+    <path class="wave w1" d="M3 12c2-3 4-3 6 0s4 3 6 0 4-3 6 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    <path class="wave w2" d="M3 17c2-3 4-3 6 0s4 3 6 0 4-3 6 0" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity=".55"/>
+    <path class="wave w3" d="M3 7c2-3 4-3 6 0s4 3 6 0 4-3 6 0" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity=".35"/>
+  </svg>
+  <span data-i18n="sound.toggle">Ocean Sound</span>
+</button>
 <div class="cursor-glow"></div>
 <div class="cursor"></div>
 <div class="cursor-ring"></div>
@@ -545,7 +607,7 @@
       <text x="128" y="90" fill="#9fb6c0" font-family="Jost, sans-serif" font-size="7" letter-spacing="3">SAVING OUR OCEANS</text>
     </g>
   </svg>
-  <div class="loader-mark">AYE&nbsp;MATIES</div>
+  <div class="loader-mark" id="loaderMark"><span class="lm-char">A</span><span class="lm-char">Y</span><span class="lm-char">E</span><span class="lm-char">&nbsp;</span><span class="lm-char">M</span><span class="lm-char">A</span><span class="lm-char">T</span><span class="lm-char">I</span><span class="lm-char">E</span><span class="lm-char">S</span></div>
   <div class="loader-bar"><span></span></div>
 </div>
 
@@ -576,11 +638,21 @@
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-bg">
-      <video autoplay muted loop playsinline poster="">
+    <div class="hero-bg" id="heroBg">
+      <video class="hv active" autoplay muted loop playsinline poster="" data-label="Drone — Open Water">
         <source src="assets/videos/ocean-hero-1.mp4" type="video/mp4">
       </video>
+      <video class="hv" muted loop playsinline poster="" data-label="Underwater — Reef Light">
+        <source src="assets/videos/ocean-hero-2.mp4" type="video/mp4">
+      </video>
+      <video class="hv" muted loop playsinline poster="" data-label="Sunset — Horizon">
+        <source src="assets/videos/ocean-vertical.mp4" type="video/mp4">
+      </video>
     </div>
+    <button class="hero-bg-switch magnetic" id="heroBgSwitch" aria-label="Switch ocean scene">
+      <svg viewBox="0 0 22 22" fill="none"><path d="M11 3a8 8 0 1 1-7.5 5.2M3 3v5h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span id="heroBgLabel" data-i18n="hero.scene">Drone — Open Water</span>
+    </button>
     <canvas id="particles"></canvas>
     <div class="rays" id="rays"></div>
     <div class="hero-flag" data-depth="0.4" aria-hidden="true">
@@ -696,10 +768,28 @@
     </div>
     <div class="rope-divider"></div>
     <div class="wrap crew-inner">
-      <span class="eyebrow" data-i18n="crew.eyebrow">A New Adventure Is Coming</span>
-      <h2 class="title" data-reveal data-i18n="crew.title">Meet the Crew — On Screen</h2>
-      <p class="lead" data-reveal data-i18n="crew.p1">Behind every expedition stands a crew of explorers, scientists and storytellers. Soon, their voyages step off the deck and onto the screen — a brand-new reality adventure series following the Pirate Challenge crew as they sail, dive and fight to save our oceans, one wave at a time.</p>
+      <span class="eyebrow" data-i18n="crew.eyebrow2">Meet the Crew</span>
+      <h2 class="title" data-reveal data-i18n="crew.title2">The People Behind the Pirate Challenge</h2>
+      <p class="lead" data-reveal data-i18n="crew.intro">Aye Maties is carried by a small crew of sailors, filmmakers, divers and storytellers — each one choosing the sea as their workplace and ocean conservation as their calling.</p>
+    </div>
+    <div class="wrap">
+      <div class="crew-grid">
+        <article class="ccard" data-reveal><div class="cavatar">PA</div><h3>Pia Alice Sekulic</h3><span class="crole" data-i18n="crew.r1">Head of Marketing</span><p data-i18n="crew.b1">Turns real missions into stories worth sharing — shaping the voice of Aye Maties across every channel and current.</p></article>
+        <article class="ccard" data-reveal><div class="cavatar">DS</div><h3>Dino Stelzl</h3><span class="crole" data-i18n="crew.r2">Film Director &amp; Producer</span><p data-i18n="crew.b2">Captures the crew's voyages on camera, turning real expeditions into films that move people to act.</p></article>
+        <article class="ccard" data-reveal><div class="cavatar">OS</div><h3>Old Salt</h3><span class="crole" data-i18n="crew.r3">Captain &amp; Executive Producer</span><p data-i18n="crew.b3">Decades at the helm. Knows every current, every storm — and exactly when to drop anchor.</p></article>
+        <article class="ccard" data-reveal><div class="cavatar">MS</div><h3>Michael Schlumpelt</h3><span class="crole" data-i18n="crew.r4">Maritime Operations</span><p data-i18n="crew.b4">Keeps the ship, the crew and every expedition running — the steady hand behind the scenes.</p></article>
+        <article class="ccard" data-reveal><div class="cavatar">SP</div><h3>Silas Pross</h3><span class="crole" data-i18n="crew.r5">Cameraman &amp; DOP</span><p data-i18n="crew.b5">Sees the ocean through a lens — framing its beauty and its wounds in equal measure.</p></article>
+        <article class="ccard" data-reveal><div class="cavatar">AN</div><h3>Anita "Niddl" Stelzl</h3><span class="crole" data-i18n="crew.r6">Production &amp; Logistics</span><p data-i18n="crew.b6">Makes sure every voyage sets sail on time, fully equipped and ready for whatever the sea brings.</p></article>
+        <article class="ccard" data-reveal><div class="cavatar">NZ</div><h3>Natascha Zeng</h3><span class="crole" data-i18n="crew.r7">Storyteller &amp; Researcher</span><p data-i18n="crew.b7">Digs into the science behind every mission, turning data into stories that stay with you.</p></article>
+        <article class="ccard" data-reveal><div class="cavatar">KS</div><h3>Koray Schober</h3><span class="crole" data-i18n="crew.r8">Underwater Specialist</span><p data-i18n="crew.b8">At home below the surface — guiding guests safely through worlds most people never see.</p></article>
+        <article class="ccard" data-reveal><div class="cavatar">MH</div><h3>Matthias Hauser</h3><span class="crole" data-i18n="crew.r9">Set Director &amp; Designer</span><p data-i18n="crew.b9">Builds the look and feel of every shoot — where adventure meets craft.</p></article>
+        <article class="ccard" data-reveal><div class="cavatar">ML</div><h3>Michael Leitner</h3><span class="crole" data-i18n="crew.r10">Underwater Filmmaker</span><p data-i18n="crew.b10">Chases light and life beneath the waves, bringing back footage that speaks louder than words.</p></article>
+      </div>
+    </div>
+    <div class="wrap crew-inner">
       <div class="loading-block" data-reveal>
+        <span class="eyebrow" data-i18n="crew.eyebrow">A New Adventure Is Coming</span>
+        <p class="lead" style="margin-top:14px;" data-reveal data-i18n="crew.p1">Soon, the crew's voyages step off the deck and onto the screen — a brand-new reality adventure series following the Pirate Challenge crew as they sail, dive and fight to save our oceans, one wave at a time.</p>
         <div class="loading-label">
           <span data-i18n="crew.loading">Series loading</span>
           <span class="loading-pct" id="crewLoadPct">0%</span>
@@ -892,6 +982,38 @@
     </div>
   </section>
 
+  <!-- OUR GOALS — green roadmap -->
+  <section class="goals" id="goals">
+    <div class="rope-divider"></div>
+    <div class="wrap">
+      <span class="eyebrow" data-i18n="goals.eyebrow">Where We're Headed</span>
+      <h2 class="title" data-reveal data-i18n="goals.title">Our Goals for the Next Ten Years</h2>
+      <p class="lead" data-reveal data-i18n="goals.p1">We measure ourselves not by how far we sail, but by how much lighter we leave the water behind us. Here's what we're steering toward.</p>
+      <div class="goal-track">
+        <article class="gcard" data-reveal>
+          <span class="gyear" data-i18n="goals.y1">Year 1–2</span>
+          <h3 data-i18n="goals.t1">Launch Our Own Vessel</h3>
+          <p data-i18n="goals.d1">Fund and launch a dedicated research-and-cleanup ship, doubling the number of guided expeditions each season.</p>
+        </article>
+        <article class="gcard" data-reveal>
+          <span class="gyear" data-i18n="goals.y2">Year 3–5</span>
+          <h3 data-i18n="goals.t2">Halve Our Footprint</h3>
+          <p data-i18n="goals.d2">Cut our own carbon and waste footprint in half, and partner with 50 coastal communities on restoration projects.</p>
+        </article>
+        <article class="gcard" data-reveal>
+          <span class="gyear" data-i18n="goals.y3">Year 6–8</span>
+          <h3 data-i18n="goals.t3">Reach 100,000 People</h3>
+          <p data-i18n="goals.d3">Grow our education programmes to reach 100,000 people — turning every guest into an advocate for the ocean.</p>
+        </article>
+        <article class="gcard" data-reveal>
+          <span class="gyear" data-i18n="goals.y4">Year 10</span>
+          <h3 data-i18n="goals.t4">A Carbon-Neutral Fleet</h3>
+          <p data-i18n="goals.d4">Sail a fully carbon-neutral fleet, remove over 1,000 tonnes of ocean waste a year, and inspire a new generation of ocean guardians.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA -->
   <section class="cta" id="join">
     <video class="cta-video" autoplay muted loop playsinline>
@@ -1009,6 +1131,8 @@ gsap.registerPlugin(ScrollTrigger);
 /* ---------------- i18n ---------------- */
 const dict = {
   en:{
+    "sound.toggle":"Ocean Sound",
+    "hero.scene":"Drone — Open Water","hero.scene2":"Underwater — Reef Light","hero.scene3":"Sunset — Horizon",
     "nav.about":"About","nav.services":"Services","nav.invest":"Investment","nav.testimonials":"Voices","nav.contact":"Contact",
     "hero.eyebrow":"An Ocean Conservation Experience With Purpose",
     "hero.title1":"Aye Maties","hero.title2":"Pirate Challenge",
@@ -1021,7 +1145,7 @@ const dict = {
     "about.p1":"Aye Maties was born from a simple belief: that adventure and responsibility can sail the same course. What began as a small band of ocean lovers has grown into a global pirate-spirited movement — turning curiosity about the sea into real, measurable change.",
     "about.p2":"Every expedition, workshop and challenge we craft is designed with the same intention — to leave the water cleaner, the next generation more aware, and every guest forever changed by what lies beneath the surface.",
     "about.stat1":"Tonnes of ocean waste collected","about.stat2":"Expeditions completed","about.stat3":"Coastal communities supported",
-    "services.eyebrow":"What We Offer","services.title":"Voyages of Purpose",
+    "services.eyebrow":"What We Offer","services.title":"What We Do At Sea",
     "services.lead":"From open-water expeditions to hands-on education, every offering is a chapter in the same story — saving our oceans, one challenge at a time.",
     "services.learn":"Discover More →",
     "services.c1.title":"The Pirate Challenge","services.c1.desc":"A multi-day adventure trail combining navigation, teamwork and ocean clean-up missions — designed to turn curiosity into lifelong stewardship of the sea.",
@@ -1030,15 +1154,33 @@ const dict = {
     "services.c4.title":"Corporate Crew Retreats","services.c4.desc":"Purpose-driven team experiences at sea — blending leadership development with tangible environmental impact for forward-thinking organisations.",
     "services.c5.title":"Coastal Restoration Projects","services.c5.desc":"Long-term partnerships with local communities to restore reefs, replant mangroves and rebuild fragile coastal ecosystems for future generations.",
     "services.c6.title":"Private Sailing Experiences","services.c6.desc":"Bespoke private voyages for individuals and families — a quiet, restorative journey across open water, paired with meaningful ocean encounters.",
-    "testi.eyebrow":"Voices From the Crew","testi.title":"Stories From the Water",
+    "testi.eyebrow":"Voices From the Crew","testi.title":"What People Are Saying",
     "testi.q1":"“An experience that rewired how my children see the ocean. They didn't just learn about conservation — they lived it, hands in the water, hearts fully open.”",
     "testi.n1":"Lena Brandt","testi.r1":"Family Voyager · Hamburg",
     "testi.q2":"“Beyond comfort — beyond adventure. The Pirate Challenge gave our team a shared purpose we still talk about, months later.”",
     "testi.n2":"Marco Fontaine","testi.r2":"Corporate Retreat Lead · Paris",
+    "goals.eyebrow":"Where We're Headed","goals.title":"Our Goals for the Next Ten Years",
+    "goals.p1":"We measure ourselves not by how far we sail, but by how much lighter we leave the water behind us. Here's what we're steering toward.",
+    "goals.y1":"Year 1–2","goals.t1":"Launch Our Own Vessel","goals.d1":"Fund and launch a dedicated research-and-cleanup ship, doubling the number of guided expeditions each season.",
+    "goals.y2":"Year 3–5","goals.t2":"Halve Our Footprint","goals.d2":"Cut our own carbon and waste footprint in half, and partner with 50 coastal communities on restoration projects.",
+    "goals.y3":"Year 6–8","goals.t3":"Reach 100,000 People","goals.d3":"Grow our education programmes to reach 100,000 people — turning every guest into an advocate for the ocean.",
+    "goals.y4":"Year 10","goals.t4":"A Carbon-Neutral Fleet","goals.d4":"Sail a fully carbon-neutral fleet, remove over 1,000 tonnes of ocean waste a year, and inspire a new generation of ocean guardians.",
     "invest.eyebrow":"Build With Us","invest.title":"We're Not Selling Another Voyage — We're Building the Ship",
     "invest.p1":"This isn't one more journey to book. It's an invitation to help shape what carries the mission forward — quite literally. Investment in Aye Maties means funding, designing and launching the vessel that will carry the Pirate Challenge into its next chapter.",
     "invest.p2":"Every plank, every sail, every mile at sea is built by people who chose to be part of something larger than a single trip — a movement with a hull, a course, and a crew that keeps growing.",
     "invest.btn":"Become an Investor","invest.caption":"— laid keel by keel, plank by plank —",
+    "crew.eyebrow2":"Meet the Crew","crew.title2":"The People Behind the Pirate Challenge",
+    "crew.intro":"Aye Maties is carried by a small crew of sailors, filmmakers, divers and storytellers — each one choosing the sea as their workplace and ocean conservation as their calling.",
+    "crew.r1":"Head of Marketing","crew.b1":"Turns real missions into stories worth sharing — shaping the voice of Aye Maties across every channel and current.",
+    "crew.r2":"Film Director & Producer","crew.b2":"Captures the crew's voyages on camera, turning real expeditions into films that move people to act.",
+    "crew.r3":"Captain & Executive Producer","crew.b3":"Decades at the helm. Knows every current, every storm — and exactly when to drop anchor.",
+    "crew.r4":"Maritime Operations","crew.b4":"Keeps the ship, the crew and every expedition running — the steady hand behind the scenes.",
+    "crew.r5":"Cameraman & DOP","crew.b5":"Sees the ocean through a lens — framing its beauty and its wounds in equal measure.",
+    "crew.r6":"Production & Logistics","crew.b6":"Makes sure every voyage sets sail on time, fully equipped and ready for whatever the sea brings.",
+    "crew.r7":"Storyteller & Researcher","crew.b7":"Digs into the science behind every mission, turning data into stories that stay with you.",
+    "crew.r8":"Underwater Specialist","crew.b8":"At home below the surface — guiding guests safely through worlds most people never see.",
+    "crew.r9":"Set Director & Designer","crew.b9":"Builds the look and feel of every shoot — where adventure meets craft.",
+    "crew.r10":"Underwater Filmmaker","crew.b10":"Chases light and life beneath the waves, bringing back footage that speaks louder than words.",
     "crew.eyebrow":"A New Adventure Is Coming","crew.title":"Meet the Crew — On Screen",
     "crew.p1":"Behind every expedition stands a crew of explorers, scientists and storytellers. Soon, their voyages step off the deck and onto the screen — a brand-new reality adventure series following the Pirate Challenge crew as they sail, dive and fight to save our oceans, one wave at a time.",
     "crew.loading":"Series loading","crew.soon":"Coming soon — new episodes, new waters, new adventures.",
@@ -1067,6 +1209,8 @@ const dict = {
     "footer.rights":"All rights reserved.","footer.crafted":"Crafted with reverence for the sea."
   },
   de:{
+    "sound.toggle":"Meeresrauschen",
+    "hero.scene":"Drohne — Offenes Meer","hero.scene2":"Unterwasser — Riff-Licht","hero.scene3":"Sonnenuntergang — Horizont",
     "nav.about":"Über uns","nav.services":"Angebote","nav.invest":"Investition","nav.testimonials":"Stimmen","nav.contact":"Kontakt",
     "hero.eyebrow":"Ein Ozean-Erlebnis mit echtem Sinn",
     "hero.title1":"Aye Maties","hero.title2":"Pirate Challenge",
@@ -1079,7 +1223,7 @@ const dict = {
     "about.p1":"Aye Maties entstand aus einer einfachen Überzeugung: dass Abenteuer und Verantwortung denselben Kurs segeln können. Was als kleine Gruppe von Meeresliebhabern begann, ist zu einer globalen, piratisch-inspirierten Bewegung gewachsen — die Neugier auf das Meer in echten, messbaren Wandel verwandelt.",
     "about.p2":"Jede Expedition, jeder Workshop und jede Challenge wird mit derselben Absicht gestaltet — das Wasser sauberer zu hinterlassen, die nächste Generation aufzuklären und jeden Gast für immer von dem zu verändern, was unter der Oberfläche liegt.",
     "about.stat1":"Tonnen Meeresmüll gesammelt","about.stat2":"Abgeschlossene Expeditionen","about.stat3":"Unterstützte Küstengemeinden",
-    "services.eyebrow":"Unsere Angebote","services.title":"Reisen mit Sinn",
+    "services.eyebrow":"Unsere Angebote","services.title":"Was wir auf See bewegen",
     "services.lead":"Von Hochsee-Expeditionen bis zu praxisnaher Bildung — jedes Angebot ist ein Kapitel derselben Geschichte: den Ozean zu retten, eine Challenge nach der anderen.",
     "services.learn":"Mehr entdecken →",
     "services.c1.title":"Die Pirate Challenge","services.c1.desc":"Eine mehrtägige Abenteuerreise mit Navigation, Teamarbeit und Reinigungsmissionen — gestaltet, um aus Neugier lebenslanges Engagement für das Meer zu machen.",
@@ -1088,15 +1232,33 @@ const dict = {
     "services.c4.title":"Firmen-Crew-Retreats","services.c4.desc":"Sinnstiftende Team-Erlebnisse auf See — eine Verbindung aus Führungskräfteentwicklung und spürbarer Umweltwirkung für zukunftsorientierte Organisationen.",
     "services.c5.title":"Küsten-Restaurationsprojekte","services.c5.desc":"Langfristige Partnerschaften mit lokalen Gemeinden zur Wiederherstellung von Riffen, Mangroven und empfindlichen Küstenökosystemen für kommende Generationen.",
     "services.c6.title":"Private Segelerlebnisse","services.c6.desc":"Maßgeschneiderte Privatreisen für Einzelpersonen und Familien — eine ruhige, erholsame Fahrt über offenes Wasser mit bedeutungsvollen Begegnungen mit dem Meer.",
-    "testi.eyebrow":"Stimmen der Crew","testi.title":"Geschichten vom Wasser",
+    "testi.eyebrow":"Stimmen der Crew","testi.title":"Was unsere Gäste sagen",
     "testi.q1":"„Eine Erfahrung, die verändert hat, wie meine Kinder den Ozean sehen. Sie haben Naturschutz nicht nur gelernt — sie haben ihn gelebt, mit den Händen im Wasser und offenem Herzen.“",
     "testi.n1":"Lena Brandt","testi.r1":"Familienreisende · Hamburg",
     "testi.q2":"„Mehr als Komfort — mehr als Abenteuer. Die Pirate Challenge gab unserem Team ein gemeinsames Ziel, über das wir noch Monate später sprechen.“",
     "testi.n2":"Marco Fontaine","testi.r2":"Leiter Firmen-Retreat · Paris",
+    "goals.eyebrow":"Wohin wir steuern","goals.title":"Unsere Ziele für die nächsten zehn Jahre",
+    "goals.p1":"Wir messen uns nicht daran, wie weit wir segeln, sondern daran, wie viel leichter wir das Wasser hinter uns zurücklassen. Das ist unser Kurs.",
+    "goals.y1":"Jahr 1–2","goals.t1":"Eigenes Schiff auf Kiel legen","goals.d1":"Ein eigenes Forschungs- und Cleanup-Schiff finanzieren und in Fahrt bringen — und die Zahl der geführten Expeditionen pro Saison verdoppeln.",
+    "goals.y2":"Jahr 3–5","goals.t2":"Fußabdruck halbieren","goals.d2":"Unseren eigenen CO₂- und Abfall-Fußabdruck halbieren und mit 50 Küstengemeinden an Wiederherstellungsprojekten arbeiten.",
+    "goals.y3":"Jahr 6–8","goals.t3":"100.000 Menschen erreichen","goals.d3":"Unsere Bildungsprogramme so ausbauen, dass wir 100.000 Menschen erreichen — und jeden Gast zum Fürsprecher der Ozeane machen.",
+    "goals.y4":"Jahr 10","goals.t4":"Eine klimaneutrale Flotte","goals.d4":"Mit einer vollständig klimaneutralen Flotte segeln, jährlich über 1.000 Tonnen Meeresmüll entfernen und eine neue Generation von Ozean-Hütern inspirieren.",
     "invest.eyebrow":"Bau mit uns","invest.title":"Wir verkaufen keine weitere Reise — wir bauen das Schiff",
     "invest.p1":"Das hier ist keine weitere Reise zum Buchen. Es ist eine Einladung, das mitzugestalten, was die Mission weiterträgt — ganz wörtlich. Investition in Aye Maties bedeutet, das Schiff zu finanzieren, zu entwerfen und auf Kiel zu legen, das die Pirate Challenge in ihr nächstes Kapitel trägt.",
     "invest.p2":"Jede Planke, jedes Segel, jede Seemeile entsteht durch Menschen, die Teil von etwas Größerem sein wollten als nur einer einzelnen Reise — eine Bewegung mit Rumpf, Kurs und einer wachsenden Crew.",
     "invest.btn":"Investor werden","invest.caption":"— Kiel um Kiel, Planke um Planke —",
+    "crew.eyebrow2":"Lerne die Crew kennen","crew.title2":"Die Menschen hinter der Pirate Challenge",
+    "crew.intro":"Aye Maties wird von einer kleinen Crew aus Seglern, Filmemachern, Tauchern und Geschichtenerzählern getragen — jeder von ihnen hat das Meer zu seinem Arbeitsplatz und den Schutz der Ozeane zu seiner Berufung gemacht.",
+    "crew.r1":"Head of Marketing","crew.b1":"Verwandelt echte Missionen in Geschichten, die es wert sind, geteilt zu werden — und prägt die Stimme von Aye Maties auf jedem Kanal.",
+    "crew.r2":"Filmregisseur & Produzent","crew.b2":"Hält die Reisen der Crew auf Kamera fest und macht aus echten Expeditionen Filme, die Menschen zum Handeln bewegen.",
+    "crew.r3":"Kapitän & Executive Producer","crew.b3":"Jahrzehnte am Ruder. Kennt jede Strömung, jeden Sturm — und genau den richtigen Moment, um Anker zu werfen.",
+    "crew.r4":"Maritime Operationen","crew.b4":"Hält das Schiff, die Crew und jede Expedition am Laufen — die ruhige Hand hinter den Kulissen.",
+    "crew.r5":"Kameramann & DOP","crew.b5":"Sieht den Ozean durch die Linse — und hält seine Schönheit ebenso fest wie seine Wunden.",
+    "crew.r6":"Produktion & Logistik","crew.b6":"Sorgt dafür, dass jede Reise pünktlich, voll ausgestattet und bereit für alles startet, was das Meer bringt.",
+    "crew.r7":"Geschichtenerzählerin & Recherche","crew.b7":"Geht der Wissenschaft hinter jeder Mission auf den Grund und macht aus Daten Geschichten, die bleiben.",
+    "crew.r8":"Unterwasser-Spezialist","crew.b8":"Zuhause unter der Oberfläche — und führt Gäste sicher durch Welten, die die meisten nie zu sehen bekommen.",
+    "crew.r9":"Szenenbild & Design","crew.b9":"Gestaltet Look und Atmosphäre jedes Drehs — dort, wo Abenteuer auf Handwerk trifft.",
+    "crew.r10":"Unterwasserfilmer","crew.b10":"Jagt Licht und Leben unter den Wellen — und bringt Aufnahmen mit, die mehr sagen als Worte.",
     "crew.eyebrow":"Ein neues Abenteuer kommt","crew.title":"Lerne die Crew kennen — auf dem Bildschirm",
     "crew.p1":"Hinter jeder Expedition steht eine Crew aus Entdeckern, Wissenschaftlern und Geschichtenerzählern. Bald verlassen ihre Reisen das Deck und erreichen den Bildschirm — eine brandneue Abenteuer-Realityserie, die die Pirate-Challenge-Crew begleitet, während sie segelt, taucht und für unsere Ozeane kämpft, eine Welle nach der anderen.",
     "crew.loading":"Serie lädt","crew.soon":"Demnächst — neue Folgen, neue Gewässer, neue Abenteuer.",
@@ -1125,6 +1287,8 @@ const dict = {
     "footer.rights":"Alle Rechte vorbehalten.","footer.crafted":"Mit Ehrfurcht vor dem Meer gestaltet."
   },
   es:{
+    "sound.toggle":"Sonido del mar",
+    "hero.scene":"Drone — Mar abierto","hero.scene2":"Bajo el agua — Luz de arrecife","hero.scene3":"Atardecer — Horizonte",
     "nav.about":"Nosotros","nav.services":"Servicios","nav.invest":"Inversión","nav.testimonials":"Voces","nav.contact":"Contacto",
     "hero.eyebrow":"Una experiencia audaz para la conservación del océano",
     "hero.title1":"Aye Maties","hero.title2":"Pirate Challenge",
@@ -1137,7 +1301,7 @@ const dict = {
     "about.p1":"Aye Maties nació de una creencia simple: que la aventura y la responsabilidad pueden navegar el mismo rumbo. Lo que comenzó como un pequeño grupo de amantes del océano se ha convertido en un movimiento global de espíritu pirata — transformando la curiosidad por el mar en cambios reales y medibles.",
     "about.p2":"Cada expedición, taller y desafío que creamos tiene la misma intención — dejar el agua más limpia, a la próxima generación más consciente, y a cada huésped transformado para siempre por lo que yace bajo la superficie.",
     "about.stat1":"Toneladas de residuos oceánicos recolectados","about.stat2":"Expediciones realizadas","about.stat3":"Comunidades costeras apoyadas",
-    "services.eyebrow":"Lo que ofrecemos","services.title":"Viajes con propósito",
+    "services.eyebrow":"Lo que ofrecemos","services.title":"Lo que hacemos en el mar",
     "services.lead":"Desde expediciones en alta mar hasta educación práctica, cada propuesta es un capítulo de la misma historia — salvar nuestros océanos, un desafío a la vez.",
     "services.learn":"Descubre más →",
     "services.c1.title":"El Pirate Challenge","services.c1.desc":"Una ruta de aventura de varios días que combina navegación, trabajo en equipo y misiones de limpieza oceánica — diseñada para convertir la curiosidad en compromiso de por vida con el mar.",
@@ -1146,15 +1310,33 @@ const dict = {
     "services.c4.title":"Retiros corporativos de tripulación","services.c4.desc":"Experiencias de equipo con propósito en el mar — combinando desarrollo de liderazgo con un impacto ambiental tangible para organizaciones visionarias.",
     "services.c5.title":"Proyectos de restauración costera","services.c5.desc":"Alianzas a largo plazo con comunidades locales para restaurar arrecifes, replantar manglares y reconstruir frágiles ecosistemas costeros para las futuras generaciones.",
     "services.c6.title":"Experiencias privadas de navegación","services.c6.desc":"Viajes privados a medida para individuos y familias — un recorrido tranquilo y restaurador por mar abierto, junto a encuentros oceánicos significativos.",
-    "testi.eyebrow":"Voces de la tripulación","testi.title":"Historias desde el agua",
+    "testi.eyebrow":"Voces de la tripulación","testi.title":"Lo que dicen de nosotros",
     "testi.q1":"«Una experiencia que cambió la forma en que mis hijos ven el océano. No solo aprendieron sobre conservación — la vivieron, con las manos en el agua y el corazón abierto.»",
     "testi.n1":"Lena Brandt","testi.r1":"Viajera familiar · Hamburgo",
     "testi.q2":"«Más que comodidad — más que aventura. El Pirate Challenge le dio a nuestro equipo un propósito compartido del que aún hablamos meses después.»",
     "testi.n2":"Marco Fontaine","testi.r2":"Líder de retiro corporativo · París",
+    "goals.eyebrow":"Hacia dónde vamos","goals.title":"Nuestras metas para los próximos diez años",
+    "goals.p1":"No nos medimos por lo lejos que navegamos, sino por cuánto más ligero dejamos el agua tras de nosotros. Este es nuestro rumbo.",
+    "goals.y1":"Año 1–2","goals.t1":"Botar nuestro propio barco","goals.d1":"Financiar y botar un barco propio de investigación y limpieza, duplicando el número de expediciones guiadas por temporada.",
+    "goals.y2":"Año 3–5","goals.t2":"Reducir nuestra huella a la mitad","goals.d2":"Reducir a la mitad nuestra huella de carbono y residuos, y colaborar con 50 comunidades costeras en proyectos de restauración.",
+    "goals.y3":"Año 6–8","goals.t3":"Llegar a 100.000 personas","goals.d3":"Ampliar nuestros programas educativos hasta llegar a 100.000 personas — convirtiendo a cada huésped en defensor del océano.",
+    "goals.y4":"Año 10","goals.t4":"Una flota neutra en carbono","goals.d4":"Navegar con una flota totalmente neutra en carbono, retirar más de 1.000 toneladas de residuos al año e inspirar a una nueva generación de guardianes del océano.",
     "invest.eyebrow":"Construye con nosotros","invest.title":"No vendemos otro viaje — construimos el barco",
     "invest.p1":"Esto no es otro viaje para reservar. Es una invitación a ayudar a dar forma a lo que impulsa la misión — literalmente. Invertir en Aye Maties significa financiar, diseñar y botar el barco que llevará al Pirate Challenge a su próximo capítulo.",
     "invest.p2":"Cada tabla, cada vela, cada milla en el mar la construyen personas que eligieron ser parte de algo más grande que un solo viaje — un movimiento con casco, rumbo y una tripulación que no deja de crecer.",
     "invest.btn":"Conviértete en inversor","invest.caption":"— quilla a quilla, tabla a tabla —",
+    "crew.eyebrow2":"Conoce a la tripulación","crew.title2":"Las personas detrás del Pirate Challenge",
+    "crew.intro":"Aye Maties avanza gracias a una pequeña tripulación de marineros, cineastas, buceadores y narradores — cada uno eligió el mar como lugar de trabajo y la conservación del océano como vocación.",
+    "crew.r1":"Directora de Marketing","crew.b1":"Convierte misiones reales en historias que merece la pena compartir — dando voz a Aye Maties en cada canal.",
+    "crew.r2":"Director de cine y productor","crew.b2":"Capta los viajes de la tripulación con la cámara, convirtiendo expediciones reales en películas que mueven a la acción.",
+    "crew.r3":"Capitán y productor ejecutivo","crew.b3":"Décadas al timón. Conoce cada corriente, cada tormenta — y el momento exacto para echar el ancla.",
+    "crew.r4":"Operaciones marítimas","crew.b4":"Mantiene el barco, la tripulación y cada expedición en marcha — la mano firme detrás de escena.",
+    "crew.r5":"Cámara y director de fotografía","crew.b5":"Ve el océano a través del objetivo — capturando su belleza y sus heridas a partes iguales.",
+    "crew.r6":"Producción y logística","crew.b6":"Se asegura de que cada viaje zarpe a tiempo, totalmente equipado y listo para lo que traiga el mar.",
+    "crew.r7":"Narradora e investigadora","crew.b7":"Profundiza en la ciencia detrás de cada misión, convirtiendo datos en historias que perduran.",
+    "crew.r8":"Especialista en buceo","crew.b8":"En su elemento bajo la superficie — guiando a los huéspedes con seguridad por mundos que pocos llegan a ver.",
+    "crew.r9":"Dirección de arte y diseño","crew.b9":"Da forma al estilo y la atmósfera de cada rodaje — donde la aventura se encuentra con el oficio.",
+    "crew.r10":"Camarógrafo submarino","crew.b10":"Persigue la luz y la vida bajo las olas, trayendo imágenes que dicen más que las palabras.",
     "crew.eyebrow":"Llega una nueva aventura","crew.title":"Conoce a la tripulación — en pantalla",
     "crew.p1":"Detrás de cada expedición hay una tripulación de exploradores, científicos y narradores. Pronto, sus travesías saltarán de la cubierta a la pantalla — una nueva serie de aventuras de telerrealidad que sigue a la tripulación del Pirate Challenge mientras navega, bucea y lucha por salvar nuestros océanos, ola tras ola.",
     "crew.loading":"Cargando la serie","crew.soon":"Muy pronto — nuevos episodios, nuevas aguas, nuevas aventuras.",
@@ -1183,6 +1365,8 @@ const dict = {
     "footer.rights":"Todos los derechos reservados.","footer.crafted":"Creado con reverencia por el mar."
   },
   fr:{
+    "sound.toggle":"Son de l'océan",
+    "hero.scene":"Drone — Mer ouverte","hero.scene2":"Sous l'eau — Lumière du récif","hero.scene3":"Coucher de soleil — Horizon",
     "nav.about":"À propos","nav.services":"Services","nav.invest":"Investissement","nav.testimonials":"Voix","nav.contact":"Contact",
     "hero.eyebrow":"Une expérience audacieuse pour la préservation des océans",
     "hero.title1":"Aye Maties","hero.title2":"Pirate Challenge",
@@ -1195,7 +1379,7 @@ const dict = {
     "about.p1":"Aye Maties est né d'une conviction simple : l'aventure et la responsabilité peuvent naviguer le même cap. Ce qui a commencé comme un petit groupe d'amoureux de l'océan est devenu un mouvement mondial à l'esprit pirate — transformant la curiosité pour la mer en changements réels et mesurables.",
     "about.p2":"Chaque expédition, atelier et défi que nous concevons poursuit la même intention — laisser l'eau plus propre, la prochaine génération plus consciente, et chaque invité à jamais transformé par ce qui se cache sous la surface.",
     "about.stat1":"Tonnes de déchets océaniques collectées","about.stat2":"Expéditions réalisées","about.stat3":"Communautés côtières soutenues",
-    "services.eyebrow":"Notre offre","services.title":"Des voyages porteurs de sens",
+    "services.eyebrow":"Notre offre","services.title":"Ce que nous faisons en mer",
     "services.lead":"Des expéditions en haute mer à l'éducation pratique, chaque offre est un chapitre de la même histoire — sauver nos océans, un défi à la fois.",
     "services.learn":"En savoir plus →",
     "services.c1.title":"Le Pirate Challenge","services.c1.desc":"Un parcours d'aventure de plusieurs jours alliant navigation, esprit d'équipe et missions de nettoyage océanique — pensé pour transformer la curiosité en engagement durable envers la mer.",
@@ -1204,15 +1388,33 @@ const dict = {
     "services.c4.title":"Retraites d'entreprise en équipage","services.c4.desc":"Des expériences d'équipe porteuses de sens en mer — alliant développement du leadership et impact environnemental concret pour des organisations visionnaires.",
     "services.c5.title":"Projets de restauration côtière","services.c5.desc":"Des partenariats durables avec les communautés locales pour restaurer les récifs, replanter les mangroves et reconstruire des écosystèmes côtiers fragiles pour les générations futures.",
     "services.c6.title":"Expériences de navigation privées","services.c6.desc":"Des voyages privés sur mesure pour individus et familles — une traversée paisible et ressourçante en mer ouverte, ponctuée de rencontres océaniques signifiantes.",
-    "testi.eyebrow":"Les voix de l'équipage","testi.title":"Récits venus de la mer",
+    "testi.eyebrow":"Les voix de l'équipage","testi.title":"Ce qu'on dit de nous",
     "testi.q1":"« Une expérience qui a transformé le regard de mes enfants sur l'océan. Ils n'ont pas seulement appris la conservation — ils l'ont vécue, les mains dans l'eau et le cœur grand ouvert. »",
     "testi.n1":"Lena Brandt","testi.r1":"Voyageuse en famille · Hambourg",
     "testi.q2":"« Plus que du confort — plus que de l'aventure. Le Pirate Challenge a donné à notre équipe un objectif commun dont nous parlons encore des mois plus tard. »",
     "testi.n2":"Marco Fontaine","testi.r2":"Responsable retraite d'entreprise · Paris",
+    "goals.eyebrow":"Le cap que nous suivons","goals.title":"Nos objectifs pour les dix prochaines années",
+    "goals.p1":"Nous ne nous mesurons pas à la distance parcourue, mais à la légèreté avec laquelle nous laissons l'eau derrière nous. Voici notre cap.",
+    "goals.y1":"Année 1–2","goals.t1":"Mettre notre propre navire à l'eau","goals.d1":"Financer et lancer un navire dédié à la recherche et au nettoyage, doublant le nombre d'expéditions guidées chaque saison.",
+    "goals.y2":"Année 3–5","goals.t2":"Réduire notre empreinte de moitié","goals.d2":"Réduire de moitié notre empreinte carbone et nos déchets, et collaborer avec 50 communautés côtières sur des projets de restauration.",
+    "goals.y3":"Année 6–8","goals.t3":"Atteindre 100 000 personnes","goals.d3":"Développer nos programmes éducatifs pour atteindre 100 000 personnes — faisant de chaque invité un porte-voix de l'océan.",
+    "goals.y4":"Année 10","goals.t4":"Une flotte neutre en carbone","goals.d4":"Naviguer avec une flotte entièrement neutre en carbone, retirer plus de 1 000 tonnes de déchets marins par an et inspirer une nouvelle génération de gardiens de l'océan.",
     "invest.eyebrow":"Construisez avec nous","invest.title":"Nous ne vendons pas un autre voyage — nous construisons le navire",
     "invest.p1":"Ceci n'est pas un voyage de plus à réserver. C'est une invitation à façonner ce qui porte la mission plus loin — littéralement. Investir dans Aye Maties, c'est financer, concevoir et lancer le navire qui portera le Pirate Challenge vers son prochain chapitre.",
     "invest.p2":"Chaque planche, chaque voile, chaque mille en mer est construit par des personnes ayant choisi de faire partie de quelque chose de plus grand qu'un simple voyage — un mouvement avec une coque, un cap, et un équipage qui ne cesse de grandir.",
     "invest.btn":"Devenir investisseur","invest.caption":"— quille après quille, planche après planche —",
+    "crew.eyebrow2":"Découvrez l'équipage","crew.title2":"Les visages derrière le Pirate Challenge",
+    "crew.intro":"Aye Maties avance grâce à un petit équipage de marins, cinéastes, plongeurs et conteurs — chacun ayant choisi la mer comme lieu de travail et la préservation des océans comme vocation.",
+    "crew.r1":"Responsable Marketing","crew.b1":"Transforme de vraies missions en récits à partager — donnant une voix à Aye Maties sur chaque canal.",
+    "crew.r2":"Réalisateur & producteur","crew.b2":"Capture les voyages de l'équipage à la caméra, transformant de vraies expéditions en films qui poussent à agir.",
+    "crew.r3":"Capitaine & producteur exécutif","crew.b3":"Des décennies à la barre. Connaît chaque courant, chaque tempête — et le moment exact pour jeter l'ancre.",
+    "crew.r4":"Opérations maritimes","crew.b4":"Maintient le navire, l'équipage et chaque expédition en mouvement — la main sûre dans l'ombre.",
+    "crew.r5":"Cadreur & directeur de la photographie","crew.b5":"Voit l'océan à travers l'objectif — capturant sa beauté et ses blessures à parts égales.",
+    "crew.r6":"Production & logistique","crew.b6":"Veille à ce que chaque voyage prenne la mer à l'heure, bien équipé et prêt pour tout ce que la mer apporte.",
+    "crew.r7":"Conteuse & recherche","crew.b7":"Explore la science derrière chaque mission, transformant les données en récits qui marquent les esprits.",
+    "crew.r8":"Spécialiste de la plongée","crew.b8":"Chez elle sous la surface — guidant les invités en toute sécurité dans des mondes que peu de gens voient.",
+    "crew.r9":"Direction artistique & design","crew.b9":"Façonne le style et l'atmosphère de chaque tournage — là où l'aventure rencontre le métier.",
+    "crew.r10":"Cinéaste sous-marin","crew.b10":"Traque la lumière et la vie sous les vagues, ramenant des images qui parlent plus fort que les mots.",
     "crew.eyebrow":"Une nouvelle aventure arrive","crew.title":"Découvrez l'équipage — à l'écran",
     "crew.p1":"Derrière chaque expédition se trouve un équipage d'explorateurs, de scientifiques et de conteurs. Bientôt, leurs voyages quittent le pont pour l'écran — une toute nouvelle série de téléréalité d'aventure suivant l'équipage du Pirate Challenge alors qu'il navigue, plonge et se bat pour sauver nos océans, vague après vague.",
     "crew.loading":"Chargement de la série","crew.soon":"Bientôt disponible — nouveaux épisodes, nouvelles eaux, nouvelles aventures.",
@@ -1292,12 +1494,14 @@ function reveal(){
     .to('#heroMeta', { opacity:1, y:0, duration:1, ease:'power3.out' }, .65);
 }
 function startLoader(){
-  gsap.to('.loader-bar span', { scaleX:1, duration:1.4, ease:'power3.inOut' });
+  gsap.to('#loader .lm-char', { opacity:1, y:0, rotateX:0, duration:.9, ease:'back.out(1.7)', stagger:.05 });
+  gsap.to('#loader .pirate-flag', { scale:1.04, duration:1.6, repeat:-1, yoyo:true, ease:'sine.inOut' });
+  gsap.to('.loader-bar span', { scaleX:1, duration:1.4, ease:'power3.inOut', delay:.3 });
   setTimeout(()=>{
     document.getElementById('loader').classList.add('hide');
     reveal();
     ScrollTrigger.refresh();
-  }, 1500);
+  }, 1700);
 }
 if(document.readyState === 'complete'){ startLoader(); }
 else{ window.addEventListener('load', startLoader); }
@@ -1360,7 +1564,7 @@ document.querySelectorAll('a,button,.scard,.tcard').forEach(el=>{
 glow.style.opacity='.6';
 
 /* ---------------- Mouse parallax on hero (depth layers) ---------------- */
-const heroBgVideo = document.querySelector('.hero-bg video');
+const heroBgVideos = document.querySelectorAll('.hero-bg .hv');
 const heroInner = document.querySelector('.hero-inner');
 const heroSection = document.querySelector('.hero');
 let hpx=0, hpy=0, hcx=0, hcy=0, heroScrollProgress=0;
@@ -1371,12 +1575,33 @@ heroSection.addEventListener('mousemove', (e)=>{
 });
 function loopHeroParallax(){
   hcx += (hpx-hcx)*0.06; hcy += (hpy-hcy)*0.06;
-  const scrollShift = heroScrollProgress*18;
-  heroBgVideo.style.transform = `translate(calc(-50% + ${hcx*30}px), calc(-50% + ${hcy*20 + scrollShift}%)) scale(1.08)`;
+  const scrollShift = heroScrollProgress*22;
+  const t = `translate3d(${hcx*22}px, ${hcy*16 + scrollShift}px, 0) scale(1.08)`;
+  heroBgVideos.forEach(v=> v.style.transform = t);
   heroInner.style.transform = `translate(${hcx*-14}px, ${hcy*-8}px)`;
   requestAnimationFrame(loopHeroParallax);
 }
 loopHeroParallax();
+
+/* Click-to-switch hero background scenes */
+(function(){
+  const switchBtn = document.getElementById('heroBgSwitch');
+  const label = document.getElementById('heroBgLabel');
+  if(!switchBtn || !heroBgVideos.length) return;
+  let active = 0;
+  switchBtn.addEventListener('click', ()=>{
+    const current = heroBgVideos[active];
+    active = (active+1) % heroBgVideos.length;
+    const next = heroBgVideos[active];
+    next.currentTime = 0;
+    next.play().catch(()=>{});
+    current.classList.remove('active');
+    next.classList.add('active');
+    if(label) gsap.fromTo(label, { autoAlpha:0, y:8 }, { autoAlpha:1, y:0, duration:.5,
+      onStart:()=>{ label.textContent = next.dataset.label || ''; } });
+    gsap.fromTo(switchBtn, { scale:.92 }, { scale:1, duration:.5, ease:'back.out(2)' });
+  });
+})();
 
 /* ---------------- Light rays ---------------- */
 const raysEl = document.getElementById('rays');
@@ -1748,6 +1973,50 @@ if(loadBar && loadPct){
 
 /* Compass slow rotation (pirate accent) */
 gsap.to('.compass', { rotate:360, duration:140, repeat:-1, ease:'none' });
+
+/* Procedural ocean ambience (Web Audio — no external files) */
+(function(){
+  const btn = document.getElementById('soundToggle');
+  if(!btn) return;
+  let ctx, src, playing = false;
+  function buildOcean(){
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const bufferSize = 2 * ctx.sampleRate;
+    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    let last = 0;
+    for(let i=0;i<bufferSize;i++){
+      const white = Math.random()*2-1;
+      last = (last + 0.02*white) / 1.02;
+      data[i] = last * 3.2;
+    }
+    src = ctx.createBufferSource();
+    src.buffer = buffer;
+    src.loop = true;
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.value = 700;
+    const gain = ctx.createGain();
+    const lfo = ctx.createOscillator();
+    lfo.frequency.value = 0.09;
+    const lfoGain = ctx.createGain();
+    lfoGain.gain.value = 0.05;
+    lfo.connect(lfoGain);
+    lfoGain.connect(gain.gain);
+    src.connect(filter);
+    filter.connect(gain);
+    gain.connect(ctx.destination);
+    gain.gain.value = 0.07;
+    src.start(0);
+    lfo.start(0);
+  }
+  btn.addEventListener('click', ()=>{
+    if(!ctx) buildOcean();
+    playing = !playing;
+    if(playing){ ctx.resume(); btn.classList.add('on'); btn.setAttribute('aria-pressed','true'); }
+    else{ ctx.suspend(); btn.classList.remove('on'); btn.setAttribute('aria-pressed','false'); }
+  });
+})();
 
 /* Magnetic + distortion buttons */
 document.querySelectorAll('.magnetic').forEach(btn=>{
