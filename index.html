@@ -252,19 +252,54 @@
   .crew-teaser{ position:relative;padding:160px 0 150px;overflow:hidden;
     background:radial-gradient(120% 90% at 50% 0%, rgba(31,85,112,.22), transparent 60%), var(--deep2); }
   .crew-teaser .compass{ right:-90px;top:8%; }
+  /* ── CREW ── */
   .crew-inner{ position:relative;z-index:2;max-width:760px;margin:0 auto;text-align:center; }
   .crew-inner .lead{margin:26px auto 0;max-width:660px;}
-  .crew-grid{ position:relative;z-index:2;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
-    gap:22px;margin:64px 0; }
-  .ccard{ position:relative;padding:30px 26px;border:1px solid rgba(255,255,255,.08);border-radius:18px;
-    background:rgba(255,255,255,.02);backdrop-filter:blur(6px);transition:transform .5s var(--ease), border-color .5s ease; }
-  .ccard:hover{ transform:translateY(-7px);border-color:rgba(216,184,115,.35); }
-  .cavatar{ width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-    font-family:var(--display);font-size:16px;letter-spacing:.06em;color:var(--deep);
-    background:linear-gradient(135deg, var(--gold-soft), var(--foam));margin-bottom:18px; }
-  .ccard h3{ font-family:var(--display);font-size:18px;font-weight:400;color:var(--ink);margin-bottom:4px; }
-  .crole{ display:block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:12px; }
-  .ccard p{ font-size:13.5px;line-height:1.7;color:var(--muted); }
+  .crew-featured{ position:relative;z-index:2;display:grid;
+    grid-template-columns:repeat(3,1fr);gap:28px;margin-top:64px; }
+  @media(max-width:860px){ .crew-featured{grid-template-columns:1fr;gap:20px;} }
+  .cfeature{ position:relative;border:1px solid rgba(255,255,255,.1);border-radius:22px;
+    background:rgba(255,255,255,.03);overflow:hidden;cursor:pointer;
+    transition:transform .45s var(--ease),border-color .45s ease,box-shadow .45s ease; }
+  .cfeature:hover{ transform:translateY(-10px);border-color:rgba(216,184,115,.5);
+    box-shadow:0 28px 70px rgba(0,0,0,.6); }
+  .cfeature.active{ border-color:rgba(216,184,115,.7);
+    box-shadow:0 0 0 1px rgba(216,184,115,.25),0 32px 80px rgba(0,0,0,.65); }
+  .cf-top{ padding:38px 30px 24px;text-align:center; }
+  .cf-avatar{ width:80px;height:80px;border-radius:50%;margin:0 auto 20px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--display);font-size:26px;font-weight:400;color:var(--deep);
+    background:linear-gradient(135deg, var(--gold-soft), var(--foam));
+    transition:transform .4s ease; }
+  .cfeature:hover .cf-avatar{ transform:scale(1.08); }
+  .cfeature h3{ font-family:var(--display);font-size:22px;font-weight:400;color:var(--ink);margin-bottom:6px; }
+  .cf-role{ display:block;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--gold-soft);margin-bottom:18px; }
+  .cf-teaser{ font-size:14px;line-height:1.72;color:var(--muted);padding:0 4px; }
+  .cf-expand{ overflow:hidden;max-height:0;transition:max-height .6s cubic-bezier(.4,0,.2,1),padding .4s ease;padding:0 30px; }
+  .cfeature.active .cf-expand{ max-height:320px;padding:0 30px 30px; }
+  .cf-expand p{ font-size:13.5px;line-height:1.82;color:var(--muted);
+    padding-top:18px;border-top:1px solid rgba(255,255,255,.07); }
+  .cf-read{ display:flex;align-items:center;justify-content:center;gap:8px;
+    font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-soft);
+    padding:14px 30px 24px;opacity:.7;transition:opacity .3s; }
+  .cfeature:hover .cf-read{ opacity:1; }
+  .cf-read svg{ width:13px;height:13px;transition:transform .4s ease; }
+  .cfeature.active .cf-read svg{ transform:rotate(180deg); }
+  .crew-grid{ position:relative;z-index:2;display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
+    gap:18px; }
+  .ccard{ position:relative;padding:24px 22px;border:1px solid rgba(255,255,255,.07);border-radius:16px;
+    background:rgba(255,255,255,.025);backdrop-filter:blur(4px);
+    transition:transform .35s var(--ease),border-color .35s ease; }
+  .ccard:hover{ transform:translateY(-5px);border-color:rgba(216,184,115,.28); }
+  .cavatar{ width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-family:var(--display);font-size:14px;color:var(--deep);
+    background:linear-gradient(135deg, var(--gold-soft), var(--foam));margin-bottom:13px; }
+  .ccard h3{ font-family:var(--display);font-size:16px;font-weight:400;color:var(--ink);margin-bottom:4px; }
+  .crole{ display:block;font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--gold-soft);margin-bottom:10px; }
+  .ccard p{ font-size:13px;line-height:1.68;color:var(--muted); }
   .loading-block{ margin:62px auto 0;max-width:520px; }
   .loading-label{ display:flex;justify-content:space-between;font-size:11px;letter-spacing:.28em;
     text-transform:uppercase;color:var(--muted);margin-bottom:14px; }
@@ -773,10 +808,47 @@
       <p class="lead" data-reveal data-i18n="crew.intro">Aye Maties is carried by a small crew of sailors, filmmakers, divers and storytellers — each one choosing the sea as their workplace and ocean conservation as their calling.</p>
     </div>
     <div class="wrap">
-      <div class="crew-grid">
-        <article class="ccard" data-reveal><div class="cavatar">PA</div><h3>Pia Alice Sekulic</h3><span class="crole" data-i18n="crew.r1">Head of Marketing</span><p data-i18n="crew.b1">Turns real missions into stories worth sharing — shaping the voice of Aye Maties across every channel and current.</p></article>
-        <article class="ccard" data-reveal><div class="cavatar">DS</div><h3>Dino Stelzl</h3><span class="crole" data-i18n="crew.r2">Film Director &amp; Producer</span><p data-i18n="crew.b2">Captures the crew's voyages on camera, turning real expeditions into films that move people to act.</p></article>
-        <article class="ccard" data-reveal><div class="cavatar">OS</div><h3>Old Salt</h3><span class="crole" data-i18n="crew.r3">Captain &amp; Executive Producer</span><p data-i18n="crew.b3">Decades at the helm. Knows every current, every storm — and exactly when to drop anchor.</p></article>
+      <!-- FEATURED THREE -->
+      <div class="crew-featured">
+        <article class="cfeature" data-reveal>
+          <div class="cf-top">
+            <div class="cf-avatar">PA</div>
+            <h3>Pia Alice Sekulic</h3>
+            <span class="cf-role" data-i18n="crew.r1">Head of Marketing</span>
+            <p class="cf-teaser" data-i18n="crew.b1">Turns real missions into stories worth sharing — shaping the voice of Aye Maties across every channel and current.</p>
+          </div>
+          <div class="cf-expand">
+            <p data-i18n="crew.blong1">Pia leads the way Aye Maties speaks to the world. From social strategy to brand identity, every post and campaign carries the same urgency as the missions themselves. She doesn't just market the ocean — she fights for it.</p>
+          </div>
+          <div class="cf-read"><span data-i18n="crew.readmore">Read more</span><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 5l5 5 5-5"/></svg></div>
+        </article>
+        <article class="cfeature" data-reveal>
+          <div class="cf-top">
+            <div class="cf-avatar">DS</div>
+            <h3>Dino Stelzl</h3>
+            <span class="cf-role" data-i18n="crew.r2">Film Director &amp; Producer</span>
+            <p class="cf-teaser" data-i18n="crew.b2">Captures the crew's voyages on camera, turning real expeditions into films that move people to act.</p>
+          </div>
+          <div class="cf-expand">
+            <p data-i18n="crew.blong2">Dino has spent years behind the lens at sea — directing, producing and editing footage that makes viewers feel the salt spray and the silence beneath the surface. His work transforms conservation into cinema: raw, honest stories that travel far beyond the deck.</p>
+          </div>
+          <div class="cf-read"><span data-i18n="crew.readmore">Read more</span><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 5l5 5 5-5"/></svg></div>
+        </article>
+        <article class="cfeature" data-reveal>
+          <div class="cf-top">
+            <div class="cf-avatar">OS</div>
+            <h3>Old Salt</h3>
+            <span class="cf-role" data-i18n="crew.r3">Captain &amp; Executive Producer</span>
+            <p class="cf-teaser" data-i18n="crew.b3">Decades at the helm. Knows every current, every storm — and exactly when to drop anchor.</p>
+          </div>
+          <div class="cf-expand">
+            <p data-i18n="crew.blong3">Old Salt holds it all together — on the water and off it. As Captain and Executive Producer, he brings decades of seamanship and the vision to build something that lasts. He has sailed storms no chart could predict, and carries every one of those miles with quiet authority.</p>
+          </div>
+          <div class="cf-read"><span data-i18n="crew.readmore">Read more</span><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 5l5 5 5-5"/></svg></div>
+        </article>
+      </div>
+      <!-- REST OF CREW -->
+      <div class="crew-grid" style="margin-top:52px;">
         <article class="ccard" data-reveal><div class="cavatar">MS</div><h3>Michael Schlumpelt</h3><span class="crole" data-i18n="crew.r4">Maritime Operations</span><p data-i18n="crew.b4">Keeps the ship, the crew and every expedition running — the steady hand behind the scenes.</p></article>
         <article class="ccard" data-reveal><div class="cavatar">SP</div><h3>Silas Pross</h3><span class="crole" data-i18n="crew.r5">Cameraman &amp; DOP</span><p data-i18n="crew.b5">Sees the ocean through a lens — framing its beauty and its wounds in equal measure.</p></article>
         <article class="ccard" data-reveal><div class="cavatar">AN</div><h3>Anita "Niddl" Stelzl</h3><span class="crole" data-i18n="crew.r6">Production &amp; Logistics</span><p data-i18n="crew.b6">Makes sure every voyage sets sail on time, fully equipped and ready for whatever the sea brings.</p></article>
@@ -1181,6 +1253,10 @@ const dict = {
     "crew.r8":"Underwater Specialist","crew.b8":"At home below the surface — guiding guests safely through worlds most people never see.",
     "crew.r9":"Set Director & Designer","crew.b9":"Builds the look and feel of every shoot — where adventure meets craft.",
     "crew.r10":"Underwater Filmmaker","crew.b10":"Chases light and life beneath the waves, bringing back footage that speaks louder than words.",
+    "crew.blong1":"Pia leads the way Aye Maties speaks to the world. From social strategy to brand identity, every post and campaign carries the same urgency as the missions themselves. She doesn't just market the ocean — she fights for it.",
+    "crew.blong2":"Dino has spent years behind the lens at sea — directing, producing and editing footage that makes viewers feel the salt spray and the silence beneath the surface. His work transforms conservation into cinema: raw, honest stories that travel far beyond the deck.",
+    "crew.blong3":"Old Salt holds it all together — on the water and off it. As Captain and Executive Producer, he brings decades of seamanship and the vision to build something that lasts. He has sailed storms no chart could predict, and carries every one of those miles with quiet authority.",
+    "crew.readmore":"Read more",
     "crew.eyebrow":"A New Adventure Is Coming","crew.title":"Meet the Crew — On Screen",
     "crew.p1":"Behind every expedition stands a crew of explorers, scientists and storytellers. Soon, their voyages step off the deck and onto the screen — a brand-new reality adventure series following the Pirate Challenge crew as they sail, dive and fight to save our oceans, one wave at a time.",
     "crew.loading":"Series loading","crew.soon":"Coming soon — new episodes, new waters, new adventures.",
@@ -1259,6 +1335,10 @@ const dict = {
     "crew.r8":"Unterwasser-Spezialist","crew.b8":"Zuhause unter der Oberfläche — und führt Gäste sicher durch Welten, die die meisten nie zu sehen bekommen.",
     "crew.r9":"Szenenbild & Design","crew.b9":"Gestaltet Look und Atmosphäre jedes Drehs — dort, wo Abenteuer auf Handwerk trifft.",
     "crew.r10":"Unterwasserfilmer","crew.b10":"Jagt Licht und Leben unter den Wellen — und bringt Aufnahmen mit, die mehr sagen als Worte.",
+    "crew.blong1":"Pia gestaltet, wie Aye Maties mit der Welt spricht. Von Social-Media-Strategie bis Markenidentität trägt jede Kampagne dieselbe Dringlichkeit wie die Missionen selbst. Sie vermarktet nicht nur den Ozean — sie kämpft für ihn.",
+    "crew.blong2":"Dino stand jahrelang mit der Kamera auf See — regie führend, produzierend und schneidend. Seine Arbeit macht Meeresschutz zu Kino: ehrliche Geschichten, die weit über das Deck hinaus wirken.",
+    "crew.blong3":"Old Salt hält alles zusammen — auf dem Wasser und daneben. Als Kapitän und Executive Producer bringt er Jahrzehnte Seefahrt und die Vision mit, etwas Bleibendes zu schaffen.",
+    "crew.readmore":"Mehr erfahren",
     "crew.eyebrow":"Ein neues Abenteuer kommt","crew.title":"Lerne die Crew kennen — auf dem Bildschirm",
     "crew.p1":"Hinter jeder Expedition steht eine Crew aus Entdeckern, Wissenschaftlern und Geschichtenerzählern. Bald verlassen ihre Reisen das Deck und erreichen den Bildschirm — eine brandneue Abenteuer-Realityserie, die die Pirate-Challenge-Crew begleitet, während sie segelt, taucht und für unsere Ozeane kämpft, eine Welle nach der anderen.",
     "crew.loading":"Serie lädt","crew.soon":"Demnächst — neue Folgen, neue Gewässer, neue Abenteuer.",
@@ -1337,6 +1417,10 @@ const dict = {
     "crew.r8":"Especialista en buceo","crew.b8":"En su elemento bajo la superficie — guiando a los huéspedes con seguridad por mundos que pocos llegan a ver.",
     "crew.r9":"Dirección de arte y diseño","crew.b9":"Da forma al estilo y la atmósfera de cada rodaje — donde la aventura se encuentra con el oficio.",
     "crew.r10":"Camarógrafo submarino","crew.b10":"Persigue la luz y la vida bajo las olas, trayendo imágenes que dicen más que las palabras.",
+    "crew.blong1":"Pia lidera la voz de Aye Maties en el mundo. Desde estrategia en redes hasta identidad de marca, cada campaña lleva la misma urgencia que las misiones. No solo comunica el océano — lo defiende.",
+    "crew.blong2":"Dino lleva años detrás de la cámara en el mar — dirigiendo, produciendo y editando imágenes que transforman la conservación en cine: historias honestas que van mucho más allá de la cubierta.",
+    "crew.blong3":"Old Salt lo sostiene todo. Como Capitán y Productor Ejecutivo, aporta décadas de navegación y la visión para construir algo duradero.",
+    "crew.readmore":"Leer más",
     "crew.eyebrow":"Llega una nueva aventura","crew.title":"Conoce a la tripulación — en pantalla",
     "crew.p1":"Detrás de cada expedición hay una tripulación de exploradores, científicos y narradores. Pronto, sus travesías saltarán de la cubierta a la pantalla — una nueva serie de aventuras de telerrealidad que sigue a la tripulación del Pirate Challenge mientras navega, bucea y lucha por salvar nuestros océanos, ola tras ola.",
     "crew.loading":"Cargando la serie","crew.soon":"Muy pronto — nuevos episodios, nuevas aguas, nuevas aventuras.",
@@ -1415,6 +1499,10 @@ const dict = {
     "crew.r8":"Spécialiste de la plongée","crew.b8":"Chez elle sous la surface — guidant les invités en toute sécurité dans des mondes que peu de gens voient.",
     "crew.r9":"Direction artistique & design","crew.b9":"Façonne le style et l'atmosphère de chaque tournage — là où l'aventure rencontre le métier.",
     "crew.r10":"Cinéaste sous-marin","crew.b10":"Traque la lumière et la vie sous les vagues, ramenant des images qui parlent plus fort que les mots.",
+    "crew.blong1":"Pia façonne la voix d'Aye Maties dans le monde. De la stratégie réseaux à l'identité de marque, chaque campagne porte la même urgence que les missions. Elle ne fait pas que promouvoir l'océan — elle le défend.",
+    "crew.blong2":"Dino passe depuis des années derrière l'objectif en mer — réalisant, produisant et montant des images qui transforment la conservation en cinéma : des histoires honnêtes qui voyagent bien au-delà du pont.",
+    "crew.blong3":"Old Salt tient tout ensemble. Capitaine et Producteur Exécutif, il apporte des décennies de navigation et la vision de construire quelque chose qui dure.",
+    "crew.readmore":"En savoir plus",
     "crew.eyebrow":"Une nouvelle aventure arrive","crew.title":"Découvrez l'équipage — à l'écran",
     "crew.p1":"Derrière chaque expédition se trouve un équipage d'explorateurs, de scientifiques et de conteurs. Bientôt, leurs voyages quittent le pont pour l'écran — une toute nouvelle série de téléréalité d'aventure suivant l'équipage du Pirate Challenge alors qu'il navigue, plonge et se bat pour sauver nos océans, vague après vague.",
     "crew.loading":"Chargement de la série","crew.soon":"Bientôt disponible — nouveaux épisodes, nouvelles eaux, nouvelles aventures.",
@@ -2019,6 +2107,15 @@ gsap.to('.compass', { rotate:360, duration:140, repeat:-1, ease:'none' });
     }
   });
 })();
+
+/* Featured crew card expand */
+document.querySelectorAll('.cfeature').forEach(card=>{
+  card.addEventListener('click',()=>{
+    const isActive = card.classList.contains('active');
+    document.querySelectorAll('.cfeature').forEach(c=>c.classList.remove('active'));
+    if(!isActive) card.classList.add('active');
+  });
+});
 
 /* Magnetic + distortion buttons */
 document.querySelectorAll('.magnetic').forEach(btn=>{
