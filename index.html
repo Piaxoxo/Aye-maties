@@ -1131,7 +1131,7 @@ gsap.registerPlugin(ScrollTrigger);
 /* ---------------- i18n ---------------- */
 const dict = {
   en:{
-    "sound.toggle":"Ocean Sound",
+    "sound.toggle":"Soundtrack",
     "hero.scene":"Drone — Open Water","hero.scene2":"Underwater — Reef Light","hero.scene3":"Sunset — Horizon",
     "nav.about":"About","nav.services":"Services","nav.invest":"Investment","nav.testimonials":"Voices","nav.contact":"Contact",
     "hero.eyebrow":"An Ocean Conservation Experience With Purpose",
@@ -1209,7 +1209,7 @@ const dict = {
     "footer.rights":"All rights reserved.","footer.crafted":"Crafted with reverence for the sea."
   },
   de:{
-    "sound.toggle":"Meeresrauschen",
+    "sound.toggle":"Soundtrack",
     "hero.scene":"Drohne — Offenes Meer","hero.scene2":"Unterwasser — Riff-Licht","hero.scene3":"Sonnenuntergang — Horizont",
     "nav.about":"Über uns","nav.services":"Angebote","nav.invest":"Investition","nav.testimonials":"Stimmen","nav.contact":"Kontakt",
     "hero.eyebrow":"Ein Ozean-Erlebnis mit echtem Sinn",
@@ -1287,7 +1287,7 @@ const dict = {
     "footer.rights":"Alle Rechte vorbehalten.","footer.crafted":"Mit Ehrfurcht vor dem Meer gestaltet."
   },
   es:{
-    "sound.toggle":"Sonido del mar",
+    "sound.toggle":"Soundtrack",
     "hero.scene":"Drone — Mar abierto","hero.scene2":"Bajo el agua — Luz de arrecife","hero.scene3":"Atardecer — Horizonte",
     "nav.about":"Nosotros","nav.services":"Servicios","nav.invest":"Inversión","nav.testimonials":"Voces","nav.contact":"Contacto",
     "hero.eyebrow":"Una experiencia audaz para la conservación del océano",
@@ -1365,7 +1365,7 @@ const dict = {
     "footer.rights":"Todos los derechos reservados.","footer.crafted":"Creado con reverencia por el mar."
   },
   fr:{
-    "sound.toggle":"Son de l'océan",
+    "sound.toggle":"Soundtrack",
     "hero.scene":"Drone — Mer ouverte","hero.scene2":"Sous l'eau — Lumière du récif","hero.scene3":"Coucher de soleil — Horizon",
     "nav.about":"À propos","nav.services":"Services","nav.invest":"Investissement","nav.testimonials":"Voix","nav.contact":"Contact",
     "hero.eyebrow":"Une expérience audacieuse pour la préservation des océans",
@@ -1978,43 +1978,45 @@ gsap.to('.compass', { rotate:360, duration:140, repeat:-1, ease:'none' });
 (function(){
   const btn = document.getElementById('soundToggle');
   if(!btn) return;
-  let ctx, src, playing = false;
-  function buildOcean(){
-    ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const bufferSize = 2 * ctx.sampleRate;
-    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-    const data = buffer.getChannelData(0);
-    let last = 0;
-    for(let i=0;i<bufferSize;i++){
-      const white = Math.random()*2-1;
-      last = (last + 0.02*white) / 1.02;
-      data[i] = last * 3.2;
-    }
-    src = ctx.createBufferSource();
-    src.buffer = buffer;
-    src.loop = true;
-    const filter = ctx.createBiquadFilter();
-    filter.type = 'lowpass';
-    filter.frequency.value = 700;
-    const gain = ctx.createGain();
-    const lfo = ctx.createOscillator();
-    lfo.frequency.value = 0.09;
-    const lfoGain = ctx.createGain();
-    lfoGain.gain.value = 0.05;
-    lfo.connect(lfoGain);
-    lfoGain.connect(gain.gain);
-    src.connect(filter);
-    filter.connect(gain);
-    gain.connect(ctx.destination);
-    gain.gain.value = 0.07;
-    src.start(0);
-    lfo.start(0);
+  /* SoundCloud Widget — loaded lazily on first click */
+  const SC_URL = 'https://soundcloud.com/ayematies/treasureman-ghost-ship-version?in=ayematies/sets/aye-maties-original-soundtrack';
+  let widget = null, playing = false;
+
+  function initSC(){
+    return new Promise(resolve=>{
+      if(widget){ resolve(); return; }
+      /* Hidden iframe */
+      const iframe = document.createElement('iframe');
+      iframe.id = 'scFrame';
+      iframe.allow = 'autoplay';
+      iframe.style.cssText = 'position:fixed;width:1px;height:1px;bottom:0;left:0;opacity:0;pointer-events:none;';
+      iframe.src = 'https://w.soundcloud.com/player/?url=' + encodeURIComponent(SC_URL)
+        + '&color=%23c8a96e&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false';
+      document.body.appendChild(iframe);
+      /* Load SC Widget API */
+      const s = document.createElement('script');
+      s.src = 'https://w.soundcloud.com/player/api.js';
+      s.onload = ()=>{
+        widget = window.SC.Widget(iframe);
+        widget.bind(window.SC.Widget.Events.READY, ()=>resolve());
+      };
+      document.head.appendChild(s);
+    });
   }
-  btn.addEventListener('click', ()=>{
-    if(!ctx) buildOcean();
+
+  btn.addEventListener('click', async ()=>{
+    await initSC();
     playing = !playing;
-    if(playing){ ctx.resume(); btn.classList.add('on'); btn.setAttribute('aria-pressed','true'); }
-    else{ ctx.suspend(); btn.classList.remove('on'); btn.setAttribute('aria-pressed','false'); }
+    if(playing){
+      widget.setVolume(80);
+      widget.play();
+      btn.classList.add('on');
+      btn.setAttribute('aria-pressed','true');
+    } else {
+      widget.pause();
+      btn.classList.remove('on');
+      btn.setAttribute('aria-pressed','false');
+    }
   });
 })();
 
