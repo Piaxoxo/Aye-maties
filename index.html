@@ -691,6 +691,95 @@
   /* Nav active */
   nav.links a.spa-active::after{width:100%;}
 
+  /* Hamburger */
+  .ham{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:40px;height:40px;background:none;border:none;cursor:pointer;z-index:1001;padding:6px;}
+  .ham span{display:block;width:24px;height:1.5px;background:var(--cream,var(--ink));transition:transform .35s var(--ease),opacity .25s;}
+  .ham.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+  .ham.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+  .ham.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+
+  /* Mobile nav overlay */
+  .mobile-nav{
+    position:fixed;inset:0;background:rgba(4,10,18,.97);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;
+    z-index:999;
+    opacity:0;pointer-events:none;
+    transition:opacity .4s var(--ease);
+    backdrop-filter:blur(12px);
+  }
+  .mobile-nav.open{opacity:1;pointer-events:all;}
+  .mobile-nav a{
+    font-family:var(--serif);font-size:clamp(28px,7vw,48px);letter-spacing:.18em;color:var(--ink);
+    text-decoration:none;opacity:0;transform:translateY(30px);
+    transition:color .2s, opacity .4s var(--ease), transform .4s var(--ease);
+  }
+  .mobile-nav.open a{opacity:1;transform:translateY(0);}
+  .mobile-nav.open a:nth-child(1){transition-delay:.05s;}
+  .mobile-nav.open a:nth-child(2){transition-delay:.10s;}
+  .mobile-nav.open a:nth-child(3){transition-delay:.15s;}
+  .mobile-nav.open a:nth-child(4){transition-delay:.20s;}
+  .mobile-nav.open a:nth-child(5){transition-delay:.25s;}
+  .mobile-nav.open a:nth-child(6){transition-delay:.30s;}
+  .mobile-nav a:hover{color:var(--gold-soft);}
+
+  @media(max-width:980px){ .ham{display:flex;} }
+
+  /* Section numbering */
+  .section-num{
+    font-family:var(--mono,monospace);font-size:11px;letter-spacing:.25em;
+    color:var(--gold-soft);opacity:.7;display:block;margin-bottom:16px;
+  }
+
+  /* Section rule dividers */
+  .section-rule{border:none;border-top:1px solid rgba(255,255,255,.06);margin:0;width:100%;}
+
+  /* Hero eyebrow redesign — monospace */
+  .hero-eyebrow-mono{
+    position:relative;display:inline-flex;align-items:center;gap:14px;
+    font-family:var(--mono,monospace);font-size:11px;letter-spacing:.35em;
+    color:var(--gold-soft);text-transform:uppercase;
+  }
+  .hero-eyebrow-mono::before{content:'';width:30px;height:1px;background:var(--gold-soft);display:inline-block;flex-shrink:0;}
+
+  /* Hero watermark number */
+  .hero-watermark{
+    position:absolute;right:-2%;bottom:5%;z-index:2;pointer-events:none;
+    font-family:var(--serif);font-size:22vw;line-height:1;color:#fff;
+    opacity:0.04;user-select:none;
+  }
+
+  /* Hero scroll indicator */
+  .hero-scroll-indicator{
+    position:absolute;right:clamp(20px,3vw,48px);bottom:80px;z-index:5;
+    display:flex;flex-direction:column;align-items:center;gap:12px;
+  }
+  .hero-scroll-indicator .scroll-vert-line{width:1px;height:60px;background:rgba(255,255,255,.25);position:relative;overflow:hidden;}
+  .hero-scroll-indicator .scroll-vert-line span{position:absolute;top:-100%;left:0;width:100%;height:100%;background:var(--gold-soft);animation:scrollLine 2.6s var(--ease) infinite;}
+  .hero-scroll-indicator .scroll-label{
+    font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);
+    writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);
+  }
+
+  /* About stat redesign */
+  .stat b{position:relative;display:block;font-family:var(--display);font-size:clamp(56px,5vw,80px);color:var(--gold-soft);font-weight:400;letter-spacing:-.02em;line-height:1;}
+  .stat b::after{content:'';display:block;width:40px;height:1px;background:var(--gold-soft);margin:10px 0 8px;opacity:.6;}
+  .stat span{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);}
+
+  /* Footer watermark */
+  .footer-watermark{
+    position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
+    font-family:var(--display);font-size:8vw;letter-spacing:.4em;text-transform:uppercase;
+    color:var(--ink);opacity:0.025;pointer-events:none;white-space:nowrap;user-select:none;z-index:0;
+  }
+
+  /* Typography tightening */
+  .section-heading,.page-title{letter-spacing:-.02em;}
+  p{line-height:1.75;max-width:62ch;}
+  .hero-sub{font-size:clamp(13px,1.4vw,16px);letter-spacing:.12em;line-height:2;}
+
+  /* Alternate section backgrounds */
+  section:nth-child(even){background:linear-gradient(180deg,rgba(255,255,255,.01) 0%,transparent 100%);}
+
 </style>
 </head>
 <body>
@@ -757,6 +846,17 @@
     <a href="#invest" data-page="invest" data-i18n="nav.invest">INVESTMENT</a>
     <a href="#impressum" data-page="impressum" data-i18n="nav.impressum">IMPRESSUM</a>
   </nav>
+  <button class="ham" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="mobile-nav" aria-hidden="true">
+    <a href="#home" data-page="home">HOME</a>
+    <a href="#crew" data-page="crew">CREW</a>
+    <a href="#show" data-page="show">DIE SHOW</a>
+    <a href="#news" data-page="news">NEWS</a>
+    <a href="#invest" data-page="invest">INVESTMENT</a>
+    <a href="#impressum" data-page="impressum">IMPRESSUM</a>
+  </div>
   <div class="lang-switch" id="langSwitch">
     <div class="lang-current" id="langCurrent">
       <span id="langLabel">EN</span>
@@ -838,7 +938,7 @@
       </svg>
     </div>
     <div class="hero-inner">
-      <span class="hero-eyebrow fade-up" id="heroEyebrow" data-i18n="hero.eyebrow">A SAIL WISELY ORIGINAL SERIES</span>
+      <span class="hero-eyebrow-mono fade-up" id="heroEyebrow" data-i18n="hero.eyebrow">A SAIL WISELY ORIGINAL SERIES</span>
       <h1 class="hero-title">
         <span class="line"><span data-i18n="hero.title1">Aye Maties</span></span>
         <span class="line"><span data-i18n="hero.title2">Pirate Challenge</span></span>
@@ -856,12 +956,17 @@
         <a class="btn btn-outline magnetic" href="#show" onclick="event.preventDefault();showPage('show')">
           <span data-i18n="hero.show">Die Show</span>
         </a>
-        <div class="scroll-cue">
+        <div class="scroll-cue" style="display:none;" aria-hidden="true">
           <span data-i18n="hero.scroll">Scroll</span>
           <div class="scroll-line"><span></span></div>
         </div>
       </div>
     </div>
+    <div class="hero-scroll-indicator" aria-hidden="true">
+      <div class="scroll-vert-line"><span></span></div>
+      <span class="scroll-label">SCROLL</span>
+    </div>
+    <span class="hero-watermark" aria-hidden="true">01</span>
   </section>
 
   <!-- DIVIDER / OCEAN — Three.js water scene -->
@@ -872,6 +977,7 @@
     <div class="caption fade-up" data-i18n="divider.caption">— drifting between worlds, above and below the surface —</div>
   </div>
 
+  <hr class="section-rule">
   <!-- ABOUT -->
   <section class="about" id="about">
     <div class="wrap">
@@ -884,6 +990,7 @@
           <div class="tag" data-i18n="about.tag">"The ocean doesn't ask permission to be vast — it simply is. We ask permission to protect it."</div>
         </div>
         <div class="about-text">
+          <span class="section-num">01</span>
           <span class="eyebrow" data-i18n="about.eyebrow">Our Story</span>
           <h2 class="title" data-reveal data-i18n="about.title">A Crew Bound by the Sea</h2>
           <p class="lead" data-reveal data-i18n="about.p1">Aye Maties was born from a simple belief: that adventure and responsibility can sail the same course. What began as a small band of ocean lovers has grown into a global pirate-spirited movement — turning curiosity about the sea into real, measurable change.</p>
@@ -997,10 +1104,12 @@
     </div>
   </section>
 
+  <hr class="section-rule">
   <!-- OCEAN POLLUTION AWARENESS -->
   <section class="pollution" id="pollution">
     <div class="rope-divider"></div>
     <div class="wrap pollution-inner">
+      <span class="section-num">02</span>
       <span class="eyebrow" data-i18n="poll.eyebrow">The Tide We're Fighting</span>
       <h2 class="title" data-reveal data-i18n="poll.title">Our Oceans Are Drowning In What We Throw Away</h2>
 
@@ -1044,10 +1153,12 @@
     </div>
   </section>
 
+  <hr class="section-rule">
   <!-- OUR GOALS — green roadmap -->
   <section class="goals" id="goals">
     <div class="rope-divider"></div>
     <div class="wrap">
+      <span class="section-num">03</span>
       <span class="eyebrow" data-i18n="goals.eyebrow">Where We're Headed</span>
       <h2 class="title" data-reveal data-i18n="goals.title">Our Goals for the Next Ten Years</h2>
       <p class="lead" data-reveal data-i18n="goals.p1">We measure ourselves not by how far we sail, but by how much lighter we leave the water behind us. Here's what we're steering toward.</p>
@@ -1076,8 +1187,10 @@
     </div>
   </section>
 
+  <hr class="section-rule">
   <!-- TREASURE MAP -->
   <div class="treasure-map-section" id="treasureMap">
+    <span class="section-num" style="position:absolute;top:18px;left:clamp(20px,5vw,64px);z-index:11;">04</span>
     <div class="tm-title">THE WATERS WE SAIL</div>
     <canvas id="treasureMapCanvas"></canvas>
     <div class="tm-marker-label" id="tm-label-1">Nassau, Bahamas<small>25.0480 N, 77.3554 W</small><em>Republic of Pirates, 1706-1718</em></div>
@@ -1107,6 +1220,7 @@
   <!-- FOOTER -->
   <footer class="site" id="contact">
     <div class="footer-glow"></div>
+    <div class="footer-watermark" aria-hidden="true">AYE MATIES</div>
     <div class="wrap">
       <div class="footer-grid">
         <div>
@@ -2483,6 +2597,29 @@ function initNewsPage(){
   const obs=new IntersectionObserver(entries=>{ if(entries[0].isIntersecting&&!running){running=true;animTM();} },{threshold:.1});
   obs.observe(canvas);
 })();
+
+
+// Mobile nav
+const ham = document.querySelector('.ham');
+const mobileNav = document.querySelector('.mobile-nav');
+if(ham && mobileNav){
+  ham.addEventListener('click',()=>{
+    const open = ham.classList.toggle('open');
+    mobileNav.classList.toggle('open',open);
+    ham.setAttribute('aria-expanded', open);
+    mobileNav.setAttribute('aria-hidden', !open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  mobileNav.querySelectorAll('a').forEach(a=>{
+    a.addEventListener('click',()=>{
+      ham.classList.remove('open');
+      mobileNav.classList.remove('open');
+      ham.setAttribute('aria-expanded','false');
+      mobileNav.setAttribute('aria-hidden','true');
+      document.body.style.overflow='';
+    });
+  });
+}
 
 /* ─── Init routing ────────────────────────────────────────────────────────── */
 routeFromHash();
