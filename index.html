@@ -66,20 +66,15 @@
   a{color:inherit;text-decoration:none;}
   .reveal-mask{overflow:hidden;display:block;}
 
-  /* Custom cursor */
-  .cursor{
-    position:fixed;top:0;left:0;width:10px;height:10px;border-radius:50%;
-    background:var(--gold-soft);pointer-events:none;z-index:9999;
-    mix-blend-mode:difference;transform:translate(-50%,-50%);
-    transition:width .35s var(--ease),height .35s var(--ease),background .35s var(--ease);
+  /* Custom cursor — compass rose */
+  .cursor{display:none;}
+  .cursor-ring{display:none;}
+  .cursor-compass{
+    position:fixed;top:0;left:0;pointer-events:none;z-index:99999;width:36px;height:36px;
+    transform:translate(-50%,-50%);transition:transform .12s ease;
   }
-  .cursor-ring{
-    position:fixed;top:0;left:0;width:42px;height:42px;border-radius:50%;
-    border:1px solid rgba(216,184,115,.55);pointer-events:none;z-index:9998;
-    transform:translate(-50%,-50%);transition:width .45s var(--ease),height .45s var(--ease),opacity .3s ease,border-color .4s ease;
-  }
-  .cursor-ring.big{width:84px;height:84px;border-color:rgba(216,184,115,.9);}
-  @media(hover:none){ .cursor,.cursor-ring{display:none;} body{cursor:auto;} }
+  .cursor-compass.click-pulse{transform:translate(-50%,-50%) scale(1.55);}
+  @media(hover:none){ .cursor-compass{display:none;} body{cursor:auto;} }
 
   /* Loader */
   #loader{
@@ -603,6 +598,99 @@
     .footer-grid{grid-template-columns:1fr;}
     .footer-bottom{flex-direction:column;align-items:flex-start;}
   }
+
+  /* Cinematic letterbox */
+  .hero::before,.hero::after{content:'';position:absolute;left:0;right:0;height:4vh;background:#000;z-index:10;pointer-events:none;}
+  .hero::before{top:0;}
+  .hero::after{bottom:0;}
+
+  /* Film grain */
+  @keyframes grain{0%,100%{background-position:0 0;}10%{background-position:-5% -10%;}20%{background-position:-15% 5%;}30%{background-position:7% -25%;}40%{background-position:20% 25%;}50%{background-position:-25% 10%;}60%{background-position:15% 5%;}70%{background-position:0 15%;}80%{background-position:25% 35%;}90%{background-position:-10% 10%;}}
+  .hero-grain{position:absolute;inset:0;z-index:4;pointer-events:none;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 0.8s steps(1) infinite;}
+  
+  /* Season label */
+  .hero-season{display:block;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-top:-18px;font-family:var(--sans);font-weight:500;}
+
+  /* TV 4K */
+  @media(min-width:1800px){html{font-size:18px;}.wrap{max-width:1600px;}.hero-title{font-size:clamp(80px,8vw,180px);}}
+  @media(min-width:2400px){html{font-size:22px;}.wrap{max-width:2000px;}}
+
+  /* Mobile soundtrack label */
+  @media(max-width:600px){.sound-toggle .soundtrack-label{display:inline!important;}}
+  .sound-toggle .soundtrack-label{display:none;}
+
+  /* SPA pages */
+  .page{display:none;}
+  .page.active{display:block;}
+  #page-home{display:block;}
+
+  /* Crew page */
+  .crew-page{min-height:100vh;background:linear-gradient(180deg,var(--deep) 0%,var(--deep2) 100%);padding:140px 0 100px;}
+  .crew-page .page-headline{font-family:var(--display);text-transform:uppercase;font-size:clamp(54px,9vw,130px);font-weight:400;line-height:1;letter-spacing:-.01em;overflow:hidden;}
+  .crew-page .page-headline .ch{display:inline-block;opacity:0;transform:translateY(80px);}
+  .crew-page .page-headline .ch.in{animation:charReveal .7s var(--ease) forwards;}
+  @keyframes charReveal{to{opacity:1;transform:translateY(0);}}
+
+  /* Show page */
+  .show-page{min-height:100vh;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 24px;text-align:center;}
+  .show-loading-bar{width:min(480px,80vw);height:3px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden;margin:0 auto 40px;}
+  .show-loading-fill{height:100%;width:0;background:var(--gold);border-radius:3px;transition:width 4s cubic-bezier(.22,1,.36,1);}
+  .show-loading-fill.go{width:100%;}
+  .show-text-wrap{min-height:200px;display:flex;flex-direction:column;align-items:center;gap:24px;}
+  .show-reveal-text{font-family:var(--display);text-transform:uppercase;font-size:clamp(22px,4vw,52px);letter-spacing:.04em;}
+  .show-reveal-text span{display:inline-block;opacity:0;transform:translateY(40px);}
+  .show-reveal-text span.in{animation:charReveal .5s var(--ease) forwards;}
+  .show-sub-text{font-family:var(--serif);font-style:italic;font-size:clamp(16px,2vw,22px);color:var(--muted);opacity:0;transition:opacity 1.2s ease;}
+  .show-sub-text.in{opacity:1;}
+  .show-main-heading{font-family:var(--display);text-transform:uppercase;font-size:clamp(32px,6vw,88px);letter-spacing:.02em;line-height:1.08;opacity:0;transform:translateY(60px);transition:opacity 1s ease,transform 1s var(--ease);margin-top:60px;}
+  .show-main-heading.in{opacity:1;transform:translateY(0);}
+  .show-socials{display:flex;gap:24px;flex-wrap:wrap;justify-content:center;margin-top:50px;opacity:0;transition:opacity .8s ease;}
+  .show-socials.in{opacity:1;}
+  .show-social-link{width:70px;height:70px;border-radius:50%;border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;color:var(--ink);transition:all .4s ease;}
+  .show-social-link:hover{border-color:var(--gold);color:var(--gold);transform:scale(1.12);box-shadow:0 0 20px rgba(216,184,115,.4);}
+  @keyframes socialGlow{0%,100%{box-shadow:0 0 8px rgba(216,184,115,.2);}50%{box-shadow:0 0 24px rgba(216,184,115,.5);}}
+  .show-social-link.glow-anim{animation:socialGlow 2.4s ease-in-out infinite;}
+
+  /* News page */
+  .news-page{min-height:100vh;background:var(--deep);padding:140px 0 100px;}
+  .news-headline{font-family:var(--display);text-transform:uppercase;font-size:clamp(38px,7vw,100px);font-weight:400;letter-spacing:-.01em;}
+  .news-date{font-family:var(--serif);font-style:italic;color:var(--gold-soft);font-size:15px;letter-spacing:.06em;margin-top:10px;}
+  .stat-counters{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:28px;margin:60px 0;}
+  .stat-counter-card{padding:34px 28px;border:1px solid rgba(255,255,255,.08);border-radius:18px;background:rgba(255,255,255,.02);}
+  .stat-counter-card .big-num{font-family:var(--display);font-size:clamp(32px,4vw,52px);color:var(--gold-soft);font-weight:400;font-variant-numeric:tabular-nums;}
+  .stat-counter-card .stat-label{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:10px;}
+  .news-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:28px;margin-top:60px;}
+  .news-card{padding:32px 28px;border:1px solid rgba(255,255,255,.08);border-radius:18px;background:rgba(255,255,255,.025);transition:all .4s var(--ease);}
+  .news-card:hover{border-color:rgba(216,184,115,.3);transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,.5);}
+  .news-card .nc-date{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:14px;}
+  .news-card h3{font-family:var(--display);font-size:18px;font-weight:400;color:var(--ink);margin-bottom:12px;}
+  .news-card p{font-size:13.5px;line-height:1.7;color:var(--muted);}
+
+  /* Impressum page */
+  .impressum-page{min-height:100vh;background:var(--deep);padding:140px 0 100px;}
+  .impressum-content{max-width:760px;}
+  .impressum-content>h2{font-family:var(--display);font-size:clamp(28px,4vw,48px);font-weight:400;text-transform:uppercase;margin-bottom:50px;}
+  .impressum-block{margin-bottom:40px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.07);}
+  .impressum-block:last-child{border-bottom:none;}
+  .impressum-block h4{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:14px;}
+  .impressum-block p,.impressum-block a{font-size:15px;line-height:1.8;color:var(--muted);}
+  .impressum-block a{color:var(--gold-soft);text-decoration:underline;text-underline-offset:3px;}
+
+  /* Invest page */
+  .invest-page{min-height:100vh;background:linear-gradient(180deg,var(--deep),var(--deep2));padding:140px 0 100px;}
+
+  /* Treasure map */
+  .treasure-map-section{position:relative;width:100%;height:70vh;min-height:480px;background:#050b13;overflow:hidden;}
+  .tm-title{position:absolute;top:40px;left:50%;transform:translateX(-50%);z-index:10;font-family:var(--display);text-transform:uppercase;font-size:clamp(18px,3vw,36px);letter-spacing:.18em;color:var(--gold-soft);text-align:center;white-space:nowrap;text-shadow:0 0 30px rgba(216,184,115,.4);pointer-events:none;}
+  .treasure-map-section canvas{position:absolute;inset:0;width:100%;height:100%;display:block;}
+  .tm-marker-label{position:fixed;pointer-events:none;z-index:5;font-family:monospace;font-size:11px;color:var(--gold-soft);text-shadow:0 0 8px rgba(216,184,115,.8);opacity:0;transition:opacity 1s ease;line-height:1.5;}
+  .tm-marker-label.show{opacity:1;}
+  .tm-marker-label small{display:block;font-size:9px;opacity:.7;}
+  .tm-marker-label em{display:block;font-style:italic;opacity:.6;font-size:9px;}
+
+  /* Nav active */
+  nav.links a.spa-active::after{width:100%;}
+
 </style>
 </head>
 <body>
@@ -615,10 +703,23 @@
     <path class="wave w3" d="M3 7c2-3 4-3 6 0s4 3 6 0 4-3 6 0" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity=".35"/>
   </svg>
   <span data-i18n="sound.toggle">Ocean Sound</span>
+  <span class="soundtrack-label">SOUNDTRACK</span>
 </button>
 <div class="cursor-glow"></div>
 <div class="cursor"></div>
 <div class="cursor-ring"></div>
+<div class="cursor-compass" id="cursorCompass" aria-hidden="true">
+  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:36px;height:36px;">
+    <polygon points="18,2 21,18 18,34 15,18" fill="#d8b873" opacity="0.95"/>
+    <polygon points="2,18 18,15 34,18 18,21" fill="#cfe9ec" opacity="0.7"/>
+    <circle cx="18" cy="18" r="3" fill="#f0dfb6"/>
+    <circle cx="18" cy="18" r="8" fill="none" stroke="rgba(216,184,115,0.4)" stroke-width="0.8"/>
+    <text x="18" y="8" text-anchor="middle" font-size="4.5" fill="#d8b873" font-family="sans-serif">N</text>
+    <text x="18" y="33" text-anchor="middle" font-size="4.5" fill="#d8b873" font-family="sans-serif">S</text>
+    <text x="5" y="19.5" text-anchor="middle" font-size="4.5" fill="#cfe9ec" font-family="sans-serif">W</text>
+    <text x="31" y="19.5" text-anchor="middle" font-size="4.5" fill="#cfe9ec" font-family="sans-serif">E</text>
+  </svg>
+</div>
 
 <div id="loader">
   <svg class="pirate-flag" viewBox="0 0 240 160" aria-hidden="true">
@@ -649,27 +750,45 @@
 <header>
   <a href="#top" class="logo"><span class="dot"></span> Aye&nbsp;Maties</a>
   <nav class="links">
-    <a href="#about" data-i18n="nav.about">About</a>
-    <a href="#services" data-i18n="nav.services">Services</a>
-    <a href="#invest" data-i18n="nav.invest">Investment</a>
-    <a href="#testimonials" data-i18n="nav.testimonials">Voices</a>
-    <a href="#contact" data-i18n="nav.contact">Contact</a>
+    <a href="#home" data-page="home" data-i18n="nav.home">HOME</a>
+    <a href="#crew" data-page="crew" data-i18n="nav.crew">CREW</a>
+    <a href="#show" data-page="show" data-i18n="nav.show">DIE SHOW</a>
+    <a href="#news" data-page="news" data-i18n="nav.news">NEWS</a>
+    <a href="#invest" data-page="invest" data-i18n="nav.invest">INVESTMENT</a>
+    <a href="#impressum" data-page="impressum" data-i18n="nav.impressum">IMPRESSUM</a>
   </nav>
   <div class="lang-switch" id="langSwitch">
     <div class="lang-current" id="langCurrent">
       <span id="langLabel">EN</span>
       <svg viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.4"/></svg>
     </div>
-    <div class="lang-menu" id="langMenu">
-      <button data-lang="de"><span><span class="flag">🇩🇪</span> Deutsch</span></button>
-      <button data-lang="en"><span><span class="flag">🇬🇧</span> English</span></button>
-      <button data-lang="es"><span><span class="flag">🇪🇸</span> Español</span></button>
-      <button data-lang="fr"><span><span class="flag">🇫🇷</span> Français</span></button>
+    <div class="lang-menu" id="langMenu" style="max-height:400px;overflow-y:auto;">
+      <button data-lang="en"><span>EN English</span></button>
+      <button data-lang="de"><span>DE Deutsch</span></button>
+      <button data-lang="es"><span>ES Espanol</span></button>
+      <button data-lang="fr"><span>FR Francais</span></button>
+      <button data-lang="pt"><span>PT Portugues</span></button>
+      <button data-lang="it"><span>IT Italiano</span></button>
+      <button data-lang="nl"><span>NL Nederlands</span></button>
+      <button data-lang="ru"><span>RU Russky</span></button>
+      <button data-lang="pl"><span>PL Polski</span></button>
+      <button data-lang="sv"><span>SV Svenska</span></button>
+      <button data-lang="no"><span>NO Norsk</span></button>
+      <button data-lang="da"><span>DA Dansk</span></button>
+      <button data-lang="tr"><span>TR Turkce</span></button>
+      <button data-lang="zh"><span>ZH Zhongwen</span></button>
+      <button data-lang="ja"><span>JA Nihongo</span></button>
+      <button data-lang="ko"><span>KO Hangugeo</span></button>
+      <button data-lang="ar"><span>AR Arabiya</span></button>
+      <button data-lang="hi"><span>HI Hindi</span></button>
+      <button data-lang="id"><span>ID Indonesia</span></button>
     </div>
   </div>
 </header>
 
 <main id="top">
+
+<div class="page active" id="page-home">
 
   <!-- HERO -->
   <section class="hero">
@@ -683,6 +802,10 @@
       <video class="hv" muted loop playsinline poster="" data-label="Sunset — Horizon">
         <source src="assets/videos/ocean-vertical.mp4" type="video/mp4">
       </video>
+      <video class="hv" muted loop playsinline poster="" data-label="Cinematic — Open Ocean">
+        <source src="assets/videos/cinematic-1.mp4" type="video/mp4" media="(min-width:601px)">
+        <source src="assets/videos/vertical-1.mp4" type="video/mp4" media="(max-width:600px)">
+      </video>
     </div>
     <button class="hero-bg-switch magnetic" id="heroBgSwitch" aria-label="Switch ocean scene">
       <svg viewBox="0 0 22 22" fill="none"><path d="M11 3a8 8 0 1 1-7.5 5.2M3 3v5h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -690,6 +813,7 @@
     </button>
     <canvas id="particles"></canvas>
     <div class="rays" id="rays"></div>
+    <div class="hero-grain" aria-hidden="true"></div>
     <div class="hero-flag" data-depth="0.4" aria-hidden="true">
       <svg class="pirate-flag" viewBox="0 0 240 160">
         <defs>
@@ -714,22 +838,23 @@
       </svg>
     </div>
     <div class="hero-inner">
-      <span class="hero-eyebrow fade-up" id="heroEyebrow" data-i18n="hero.eyebrow">An Ocean Conservation Experience With Purpose</span>
+      <span class="hero-eyebrow fade-up" id="heroEyebrow" data-i18n="hero.eyebrow">A SAIL WISELY ORIGINAL SERIES</span>
       <h1 class="hero-title">
         <span class="line"><span data-i18n="hero.title1">Aye Maties</span></span>
         <span class="line"><span data-i18n="hero.title2">Pirate Challenge</span></span>
       </h1>
+      <span class="hero-season fade-up">SEASON 1 &#8212; COMING SOON</span>
       <p class="hero-sub fade-up" id="heroSub" data-i18n="hero.sub">An immersive voyage where adventure meets purpose — uniting explorers, dreamers and changemakers to protect the oceans that connect us all.</p>
       <div class="hero-meta fade-up" id="heroMeta">
-        <a class="btn" href="#services">
+        <a class="btn" href="#about" onclick="event.preventDefault();smoothScrollTo('#about')">
           <span data-i18n="hero.cta">Begin the Voyage</span>
           <svg viewBox="0 0 16 10" fill="none"><path d="M1 5h14M10 1l5 4-5 4" stroke="currentColor" stroke-width="1.3"/></svg>
         </a>
-        <a class="btn btn-outline magnetic" href="#about">
-          <span data-i18n="hero.story">Our Story</span>
-        </a>
-        <a class="btn btn-outline magnetic" href="#crew">
+        <a class="btn btn-outline magnetic" href="#crew" onclick="event.preventDefault();showPage('crew')">
           <span data-i18n="hero.crew">Our Crew</span>
+        </a>
+        <a class="btn btn-outline magnetic" href="#show" onclick="event.preventDefault();showPage('show')">
+          <span data-i18n="hero.show">Die Show</span>
         </a>
         <div class="scroll-cue">
           <span data-i18n="hero.scroll">Scroll</span>
@@ -825,7 +950,7 @@
         <article class="cfeature" data-reveal>
           <div class="cf-top">
             <div class="cf-avatar">DS</div>
-            <h3>Dino Stelzl</h3>
+            <h3>Dr. Dino Stelzl</h3>
             <span class="cf-role" data-i18n="crew.r2">Film Director &amp; Producer</span>
             <p class="cf-teaser" data-i18n="crew.b2">Captures the crew's voyages on camera, turning real expeditions into films that move people to act.</p>
           </div>
@@ -836,13 +961,13 @@
         </article>
         <article class="cfeature" data-reveal>
           <div class="cf-top">
-            <div class="cf-avatar">OS</div>
-            <h3>Old Salt</h3>
-            <span class="cf-role" data-i18n="crew.r3">Captain &amp; Executive Producer</span>
+            <div class="cf-avatar">PB</div>
+            <h3>Capt. Peter Brucha</h3>
+            <span class="cf-role" data-i18n="crew.r3">Captain &amp; Founder</span>
             <p class="cf-teaser" data-i18n="crew.b3">Decades at the helm. Knows every current, every storm — and exactly when to drop anchor.</p>
           </div>
           <div class="cf-expand">
-            <p data-i18n="crew.blong3">Old Salt holds it all together — on the water and off it. As Captain and Executive Producer, he brings decades of seamanship and the vision to build something that lasts. He has sailed storms no chart could predict, and carries every one of those miles with quiet authority.</p>
+            <p data-i18n="crew.blong3">Capt. Peter Brucha holds it all together — on the water and off it. As Captain and Executive Producer, he brings decades of seamanship and the vision to build something that lasts. He has sailed storms no chart could predict, and carries every one of those miles with quiet authority.</p>
           </div>
           <div class="cf-read"><span data-i18n="crew.readmore">Read more</span><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 5l5 5 5-5"/></svg></div>
         </article>
@@ -868,141 +993,6 @@
         </div>
         <div class="loading-bar"><span id="crewLoadBar"></span></div>
         <div class="loading-sub" data-i18n="crew.soon">Coming soon — new episodes, new waters, new adventures.</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SERVICES -->
-  <section class="services" id="services">
-    <div class="wrap">
-      <div class="services-head">
-        <div>
-          <span class="eyebrow" data-i18n="services.eyebrow">What We Offer</span>
-          <h2 class="title" data-reveal data-i18n="services.title">Voyages of Purpose</h2>
-        </div>
-        <p class="lead" data-reveal data-i18n="services.lead">From open-water expeditions to hands-on education, every offering is a chapter in the same story — saving our oceans, one challenge at a time.</p>
-      </div>
-      <div class="card-grid">
-
-        <article class="scard" data-reveal>
-          <span class="num">01</span>
-          <h3 data-i18n="services.c1.title">The Pirate Challenge</h3>
-          <p data-i18n="services.c1.desc">A multi-day adventure trail combining navigation, teamwork and ocean clean-up missions — designed to turn curiosity into lifelong stewardship of the sea.</p>
-          <span class="arrow" data-i18n="services.learn">Discover More →</span>
-          <div class="glow"></div>
-        </article>
-
-        <article class="scard" data-reveal>
-          <span class="num">02</span>
-          <h3 data-i18n="services.c2.title">Ocean Clean-Up Expeditions</h3>
-          <p data-i18n="services.c2.desc">Guided coastal and underwater missions where guests actively remove debris, document marine life and contribute to verified conservation data.</p>
-          <span class="arrow" data-i18n="services.learn">Discover More →</span>
-          <div class="glow"></div>
-        </article>
-
-        <article class="scard" data-reveal>
-          <span class="num">03</span>
-          <h3 data-i18n="services.c3.title">School & Youth Programmes</h3>
-          <p data-i18n="services.c3.desc">Immersive educational journeys that bring marine science to life — empowering the next generation of ocean guardians through play, story and discovery.</p>
-          <span class="arrow" data-i18n="services.learn">Discover More →</span>
-          <div class="glow"></div>
-        </article>
-
-        <article class="scard" data-reveal>
-          <span class="num">04</span>
-          <h3 data-i18n="services.c4.title">Corporate Crew Retreats</h3>
-          <p data-i18n="services.c4.desc">Purpose-driven team experiences at sea — blending leadership development with tangible environmental impact for forward-thinking organisations.</p>
-          <span class="arrow" data-i18n="services.learn">Discover More →</span>
-          <div class="glow"></div>
-        </article>
-
-        <article class="scard" data-reveal>
-          <span class="num">05</span>
-          <h3 data-i18n="services.c5.title">Coastal Restoration Projects</h3>
-          <p data-i18n="services.c5.desc">Long-term partnerships with local communities to restore reefs, replant mangroves and rebuild fragile coastal ecosystems for future generations.</p>
-          <span class="arrow" data-i18n="services.learn">Discover More →</span>
-          <div class="glow"></div>
-        </article>
-
-        <article class="scard" data-reveal>
-          <span class="num">06</span>
-          <h3 data-i18n="services.c6.title">Private Sailing Experiences</h3>
-          <p data-i18n="services.c6.desc">Bespoke private voyages for individuals and families — a quiet, restorative journey across open water, paired with meaningful ocean encounters.</p>
-          <span class="arrow" data-i18n="services.learn">Discover More →</span>
-          <div class="glow"></div>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- INVESTMENT — building the ship -->
-  <section class="invest" id="invest">
-    <div class="rope-divider"></div>
-    <div class="wrap invest-grid">
-      <div class="invest-text">
-        <span class="eyebrow" data-i18n="invest.eyebrow">Build With Us</span>
-        <h2 class="title" data-reveal data-i18n="invest.title">We're Not Selling Another Voyage — We're Building the Ship</h2>
-        <p class="lead" data-reveal data-i18n="invest.p1">This isn't one more journey to book. It's an invitation to help shape what carries the mission forward — quite literally. Investment in Aye Maties means funding, designing and launching the vessel that will carry the Pirate Challenge into its next chapter.</p>
-        <p class="lead" data-reveal data-i18n="invest.p2">Every plank, every sail, every mile at sea is built by people who chose to be part of something larger than a single trip — a movement with a hull, a course, and a crew that keeps growing.</p>
-        <a href="mailto:invest@ayematies.com" class="btn btn-outline magnetic">
-          <span data-i18n="invest.btn">Become an Investor</span>
-        </a>
-      </div>
-      <div class="invest-boat" data-reveal aria-hidden="true">
-        <svg id="boatBuild" viewBox="0 0 420 320" fill="none">
-          <line class="bb-water" x1="20" y1="270" x2="400" y2="270" stroke="rgba(207,233,236,.25)" stroke-width="1.5"/>
-          <path class="bb-hull" d="M70 250 Q 210 320 350 250 L 320 200 Q 210 240 100 200 Z" stroke="#d8b873" stroke-width="2.4" fill="rgba(216,184,115,.05)"/>
-          <g class="bb-planks" stroke="#cfa15a" stroke-width="1.4" opacity="0.8">
-            <path d="M96 207 Q210 244 322 207"/>
-            <path d="M104 220 Q210 256 314 220"/>
-            <path d="M114 234 Q210 268 304 234"/>
-          </g>
-          <line class="bb-mast" x1="210" y1="200" x2="210" y2="74" stroke="#cfe9ec" stroke-width="3"/>
-          <path class="bb-sail" d="M213 82 Q280 110 213 172 Z" fill="rgba(207,233,236,.16)" stroke="#cfe9ec" stroke-width="1.6"/>
-          <path class="bb-flagsm" d="M210 74 L246 84 L210 94 Z" fill="#d8b873"/>
-        </svg>
-        <span class="invest-caption" data-i18n="invest.caption">— laid keel by keel, plank by plank —</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section class="testi" id="testimonials">
-    <div class="wrap">
-      <span class="eyebrow" data-i18n="testi.eyebrow">Voices From the Crew</span>
-      <h2 class="title" data-reveal data-i18n="testi.title" style="margin-bottom:60px;">Stories From the Water</h2>
-    </div>
-    <div class="wrap">
-      <div class="testi-track">
-        <div class="tcard">
-          <div>
-            <div class="testi-stars">★★★★★</div>
-            <q data-i18n="testi.q1">"An experience that rewired how my children see the ocean. They didn't just learn about conservation — they lived it, hands in the water, hearts fully open."</q>
-          </div>
-          <footer><div class="tavatar">L</div><div><div class="tname" data-i18n="testi.n1">Lena Brandt</div><div class="trole" data-i18n="testi.r1">Family Voyager · Hamburg</div></div></footer>
-        </div>
-        <div class="tcard">
-          <div>
-            <div class="testi-stars">★★★★★</div>
-            <q data-i18n="testi.q2">"Beyond comfort — beyond adventure. The Pirate Challenge gave our team a shared purpose we still talk about, months later."</q>
-          </div>
-          <footer><div class="tavatar">M</div><div><div class="tname" data-i18n="testi.n2">Marco Fontaine</div><div class="trole" data-i18n="testi.r2">Corporate Retreat Lead · Paris</div></div></footer>
-        </div>
-        <div class="tcard">
-          <div>
-            <div class="testi-stars">★★★★★</div>
-            <q data-i18n="testi.q3">"Every detail felt considered — the boats, the guides, the silence of the sea at sunrise. A journey that changes how you live afterward."</q>
-          </div>
-          <footer><div class="tavatar">S</div><div><div class="tname" data-i18n="testi.n3">Sofía Herrera</div><div class="trole" data-i18n="testi.r3">Private Sailing Guest · Madrid</div></div></footer>
-        </div>
-        <div class="tcard">
-          <div>
-            <div class="testi-stars">★★★★★</div>
-            <q data-i18n="testi.q4">"We came for an expedition and left as ocean advocates. Aye Maties doesn't sell a trip — it gifts a perspective."</q>
-          </div>
-          <footer><div class="tavatar">J</div><div><div class="tname" data-i18n="testi.n4">James Whitfield</div><div class="trole" data-i18n="testi.r4">Restoration Partner · London</div></div></footer>
-        </div>
       </div>
     </div>
   </section>
@@ -1086,6 +1076,14 @@
     </div>
   </section>
 
+  <!-- TREASURE MAP -->
+  <div class="treasure-map-section" id="treasureMap">
+    <div class="tm-title">THE WATERS WE SAIL</div>
+    <canvas id="treasureMapCanvas"></canvas>
+    <div class="tm-marker-label" id="tm-label-1">Nassau, Bahamas<small>25.0480 N, 77.3554 W</small><em>Republic of Pirates, 1706-1718</em></div>
+    <div class="tm-marker-label" id="tm-label-2">Tortuga, Haiti<small>20.0833 N, 72.8167 W</small><em>Flibustier Haven, 1640-1680</em></div>
+    <div class="tm-marker-label" id="tm-label-3">Cocos Island, Costa Rica<small>5.5333 N, 87.0667 W</small><em>Lima Treasure, est. 1820</em></div>
+  </div>
   <!-- CTA -->
   <section class="cta" id="join">
     <video class="cta-video" autoplay muted loop playsinline>
@@ -1158,6 +1156,134 @@
     </div>
   </footer>
 
+</div><!-- /page-home -->
+
+<!-- PAGE: CREW -->
+<div class="page" id="page-crew">
+  <div class="crew-page">
+    <div class="wrap">
+      <h1 class="page-headline" id="crewPageHeadline">THE CREW</h1>
+      <p class="lead" style="margin-top:30px;margin-bottom:80px;" data-i18n="crew.intro">Aye Maties is carried by a small crew of sailors, filmmakers, divers and storytellers.</p>
+      <div class="crew-featured">
+        <article class="cfeature" data-reveal>
+          <div class="cf-top"><div class="cf-avatar">PA</div><h3>Pia Alice Sekulic</h3><span class="cf-role" data-i18n="crew.r1">Head of Marketing</span><p class="cf-teaser" data-i18n="crew.b1">Turns real missions into stories worth sharing.</p></div>
+          <div class="cf-expand"><p data-i18n="crew.blong1">Pia leads the way Aye Maties speaks to the world. From social strategy to brand identity, every post carries the same urgency as the missions themselves.</p></div>
+          <div class="cf-read"><span data-i18n="crew.readmore">Read more</span><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 5l5 5 5-5"/></svg></div>
+        </article>
+        <article class="cfeature" data-reveal>
+          <div class="cf-top"><div class="cf-avatar">DS</div><h3>Dr. Dino Stelzl</h3><span class="cf-role" data-i18n="crew.r2">Film Director &amp; Producer</span><p class="cf-teaser" data-i18n="crew.b2">Captures expeditions on camera, turning them into films that move people to act.</p></div>
+          <div class="cf-expand"><p data-i18n="crew.blong2">Dr. Dino Stelzl has spent years behind the lens at sea, directing and producing footage that transforms conservation into cinema.</p></div>
+          <div class="cf-read"><span data-i18n="crew.readmore">Read more</span><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 5l5 5 5-5"/></svg></div>
+        </article>
+        <article class="cfeature" data-reveal>
+          <div class="cf-top"><div class="cf-avatar">PB</div><h3>Capt. Peter Brucha</h3><span class="cf-role" data-i18n="crew.r3">Captain &amp; Founder</span><p class="cf-teaser" data-i18n="crew.b3">Decades at the helm. Knows every current, every storm.</p></div>
+          <div class="cf-expand"><p data-i18n="crew.blong3">Capt. Peter Brucha holds it all together. As Captain and Founder, he brings decades of seamanship and the vision to build something that lasts.</p></div>
+          <div class="cf-read"><span data-i18n="crew.readmore">Read more</span><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 5l5 5 5-5"/></svg></div>
+        </article>
+      </div>
+      <div class="crew-grid" style="margin-top:52px;">
+        <article class="ccard" data-reveal><div class="cavatar">MS</div><h3>Michael Schlumpelt</h3><span class="crole" data-i18n="crew.r4">Maritime Operations</span><p data-i18n="crew.b4">Keeps the ship, crew and every expedition running.</p></article>
+        <article class="ccard" data-reveal><div class="cavatar">SP</div><h3>Silas Pross</h3><span class="crole" data-i18n="crew.r5">Cameraman &amp; DOP</span><p data-i18n="crew.b5">Sees the ocean through a lens.</p></article>
+        <article class="ccard" data-reveal><div class="cavatar">AN</div><h3>Anita "Niddl" Stelzl</h3><span class="crole" data-i18n="crew.r6">Production &amp; Logistics</span><p data-i18n="crew.b6">Makes sure every voyage sets sail on time.</p></article>
+        <article class="ccard" data-reveal><div class="cavatar">NZ</div><h3>Natascha Zeng</h3><span class="crole" data-i18n="crew.r7">Storyteller &amp; Researcher</span><p data-i18n="crew.b7">Digs into the science behind every mission.</p></article>
+        <article class="ccard" data-reveal><div class="cavatar">KS</div><h3>Koray Schober</h3><span class="crole" data-i18n="crew.r8">Underwater Specialist</span><p data-i18n="crew.b8">At home below the surface.</p></article>
+        <article class="ccard" data-reveal><div class="cavatar">MH</div><h3>Matthias Hauser</h3><span class="crole" data-i18n="crew.r9">Set Director &amp; Designer</span><p data-i18n="crew.b9">Builds the look and feel of every shoot.</p></article>
+        <article class="ccard" data-reveal><div class="cavatar">ML</div><h3>Michael Leitner</h3><span class="crole" data-i18n="crew.r10">Underwater Filmmaker</span><p data-i18n="crew.b10">Chases light and life beneath the waves.</p></article>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: SHOW -->
+<div class="page" id="page-show">
+  <div class="show-page">
+    <div class="show-loading-bar"><div class="show-loading-fill" id="showLoadFill"></div></div>
+    <div class="show-text-wrap">
+      <div class="show-reveal-text" id="showRevealText1"></div>
+      <div class="show-sub-text" id="showSubText">But maybe... you will find out.</div>
+    </div>
+    <h2 class="show-main-heading" id="showMainHeading">BEGINN DIE JAGD<br>NACH DEM SCHATZ</h2>
+    <div class="show-socials" id="showSocials">
+      <a href="https://instagram.com/ayematies" target="_blank" rel="noopener" class="show-social-link glow-anim" aria-label="Instagram"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://youtube.com/@ayematies" target="_blank" rel="noopener" class="show-social-link glow-anim" aria-label="YouTube" style="animation-delay:.2s"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.96-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75,15.02 15.5,12 9.75,8.98 9.75,15.02" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://tiktok.com/@ayematies" target="_blank" rel="noopener" class="show-social-link glow-anim" aria-label="TikTok" style="animation-delay:.4s"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg></a>
+      <a href="https://facebook.com/ayematies" target="_blank" rel="noopener" class="show-social-link glow-anim" aria-label="Facebook" style="animation-delay:.6s"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+      <a href="https://x.com/ayematies" target="_blank" rel="noopener" class="show-social-link glow-anim" aria-label="X / Twitter" style="animation-delay:.8s"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.259 5.631zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      <a href="https://linkedin.com/company/ayematies" target="_blank" rel="noopener" class="show-social-link glow-anim" aria-label="LinkedIn" style="animation-delay:1s"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: NEWS -->
+<div class="page" id="page-news">
+  <div class="news-page">
+    <div class="wrap">
+      <h1 class="news-headline">OCEAN DISPATCH</h1>
+      <div class="news-date" id="newsDate"></div>
+      <div class="stat-counters">
+        <div class="stat-counter-card"><div class="big-num" id="newsPlastic">0</div><div class="stat-label">kg Plastic Entering Ocean Today</div></div>
+        <div class="stat-counter-card"><div class="big-num" id="newsCoral">0</div><div class="stat-label">km&#178; Coral Reef Bleached This Year</div></div>
+        <div class="stat-counter-card"><div class="big-num">2,270</div><div class="stat-label">Species at Risk (IUCN Red List)</div></div>
+        <div class="stat-counter-card"><div class="big-num">+0.9&#176;C</div><div class="stat-label">Ocean Temperature Anomaly</div></div>
+      </div>
+      <div class="news-cards">
+        <article class="news-card"><div class="nc-date">14 Apr 2026</div><h3>UN Ocean Treaty Enters Ratification Phase</h3><p>The High Seas Treaty, signed by over 60 nations, begins formal ratification. Conservationists call it the most significant marine protection agreement since UNCLOS.</p></article>
+        <article class="news-card"><div class="nc-date">02 Mar 2026</div><h3>Great Barrier Reef Records Unprecedented Bleaching</h3><p>Australian scientists report fifth mass bleaching event in eight years, with 65% of surveyed sites showing severe thermal stress as sea surface temperatures exceed records.</p></article>
+        <article class="news-card"><div class="nc-date">18 Feb 2026</div><h3>Plastic Credit Market Passes $1 Billion Milestone</h3><p>Corporate investment in verified plastic removal projects doubles year-on-year, with certified ocean-bound plastic credits now accepted by over 200 major brands.</p></article>
+        <article class="news-card"><div class="nc-date">05 Jan 2026</div><h3>Deep-Sea Mining Moratorium Gains 30 Nations</h3><p>A growing coalition backs a halt to seabed extraction pending full environmental impact studies, citing irreversible harm to poorly understood ecosystems.</p></article>
+        <article class="news-card"><div class="nc-date">19 Nov 2025</div><h3>Mangrove Restoration Breaks Annual Record</h3><p>Global replanting efforts exceeded 150,000 hectares in 2025, with Southeast Asia and West Africa leading programmes that sequester carbon and protect coastlines.</p></article>
+        <article class="news-card"><div class="nc-date">07 Oct 2025</div><h3>Microplastics Detected in Human Brain Tissue</h3><p>A peer-reviewed study finds microplastic concentrations in brain samples 30x higher than in other organs, intensifying calls for upstream plastic production limits.</p></article>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: IMPRESSUM -->
+<div class="page" id="page-impressum">
+  <div class="impressum-page">
+    <div class="wrap">
+      <div class="impressum-content">
+        <h2>Impressum</h2>
+        <div class="impressum-block"><h4>Brand &amp; IP</h4><p>"Aye Maties" (Font: "Ariston") is TM and IP of<br><strong>Sail Wisely (Ireland) CLG</strong></p></div>
+        <div class="impressum-block"><h4>Legal Representative</h4><p>MASON HAYES &amp; CURRAN<br>Barrow Street, Dublin 4, D04 TR29, Ireland<br><a href="tel:+35316145000">+353 1 614 5000</a> | <a href="https://mhc.ie" target="_blank" rel="noopener">MHC.ie</a><br>Represented by Claire Lord / Partner</p></div>
+        <div class="impressum-block"><h4>Operative Contact</h4><p><a href="mailto:AyeMaties@gmail.com">AyeMaties@gmail.com</a><br>c/o Capt. Peter Brucha / Founder, Sail Wisely &amp; Aye Maties</p></div>
+        <div class="impressum-block"><h4>Production Contact</h4><p><a href="mailto:AyeMaties@proton.me">AyeMaties@proton.me</a><br>c/o Dr. Dino Stelzl / Director, Sail Wisely CLG @ Aye Maties</p></div>
+        <div class="impressum-block"><h4>Marketing Contact</h4><p>c/o Pia Alice Sekulic / Head of Department</p></div>
+        <div class="impressum-block"><h4>Coordination Direct Line</h4><p><a href="tel:+436991086106">+43-699-10 8 6 10 8 6</a></p></div>
+        <div class="impressum-block"><h4>Postal Address</h4><p>c/o Capt. Peter Brucha<br>Jubilaeumstrasse 19<br>2345 Brunn/Geb., Austria</p></div>
+        <div class="impressum-block"><h4>Soundtrack</h4><p><a href="https://soundcloud.com/AyeMaties" target="_blank" rel="noopener">soundcloud.com/AyeMaties</a></p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: INVEST -->
+<div class="page" id="page-invest">
+  <div class="invest-page">
+    <div class="rope-divider"></div>
+    <div class="wrap invest-grid">
+      <div class="invest-text">
+        <span class="eyebrow" data-i18n="invest.eyebrow">Build With Us</span>
+        <h2 class="title" data-i18n="invest.title">We Are Not Selling Another Voyage &#8212; We Are Building the Ship</h2>
+        <p class="lead" data-i18n="invest.p1">This is not one more journey to book. It is an invitation to help shape what carries the mission forward.</p>
+        <p class="lead" data-i18n="invest.p2">Every plank, every sail, every mile at sea is built by people who chose to be part of something larger than a single trip.</p>
+        <a href="mailto:invest@ayematies.com" class="btn btn-outline magnetic"><span data-i18n="invest.btn">Become an Investor</span></a>
+      </div>
+      <div class="invest-boat" aria-hidden="true">
+        <svg viewBox="0 0 420 320" fill="none">
+          <line x1="20" y1="270" x2="400" y2="270" stroke="rgba(207,233,236,.25)" stroke-width="1.5"/>
+          <path d="M70 250 Q 210 320 350 250 L 320 200 Q 210 240 100 200 Z" stroke="#d8b873" stroke-width="2.4" fill="rgba(216,184,115,.05)"/>
+          <line x1="210" y1="200" x2="210" y2="74" stroke="#cfe9ec" stroke-width="3"/>
+          <path d="M213 82 Q280 110 213 172 Z" fill="rgba(207,233,236,.16)" stroke="#cfe9ec" stroke-width="1.6"/>
+          <path d="M210 74 L246 84 L210 94 Z" fill="#d8b873"/>
+        </svg>
+        <span class="invest-caption" data-i18n="invest.caption">laid keel by keel, plank by plank</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 </main>
 
 <script>
@@ -1205,7 +1331,7 @@ const dict = {
   en:{
     "sound.toggle":"Soundtrack",
     "hero.scene":"Drone — Open Water","hero.scene2":"Underwater — Reef Light","hero.scene3":"Sunset — Horizon",
-    "nav.about":"About","nav.services":"Services","nav.invest":"Investment","nav.testimonials":"Voices","nav.contact":"Contact",
+    "nav.home":"HOME","nav.crew":"CREW","nav.show":"DIE SHOW","nav.news":"NEWS","nav.invest":"INVESTMENT","nav.impressum":"IMPRESSUM","nav.about":"About","nav.services":"Services","nav.testimonials":"Voices","nav.contact":"Contact","hero.show":"Die Show",
     "hero.eyebrow":"An Ocean Conservation Experience With Purpose",
     "hero.title1":"Aye Maties","hero.title2":"Pirate Challenge",
     "hero.sub":"An immersive voyage where adventure meets purpose — uniting explorers, dreamers and changemakers to protect the oceans that connect us all.",
@@ -1255,7 +1381,7 @@ const dict = {
     "crew.r10":"Underwater Filmmaker","crew.b10":"Chases light and life beneath the waves, bringing back footage that speaks louder than words.",
     "crew.blong1":"Pia leads the way Aye Maties speaks to the world. From social strategy to brand identity, every post and campaign carries the same urgency as the missions themselves. She doesn't just market the ocean — she fights for it.",
     "crew.blong2":"Dino has spent years behind the lens at sea — directing, producing and editing footage that makes viewers feel the salt spray and the silence beneath the surface. His work transforms conservation into cinema: raw, honest stories that travel far beyond the deck.",
-    "crew.blong3":"Old Salt holds it all together — on the water and off it. As Captain and Executive Producer, he brings decades of seamanship and the vision to build something that lasts. He has sailed storms no chart could predict, and carries every one of those miles with quiet authority.",
+    "crew.blong3":"Capt. Peter Brucha holds it all together — on the water and off it. As Captain and Executive Producer, he brings decades of seamanship and the vision to build something that lasts. He has sailed storms no chart could predict, and carries every one of those miles with quiet authority.",
     "crew.readmore":"Read more",
     "crew.eyebrow":"A New Adventure Is Coming","crew.title":"Meet the Crew — On Screen",
     "crew.p1":"Behind every expedition stands a crew of explorers, scientists and storytellers. Soon, their voyages step off the deck and onto the screen — a brand-new reality adventure series following the Pirate Challenge crew as they sail, dive and fight to save our oceans, one wave at a time.",
@@ -1287,7 +1413,7 @@ const dict = {
   de:{
     "sound.toggle":"Soundtrack",
     "hero.scene":"Drohne — Offenes Meer","hero.scene2":"Unterwasser — Riff-Licht","hero.scene3":"Sonnenuntergang — Horizont",
-    "nav.about":"Über uns","nav.services":"Angebote","nav.invest":"Investition","nav.testimonials":"Stimmen","nav.contact":"Kontakt",
+    "nav.home":"HOME","nav.crew":"CREW","nav.show":"DIE SHOW","nav.news":"NEWS","nav.invest":"INVESTITION","nav.impressum":"IMPRESSUM","nav.about":"Über uns","nav.services":"Angebote","nav.testimonials":"Stimmen","nav.contact":"Kontakt","hero.show":"Die Show",
     "hero.eyebrow":"Ein Ozean-Erlebnis mit echtem Sinn",
     "hero.title1":"Aye Maties","hero.title2":"Pirate Challenge",
     "hero.sub":"Eine immersive Reise, bei der Abenteuer auf Sinn trifft — sie vereint Entdecker, Träumer und Macher im Schutz der Ozeane, die uns alle verbinden.",
@@ -1337,7 +1463,7 @@ const dict = {
     "crew.r10":"Unterwasserfilmer","crew.b10":"Jagt Licht und Leben unter den Wellen — und bringt Aufnahmen mit, die mehr sagen als Worte.",
     "crew.blong1":"Pia gestaltet, wie Aye Maties mit der Welt spricht. Von Social-Media-Strategie bis Markenidentität trägt jede Kampagne dieselbe Dringlichkeit wie die Missionen selbst. Sie vermarktet nicht nur den Ozean — sie kämpft für ihn.",
     "crew.blong2":"Dino stand jahrelang mit der Kamera auf See — regie führend, produzierend und schneidend. Seine Arbeit macht Meeresschutz zu Kino: ehrliche Geschichten, die weit über das Deck hinaus wirken.",
-    "crew.blong3":"Old Salt hält alles zusammen — auf dem Wasser und daneben. Als Kapitän und Executive Producer bringt er Jahrzehnte Seefahrt und die Vision mit, etwas Bleibendes zu schaffen.",
+    "crew.blong3":"Capt. Peter Brucha hält alles zusammen — auf dem Wasser und daneben. Als Kapitän und Executive Producer bringt er Jahrzehnte Seefahrt und die Vision mit, etwas Bleibendes zu schaffen.",
     "crew.readmore":"Mehr erfahren",
     "crew.eyebrow":"Ein neues Abenteuer kommt","crew.title":"Lerne die Crew kennen — auf dem Bildschirm",
     "crew.p1":"Hinter jeder Expedition steht eine Crew aus Entdeckern, Wissenschaftlern und Geschichtenerzählern. Bald verlassen ihre Reisen das Deck und erreichen den Bildschirm — eine brandneue Abenteuer-Realityserie, die die Pirate-Challenge-Crew begleitet, während sie segelt, taucht und für unsere Ozeane kämpft, eine Welle nach der anderen.",
@@ -1369,7 +1495,7 @@ const dict = {
   es:{
     "sound.toggle":"Soundtrack",
     "hero.scene":"Drone — Mar abierto","hero.scene2":"Bajo el agua — Luz de arrecife","hero.scene3":"Atardecer — Horizonte",
-    "nav.about":"Nosotros","nav.services":"Servicios","nav.invest":"Inversión","nav.testimonials":"Voces","nav.contact":"Contacto",
+    "nav.home":"HOME","nav.crew":"TRIPULACION","nav.show":"EL SHOW","nav.news":"NOTICIAS","nav.invest":"INVERSION","nav.impressum":"IMPRESSUM","nav.about":"Nosotros","nav.services":"Servicios","nav.testimonials":"Voces","nav.contact":"Contacto","hero.show":"El Show",
     "hero.eyebrow":"Una experiencia audaz para la conservación del océano",
     "hero.title1":"Aye Maties","hero.title2":"Pirate Challenge",
     "hero.sub":"Un viaje inmersivo donde la aventura encuentra el propósito — uniendo exploradores, soñadores y agentes de cambio para proteger los océanos que nos conectan a todos.",
@@ -1419,7 +1545,7 @@ const dict = {
     "crew.r10":"Camarógrafo submarino","crew.b10":"Persigue la luz y la vida bajo las olas, trayendo imágenes que dicen más que las palabras.",
     "crew.blong1":"Pia lidera la voz de Aye Maties en el mundo. Desde estrategia en redes hasta identidad de marca, cada campaña lleva la misma urgencia que las misiones. No solo comunica el océano — lo defiende.",
     "crew.blong2":"Dino lleva años detrás de la cámara en el mar — dirigiendo, produciendo y editando imágenes que transforman la conservación en cine: historias honestas que van mucho más allá de la cubierta.",
-    "crew.blong3":"Old Salt lo sostiene todo. Como Capitán y Productor Ejecutivo, aporta décadas de navegación y la visión para construir algo duradero.",
+    "crew.blong3":"Capt. Peter Brucha lo sostiene todo. Como Capitán y Productor Ejecutivo, aporta décadas de navegación y la visión para construir algo duradero.",
     "crew.readmore":"Leer más",
     "crew.eyebrow":"Llega una nueva aventura","crew.title":"Conoce a la tripulación — en pantalla",
     "crew.p1":"Detrás de cada expedición hay una tripulación de exploradores, científicos y narradores. Pronto, sus travesías saltarán de la cubierta a la pantalla — una nueva serie de aventuras de telerrealidad que sigue a la tripulación del Pirate Challenge mientras navega, bucea y lucha por salvar nuestros océanos, ola tras ola.",
@@ -1451,7 +1577,7 @@ const dict = {
   fr:{
     "sound.toggle":"Soundtrack",
     "hero.scene":"Drone — Mer ouverte","hero.scene2":"Sous l'eau — Lumière du récif","hero.scene3":"Coucher de soleil — Horizon",
-    "nav.about":"À propos","nav.services":"Services","nav.invest":"Investissement","nav.testimonials":"Voix","nav.contact":"Contact",
+    "nav.home":"HOME","nav.crew":"EQUIPAGE","nav.show":"LE SHOW","nav.news":"ACTUALITES","nav.invest":"INVESTISSEMENT","nav.impressum":"IMPRESSUM","nav.about":"A propos","nav.services":"Services","nav.testimonials":"Voix","nav.contact":"Contact","hero.show":"Le Show",
     "hero.eyebrow":"Une expérience audacieuse pour la préservation des océans",
     "hero.title1":"Aye Maties","hero.title2":"Pirate Challenge",
     "hero.sub":"Un voyage immersif où l'aventure rencontre le sens — réunissant explorateurs, rêveurs et acteurs du changement pour protéger les océans qui nous unissent tous.",
@@ -1501,7 +1627,7 @@ const dict = {
     "crew.r10":"Cinéaste sous-marin","crew.b10":"Traque la lumière et la vie sous les vagues, ramenant des images qui parlent plus fort que les mots.",
     "crew.blong1":"Pia façonne la voix d'Aye Maties dans le monde. De la stratégie réseaux à l'identité de marque, chaque campagne porte la même urgence que les missions. Elle ne fait pas que promouvoir l'océan — elle le défend.",
     "crew.blong2":"Dino passe depuis des années derrière l'objectif en mer — réalisant, produisant et montant des images qui transforment la conservation en cinéma : des histoires honnêtes qui voyagent bien au-delà du pont.",
-    "crew.blong3":"Old Salt tient tout ensemble. Capitaine et Producteur Exécutif, il apporte des décennies de navigation et la vision de construire quelque chose qui dure.",
+    "crew.blong3":"Capt. Peter Brucha tient tout ensemble. Capitaine et Producteur Exécutif, il apporte des décennies de navigation et la vision de construire quelque chose qui dure.",
     "crew.readmore":"En savoir plus",
     "crew.eyebrow":"Une nouvelle aventure arrive","crew.title":"Découvrez l'équipage — à l'écran",
     "crew.p1":"Derrière chaque expédition se trouve un équipage d'explorateurs, de scientifiques et de conteurs. Bientôt, leurs voyages quittent le pont pour l'écran — une toute nouvelle série de téléréalité d'aventure suivant l'équipage du Pirate Challenge alors qu'il navigue, plonge et se bat pour sauver nos océans, vague après vague.",
@@ -1530,6 +1656,22 @@ const dict = {
     "footer.address":"Hafenstraße 12, 20457 Hambourg, Allemagne","footer.lang":"Langue",
     "footer.rights":"Tous droits réservés.","footer.crafted":"Conçu avec révérence pour la mer."
   }
+,
+  pt:{"sound.toggle":"Soundtrack","nav.home":"INICIO","nav.crew":"TRIPULACAO","nav.show":"O SHOW","nav.news":"NOTICIAS","nav.invest":"INVESTIMENTO","nav.impressum":"IMPRESSUM","hero.eyebrow":"UMA SERIE ORIGINAL SAIL WISELY","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"Uma viagem imersiva onde aventura encontra proposito.","hero.cta":"Iniciar a Viagem","hero.scroll":"Rolar","hero.story":"Nossa Historia","hero.crew":"Nossa Tripulacao","hero.show":"O Show","about.eyebrow":"Nossa Historia","about.title":"Uma Tripulacao Unida pelo Mar","goals.eyebrow":"Para Onde Vamos","goals.title":"Nossos Objetivos para os Proximos Dez Anos","footer.tag":"Uma experiencia ousada de conservacao dos oceanos.","footer.rights":"Todos os direitos reservados.","footer.crafted":"Criado com reverencia pelo mar."},
+  it:{"sound.toggle":"Colonna Sonora","nav.home":"HOME","nav.crew":"EQUIPAGGIO","nav.show":"LO SHOW","nav.news":"NOTIZIE","nav.invest":"INVESTIMENTO","nav.impressum":"IMPRESSUM","hero.eyebrow":"UNA SERIE ORIGINALE SAIL WISELY","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"Un viaggio immersivo dove avventura e scopo si incontrano.","hero.cta":"Inizia il Viaggio","hero.scroll":"Scorri","hero.story":"La Nostra Storia","hero.crew":"Il Nostro Equipaggio","hero.show":"Lo Show","about.eyebrow":"La Nostra Storia","about.title":"Un Equipaggio Unito dal Mare","goals.eyebrow":"Dove Siamo Diretti","goals.title":"I Nostri Obiettivi per i Prossimi Dieci Anni","footer.tag":"Un audace esperienza di conservazione degli oceani.","footer.rights":"Tutti i diritti riservati.","footer.crafted":"Creato con riverenza per il mare."},
+  nl:{"sound.toggle":"Soundtrack","nav.home":"HOME","nav.crew":"BEMANNING","nav.show":"DE SHOW","nav.news":"NIEUWS","nav.invest":"INVESTERING","nav.impressum":"IMPRESSUM","hero.eyebrow":"EEN SAIL WISELY ORIGINELE SERIE","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"Een meeslepende reis waar avontuur doel ontmoet.","hero.cta":"Begin de Reis","hero.scroll":"Scrollen","hero.story":"Ons Verhaal","hero.crew":"Onze Bemanning","hero.show":"De Show","about.eyebrow":"Ons Verhaal","about.title":"Een Bemanning Verbonden door de Zee","goals.eyebrow":"Onze Koers","goals.title":"Onze Doelen voor de Komende Tien Jaar","footer.tag":"Een gedurfde oceaanconserveringservaring.","footer.rights":"Alle rechten voorbehouden.","footer.crafted":"Gemaakt met eerbied voor de zee."},
+  ru:{"sound.toggle":"Soundtrack","nav.home":"GLAVN","nav.crew":"KOMANDA","nav.show":"SHO","nav.news":"NOVOSTI","nav.invest":"INVEST","nav.impressum":"IMPRESSUM","hero.eyebrow":"SAIL WISELY ORIGINAL SERIES","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"Puteshestviye gde priklyucheniye vstrechayet tsel.","hero.cta":"Nachat","hero.scroll":"Prokrutit","hero.story":"Nasha Istoriya","hero.crew":"Nasha Komanda","hero.show":"Sho","about.eyebrow":"Nasha Istoriya","about.title":"Komanda svyazannaya morem","goals.eyebrow":"Nash Kurs","goals.title":"Nashi tseli na sleduyushchiye desyat let","footer.tag":"Smeliy opyt okhrany okeanov.","footer.rights":"Vse prava zashchishcheny.","footer.crafted":"Sozdano s uvazheniyem k moryu."},
+  pl:{"sound.toggle":"Soundtrack","nav.home":"STRONA","nav.crew":"ZALOGA","nav.show":"SHOW","nav.news":"AKTUALNOSCI","nav.invest":"INWESTYCJA","nav.impressum":"IMPRESSUM","hero.eyebrow":"ORYGINALNY SERIAL SAIL WISELY","hero.title1":"Aye Maties","hero.title2":"Pirackie Wyzwanie","hero.sub":"Immersyjna podroz, gdzie przygoda spotyka cel.","hero.cta":"Rozpocznij Podroz","hero.scroll":"Przewin","hero.story":"Nasza Historia","hero.crew":"Nasza Zaloga","hero.show":"Show","about.eyebrow":"Nasza Historia","about.title":"Zaloga Zjednoczona przez Morze","goals.eyebrow":"Nasz Kurs","goals.title":"Nasze Cele na Najblizsze Dziesiec Lat","footer.tag":"Odwazne doswiadczenie ochrony oceanow.","footer.rights":"Wszelkie prawa zastrzezone.","footer.crafted":"Stworzone z szacunkiem dla morza."},
+  sv:{"sound.toggle":"Soundtrack","nav.home":"HEM","nav.crew":"BESATTNING","nav.show":"SHOWEN","nav.news":"NYHETER","nav.invest":"INVESTERING","nav.impressum":"IMPRESSUM","hero.eyebrow":"EN SAIL WISELY ORIGINALSERIE","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"En uppslukande resa dar aventyr moter syfte.","hero.cta":"Paborja Resan","hero.scroll":"Scrolla","hero.story":"Var Historia","hero.crew":"Var Besattning","hero.show":"Showen","about.eyebrow":"Var Historia","about.title":"En Besattning Forenad av Havet","goals.eyebrow":"Var Kurs","goals.title":"Vara Mal for de Kommande Tio Aren","footer.tag":"En djarv upplevelse for bevarande av haven.","footer.rights":"Alla rattigheter forbehallna.","footer.crafted":"Skapad med vordnad for havet."},
+  no:{"sound.toggle":"Soundtrack","nav.home":"HJEM","nav.crew":"MANNSKAP","nav.show":"SHOWET","nav.news":"NYHETER","nav.invest":"INVESTERING","nav.impressum":"IMPRESSUM","hero.eyebrow":"EN SAIL WISELY ORIGINALSERIE","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"En oppslukende reise der eventyr moter formal.","hero.cta":"Start Reisen","hero.scroll":"Rull ned","hero.story":"Var Historie","hero.crew":"Vart Mannskap","hero.show":"Showet","about.eyebrow":"Var Historie","about.title":"Et Mannskap Bundet av Havet","goals.eyebrow":"Var Kurs","goals.title":"Vare Mal for de Neste Ti Arene","footer.tag":"En dristig opplevelse for bevaring av havene.","footer.rights":"Alle rettigheter forbeholdt.","footer.crafted":"Laget med aerefrykt for havet."},
+  da:{"sound.toggle":"Soundtrack","nav.home":"HJEM","nav.crew":"BESAETNING","nav.show":"SHOWET","nav.news":"NYHEDER","nav.invest":"INVESTERING","nav.impressum":"IMPRESSUM","hero.eyebrow":"EN SAIL WISELY ORIGINALSERIE","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"En fordybende rejse, hvor eventyr moder formal.","hero.cta":"Start Rejsen","hero.scroll":"Rul ned","hero.story":"Vores Historie","hero.crew":"Vores Besaetning","hero.show":"Showet","about.eyebrow":"Vores Historie","about.title":"En Besaetning Bundet af Havet","goals.eyebrow":"Vores Kurs","goals.title":"Vores Mal for de Naeste Ti Ar","footer.tag":"En dristig oplevelse for bevarelse af havene.","footer.rights":"Alle rettigheder forbeholdes.","footer.crafted":"Skabt med aerefrygt for havet."},
+  tr:{"sound.toggle":"Soundtrack","nav.home":"ANA SAYFA","nav.crew":"EKIP","nav.show":"GOSTERI","nav.news":"HABERLER","nav.invest":"YATIRIM","nav.impressum":"IMPRESSUM","hero.eyebrow":"BIR SAIL WISELY ORIJINAL SERISI","hero.title1":"Aye Maties","hero.title2":"Korsan Mucadelesi","hero.sub":"Maceranin amacla bulustu survukleyici bir yolculuk.","hero.cta":"Yolculuga Basla","hero.scroll":"Kaydir","hero.story":"Hikayemiz","hero.crew":"Ekibimiz","hero.show":"Gosteri","about.eyebrow":"Hikayemiz","about.title":"Denizle Bagli Bir Ekip","goals.eyebrow":"Yonumuz","goals.title":"Onumuzdeki On Yil Icin Hedeflerimiz","footer.tag":"Okyanuslar icin cesur bir deneyim.","footer.rights":"Tum haklari saklidir.","footer.crafted":"Denize saygiyla hazirlanmistir."},
+  zh:{"sound.toggle":"yuansheng","nav.home":"shouye","nav.crew":"chuanyuan","nav.show":"jiemu","nav.news":"xinwen","nav.invest":"touzi","nav.impressum":"banquan","hero.eyebrow":"SAIL WISELY yuanchuang xilie","hero.title1":"Aye Maties","hero.title2":"haodao tiaozhan","hero.sub":"maoxian yu shiming jiaozhide chengjin lvcheng","hero.cta":"kaishi hangxing","hero.scroll":"gundong","hero.story":"womenDe gushi","hero.crew":"womenDe chuanyuan","hero.show":"jiemu","about.eyebrow":"womenDe gushi","about.title":"yi hai wei niudai De chuanyuan","goals.eyebrow":"womenDe fangxiang","goals.title":"weilai shinian de mubiao","footer.tag":"baohu haiyang de dahdan tiyan","footer.rights":"baoliu suoyou quanli","footer.crafted":"yi dui haiyang De jingwei zhixin jingxin dazao"},
+  ja:{"sound.toggle":"Soundtrack","nav.home":"HOME","nav.crew":"CREW","nav.show":"SHOW","nav.news":"NEWS","nav.invest":"TOSHI","nav.impressum":"IMPRESSUM","hero.eyebrow":"SAIL WISELY ORIGINAL SERIES","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"Bouken to shimei ga majiawaru shinnyuugata no kokai","hero.cta":"Koukai wo hajimeru","hero.scroll":"Scroll","hero.story":"Watashitachi no Sutoorii","hero.crew":"Kuru","hero.show":"Shoo","about.eyebrow":"Watashitachi no Sutoorii","about.title":"Umi de musubareta kuru","goals.eyebrow":"Watashitachi no shinro","goals.title":"Kongo 10 nenkan no mokuhyou","footer.tag":"Kaiyo hogo no tame no daitan na taiken","footer.rights":"All rights reserved","footer.crafted":"Umi e no keii wo komete seisaku"},
+  ko:{"sound.toggle":"Soundtrack","nav.home":"HOME","nav.crew":"CREW","nav.show":"SHOW","nav.news":"NEWS","nav.invest":"TUJA","nav.impressum":"IMPRESSUM","hero.eyebrow":"SAIL WISELY ORIGINAL SERIES","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"Moheom gwa mokjeogi mannaneun molipsyeong hanghae","hero.cta":"Hanghae sijak","hero.scroll":"Seukeurol","hero.story":"Uriui iyagi","hero.crew":"Uri kuru","hero.show":"Syo","about.eyebrow":"Uriui iyagi","about.title":"Badaro yeongyeoldoen kuru","goals.eyebrow":"Uriui bangyang","goals.title":"Hyang hu 10 nyeon mokpyo","footer.tag":"Haeyang bojo reul wihan daedamhan gyeongheom","footer.rights":"Modeun gwonri boyu","footer.crafted":"Bada e daehan gyeongoeusim euro jejakdoem"},
+  ar:{"sound.toggle":"Soundtrack","nav.home":"alrayisiya","nav.crew":"altaqm","nav.show":"alarad","nav.news":"alakhbar","nav.invest":"istithmar","nav.impressum":"qanuni","hero.eyebrow":"silsila aslia min SAIL WISELY","hero.title1":"Aye Maties","hero.title2":"tahaddi alqarasina","hero.sub":"rihlat ghamira haythu tatalaqa almughamera bilhadaf","hero.cta":"ibda alrihla","hero.scroll":"tamrir","hero.story":"qissatuna","hero.crew":"taqmuna","hero.show":"alarad","about.eyebrow":"qissatuna","about.title":"taqm mutahid bilbahr","goals.eyebrow":"wihhatuna","goals.title":"ahdafuna lil sanawat alashr alqadima","footer.tag":"tajruba jaria lihmayat almuhtit","footer.rights":"jami alhquq mahfuza","footer.crafted":"suni biihtiram lilbahr"},
+  hi:{"sound.toggle":"Soundtrack","nav.home":"HOME","nav.crew":"DAL","nav.show":"SHOW","nav.news":"SAMACHAR","nav.invest":"NIVESH","nav.impressum":"IMPRESSUM","hero.eyebrow":"SAIL WISELY MOOL SHRINKHALA","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"Ek romanchak yatra jahan sahas uddeshya se milta hai","hero.cta":"Yatra shuru karen","hero.scroll":"Scroll kare","hero.story":"Humari kahani","hero.crew":"Humara dal","hero.show":"Show","about.eyebrow":"Humari kahani","about.title":"Samudra se juda ek dal","goals.eyebrow":"Humari disha","goals.title":"Agle das varshon ke liye hamare lakshya","footer.tag":"Mahasagar sanrakshan ke liye ek sahasi anubhav","footer.rights":"Sarvaadhikar surakshit","footer.crafted":"Samudra ke prati aadar ke saath banaya gaya"},
+  id:{"sound.toggle":"Soundtrack","nav.home":"BERANDA","nav.crew":"AWAK","nav.show":"PERTUNJUKAN","nav.news":"BERITA","nav.invest":"INVESTASI","nav.impressum":"IMPRESSUM","hero.eyebrow":"SERIAL ORISINAL SAIL WISELY","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"Perjalanan imersif di mana petualangan bertemu tujuan.","hero.cta":"Mulai Perjalanan","hero.scroll":"Gulir","hero.story":"Kisah Kami","hero.crew":"Awak Kami","hero.show":"Pertunjukan","about.eyebrow":"Kisah Kami","about.title":"Awak yang Disatukan oleh Laut","goals.eyebrow":"Ke Mana Kami Menuju","goals.title":"Tujuan Kami untuk Sepuluh Tahun ke Depan","footer.tag":"Pengalaman konservasi laut yang berani.","footer.rights":"Semua hak dilindungi.","footer.crafted":"Dibuat dengan penghormatan terhadap laut."}
 };
 
 let currentLang = localStorage.getItem('aym_lang') || 'en';
@@ -1595,23 +1737,27 @@ if(document.readyState === 'complete'){ startLoader(); }
 else{ window.addEventListener('load', startLoader); }
 setTimeout(()=>{ if(!document.getElementById('loader').classList.contains('hide')) startLoader(); }, 3500);
 
-/* ---------------- Custom cursor: dot, ring, glow, trail ---------------- */
-const cursor = document.querySelector('.cursor');
-const ring = document.querySelector('.cursor-ring');
+/* ---------------- Compass cursor ─────────────────────────────────────── */
+const compassEl = document.getElementById('cursorCompass');
 const glow = document.querySelector('.cursor-glow');
-let mx=0,my=0,rx=0,ry=0,gx=0,gy=0;
+let mx=0,my=0,gx=0,gy=0,compassAngle=0;
 window.addEventListener('mousemove', e=>{
   mx=e.clientX; my=e.clientY;
-  cursor.style.left=mx+'px'; cursor.style.top=my+'px';
+  compassEl.style.left=mx+'px'; compassEl.style.top=my+'px';
 });
-function loopRing(){
-  rx += (mx-rx)*0.14; ry += (my-ry)*0.14;
-  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+window.addEventListener('click',()=>{
+  compassEl.classList.add('click-pulse');
+  setTimeout(()=>compassEl.classList.remove('click-pulse'),300);
+});
+function loopCompass(){
+  compassAngle += 0.03;
+  const inner = compassEl.querySelector('svg');
+  if(inner) inner.style.transform='rotate('+compassAngle+'deg)';
   gx += (mx-gx)*0.07; gy += (my-gy)*0.07;
   glow.style.left=gx+'px'; glow.style.top=gy+'px';
-  requestAnimationFrame(loopRing);
+  requestAnimationFrame(loopCompass);
 }
-loopRing();
+loopCompass();
 
 /* cursor trail — soft particle wake */
 const trailCanvas = document.getElementById('cursorTrail');
@@ -2138,6 +2284,208 @@ document.querySelectorAll('.magnetic').forEach(btn=>{
     btn.style.filter = 'brightness(1)';
   });
 });
+
+/* ═══════════════════ SPA ROUTING ════════════════════════════════════════ */
+const PAGES = ['home','crew','show','news','invest','impressum'];
+let currentPage = 'home';
+
+function showPage(pageId){
+  if(!PAGES.includes(pageId)) pageId='home';
+  PAGES.forEach(p=>{
+    const el = document.getElementById('page-'+p);
+    if(el){ el.classList.remove('active'); el.style.display='none'; }
+  });
+  const target = document.getElementById('page-'+pageId);
+  if(target){ target.classList.add('active'); target.style.display='block'; }
+  currentPage = pageId;
+  document.querySelectorAll('nav.links a[data-page]').forEach(a=>{
+    a.classList.toggle('spa-active', a.getAttribute('data-page')===pageId);
+  });
+  window.scrollTo(0,0);
+  if(pageId !== 'home'){
+    const scFrame = document.getElementById('scFrame');
+    if(scFrame) scFrame.style.display='none';
+    const st = document.getElementById('soundToggle');
+    if(st){st.classList.remove('on');st.setAttribute('aria-pressed','false');}
+  } else {
+    const scFrame = document.getElementById('scFrame');
+    if(scFrame) scFrame.style.display='';
+  }
+  if(pageId==='show') initShowPage();
+  if(pageId==='crew') initCrewPage();
+  if(pageId==='news') initNewsPage();
+  setTimeout(()=>{
+    document.querySelectorAll('#page-'+pageId+' [data-reveal]').forEach(el=>{
+      el.classList.add('in');
+    });
+  }, 100);
+  history.pushState(null, '', '#'+pageId);
+}
+
+function routeFromHash(){
+  const hash = window.location.hash.replace('#','') || 'home';
+  showPage(hash);
+}
+window.addEventListener('hashchange', routeFromHash);
+
+document.querySelectorAll('nav.links a[data-page]').forEach(a=>{
+  a.addEventListener('click', e=>{ e.preventDefault(); showPage(a.getAttribute('data-page')); });
+});
+
+document.querySelector('.logo').addEventListener('click', e=>{ e.preventDefault(); showPage('home'); });
+
+function smoothScrollTo(selector){
+  if(currentPage!=='home') showPage('home');
+  setTimeout(()=>{
+    const el = document.querySelector(selector);
+    if(el) el.scrollIntoView({behavior:'smooth'});
+  }, 50);
+}
+
+/* ─── Show Page ─────────────────────────────────────────────────────────── */
+function initShowPage(){
+  const fill = document.getElementById('showLoadFill');
+  const txt1 = document.getElementById('showRevealText1');
+  const sub = document.getElementById('showSubText');
+  const heading = document.getElementById('showMainHeading');
+  const socials = document.getElementById('showSocials');
+  if(fill){ fill.style.transition='none'; fill.style.width='0'; requestAnimationFrame(()=>{ fill.style.transition='width 4s cubic-bezier(.22,1,.36,1)'; }); fill.classList.remove('go'); }
+  if(txt1){ txt1.innerHTML=''; txt1.style.opacity='1'; }
+  if(sub){ sub.classList.remove('in'); sub.style.opacity='0'; }
+  if(heading) heading.classList.remove('in');
+  if(socials) socials.classList.remove('in');
+  setTimeout(()=>{ if(fill) fill.classList.add('go'); }, 200);
+  setTimeout(()=>{
+    const msg = 'WE CANNOT TELL YOU YET.';
+    if(txt1){
+      txt1.innerHTML='';
+      [...msg].forEach((ch,i)=>{
+        const s = document.createElement('span');
+        s.textContent = ch===' '?String.fromCharCode(160):ch;
+        txt1.appendChild(s);
+        setTimeout(()=>s.classList.add('in'), i*60);
+      });
+    }
+    setTimeout(()=>{ if(sub) sub.classList.add('in'); }, msg.length*60+400);
+    setTimeout(()=>{
+      if(txt1) txt1.style.opacity='0';
+      if(sub) sub.style.opacity='0';
+      setTimeout(()=>{
+        if(heading) heading.classList.add('in');
+        setTimeout(()=>{ if(socials) socials.classList.add('in'); }, 800);
+      }, 1000);
+    }, msg.length*60+3000);
+  }, 4400);
+}
+
+/* ─── Crew Page ──────────────────────────────────────────────────────────── */
+function initCrewPage(){
+  const headline = document.getElementById('crewPageHeadline');
+  if(!headline) return;
+  const text = 'THE CREW';
+  headline.innerHTML='';
+  [...text].forEach((ch,i)=>{
+    const s = document.createElement('span');
+    s.className='ch';
+    s.textContent = ch===' '?String.fromCharCode(160):ch;
+    headline.appendChild(s);
+    setTimeout(()=>s.classList.add('in'), 100+i*60);
+  });
+  document.querySelectorAll('#page-crew .cfeature').forEach(card=>{
+    card.addEventListener('click',()=>{
+      const isA = card.classList.contains('active');
+      document.querySelectorAll('#page-crew .cfeature').forEach(c=>c.classList.remove('active'));
+      if(!isA) card.classList.add('active');
+    });
+  });
+}
+
+/* ─── News Page ──────────────────────────────────────────────────────────── */
+function initNewsPage(){
+  const now = new Date();
+  const dateEl = document.getElementById('newsDate');
+  if(dateEl) dateEl.textContent = now.toLocaleDateString('en-GB',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  const seed = now.getFullYear()*10000 + (now.getMonth()+1)*100 + now.getDate();
+  function seededRand(s){ let x=Math.sin(s)*10000; return x-Math.floor(x); }
+  const plasticVar = Math.floor(8000000 * (0.95 + seededRand(seed)*0.10));
+  const jan1 = new Date(now.getFullYear(),0,1);
+  const daysThisYear = Math.floor((now-jan1)/(1000*60*60*24));
+  const coralTotal = Math.floor(daysThisYear * 50 * (0.9+seededRand(seed+1)*0.2));
+  function animCounter(el,target){
+    if(!el) return;
+    const dur=2000, start=performance.now();
+    function tick(t2){
+      const p=Math.min(1,(t2-start)/dur);
+      const val=Math.floor(p*target);
+      el.textContent = val>=1000000 ? (val/1000000).toFixed(2)+'M' : val.toLocaleString();
+      if(p<1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  setTimeout(()=>{
+    animCounter(document.getElementById('newsPlastic'), plasticVar);
+    animCounter(document.getElementById('newsCoral'), coralTotal);
+  }, 300);
+}
+
+/* ─── Treasure Map (Three.js) ────────────────────────────────────────────── */
+(function initTreasureMap(){
+  const canvas = document.getElementById('treasureMapCanvas');
+  if(!canvas || typeof THREE==='undefined') return;
+  const container = canvas.parentElement;
+  const W = container.offsetWidth || 800, H = container.offsetHeight || 480;
+  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:false});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  renderer.setSize(W,H);
+  renderer.setClearColor(0x050b13,1);
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, W/H, 0.1, 1000);
+  camera.position.set(0,0,5);
+  const gridMat = new THREE.LineBasicMaterial({color:0x1a3040,opacity:.4,transparent:true});
+  for(let i=-10;i<=10;i++){
+    scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-10,i*0.5,0),new THREE.Vector3(10,i*0.5,0)]),gridMat));
+    scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(i,-5,0),new THREE.Vector3(i,5,0)]),gridMat));
+  }
+  const minLat=4,maxLat=26,minLon=-89,maxLon=-71;
+  function mapToScene(lat,lon){ return new THREE.Vector3(((lon-minLon)/(maxLon-minLon))*6-3,((lat-minLat)/(maxLat-minLat))*4-2,0); }
+  const positions=[mapToScene(25.048,-77.3554),mapToScene(20.0833,-72.8167),mapToScene(5.5333,-87.0667)];
+  const lineMat=new THREE.LineDashedMaterial({color:0xd8b873,dashSize:.15,gapSize:.1,opacity:.5,transparent:true});
+  [[0,1],[1,2],[0,2]].forEach(([a,b])=>{
+    const line=new THREE.Line(new THREE.BufferGeometry().setFromPoints([positions[a],positions[b]]),lineMat);
+    line.computeLineDistances(); scene.add(line);
+  });
+  const markerData=positions.map((pos,i)=>{
+    const geo=new THREE.CircleGeometry(.08,32);
+    const mesh=new THREE.Mesh(geo,new THREE.MeshBasicMaterial({color:0xd8b873}));
+    mesh.position.copy(pos); scene.add(mesh);
+    const rGeo=new THREE.RingGeometry(.1,.14,32);
+    const rMat=new THREE.MeshBasicMaterial({color:0xd8b873,opacity:.6,transparent:true,side:THREE.DoubleSide});
+    const ring=new THREE.Mesh(rGeo,rMat);
+    ring.position.copy(pos); scene.add(ring);
+    return {ring,rMat,pos,phase:i*Math.PI*0.67};
+  });
+  const labels=[document.getElementById('tm-label-1'),document.getElementById('tm-label-2'),document.getElementById('tm-label-3')];
+  let mouseX=0,mouseY=0;
+  container.addEventListener('mousemove',e=>{ const r=container.getBoundingClientRect(); mouseX=(e.clientX-r.left)/r.width*2-1; mouseY=-((e.clientY-r.top)/r.height)*2+1; });
+  window.addEventListener('resize',()=>{ const nW=container.offsetWidth,nH=container.offsetHeight; renderer.setSize(nW,nH); camera.aspect=nW/nH; camera.updateProjectionMatrix(); });
+  let t=0,running=false;
+  function animTM(){
+    requestAnimationFrame(animTM);
+    t+=0.016;
+    camera.position.x+=(mouseX*0.3-camera.position.x)*0.04;
+    camera.position.y+=(mouseY*0.2-camera.position.y)*0.04;
+    camera.lookAt(0,0,0);
+    markerData.forEach(({ring,rMat,phase})=>{ const s=1+0.4*Math.sin(t*2+phase); ring.scale.set(s,s,1); rMat.opacity=0.3+0.3*Math.sin(t*2+phase); });
+    renderer.render(scene,camera);
+    const rect=canvas.getBoundingClientRect();
+    markerData.forEach(({pos},i)=>{ const v=pos.clone().project(camera); if(labels[i]){ labels[i].style.left=((v.x+1)/2*rect.width+rect.left+14)+'px'; labels[i].style.top=((-v.y+1)/2*rect.height+rect.top-20)+'px'; labels[i].classList.add('show'); } });
+  }
+  const obs=new IntersectionObserver(entries=>{ if(entries[0].isIntersecting&&!running){running=true;animTM();} },{threshold:.1});
+  obs.observe(canvas);
+})();
+
+/* ─── Init routing ────────────────────────────────────────────────────────── */
+routeFromHash();
 
 /* Apply initial language */
 applyLang(currentLang);
