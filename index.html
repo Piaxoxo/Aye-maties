@@ -1934,6 +1934,7 @@ function drawTrail(){
 drawTrail();
 
 /* hover states + magnetic distortion on interactive elements */
+const ring = document.querySelector('.cursor-ring') || {classList:{add:()=>{},remove:()=>{}}};
 document.querySelectorAll('a,button,.scard,.tcard').forEach(el=>{
   el.addEventListener('mouseenter', ()=>{
     ring.classList.add('big'); cursor.style.background='var(--gold)';
