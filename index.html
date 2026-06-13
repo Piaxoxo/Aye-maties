@@ -780,9 +780,43 @@
   /* Alternate section backgrounds */
   section:nth-child(even){background:linear-gradient(180deg,rgba(255,255,255,.01) 0%,transparent 100%);}
 
+
+#page-wipe{
+  position:fixed;inset:0;background:var(--deep,#040a12);
+  z-index:9998;transform:translateX(-110%);pointer-events:none;
+  transition:transform .5s cubic-bezier(.76,0,.24,1);
+}
+#page-wipe.entering{transform:translateX(0%);}
+#page-wipe.exiting{transform:translateX(110%);}
+
+
+.crew-card::before, .news-card::before, .goal-card::before {
+  content:'';position:absolute;inset:-1px;border-radius:inherit;
+  background: conic-gradient(from var(--angle,0deg), transparent 70%, rgba(216,184,115,.6) 85%, transparent 100%);
+  z-index:-1;opacity:0;transition:opacity .3s;
+}
+@property --angle { syntax:'<angle>'; initial-value:0deg; inherits:false; }
+@keyframes spin { to{--angle:360deg;} }
+.crew-card:hover::before, .news-card:hover::before, .goal-card:hover::before {
+  opacity:1;animation:spin 3s linear infinite;
+}
+.crew-card, .news-card, .goal-card {
+  position:relative;
+}
+
+
+@keyframes floatUp{
+  0%{transform:translateY(0) translateX(0);opacity:0;}
+  10%{opacity:1;}
+  90%{opacity:.3;}
+  100%{transform:translateY(-100vh) translateX(var(--drift,20px));opacity:0;}
+}
+.particles{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:3;}
+
 </style>
 </head>
 <body>
+<div id="page-wipe"></div>
 
 <canvas id="cursorTrail"></canvas>
 <button id="soundToggle" class="sound-toggle" aria-label="Toggle ocean sound" aria-pressed="false">
@@ -912,6 +946,7 @@
       <span id="heroBgLabel" data-i18n="hero.scene">Drone — Open Water</span>
     </button>
     <canvas id="particles"></canvas>
+    <div class="particles" aria-hidden="true"></div>
     <div class="rays" id="rays"></div>
     <div class="hero-grain" aria-hidden="true"></div>
     <div class="hero-flag" data-depth="0.4" aria-hidden="true">
@@ -2403,37 +2438,45 @@ document.querySelectorAll('.magnetic').forEach(btn=>{
 const PAGES = ['home','crew','show','news','invest','impressum'];
 let currentPage = 'home';
 
-function showPage(pageId){
-  if(!PAGES.includes(pageId)) pageId='home';
-  PAGES.forEach(p=>{
-    const el = document.getElementById('page-'+p);
-    if(el){ el.classList.remove('active'); el.style.display='none'; }
-  });
-  const target = document.getElementById('page-'+pageId);
-  if(target){ target.classList.add('active'); target.style.display='block'; }
-  currentPage = pageId;
-  document.querySelectorAll('nav.links a[data-page]').forEach(a=>{
-    a.classList.toggle('spa-active', a.getAttribute('data-page')===pageId);
-  });
-  window.scrollTo(0,0);
-  if(pageId !== 'home'){
-    const scFrame = document.getElementById('scFrame');
-    if(scFrame) scFrame.style.display='none';
-    const st = document.getElementById('soundToggle');
-    if(st){st.classList.remove('on');st.setAttribute('aria-pressed','false');}
-  } else {
-    const scFrame = document.getElementById('scFrame');
-    if(scFrame) scFrame.style.display='';
-  }
-  if(pageId==='show') initShowPage();
-  if(pageId==='crew') initCrewPage();
-  if(pageId==='news') initNewsPage();
+function showPage(id){
+  const wipe=document.getElementById('page-wipe');
+  wipe.classList.remove('exiting');
+  wipe.classList.add('entering');
   setTimeout(()=>{
-    document.querySelectorAll('#page-'+pageId+' [data-reveal]').forEach(el=>{
-      el.classList.add('in');
+    const pageId = PAGES.includes(id) ? id : 'home';
+    PAGES.forEach(p=>{
+      const el = document.getElementById('page-'+p);
+      if(el){ el.classList.remove('active'); el.style.display='none'; }
     });
-  }, 100);
-  history.pushState(null, '', '#'+pageId);
+    const target = document.getElementById('page-'+pageId);
+    if(target){ target.classList.add('active'); target.style.display='block'; }
+    currentPage = pageId;
+    document.querySelectorAll('nav.links a[data-page]').forEach(a=>{
+      a.classList.toggle('spa-active', a.getAttribute('data-page')===pageId);
+    });
+    window.scrollTo(0,0);
+    if(pageId !== 'home'){
+      const scFrame = document.getElementById('scFrame');
+      if(scFrame) scFrame.style.display='none';
+      const st = document.getElementById('soundToggle');
+      if(st){st.classList.remove('on');st.setAttribute('aria-pressed','false');}
+    } else {
+      const scFrame = document.getElementById('scFrame');
+      if(scFrame) scFrame.style.display='';
+    }
+    if(pageId==='show') initShowPage();
+    if(pageId==='crew') initCrewPage();
+    if(pageId==='news') initNewsPage();
+    setTimeout(()=>{
+      document.querySelectorAll('#page-'+pageId+' [data-reveal]').forEach(el=>{
+        el.classList.add('in');
+      });
+    }, 100);
+    history.pushState(null, '', '#'+pageId);
+    wipe.classList.remove('entering');
+    wipe.classList.add('exiting');
+    setTimeout(()=>wipe.classList.remove('exiting'),500);
+  },300);
 }
 
 function routeFromHash(){
@@ -2626,6 +2669,127 @@ routeFromHash();
 
 /* Apply initial language */
 applyLang(currentLang);
+
+/* ---------------- Magnetic nav links ---------------- */
+document.querySelectorAll('nav.links a').forEach(link=>{
+  link.addEventListener('mousemove', e=>{
+    const r=link.getBoundingClientRect();
+    const x=(e.clientX-r.left-r.width/2)*0.3;
+    const y=(e.clientY-r.top-r.height/2)*0.4;
+    link.style.transform=`translate(${x}px,${y}px)`;
+  });
+  link.addEventListener('mouseleave',()=>{
+    link.style.transform='';
+    link.style.transition='transform .4s cubic-bezier(.34,1.56,.64,1)';
+    setTimeout(()=>link.style.transition='',400);
+  });
+});
+
+/* ---------------- Hero title split-char animation ---------------- */
+const heroTitle = document.querySelector('.hero-title');
+if(heroTitle){
+  const text = heroTitle.textContent;
+  heroTitle.innerHTML = text.split('').map((c,i)=>
+    `<span style="display:inline-block;opacity:0;transform:translateY(80px) rotate(${(Math.random()-0.5)*12}deg);transition:opacity .7s ${i*0.04}s ease, transform .8s ${i*0.04}s cubic-bezier(.34,1.56,.64,1)">${c==' '?'&nbsp;':c}</span>`
+  ).join('');
+  
+  setTimeout(()=>{
+    heroTitle.querySelectorAll('span').forEach(s=>{
+      s.style.opacity='1';
+      s.style.transform='translateY(0) rotate(0deg)';
+    });
+  }, 200);
+}
+
+/* ---------------- Scroll-triggered counter animation (stat b) ---------------- */
+function animateCounter(el){
+  const target = parseFloat(el.textContent.replace(/[^0-9.]/g,''));
+  const suffix = el.textContent.replace(/[0-9.]/g,'').trim();
+  if(isNaN(target)||target===0) return;
+  const duration = 1800;
+  const start = performance.now();
+  const easeOut = t => 1 - Math.pow(1-t, 3);
+  function step(now){
+    const progress = Math.min((now-start)/duration, 1);
+    const val = Math.round(target * easeOut(progress));
+    el.textContent = val + (suffix?' '+suffix:'');
+    if(progress<1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+const statObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      animateCounter(entry.target);
+      statObserver.unobserve(entry.target);
+    }
+  });
+},{threshold:0.5});
+
+document.querySelectorAll('.stat b').forEach(b=>statObserver.observe(b));
+
+/* ---------------- Parallax image drift on scroll ---------------- */
+const parallaxEls = document.querySelectorAll('.about-img, .about-visual img');
+window.addEventListener('scroll', ()=>{
+  const scrollY = window.scrollY;
+  parallaxEls.forEach(el=>{
+    const rect = el.getBoundingClientRect();
+    const offset = (rect.top + scrollY - window.innerHeight/2) * 0.08;
+    el.style.transform = `translateY(${offset}px)`;
+  });
+},{passive:true});
+
+/* ---------------- Glowing cursor trail dots ---------------- */
+const glowTrail = Array.from({length:8},(_,i)=>{
+  const d=document.createElement('div');
+  d.style.cssText=`position:fixed;width:${6-i*0.5}px;height:${6-i*0.5}px;border-radius:50%;background:rgba(216,184,115,${0.4-i*0.04});pointer-events:none;z-index:99990;transform:translate(-50%,-50%);transition:left ${i*0.04+0.02}s linear,top ${i*0.04+0.02}s linear;`;
+  document.body.appendChild(d);
+  return d;
+});
+document.addEventListener('mousemove',e=>{
+  glowTrail.forEach(d=>{d.style.left=e.clientX+'px';d.style.top=e.clientY+'px';});
+});
+
+/* ---------------- Section reveal animations with GSAP ScrollTrigger (data-reveal) ---------------- */
+if(typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined'){
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.utils.toArray('[data-reveal]').forEach((el,i)=>{
+    gsap.fromTo(el,
+      {opacity:0, y:60},
+      {opacity:1, y:0, duration:1, ease:'power3.out',
+       scrollTrigger:{trigger:el, start:'top 85%', toggleActions:'play none none none'},
+       delay: (i%3)*0.1
+      }
+    );
+  });
+}
+
+/* ---------------- Hero video fade on scroll ---------------- */
+const _heroSection = document.querySelector('.hero');
+if(_heroSection){
+  window.addEventListener('scroll', ()=>{
+    const scrolled = window.scrollY;
+    const maxScroll = window.innerHeight * 0.7;
+    const opacity = Math.max(0, 1 - scrolled / maxScroll);
+    _heroSection.style.opacity = opacity;
+  },{passive:true});
+}
+
+/* ---------------- Floating ambient particles on homepage ---------------- */
+const particlesContainer = document.querySelector('.hero .particles');
+if(particlesContainer){
+  for(let i=0;i<20;i++){
+    const p=document.createElement('div');
+    const size = Math.random()*3+1;
+    const x = Math.random()*100;
+    const delay = Math.random()*8;
+    const duration = Math.random()*10+8;
+    p.style.cssText=`position:absolute;width:${size}px;height:${size}px;border-radius:50%;background:rgba(216,184,115,${Math.random()*0.4+0.1});left:${x}%;bottom:-10px;animation:floatUp ${duration}s ${delay}s linear infinite;pointer-events:none;--drift:${(Math.random()*60-30).toFixed(0)}px;`;
+    particlesContainer.appendChild(p);
+  }
+}
+
 </script>
 </body>
 </html>
