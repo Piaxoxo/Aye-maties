@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cp /root/.claude/uploads/2d1329ee-1356-5f73-a0b3-f39601a719b5/6a97040d-15226772_1920_1080_60fps.mp4 /home/user/Aye-maties/assets/videos/cinematic-1.mp4)",
+      "Bash(cp /root/.claude/uploads/2d1329ee-1356-5f73-a0b3-f39601a719b5/671e30e9-18509264hd_1080_1920_30fps.mp4 /home/user/Aye-maties/assets/videos/vertical-1.mp4)",
+      "Bash(cp /root/.claude/uploads/2d1329ee-1356-5f73-a0b3-f39601a719b5/de1f98c4-9036211uhd_4096_2160_25fps.mp4 /home/user/Aye-maties/assets/videos/cinematic-4k.mp4)",
+      "Bash(cp /root/.claude/uploads/2d1329ee-1356-5f73-a0b3-f39601a719b5/2f4f9723-14342161_2160_3840_30fps.mp4 /home/user/Aye-maties/assets/videos/vertical-4k.mp4)",
+      "Bash(cp /root/.claude/uploads/2d1329ee-1356-5f73-a0b3-f39601a719b5/32bef91f-4571674hd_1920_1080_25fps.mp4 /home/user/Aye-maties/assets/videos/hero-a-1080p.mp4)",
+      "Bash(cp /root/.claude/uploads/2d1329ee-1356-5f73-a0b3-f39601a719b5/99e7c3bc-11682735hd_1920_1080_30fps.mp4 /home/user/Aye-maties/assets/videos/hero-b-1080p.mp4)",
+      "Bash(cp /root/.claude/uploads/2d1329ee-1356-5f73-a0b3-f39601a719b5/106e09c2-9036211uhd_4096_2160_25fps.mp4 /home/user/Aye-maties/assets/videos/hero-4k.mp4)",
+      "Bash(cp /root/.claude/uploads/2d1329ee-1356-5f73-a0b3-f39601a719b5/0c4f518c-10094924uhd_3840_2160_30fps.mp4 /home/user/Aye-maties/assets/videos/hero-uhd.mp4)",
+      "Bash(cp /root/.claude/uploads/2d1329ee-1356-5f73-a0b3-f39601a719b5/43892b65-7714908uhd_2160_3840_24fps.mp4 /home/user/Aye-maties/assets/videos/hero-vertical-4k.mp4)"
+    ]
+  }
+}
