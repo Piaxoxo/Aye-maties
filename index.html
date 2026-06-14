@@ -70,10 +70,20 @@
   .cursor{display:none;}
   .cursor-ring{display:none;}
   .cursor-compass{
-    position:fixed;top:0;left:0;pointer-events:none;z-index:99999;width:36px;height:36px;
-    transform:translate(-50%,-50%);transition:transform .12s ease;
+    position:fixed;top:0;left:0;pointer-events:none;z-index:99999;width:64px;height:64px;
+    transform:translate(-50%,-50%);transition:transform .08s ease;
   }
-  .cursor-compass.click-pulse{transform:translate(-50%,-50%) scale(1.55);}
+  .cursor-compass .compass-bezel,.cursor-compass .compass-needle{
+    position:absolute;top:0;left:0;display:block;
+  }
+  .cursor-compass .compass-needle{
+    transition:none; /* spring handled in JS */
+    transform-origin:32px 32px;
+  }
+  .cursor-compass.click-pulse .compass-bezel{
+    filter:drop-shadow(0 0 8px rgba(216,184,115,0.9));
+    transition:filter .4s ease;
+  }
   @media(hover:none){ .cursor-compass{display:none;} body{cursor:auto;} }
 
   /* Loader */
@@ -1159,55 +1169,83 @@ section { padding: clamp(60px, 8vw, 140px) 0; }
 .chapter-title { font-size: 11px; letter-spacing: .25em; color: rgba(255,255,255,.4); text-transform: uppercase; }
 .hv { transition: opacity 1.2s cubic-bezier(.25,.46,.45,.94) !important; }
 
-/* ── REAL-TIME OCEAN 3D SECTION ── */
-.ocean-3d-section {
-  position: relative;
-  height: 100vh;
-  overflow: hidden;
-  background: #010810;
-}
-#ocean3dCanvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-.ocean3d-overlay {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-  text-align: center;
-  pointer-events: none;
-}
-.ocean3d-label {
-  font-size: 10px;
-  letter-spacing: .3em;
-  color: rgba(255,255,255,.25);
-  text-transform: uppercase;
-}
 
-/* ── ATMOSPHERIC DEPTH ── */
-.depth-gradient-dark { position: relative; }
-.depth-gradient-dark::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(1,8,16,.9) 0%, transparent 20%, transparent 80%, rgba(1,8,16,.9) 100%);
-  pointer-events: none;
-  z-index: 2;
-}
-.section-rule {
-  border: none;
-  height: 120px;
-  background: linear-gradient(to bottom, transparent, rgba(1,12,24,.95), transparent);
-  margin: 0;
-}
-.parallax-slow { transform: translateZ(0); will-change: transform; }
+  /* ── Footer Video ────────────────────────────────────────────────── */
+  .footer-video-wrap{position:absolute;inset:0;overflow:hidden;z-index:0;}
+  .footer-video{width:100%;height:100%;object-fit:cover;opacity:.18;filter:saturate(.6) brightness(.4);}
+  .footer-video-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,var(--deep) 0%,rgba(4,10,18,.85) 40%,rgba(4,10,18,.9) 100%);}
+  .site{position:relative;overflow:hidden;}
 
-</style>
+  /* ── Social Strip ─────────────────────────────────────────────────── */
+  .footer-social-strip{
+    display:flex;align-items:center;justify-content:center;
+    gap:clamp(16px,3vw,40px);padding:clamp(40px,6vw,80px) clamp(20px,5vw,80px);
+    border-bottom:1px solid rgba(255,255,255,.06);flex-wrap:wrap;
+    position:relative;z-index:1;
+  }
+  .fsc{
+    display:flex;flex-direction:column;align-items:center;gap:10px;
+    color:rgba(255,255,255,.4);text-decoration:none;
+    font-size:9px;letter-spacing:.22em;text-transform:uppercase;
+    transition:color .4s ease,transform .4s cubic-bezier(.34,1.56,.64,1);
+  }
+  .fsc svg{width:28px;height:28px;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+  .fsc:hover{color:var(--gold-soft);transform:translateY(-6px);}
+  .fsc:hover svg{transform:scale(1.15);}
+  .fsc-soundcloud{color:rgba(255,102,0,.5);}
+  .fsc-soundcloud:hover{color:#ff6600;}
+
+  /* ── Footer Grid (new) ────────────────────────────────────────────── */
+  .footer-grid-new{
+    display:grid;
+    grid-template-columns:1.6fr 1fr 1fr 1fr;
+    gap:clamp(30px,4vw,60px);
+    padding:clamp(50px,6vw,80px) 0 clamp(40px,5vw,60px);
+    position:relative;z-index:1;
+  }
+  .footer-grid-new h4{
+    font-size:10px;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--gold-soft);margin-bottom:20px;
+  }
+  .footer-grid-new ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+  .footer-grid-new a{
+    font-size:13px;color:var(--muted);transition:color .3s,padding-left .3s;
+    text-decoration:none;display:block;
+  }
+  .footer-grid-new a:hover{color:var(--ink);padding-left:6px;}
+  .fc-label{
+    display:block;font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+    color:rgba(255,255,255,.2);margin-bottom:2px;
+  }
+  .footer-grid-new li{display:flex;flex-direction:column;gap:2px;}
+  .footer-sc-link{
+    display:inline-flex;align-items:center;gap:8px;margin-top:20px;
+    font-size:11px;letter-spacing:.08em;color:rgba(255,102,0,.5);
+    text-decoration:none;transition:color .3s;
+  }
+  .footer-sc-link:hover{color:#ff6600;}
+  .footer-imp-link{
+    display:inline-block;margin-top:16px;font-size:11px;letter-spacing:.15em;
+    color:rgba(216,184,115,.4);text-decoration:none;transition:color .3s;
+  }
+  .footer-imp-link:hover{color:var(--gold-soft);}
+
+  /* ── Footer responsive ────────────────────────────────────────────── */
+  @media(max-width:980px){
+    .footer-grid-new{grid-template-columns:1fr 1fr;}
+    .fg-brand{grid-column:1/-1;}
+    .footer-social-strip{gap:clamp(12px,4vw,28px);}
+    .fsc svg{width:24px;height:24px;}
+  }
+  @media(max-width:560px){
+    .footer-grid-new{grid-template-columns:1fr;}
+    .footer-social-strip{gap:16px;}
+    .fsc{gap:6px;}
+    .fsc svg{width:22px;height:22px;}
+    .fsc span{display:none;}
+  }
+
+  </style>
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -1228,15 +1266,47 @@ section { padding: clamp(60px, 8vw, 140px) 0; }
 <div class="cursor"></div>
 <div class="cursor-ring"></div>
 <div class="cursor-compass" id="cursorCompass" aria-hidden="true">
-  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:36px;height:36px;">
-    <polygon points="18,2 21,18 18,34 15,18" fill="#d8b873" opacity="0.95"/>
-    <polygon points="2,18 18,15 34,18 18,21" fill="#cfe9ec" opacity="0.7"/>
-    <circle cx="18" cy="18" r="3" fill="#f0dfb6"/>
-    <circle cx="18" cy="18" r="8" fill="none" stroke="rgba(216,184,115,0.4)" stroke-width="0.8"/>
-    <text x="18" y="8" text-anchor="middle" font-size="4.5" fill="#d8b873" font-family="sans-serif">N</text>
-    <text x="18" y="33" text-anchor="middle" font-size="4.5" fill="#d8b873" font-family="sans-serif">S</text>
-    <text x="5" y="19.5" text-anchor="middle" font-size="4.5" fill="#cfe9ec" font-family="sans-serif">W</text>
-    <text x="31" y="19.5" text-anchor="middle" font-size="4.5" fill="#cfe9ec" font-family="sans-serif">E</text>
+  <!-- Outer bezel ring (static) -->
+  <svg class="compass-bezel" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:64px;height:64px;position:absolute;top:0;left:0;">
+    <circle cx="32" cy="32" r="30" fill="rgba(8,20,35,0.82)" stroke="rgba(216,184,115,0.7)" stroke-width="1.5"/>
+    <!-- tick marks every 45deg -->
+    <line x1="32" y1="3.5" x2="32" y2="8" stroke="#d8b873" stroke-width="1.4"/>
+    <line x1="60.5" y1="32" x2="56" y2="32" stroke="#d8b873" stroke-width="1.4"/>
+    <line x1="32" y1="60.5" x2="32" y2="56" stroke="#d8b873" stroke-width="1.4"/>
+    <line x1="3.5" y1="32" x2="8" y2="32" stroke="#d8b873" stroke-width="1.4"/>
+    <!-- minor ticks NE/SE/SW/NW -->
+    <line x1="53.1" y1="10.9" x2="49.8" y2="14.2" stroke="rgba(216,184,115,0.45)" stroke-width="0.8"/>
+    <line x1="53.1" y1="53.1" x2="49.8" y2="49.8" stroke="rgba(216,184,115,0.45)" stroke-width="0.8"/>
+    <line x1="10.9" y1="53.1" x2="14.2" y2="49.8" stroke="rgba(216,184,115,0.45)" stroke-width="0.8"/>
+    <line x1="10.9" y1="10.9" x2="14.2" y2="14.2" stroke="rgba(216,184,115,0.45)" stroke-width="0.8"/>
+    <!-- Cardinal letters on bezel -->
+    <text x="32" y="13.5" text-anchor="middle" font-size="7" fill="#d8b873" font-family="Georgia,serif" font-weight="bold">N</text>
+    <text x="32" y="58.5" text-anchor="middle" font-size="6" fill="#cfe9ec" font-family="Georgia,serif">S</text>
+    <text x="8.5" y="34.5" text-anchor="middle" font-size="6" fill="#cfe9ec" font-family="Georgia,serif">W</text>
+    <text x="55.5" y="34.5" text-anchor="middle" font-size="6" fill="#cfe9ec" font-family="Georgia,serif">E</text>
+    <!-- inner ring -->
+    <circle cx="32" cy="32" r="22" fill="none" stroke="rgba(216,184,115,0.2)" stroke-width="0.6"/>
+  </svg>
+  <!-- Rotating needle + rose (this gets rotated on click) -->
+  <svg class="compass-needle" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:64px;height:64px;position:absolute;top:0;left:0;">
+    <!-- 8-point compass rose -->
+    <polygon points="32,14 33.5,30 32,34 30.5,30" fill="rgba(200,220,230,0.25)"/>
+    <polygon points="32,50 33.5,34 32,30 30.5,34" fill="rgba(200,220,230,0.15)"/>
+    <polygon points="14,32 30,30.5 34,32 30,33.5" fill="rgba(200,220,230,0.15)"/>
+    <polygon points="50,32 34,30.5 30,32 34,33.5" fill="rgba(200,220,230,0.15)"/>
+    <!-- NE/SW/NW/SE petals -->
+    <polygon points="46.6,17.4 34.2,29.8 32,32 29.8,29.8" fill="rgba(216,184,115,0.12)"/>
+    <polygon points="17.4,46.6 29.8,34.2 32,32 34.2,34.2" fill="rgba(216,184,115,0.12)"/>
+    <polygon points="46.6,46.6 34.2,34.2 32,32 29.8,34.2" fill="rgba(216,184,115,0.12)"/>
+    <polygon points="17.4,17.4 29.8,29.8 32,32 34.2,29.8" fill="rgba(216,184,115,0.12)"/>
+    <!-- Main north needle — gold (north points UP) -->
+    <polygon points="32,13 34.2,30 32,33 29.8,30" fill="#d8b873"/>
+    <polygon points="32,13 33,22 32,24 31,22" fill="#f0dfb6"/>
+    <!-- Main south needle — silver/blue -->
+    <polygon points="32,51 34.2,34 32,31 29.8,34" fill="#7aa8c4"/>
+    <!-- Center cap -->
+    <circle cx="32" cy="32" r="3.5" fill="#0d1f2d" stroke="#d8b873" stroke-width="1"/>
+    <circle cx="32" cy="32" r="1.5" fill="#d8b873"/>
   </svg>
 </div>
 
@@ -1308,13 +1378,6 @@ section { padding: clamp(60px, 8vw, 140px) 0; }
 </header>
 
 <main id="main-content">
-<div id="sectionVideoBg" aria-hidden="true">
-  <video id="sectionVid" muted loop playsinline preload="none"
-         style="position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;opacity:0;transition:opacity 1.5s ease;pointer-events:none;"
-         poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='%23010810'/%3E%3C/svg%3E">
-  </video>
-  <div id="sectionVidOverlay" style="position:fixed;inset:0;z-index:0;pointer-events:none;background:linear-gradient(to bottom,rgba(4,10,18,.7),rgba(4,10,18,.5),rgba(4,10,18,.8));opacity:0;transition:opacity 1.5s ease;"></div>
-</div>
 <span id="top"></span>
 
 <div class="page active" id="page-home">
@@ -1427,16 +1490,9 @@ section { padding: clamp(60px, 8vw, 140px) 0; }
     <div class="caption fade-up" data-i18n="divider.caption">— drifting between worlds, above and below the surface —</div>
   </div>
 
-  <section class="ocean-3d-section" id="ocean3d" aria-label="Live ocean simulation">
-    <canvas id="ocean3dCanvas"></canvas>
-    <div class="ocean3d-overlay">
-      <p class="ocean3d-label">LIVE OCEAN SIMULATION</p>
-    </div>
-  </section>
-
   <hr class="section-rule">
   <!-- ABOUT -->
-  <section class="about depth-gradient-dark" id="about">
+  <section class="about" id="about">
     <div class="wrap">
       <div class="about-grid">
         <div class="about-media" data-reveal>
@@ -1563,7 +1619,7 @@ section { padding: clamp(60px, 8vw, 140px) 0; }
 
   <hr class="section-rule">
   <!-- OCEAN POLLUTION AWARENESS -->
-  <section class="pollution depth-gradient-dark" id="pollution">
+  <section class="pollution" id="pollution">
     <div class="rope-divider"></div>
     <div class="wrap pollution-inner">
       <span class="section-num">02</span>
@@ -1626,7 +1682,7 @@ section { padding: clamp(60px, 8vw, 140px) 0; }
   </section>
 
   <!-- OUR GOALS — green roadmap -->
-  <section class="goals depth-gradient-dark" id="goals">
+  <section class="goals" id="goals">
     <div class="rope-divider"></div>
     <div class="wrap">
       <span class="section-num">03</span>
@@ -1706,52 +1762,113 @@ section { padding: clamp(60px, 8vw, 140px) 0; }
 
   <!-- FOOTER -->
   <footer class="site" id="contact">
+
+    <!-- ── Footer Video Background ───────────────────────────────── -->
+    <div class="footer-video-wrap" aria-hidden="true">
+      <video class="footer-video" muted loop playsinline preload="none"
+             poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='%23010810'/%3E%3C/svg%3E">
+        <source data-src="assets/videos/hero-b-1080p.mp4" data-src-4k="assets/videos/hero-uhd.mp4" type="video/mp4">
+      </video>
+      <div class="footer-video-overlay"></div>
+    </div>
+
     <div class="footer-glow"></div>
     <div class="footer-watermark" aria-hidden="true">AYE MATIES</div>
+
+    <!-- ── Social Strip ──────────────────────────────────────────── -->
+    <div class="footer-social-strip" data-reveal>
+      <a href="https://instagram.com/ayematies" target="_blank" rel="noopener" aria-label="Instagram" class="fsc magnetic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        <span>Instagram</span>
+      </a>
+      <a href="https://youtube.com/@ayematies" target="_blank" rel="noopener" aria-label="YouTube" class="fsc magnetic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+        <span>YouTube</span>
+      </a>
+      <a href="https://tiktok.com/@ayematies" target="_blank" rel="noopener" aria-label="TikTok" class="fsc magnetic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+        <span>TikTok</span>
+      </a>
+      <a href="https://facebook.com/ayematies" target="_blank" rel="noopener" aria-label="Facebook" class="fsc magnetic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        <span>Facebook</span>
+      </a>
+      <a href="https://x.com/ayematies" target="_blank" rel="noopener" aria-label="X / Twitter" class="fsc magnetic">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        <span>X / Twitter</span>
+      </a>
+      <a href="https://linkedin.com/company/ayematies" target="_blank" rel="noopener" aria-label="LinkedIn" class="fsc magnetic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        <span>LinkedIn</span>
+      </a>
+      <a href="https://soundcloud.com/AyeMaties" target="_blank" rel="noopener" aria-label="SoundCloud" class="fsc fsc-soundcloud magnetic">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.175 12.225c-.015.072 0 .144.072.216l1.007 6.458c0 .072.072.144.144.144s.144-.072.144-.144l1.007-6.458c0-.072-.072-.144-.144-.144a.144.144 0 0 0-.144.144l-1.007-6.458c0 .072.072.144.144.144s.144-.072.144-.144c0-.072-.072-.144-.144-.144s-.144.072-.144.144l-1.08 6.458zm2.735 1.512l.936 5.02c0 .072.072.144.144.144s.144-.072.144-.144l.936-5.02c0-.072-.072-.144-.144-.144s-.144.072-.144.144l-.936-5.02c0-.072-.072-.144-.144-.144s-.144.072-.144.144l-.648 5.02zm15.697-6.602c-.288 0-.576.072-.864.144-.216-2.448-2.232-4.32-4.752-4.32-1.08 0-2.088.36-2.88.936v11.11c0 .216.144.36.36.36h7.992c1.44 0 2.592-1.152 2.592-2.592-.072-1.44-1.152-2.592-2.448-1.638z"/></svg>
+        <span>SoundCloud</span>
+      </a>
+    </div>
+
     <div class="wrap">
-      <div class="footer-grid">
-        <div>
-          <div class="footer-brand">Aye Maties</div>
+      <div class="footer-grid footer-grid-new" data-reveal>
+
+        <!-- Brand -->
+        <div class="fg-brand">
+          <div class="footer-brand" data-reveal>Aye Maties</div>
           <small data-i18n="footer.tag">A bold ocean conservation experience — saving our oceans, one voyage, one challenge, one wave at a time.</small>
-          <div class="social" style="margin-top:30px;">
-            <a href="https://instagram.com/ayematies" target="_blank" rel="noopener" aria-label="Instagram" class="magnetic">IG</a>
-            <a href="https://facebook.com/ayematies" target="_blank" rel="noopener" aria-label="Facebook" class="magnetic">FB</a>
-            <a href="https://youtube.com/@ayematies" target="_blank" rel="noopener" aria-label="YouTube" class="magnetic">YT</a>
-            <a href="https://tiktok.com/@ayematies" target="_blank" rel="noopener" aria-label="TikTok" class="magnetic">TT</a>
-            <a href="https://x.com/ayematies" target="_blank" rel="noopener" aria-label="X / Twitter" class="magnetic">X</a>
-            <a href="https://linkedin.com/company/ayematies" target="_blank" rel="noopener" aria-label="LinkedIn" class="magnetic">IN</a>
-          </div>
+          <a href="https://soundcloud.com/AyeMaties" target="_blank" rel="noopener" class="footer-sc-link magnetic" aria-label="Listen on SoundCloud">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M1.175 12.225c-.015.072 0 .144.072.216l1.007 6.458c0 .072.072.144.144.144s.144-.072.144-.144l1.007-6.458c0-.072-.072-.144-.144-.144a.144.144 0 0 0-.144.144l-1.007-6.458c0 .072.072.144.144.144s.144-.072.144-.144c0-.072-.072-.144-.144-.144s-.144.072-.144.144l-1.08 6.458zm15.697-6.602c-.288 0-.576.072-.864.144-.216-2.448-2.232-4.32-4.752-4.32-1.08 0-2.088.36-2.88.936v11.11c0 .216.144.36.36.36h7.992c1.44 0 2.592-1.152 2.592-2.592-.072-1.44-1.152-2.592-2.448-1.638z"/></svg>
+            soundcloud.com/AyeMaties
+          </a>
         </div>
-        <div>
+
+        <!-- Navigate -->
+        <div class="fg-nav" data-reveal>
           <h4 data-i18n="footer.explore">Explore</h4>
           <ul>
-            <li><a href="#about" data-i18n="nav.about">About</a></li>
-            <li><a href="#services" data-i18n="nav.services">Services</a></li>
-            <li><a href="#invest" data-i18n="nav.invest">Investment</a></li>
-            <li><a href="#testimonials" data-i18n="nav.testimonials">Voices</a></li>
-            <li><a href="#join" data-i18n="footer.join">Join the Crew</a></li>
+            <li><a href="#" onclick="event.preventDefault();showPage('crew')">Crew</a></li>
+            <li><a href="#" onclick="event.preventDefault();showPage('show')">Die Show</a></li>
+            <li><a href="#" onclick="event.preventDefault();showPage('news')">Ocean News</a></li>
+            <li><a href="#" onclick="event.preventDefault();showPage('invest')">Investment</a></li>
+            <li><a href="#" onclick="event.preventDefault();showPage('impressum')">Impressum</a></li>
           </ul>
         </div>
-        <div>
+
+        <!-- Contact from Impressum -->
+        <div class="fg-contact" data-reveal>
           <h4 data-i18n="footer.contact">Contact</h4>
           <ul>
-            <li><a href="mailto:hello@ayematies.com">hello@ayematies.com</a></li>
-            <li><a href="tel:+4930000000">+49 30 000 0000</a></li>
-            <li><span data-i18n="footer.address">Hafenstraße 12, 20457 Hamburg, Germany</span></li>
+            <li>
+              <span class="fc-label">Operative</span>
+              <a href="mailto:AyeMaties@gmail.com">AyeMaties@gmail.com</a>
+            </li>
+            <li>
+              <span class="fc-label">Production</span>
+              <a href="mailto:AyeMaties@proton.me">AyeMaties@proton.me</a>
+            </li>
+            <li>
+              <span class="fc-label">Direct</span>
+              <a href="tel:+436991086106">+43-699-10 8 6 10 8 6</a>
+            </li>
           </ul>
         </div>
-        <div>
-          <h4 data-i18n="footer.lang">Language</h4>
-          <ul style="display:flex;flex-direction:column;gap:0;">
-            <li><a href="#" data-lang-foot="de">Deutsch</a></li>
-            <li><a href="#" data-lang-foot="en">English</a></li>
-            <li><a href="#" data-lang-foot="es">Español</a></li>
-            <li><a href="#" data-lang-foot="fr">Français</a></li>
-          </ul>
+
+        <!-- Address from Impressum -->
+        <div class="fg-address" data-reveal>
+          <h4>Address</h4>
+          <address style="font-style:normal;line-height:1.8;font-size:13px;color:var(--muted);">
+            <strong style="color:var(--ink);font-size:12px;letter-spacing:.1em;text-transform:uppercase;">Sail Wisely (Ireland) CLG</strong><br>
+            c/o Capt. Peter Brucha<br>
+            Jubilaeumstrasse 19<br>
+            2345 Brunn/Geb.<br>
+            Austria
+          </address>
+          <a href="#" onclick="event.preventDefault();showPage('impressum')" class="footer-imp-link">Impressum →</a>
         </div>
+
       </div>
+
+      <!-- Bottom bar -->
       <div class="footer-bottom">
-        <span>© 2026 Aye Maties. <span data-i18n="footer.rights">All rights reserved.</span></span>
+        <span>© 2026 Aye Maties · Sail Wisely (Ireland) CLG. <span data-i18n="footer.rights">All rights reserved.</span></span>
         <span data-i18n="footer.crafted">Crafted with reverence for the sea.</span>
       </div>
     </div>
@@ -2462,24 +2579,43 @@ if(document.readyState === 'complete'){ startLoader(); }
 else{ window.addEventListener('load', startLoader); }
 setTimeout(()=>{ var l=document.getElementById('loader'); if(l && !l.classList.contains('hidden') && typeof window.__dismissOceanLoader==='function'){ window.__dismissOceanLoader(); } }, 6000);
 
-/* ---------------- Compass cursor ─────────────────────────────────────── */
+/* ---------------- Real Compass Cursor ─────────────────────────────────── */
 const compassEl = document.getElementById('cursorCompass');
 const glow = document.querySelector('.cursor-glow');
-let mx=0,my=0,gx=0,gy=0,compassAngle=0;
+const compassNeedle = compassEl ? compassEl.querySelector('.compass-needle') : null;
+let mx=0,my=0,gx=0,gy=0;
+// Cardinal stops: N=0, E=90, S=180, W=270
+const cardinals = [0, 90, 180, 270];
+let cardinalIdx = 0;
+let needleAngle = 0;   // current rendered angle
+let needleTarget = 0;  // target angle (spring toward this)
+let isSpinning = false;
+
 window.addEventListener('mousemove', e=>{
   mx=e.clientX; my=e.clientY;
-  compassEl.style.left=mx+'px'; compassEl.style.top=my+'px';
+  if(compassEl){ compassEl.style.left=mx+'px'; compassEl.style.top=my+'px'; }
 });
-window.addEventListener('click',()=>{
+
+window.addEventListener('click', e=>{
+  if(!compassEl) return;
   compassEl.classList.add('click-pulse');
-  setTimeout(()=>compassEl.classList.remove('click-pulse'),300);
+  setTimeout(()=>compassEl.classList.remove('click-pulse'),400);
+  // Advance to next cardinal, always rotating clockwise (add 90 mod 360)
+  cardinalIdx = (cardinalIdx + 1) % 4;
+  // Keep accumulated angle clean — always step +90 so the needle sweeps CW
+  needleTarget += 90;
 });
+
 function loopCompass(){
-  compassAngle += 0.03;
-  const inner = compassEl.querySelector('svg');
-  if(inner) inner.style.transform='rotate('+compassAngle+'deg)';
+  // Spring physics toward target with slight overshoot
+  const diff = needleTarget - needleAngle;
+  needleAngle += diff * 0.10;  // smooth spring
+  if(compassNeedle){
+    compassNeedle.style.transform = 'rotate(' + needleAngle + 'deg)';
+    compassNeedle.style.transformOrigin = '32px 32px';
+  }
   gx += (mx-gx)*0.07; gy += (my-gy)*0.07;
-  glow.style.left=gx+'px'; glow.style.top=gy+'px';
+  if(glow){ glow.style.left=gx+'px'; glow.style.top=gy+'px'; }
   requestAnimationFrame(loopCompass);
 }
 loopCompass();
@@ -3022,7 +3158,6 @@ document.querySelectorAll('.magnetic').forEach(btn=>{
 /* ═══════════════════ SPA ROUTING ════════════════════════════════════════ */
 const PAGES = ['home','crew','show','news','invest','impressum'];
 let currentPage = 'home';
-window.currentPage = 'home';
 
 function showPage(id){
   const wipe=document.getElementById('page-wipe');
@@ -3037,26 +3172,34 @@ function showPage(id){
     const target = document.getElementById('page-'+pageId);
     if(target){ target.classList.add('active'); target.style.display='block'; }
     currentPage = pageId;
-    window.currentPage = pageId;
     document.querySelectorAll('nav.links a[data-page]').forEach(a=>{
       a.classList.toggle('spa-active', a.getAttribute('data-page')===pageId);
     });
     window.scrollTo(0,0);
-    if(pageId !== 'home'){
+    // SoundCloud keeps playing across all pages
+    if(pageId === 'home'){
       const scFrame = document.getElementById('scFrame');
-      if(scFrame) scFrame.style.display='none';
-      const st = document.getElementById('soundToggle');
-      if(st){st.classList.remove('on');st.setAttribute('aria-pressed','false');}
-    } else {
-      const scFrame = document.getElementById('scFrame');
-      if(scFrame) scFrame.style.display='';
+      if(scFrame && scFrame.style.display==='none') scFrame.style.display='';
     }
     if(pageId==='show') initShowPage();
     if(pageId==='crew') initCrewPage();
     if(pageId==='news') initNewsPage();
+    if(pageId==='invest') initInvestPage();
+    if(pageId==='impressum') initImpressumPage();
     setTimeout(()=>{
       document.querySelectorAll('#page-'+pageId+' [data-reveal]').forEach(el=>{
         el.classList.add('in');
+      });
+      // Load lazy videos in newly-visible subpage
+      document.querySelectorAll('#page-'+pageId+' video[data-lazy-pending]').forEach(v=>{
+        const conn = navigator.connection || {};
+        const use4K = (conn.effectiveType==='4g') || (!conn.effectiveType && window.devicePixelRatio>=2 && screen.width>=1800);
+        let loaded = false;
+        v.querySelectorAll('source[data-src]').forEach(s=>{
+          const src = (use4K && s.dataset.src4k) ? s.dataset.src4k : s.dataset.src;
+          if(src){ s.src = src; loaded = true; }
+        });
+        if(loaded){ v.load(); v.play().catch(()=>{}); v.removeAttribute('data-lazy-pending'); }
       });
     }, 100);
     history.pushState(null, '', '#'+pageId);
@@ -3137,6 +3280,13 @@ function initCrewPage(){
     headline.appendChild(s);
     setTimeout(()=>s.classList.add('in'), 100+i*60);
   });
+  // Stagger crew cards
+  document.querySelectorAll('#page-crew .tcard, #page-crew .ccard, #page-crew .cfeature, #page-crew [data-reveal]').forEach((card,i)=>{
+    card.style.opacity='0';
+    card.style.transform='translateY(36px) scale(0.97)';
+    card.style.transition=`opacity .7s ease ${0.1+i*0.08}s, transform .7s cubic-bezier(.22,1,.36,1) ${0.1+i*0.08}s`;
+    setTimeout(()=>{ card.style.opacity=''; card.style.transform=''; card.classList.add('in'); }, 120+i*85);
+  });
   document.querySelectorAll('#page-crew .cfeature').forEach(card=>{
     card.addEventListener('click',()=>{
       const isA = card.classList.contains('active');
@@ -3172,6 +3322,54 @@ function initNewsPage(){
     animCounter(document.getElementById('newsPlastic'), plasticVar);
     animCounter(document.getElementById('newsCoral'), coralTotal);
   }, 300);
+  // Stagger news cards
+  document.querySelectorAll('#page-news .news-card, #page-news .stat-counter-card, #page-news [data-reveal]').forEach((el,i)=>{
+    el.style.opacity='0';
+    el.style.transform='translateY(32px)';
+    el.style.transition=`opacity .65s ease ${i*0.1}s, transform .65s cubic-bezier(.22,1,.36,1) ${i*0.1}s`;
+    setTimeout(()=>{ el.style.opacity=''; el.style.transform=''; el.classList.add('in'); },100+i*100);
+  });
+}
+
+
+/* ─── Invest Page ────────────────────────────────────────────────────────── */
+function initInvestPage(){
+  // Stagger invest cards in
+  const cards = document.querySelectorAll('#page-invest .fcard, #page-invest .gcard, #page-invest .scard, #page-invest [data-reveal]');
+  cards.forEach((card, i)=>{
+    card.style.opacity='0';
+    card.style.transform='translateY(40px)';
+    card.style.transition=`opacity .7s ease ${i*0.09}s, transform .7s cubic-bezier(.22,1,.36,1) ${i*0.09}s`;
+    setTimeout(()=>{
+      card.style.opacity=''; card.style.transform='';
+      card.classList.add('in');
+    }, 80 + i*90);
+  });
+  // Animate headline chars
+  const h = document.querySelector('#page-invest h1, #page-invest .section-label, #page-invest h2');
+  if(h && !h.dataset.charDone){
+    h.dataset.charDone='1';
+    const txt = h.textContent;
+    h.innerHTML='';
+    [...txt].forEach((ch,i)=>{
+      const s=document.createElement('span');
+      s.style.cssText='display:inline-block;opacity:0;transform:translateY(20px);transition:opacity .5s '+i*0.04+'s ease,transform .5s '+i*0.04+'s cubic-bezier(.22,1,.36,1)';
+      s.textContent=ch===' '?' ':ch;
+      h.appendChild(s);
+      setTimeout(()=>{ s.style.opacity='1'; s.style.transform=''; },100+i*40);
+    });
+  }
+}
+
+/* ─── Impressum Page ─────────────────────────────────────────────────────── */
+function initImpressumPage(){
+  const blocks = document.querySelectorAll('#page-impressum .impressum-block, #page-impressum h1, #page-impressum h2, #page-impressum p, #page-impressum [data-reveal]');
+  blocks.forEach((el, i)=>{
+    el.style.opacity='0';
+    el.style.transform='translateY(30px)';
+    el.style.transition=`opacity .6s ease ${i*0.06}s, transform .6s cubic-bezier(.22,1,.36,1) ${i*0.06}s`;
+    setTimeout(()=>{ el.style.opacity=''; el.style.transform=''; el.classList.add('in'); }, 60 + i*65);
+  });
 }
 
 /* ─── Treasure Map (Three.js) ────────────────────────────────────────────── */
@@ -3442,7 +3640,11 @@ if(particlesContainer){
 
   document.querySelectorAll('video:not(.hv)').forEach(v=>{
     const hasSrc = v.querySelector('source[data-src]');
-    if(hasSrc) lazyObs.observe(v);
+    if(!hasSrc) return;
+    // Videos in hidden pages get loaded when the page is shown
+    const inSubpage = v.closest('[id^="page-"]:not(#page-home)');
+    if(inSubpage){ v.setAttribute('data-lazy-pending','1'); return; }
+    lazyObs.observe(v);
   });
 
   // Hero lazy videos load when switched to
@@ -3731,14 +3933,12 @@ document.querySelectorAll('.reveal-x-left,.reveal-x-right,.reveal-scale,.reveal-
 /* ── CHAPTER OVERLAY SYSTEM ─────────────────────────────────────── */
 (function(){
   const chapters = [
-    { selector: '.hero',          num: 'I',    title: 'THE SURFACE',          video: 'hero-a-1080p.mp4' },
-    { selector: '#ocean3d',       num: 'II',   title: 'THE LIVING OCEAN',     video: null },
-    { selector: '#about',         num: 'III',  title: 'BELOW THE SURFACE',    video: 'ocean-hero-2.mp4' },
-    { selector: '#pollution',     num: 'IV',   title: 'THE STORM',            video: 'cinematic-1.mp4' },
-    { selector: '#storm-passage', num: 'V',    title: 'THE RECKONING',        video: null },
-    { selector: '#coral-reef',    num: 'VI',   title: 'RESTORE THE REEF',     video: null },
-    { selector: '#goals',         num: 'VII',  title: 'OUR GOALS',            video: 'ocean-hero-1.mp4' },
-    { selector: '#join',          num: 'VIII', title: 'THE VOYAGE AWAITS',    video: 'hero-b-1080p.mp4' },
+    { selector: '.hero', num: 'I', title: 'THE SURFACE' },
+    { selector: '#about', num: 'II', title: 'BELOW THE SURFACE' },
+    { selector: '#pollution', num: 'III', title: 'THE STORM' },
+    { selector: '#open-water', num: 'IV', title: 'THE OCEAN IS CALLING' },
+    { selector: '#goals', num: 'V', title: 'OUR GOALS' },
+    { selector: '#coral-reef', num: 'VI', title: 'RESTORE THE REEF' },
   ];
   const chOverlay = document.getElementById('chapterOverlay');
   const chNum = document.getElementById('chapterNum');
@@ -3762,326 +3962,6 @@ document.querySelectorAll('.reveal-x-left,.reveal-x-right,.reveal-scale,.reveal-
   }
 })();
 
-</script>
-
-<script>
-(function initOcean3D() {
-  const canvas = document.getElementById('ocean3dCanvas');
-  if (!canvas || typeof THREE === 'undefined') return;
-
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 0.8;
-
-  const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x010c1a, 0.035);
-  scene.background = new THREE.Color(0x010810);
-
-  const camera = new THREE.PerspectiveCamera(60, canvas.offsetWidth / canvas.offsetHeight, 0.1, 200);
-  camera.position.set(0, 3, 8);
-  camera.lookAt(0, 0, 0);
-
-  const ambientLight = new THREE.AmbientLight(0x0a1a2e, 1.5);
-  scene.add(ambientLight);
-
-  const sunLight = new THREE.DirectionalLight(0xffd4a0, 2.5);
-  sunLight.position.set(10, 20, 10);
-  scene.add(sunLight);
-
-  const fillLight = new THREE.DirectionalLight(0x004080, 0.8);
-  fillLight.position.set(-5, -5, -5);
-  scene.add(fillLight);
-
-  const waterVertexShader = `
-    uniform float uTime;
-    uniform vec2 uMouse;
-    uniform float uMouseStrength;
-
-    varying vec2 vUv;
-    varying vec3 vWorldPos;
-    varying vec3 vNormal;
-    varying float vElevation;
-
-    vec3 hash3(vec2 p) {
-      vec3 q = vec3(dot(p, vec2(127.1, 311.7)),
-                    dot(p, vec2(269.5, 183.3)),
-                    dot(p, vec2(419.2, 371.9)));
-      return fract(sin(q) * 43758.5453);
-    }
-
-    float wave(vec2 pos, vec2 dir, float freq, float phase, float amp) {
-      float k = freq * dot(pos, normalize(dir)) + phase * uTime;
-      return amp * sin(k);
-    }
-
-    void main() {
-      vUv = uv;
-      vec3 pos = position;
-
-      float w1 = wave(pos.xz, vec2(1.0, 0.8),  1.2, 0.7, 0.18);
-      float w2 = wave(pos.xz, vec2(-0.6, 1.0), 2.1, 0.9, 0.10);
-      float w3 = wave(pos.xz, vec2(0.3, -0.7), 3.5, 1.1, 0.06);
-      float w4 = wave(pos.xz, vec2(1.0, 0.2),  5.0, 0.6, 0.03);
-      float w5 = wave(pos.xz, vec2(-0.8, -0.4),7.0, 0.4, 0.015);
-
-      float mouseDist = length(pos.xz - uMouse * 8.0);
-      float mouseRipple = uMouseStrength * 0.12 * sin(mouseDist * 3.0 - uTime * 3.0) * exp(-mouseDist * 0.4);
-
-      pos.y += w1 + w2 + w3 + w4 + w5 + mouseRipple;
-      vElevation = pos.y;
-
-      float eps = 0.01;
-      float wx = wave(pos.xz + vec2(eps,0.), vec2(1.0, 0.8), 1.2, 0.7, 0.18)
-               + wave(pos.xz + vec2(eps,0.), vec2(-0.6,1.0), 2.1, 0.9, 0.10)
-               + wave(pos.xz + vec2(eps,0.), vec2(0.3,-0.7), 3.5, 1.1, 0.06);
-      float wz = wave(pos.xz + vec2(0.,eps), vec2(1.0, 0.8), 1.2, 0.7, 0.18)
-               + wave(pos.xz + vec2(0.,eps), vec2(-0.6,1.0), 2.1, 0.9, 0.10)
-               + wave(pos.xz + vec2(0.,eps), vec2(0.3,-0.7), 3.5, 1.1, 0.06);
-
-      vNormal = normalize(vec3(-(wx - (w1+w2+w3))/eps, 1.0, -(wz - (w1+w2+w3))/eps));
-      vWorldPos = (modelMatrix * vec4(pos, 1.0)).xyz;
-
-      gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
-    }
-  `;
-
-  const waterFragmentShader = `
-    uniform float uTime;
-    uniform vec3 uSunDirection;
-    uniform vec3 uSunColor;
-    uniform vec3 uDeepColor;
-    uniform vec3 uShallowColor;
-    uniform vec3 uFoamColor;
-    uniform float uFresnelPower;
-
-    varying vec2 vUv;
-    varying vec3 vWorldPos;
-    varying vec3 vNormal;
-    varying float vElevation;
-
-    void main() {
-      vec3 viewDir = normalize(cameraPosition - vWorldPos);
-
-      float fresnel = pow(1.0 - max(0.0, dot(vNormal, viewDir)), uFresnelPower);
-      fresnel = clamp(fresnel, 0.0, 1.0);
-
-      float depth = (vElevation + 0.5) / 1.0;
-      vec3 waterColor = mix(uDeepColor, uShallowColor, depth * 0.6 + 0.2);
-
-      vec3 halfVec = normalize(uSunDirection + viewDir);
-      float spec = pow(max(0.0, dot(vNormal, halfVec)), 128.0);
-      vec3 specular = uSunColor * spec * 2.5;
-
-      float sss = max(0.0, dot(vNormal, uSunDirection)) * 0.3;
-      vec3 sssColor = vec3(0.05, 0.3, 0.5) * sss;
-
-      float foam = smoothstep(0.12, 0.22, vElevation);
-      vec3 foamColor = uFoamColor * foam * 0.4;
-
-      float caustic = sin(vUv.x * 30.0 + uTime * 2.0) * sin(vUv.y * 25.0 + uTime * 1.5) * 0.04;
-      caustic += sin(vUv.x * 50.0 - uTime * 1.8) * sin(vUv.y * 40.0 + uTime * 2.2) * 0.02;
-      caustic = max(0.0, caustic);
-
-      vec3 skyColor = mix(vec3(0.02, 0.08, 0.2), vec3(0.5, 0.7, 1.0), fresnel * 0.5);
-
-      vec3 finalColor = waterColor + specular + sssColor + foamColor + vec3(caustic * 0.5, caustic, caustic * 0.3);
-      finalColor = mix(finalColor, skyColor, fresnel * 0.3);
-
-      float horizonFade = smoothstep(0.0, 40.0, length(vWorldPos.xz));
-      finalColor = mix(finalColor, vec3(0.01, 0.05, 0.12), horizonFade * 0.7);
-
-      gl_FragColor = vec4(finalColor, 1.0);
-    }
-  `;
-
-  const waterGeo = new THREE.PlaneGeometry(60, 60, 128, 128);
-  waterGeo.rotateX(-Math.PI / 2);
-
-  const waterUniforms = {
-    uTime: { value: 0 },
-    uMouse: { value: new THREE.Vector2(0, 0) },
-    uMouseStrength: { value: 0 },
-    uSunDirection: { value: new THREE.Vector3(0.5, 0.8, 0.3).normalize() },
-    uSunColor: { value: new THREE.Color(0xffd080) },
-    uDeepColor: { value: new THREE.Color(0x010d20) },
-    uShallowColor: { value: new THREE.Color(0x0a3060) },
-    uFoamColor: { value: new THREE.Color(0xc0e0ff) },
-    uFresnelPower: { value: 3.0 },
-  };
-
-  const waterMat = new THREE.ShaderMaterial({
-    vertexShader: waterVertexShader,
-    fragmentShader: waterFragmentShader,
-    uniforms: waterUniforms,
-    side: THREE.DoubleSide,
-  });
-
-  const waterMesh = new THREE.Mesh(waterGeo, waterMat);
-  scene.add(waterMesh);
-
-  const sprayCount = 600;
-  const sprayPositions = new Float32Array(sprayCount * 3);
-  for (let i = 0; i < sprayCount; i++) {
-    sprayPositions[i * 3] = (Math.random() - 0.5) * 40;
-    sprayPositions[i * 3 + 1] = Math.random() * 3;
-    sprayPositions[i * 3 + 2] = (Math.random() - 0.5) * 40;
-  }
-  const sprayGeo = new THREE.BufferGeometry();
-  sprayGeo.setAttribute('position', new THREE.BufferAttribute(sprayPositions, 3));
-  const sprayMat = new THREE.PointsMaterial({
-    color: 0x88bbdd, size: 0.04, transparent: true, opacity: 0.4,
-    sizeAttenuation: true, depthWrite: false,
-  });
-  const spray = new THREE.Points(sprayGeo, sprayMat);
-  scene.add(spray);
-
-  for (let i = 0; i < 5; i++) {
-    const shaftGeo = new THREE.ConeGeometry(0.3 + i * 0.1, 8, 6, 1, true);
-    const shaftMat = new THREE.MeshBasicMaterial({
-      color: 0x1a5080, transparent: true, opacity: 0.03 + i * 0.005,
-      side: THREE.DoubleSide, depthWrite: false,
-    });
-    const shaft = new THREE.Mesh(shaftGeo, shaftMat);
-    shaft.position.set((Math.random() - 0.5) * 20, -2, (Math.random() - 0.5) * 20);
-    shaft.rotation.z = (Math.random() - 0.5) * 0.3;
-    scene.add(shaft);
-  }
-
-  let targetMouseX = 0, targetMouseY = 0;
-  let mouseStrengthTarget = 0;
-
-  function handleMouseMove(e) {
-    const rect = canvas.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width * 2 - 1;
-    const y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-    targetMouseX = x;
-    targetMouseY = y;
-    mouseStrengthTarget = 1;
-    setTimeout(() => mouseStrengthTarget = 0, 1000);
-  }
-
-  const section3d = document.getElementById('ocean3d');
-  const obsOcean = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        canvas.addEventListener('mousemove', handleMouseMove);
-      } else {
-        canvas.removeEventListener('mousemove', handleMouseMove);
-        mouseStrengthTarget = 0;
-      }
-    });
-  }, { threshold: 0.1 });
-  if (section3d) obsOcean.observe(section3d);
-
-  let camAngle = 0;
-
-  function onResize() {
-    const w = canvas.offsetWidth, h = canvas.offsetHeight;
-    camera.aspect = w / h;
-    camera.updateProjectionMatrix();
-    renderer.setSize(w, h);
-  }
-  window.addEventListener('resize', onResize);
-
-  let isVisible = false;
-  const visObs = new IntersectionObserver(e => { isVisible = e[0].isIntersecting; }, { threshold: 0.05 });
-  if (section3d) visObs.observe(section3d);
-
-  let t = 0;
-  function animateOcean() {
-    requestAnimationFrame(animateOcean);
-    if (!isVisible) return;
-
-    t += 0.016;
-    waterUniforms.uTime.value = t;
-
-    waterUniforms.uMouse.value.x += (targetMouseX - waterUniforms.uMouse.value.x) * 0.05;
-    waterUniforms.uMouse.value.y += (targetMouseY - waterUniforms.uMouse.value.y) * 0.05;
-    waterUniforms.uMouseStrength.value += (mouseStrengthTarget - waterUniforms.uMouseStrength.value) * 0.03;
-
-    camAngle += 0.003;
-    camera.position.x = Math.sin(camAngle * 0.7) * 1.5;
-    camera.position.y = 3 + Math.sin(camAngle) * 0.3;
-    camera.lookAt(0, 0, 0);
-
-    spray.rotation.y += 0.0005;
-
-    renderer.render(scene, camera);
-  }
-  animateOcean();
-})();
-</script>
-
-<script>
-(function initSectionVideos(){
-  const vid = document.getElementById('sectionVid');
-  const overlay = document.getElementById('sectionVidOverlay');
-  if(!vid) return;
-
-  const sectionVideos = {
-    'about':     'assets/videos/ocean-hero-2.mp4',
-    'pollution': 'assets/videos/cinematic-1.mp4',
-    'goals':     'assets/videos/ocean-hero-1.mp4',
-    'join':      'assets/videos/hero-b-1080p.mp4',
-  };
-
-  let currentSrc = null;
-
-  function switchVideo(src) {
-    if(src === currentSrc) return;
-    currentSrc = src;
-    if(!src) {
-      vid.style.opacity = '0';
-      overlay.style.opacity = '0';
-      return;
-    }
-    vid.style.opacity = '0';
-    setTimeout(() => {
-      vid.src = src;
-      vid.load();
-      vid.play().catch(()=>{});
-      vid.style.opacity = '1';
-      overlay.style.opacity = '1';
-    }, 600);
-  }
-
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if(!e.isIntersecting || window.currentPage !== 'home') return;
-      const id = e.target.id;
-      switchVideo(sectionVideos[id] || null);
-    });
-  }, { threshold: 0.4 });
-
-  Object.keys(sectionVideos).forEach(id => {
-    const el = document.getElementById(id);
-    if(el) obs.observe(el);
-  });
-
-  const heroObs = new IntersectionObserver(entries => {
-    if(entries[0].isIntersecting) switchVideo(null);
-  }, { threshold: 0.5 });
-  const hero = document.querySelector('.hero');
-  if(hero) heroObs.observe(hero);
-})();
-</script>
-
-<script>
-(function heroToOcean(){
-  const hero = document.querySelector('.hero');
-  const ocean = document.getElementById('ocean3d');
-  if(!hero || !ocean) return;
-
-  window.addEventListener('scroll', () => {
-    if(window.currentPage !== 'home') return;
-    const heroBottom = hero.getBoundingClientRect().bottom;
-    const vh = window.innerHeight;
-    const t = Math.max(0, Math.min(1, 1 - heroBottom / vh));
-    hero.style.opacity = 1 - t * 0.8;
-  }, { passive: true });
-})();
 </script>
 
 
