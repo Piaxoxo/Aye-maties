@@ -3028,7 +3028,129 @@ window.addEventListener('resize', ()=>{ initParticles(); });
       fish.push(f);
     }
 
+    /* ---- Task 1: Shipwreck / pirate artifacts ---- */
+    const metalMat = new THREE.MeshPhongMaterial({ color:0x2a4a5e, shininess:10 });
+    const woodMat  = new THREE.MeshPhongMaterial({ color:0x3d2b1f, emissive:0x1a0a00, shininess:6 });
+    const barnacled= new THREE.MeshPhongMaterial({ color:0x2d1b10, shininess:4 });
+    const goldMat  = new THREE.MeshPhongMaterial({ color:0xb8860b, emissive:0x3a2a00, shininess:60 });
+    const boneMat  = new THREE.MeshPhongMaterial({ color:0xc8c0b0, emissive:0x080a08, shininess:30 });
+
+    // Anchor (far right, seafloor)
+    const anchor = new THREE.Group();
+    const aShaft = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 2.2, 10), metalMat);
+    anchor.add(aShaft);
+    const aRing = new THREE.Mesh(new THREE.TorusGeometry(0.32, 0.08, 8, 16), metalMat);
+    aRing.position.y = 1.25; anchor.add(aRing);
+    [-1,1].forEach(d=>{
+      const fluke = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.18, 0.22), metalMat);
+      fluke.position.set(d*0.5, -1.0, 0); fluke.rotation.z = d*0.6; anchor.add(fluke);
+    });
+    anchor.position.set(6.2, -2.4, -5); anchor.rotation.z = -0.25;
+    group.add(anchor);
+
+    // Ship's wheel (left of anchor, partially buried in fog/floor)
+    const wheel = new THREE.Group();
+    const rim = new THREE.Mesh(new THREE.TorusGeometry(0.9, 0.1, 10, 24), woodMat);
+    wheel.add(rim);
+    for(let s=0;s<8;s++){
+      const ang = (s/8)*Math.PI*2;
+      const spoke = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 1.7, 6), woodMat);
+      spoke.rotation.z = ang; wheel.add(spoke);
+    }
+    wheel.position.set(3.4, -3.0, -6); wheel.rotation.x = 0.4;
+    group.add(wheel);
+
+    // Treasure chest (seafloor center) with gold glow
+    const chest = new THREE.Group();
+    const cBody = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.8, 0.9), barnacled);
+    chest.add(cBody);
+    const cLid = new THREE.Mesh(new THREE.BoxGeometry(1.42, 0.45, 0.92), barnacled);
+    cLid.position.set(0, 0.55, -0.35); cLid.rotation.x = -0.6; chest.add(cLid);
+    [-0.45, 0.45].forEach(bx=>{
+      const band = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.85, 0.94), goldMat);
+      band.position.x = bx; chest.add(band);
+    });
+    const chestGlow = new THREE.PointLight(0xd4a84b, 0.5, 4);
+    chestGlow.position.set(0, 0.2, 0); chest.add(chestGlow);
+    chest.position.set(-0.6, -2.9, -4.5); chest.rotation.y = 0.3;
+    group.add(chest);
+
+    // Skull (near anchor, seafloor) + flicker light
+    const skull = new THREE.Group();
+    const cranium = new THREE.Mesh(new THREE.SphereGeometry(0.32, 12, 10), boneMat);
+    skull.add(cranium);
+    const jaw = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.14, 0.28), boneMat);
+    jaw.position.set(0, -0.28, 0.04); skull.add(jaw);
+    const skullLight = new THREE.PointLight(0x6fd9ff, 0.0, 3);
+    skullLight.position.set(5.2, -2.2, -4.7); group.add(skullLight);
+    skull.position.set(5.2, -2.85, -4.6); skull.rotation.y = -0.4;
+    group.add(skull);
+
+    /* ---- Task 2: additional sea creatures ---- */
+    // Sea turtle
+    const turtleMat = new THREE.MeshPhongMaterial({ color:0x4a6741, emissive:0x1a2a18, shininess:20 });
+    const turtle = new THREE.Group();
+    const shell = new THREE.Mesh(new THREE.SphereGeometry(1.2, 8, 6), turtleMat);
+    shell.scale.set(1, 0.4, 1.5); turtle.add(shell);
+    const tHead = new THREE.Mesh(new THREE.SphereGeometry(0.35, 8, 6), turtleMat);
+    tHead.position.set(0, 0, 1.7); turtle.add(tHead);
+    const flippers = [];
+    [[-1,1],[1,1],[-1,-1],[1,-1]].forEach(([sx,sz])=>{
+      const fl = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.08, 0.45), turtleMat);
+      fl.position.set(sx*1.1, 0, sz*0.7); fl.rotation.z = sx*0.3; fl.rotation.y = sx*sz*0.5;
+      turtle.add(fl); flippers.push(fl);
+    });
+    turtle.scale.setScalar(0.8);
+    group.add(turtle);
+
+    // Manta ray
+    const mantaMat = new THREE.MeshPhongMaterial({ color:0x0d1f35, emissive:0x040a14, shininess:30 });
+    const manta = new THREE.Group();
+    const mBody = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.25, 2.2), mantaMat);
+    manta.add(mBody);
+    [-1,1].forEach(d=>{
+      const wing = new THREE.Mesh(new THREE.BoxGeometry(2.6, 0.06, 1.6), mantaMat);
+      wing.position.set(d*1.5, 0, -0.1); wing.rotation.z = d*0.12;
+      wing.userData.dir = d; manta.add(wing);
+    });
+    manta.scale.setScalar(0.9);
+    group.add(manta);
+
+    // Whale silhouette (deep background depth element)
+    const whaleMat = new THREE.MeshPhongMaterial({ color:0x050d18, transparent:true, opacity:0.4 });
+    const whale = new THREE.Mesh(new THREE.SphereGeometry(2.4, 12, 10), whaleMat);
+    whale.scale.set(1, 0.35, 3);
+    whale.position.set(0, -1, -22);
+    group.add(whale);
+
     function update(t){
+      // Task 1 artifact subtle animation
+      anchor.rotation.z = -0.25 + 0.0003 * Math.sin(t * 0.2);
+      wheel.rotation.z += 0.001;
+      // skull light flicker
+      skullLight.intensity = Math.max(0, Math.sin(t*7.0)*Math.sin(t*2.3)) * 0.6;
+
+      // Task 2 turtle: gentle S-curve glide
+      turtle.position.set(
+        Math.sin(t*0.18)*6.5,
+        0.4 + Math.sin(t*0.5)*0.6,
+        -7 + Math.cos(t*0.18)*3
+      );
+      turtle.rotation.y = Math.atan2(Math.cos(t*0.18), -Math.sin(t*0.18)) + Math.PI/2;
+      flippers.forEach((fl,i)=>{ fl.rotation.x = Math.sin(t*2 + i)*0.3; });
+
+      // Manta: banking glide dipping through fog
+      manta.position.set(
+        Math.cos(t*0.12)*8,
+        1.5 + Math.sin(t*0.4)*1.6,
+        -9 + Math.sin(t*0.12)*4
+      );
+      manta.rotation.y = -t*0.12;
+      manta.rotation.z = Math.sin(t*0.4)*0.3;
+
+      // Whale: slow horizontal drift
+      whale.position.x = ((t*0.4) % 40) - 20;
+
       jellies.forEach(j=>{
         const u = j.userData;
         j.position.y = u.baseY + Math.sin(t*u.speed + u.phase)*0.5;
@@ -4779,6 +4901,8 @@ document.querySelectorAll('.reveal-x-left,.reveal-x-right,.reveal-scale,.reveal-
     show:       'assets/videos/vertical-1.mp4',
     news:       'assets/videos/cinematic-1.mp4',
     impressum:  'assets/videos/hero-b-1080p.mp4',
+    'ocean-scene-1': 'assets/videos/ocean-scene-1.mp4',
+    'ocean-scene-2': 'assets/videos/ocean-scene-2.mp4',
   };
   const bgWrap = document.getElementById('pageVideoBg');
   const bgVid  = document.getElementById('pageVideoBgVid');
