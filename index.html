@@ -614,6 +614,18 @@
   }
 
 
+
+  /* ── Cinematic Video Interlude ───────────────────────────────────────── */
+  .video-interlude{position:relative;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+  .vi-bg{position:absolute;inset:0;}
+  .vi-video{width:100%;height:100%;object-fit:cover;transition:opacity 1s ease;}
+  .vi-overlay{position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(4,10,18,.15) 0%,rgba(4,10,18,.8) 100%);}
+  .vi-content{position:relative;z-index:2;text-align:center;display:flex;flex-direction:column;align-items:center;gap:28px;}
+  .vi-title{font-family:var(--display);font-size:clamp(52px,8vw,130px);font-weight:300;letter-spacing:-.02em;color:#fff;line-height:.92;text-transform:uppercase;margin:0;}
+  .vi-line{display:block;width:0;height:1px;background:rgba(216,184,115,.7);transition:width 1.4s cubic-bezier(.16,.84,.44,1);}
+  [data-reveal].in .vi-line, .vi-line[data-reveal].in{width:80px;}
+  @media(max-width:560px){.vi-title{font-size:clamp(40px,12vw,80px);}}
+
   /* ── Mobile scroll animations ─────────────────────────────────────────── */
   @media(max-width:980px){
     [data-reveal]{opacity:0;transform:translateY(40px);transition:opacity .7s ease, transform .8s cubic-bezier(.16,.84,.44,1);}
@@ -979,18 +991,38 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-bg" id="heroBg">
-      <video class="hv active" autoplay muted loop playsinline poster="" data-label="Drone — Open Water">
-        <source src="assets/videos/ocean-hero-1.mp4" type="video/mp4">
+      <!-- Video 1 — active/preloaded, rest lazy via data-src -->
+      <video class="hv active" autoplay muted loop playsinline preload="auto"
+             poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='%23040a12'/%3E%3C/svg%3E"
+             data-label="Drone — Open Water"
+             data-src-4k="assets/videos/hero-4k.mp4">
+        <source src="assets/videos/hero-a-1080p.mp4" data-src-4k="assets/videos/hero-4k.mp4" type="video/mp4">
       </video>
-      <video class="hv" muted loop playsinline poster="" data-label="Underwater — Reef Light">
-        <source src="assets/videos/ocean-hero-2.mp4" type="video/mp4">
+      <video class="hv" muted loop playsinline preload="none"
+             poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='%23040a12'/%3E%3C/svg%3E"
+             data-label="Horizon — Golden Hour"
+             data-lazy="assets/videos/hero-b-1080p.mp4"
+             data-lazy-4k="assets/videos/hero-uhd.mp4">
+        <source data-src="assets/videos/hero-b-1080p.mp4" data-src-4k="assets/videos/hero-uhd.mp4" type="video/mp4">
       </video>
-      <video class="hv" muted loop playsinline poster="" data-label="Sunset — Horizon">
-        <source src="assets/videos/ocean-vertical.mp4" type="video/mp4">
+      <video class="hv" muted loop playsinline preload="none"
+             poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='%23040a12'/%3E%3C/svg%3E"
+             data-label="Expedition — Open Sea"
+             data-lazy="assets/videos/ocean-hero-1.mp4">
+        <source data-src="assets/videos/ocean-hero-1.mp4" type="video/mp4">
       </video>
-      <video class="hv" muted loop playsinline poster="" data-label="Cinematic — Open Ocean">
-        <source src="assets/videos/cinematic-1.mp4" type="video/mp4" media="(min-width:601px)">
-        <source src="assets/videos/vertical-1.mp4" type="video/mp4" media="(max-width:600px)">
+      <video class="hv" muted loop playsinline preload="none"
+             poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='%23040a12'/%3E%3C/svg%3E"
+             data-label="Underwater — Reef Light"
+             data-lazy="assets/videos/ocean-hero-2.mp4">
+        <source data-src="assets/videos/ocean-hero-2.mp4" type="video/mp4">
+      </video>
+      <video class="hv" muted loop playsinline preload="none"
+             poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='%23040a12'/%3E%3C/svg%3E"
+             data-label="Cinematic — Storm Passage"
+             data-lazy="assets/videos/cinematic-1.mp4"
+             data-lazy-4k="assets/videos/cinematic-4k.mp4">
+        <source data-src="assets/videos/cinematic-1.mp4" data-src-4k="assets/videos/cinematic-4k.mp4" type="video/mp4">
       </video>
     </div>
     <button class="hero-bg-switch magnetic" id="heroBgSwitch" aria-label="Switch ocean scene">
@@ -1030,7 +1062,7 @@
         <span class="line"><span data-i18n="hero.title1">Aye Maties</span></span>
         <span class="line"><span data-i18n="hero.title2">Pirate Challenge</span></span>
       </h1>
-      <span class="hero-season fade-up">SEASON 1 &#8212; COMING SOON</span>
+      <span class="hero-season fade-up" data-i18n="hero.season">SEASON 1 &#8212; COMING SOON</span>
       <p class="hero-sub fade-up" id="heroSub" data-i18n="hero.sub">An immersive voyage where adventure meets purpose — uniting explorers, dreamers and changemakers to protect the oceans that connect us all.</p>
       <div class="hero-meta fade-up" id="heroMeta">
         <a class="btn" href="#about" onclick="event.preventDefault();smoothScrollTo('#about')">
@@ -1286,8 +1318,8 @@
   </div>
   <!-- CTA -->
   <section class="cta" id="join">
-    <video class="cta-video" autoplay muted loop playsinline>
-      <source src="assets/videos/ocean-vertical.mp4" type="video/mp4">
+    <video class="cta-video" muted loop playsinline preload="none" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='%23040a12'/%3E%3C/svg%3E">
+      <source data-src="assets/videos/hero-b-1080p.mp4" type="video/mp4">
     </video>
     <div class="sunset-grade"></div>
     <div class="glass-orb go5" data-depth="0.6"></div>
@@ -1419,13 +1451,13 @@
 <div class="page" id="page-news">
   <div class="news-page">
     <div class="wrap">
-      <h1 class="news-headline">OCEAN DISPATCH</h1>
+      <h1 class="news-headline" data-i18n="news.title">OCEAN DISPATCH</h1>
       <div class="news-date" id="newsDate"></div>
       <div class="stat-counters">
-        <div class="stat-counter-card"><div class="big-num" id="newsPlastic">0</div><div class="stat-label">kg Plastic Entering Ocean Today</div></div>
-        <div class="stat-counter-card"><div class="big-num" id="newsCoral">0</div><div class="stat-label">km&#178; Coral Reef Bleached This Year</div></div>
-        <div class="stat-counter-card"><div class="big-num">2,270</div><div class="stat-label">Species at Risk (IUCN Red List)</div></div>
-        <div class="stat-counter-card"><div class="big-num">+0.9&#176;C</div><div class="stat-label">Ocean Temperature Anomaly</div></div>
+        <div class="stat-counter-card"><div class="big-num" id="newsPlastic">0</div><div class="stat-label" data-i18n="news.plastic">KG PLASTIC ENTERING OCEAN TODAY</div></div>
+        <div class="stat-counter-card"><div class="big-num" id="newsCoral">0</div><div class="stat-label" data-i18n="news.coral">KM² CORAL REEF BLEACHED THIS YEAR</div></div>
+        <div class="stat-counter-card"><div class="big-num">2,270</div><div class="stat-label" data-i18n="news.species">SPECIES AT RISK (IUCN RED LIST)</div></div>
+        <div class="stat-counter-card"><div class="big-num">+0.9&#176;C</div><div class="stat-label" data-i18n="news.temp">OCEAN TEMPERATURE ANOMALY</div></div>
       </div>
       <div class="news-cards">
         <article class="news-card"><div class="nc-date">14 Apr 2026</div><h3>UN Ocean Treaty Enters Ratification Phase</h3><p>The High Seas Treaty, signed by over 60 nations, begins formal ratification. Conservationists call it the most significant marine protection agreement since UNCLOS.</p></article>
@@ -1610,7 +1642,10 @@ const dict = {
     "footer.explore":"Explore","footer.join":"Join the Crew","footer.contact":"Contact",
     "footer.address":"Hafenstraße 12, 20457 Hamburg, Germany","footer.lang":"Language",
     "footer.rights":"All rights reserved.","footer.crafted":"Crafted with reverence for the sea."
-  },
+  ,
+    "show.reveal1":"WE CANNOT TELL YOU YET.", "show.reveal2":"But maybe... you will find out.", "show.heading":"BEGIN THE HUNT FOR THE TREASURE", "show.follow":"FOLLOW US", "crew.title_pg":"THE CREW", "crew.subtitle_pg":"Aye Maties is carried by a small crew of sailors, filmmakers, divers and storytellers — each one choosing the sea as their workplace and ocean conservation as their calling.", "crew.readmore_pg":"READ MORE", "crew.readless_pg":"READ LESS", "news.plastic":"KG PLASTIC ENTERING OCEAN TODAY", "news.coral":"KM² CORAL REEF BLEACHED THIS YEAR", "news.species":"SPECIES AT RISK (IUCN RED LIST)", "news.temp":"OCEAN TEMPERATURE ANOMALY", "imp.title":"IMPRESSUM", "imp.brand":"BRAND & IP", "imp.legal":"LEGAL REPRESENTATIVE", "imp.operative":"OPERATIVE CONTACT", "imp.production":"PRODUCTION CONTACT", "imp.marketing_lbl":"MARKETING CONTACT", "imp.coordination":"COORDINATION DIRECT LINE", "imp.postal":"POSTAL ADDRESS", "invest.title_pg":"INVESTMENT", "invest.sub_pg":"Join the voyage. Shape the story.", "hero.season":"SEASON 1 — COMING SOON"
+  ,
+    "news.title":"OCEAN DISPATCH"},
   de:{
     "sound.toggle":"Soundtrack",
     "hero.scene":"Drohne — Offenes Meer","hero.scene2":"Unterwasser — Riff-Licht","hero.scene3":"Sonnenuntergang — Horizont",
@@ -1692,7 +1727,10 @@ const dict = {
     "footer.explore":"Entdecken","footer.join":"Der Crew beitreten","footer.contact":"Kontakt",
     "footer.address":"Hafenstraße 12, 20457 Hamburg, Deutschland","footer.lang":"Sprache",
     "footer.rights":"Alle Rechte vorbehalten.","footer.crafted":"Mit Ehrfurcht vor dem Meer gestaltet."
-  },
+  ,
+    "show.reveal1":"WIR KÖNNEN ES NOCH NICHT VERRATEN.", "show.reveal2":"Aber vielleicht... wirst du es herausfinden.", "show.heading":"BEGINN DIE JAGD NACH DEM SCHATZ", "show.follow":"FOLGE UNS", "crew.title_pg":"DIE CREW", "crew.subtitle_pg":"Aye Maties wird von einer kleinen Crew aus Seglern, Filmemachern, Tauchern und Geschichtenerzählern getragen — jeder von ihnen hat das Meer als Arbeitsplatz und den Meeresschutz als Berufung gewählt.", "crew.readmore_pg":"MEHR LESEN", "crew.readless_pg":"WENIGER", "news.plastic":"KG PLASTIK GELANGT HEUTE INS MEER", "news.coral":"KM² KORALLENRIFF GEBLEICHT DIESES JAHR", "news.species":"BEDROHTE ARTEN (IUCN ROTE LISTE)", "news.temp":"OZEAN-TEMPERATURANOMALIE", "imp.title":"IMPRESSUM", "imp.brand":"MARKE & IP", "imp.legal":"RECHTLICHER VERTRETER", "imp.operative":"OPERATIVER KONTAKT", "imp.production":"PRODUKTIONSKONTAKT", "imp.marketing_lbl":"MARKETINGKONTAKT", "imp.coordination":"KOORDINATION DIREKTLEITUNG", "imp.postal":"POSTANSCHRIFT", "invest.title_pg":"INVESTITION", "invest.sub_pg":"Werde Teil der Reise. Forme die Geschichte.", "hero.season":"STAFFEL 1 — DEMNÄCHST"
+  ,
+    "news.title":"OCEAN DISPATCH"},
   es:{
     "sound.toggle":"Soundtrack",
     "hero.scene":"Drone — Mar abierto","hero.scene2":"Bajo el agua — Luz de arrecife","hero.scene3":"Atardecer — Horizonte",
@@ -1774,7 +1812,10 @@ const dict = {
     "footer.explore":"Explorar","footer.join":"Únete a la tripulación","footer.contact":"Contacto",
     "footer.address":"Hafenstraße 12, 20457 Hamburgo, Alemania","footer.lang":"Idioma",
     "footer.rights":"Todos los derechos reservados.","footer.crafted":"Creado con reverencia por el mar."
-  },
+  ,
+    "show.reveal1":"AÚN NO PODEMOS DECÍRTELO.", "show.reveal2":"Pero quizás... lo descubrirás.", "show.heading":"COMIENZA LA CAZA DEL TESORO", "show.follow":"SÍGUENOS", "crew.title_pg":"LA TRIPULACIÓN", "crew.subtitle_pg":"Aye Maties está formado por una pequeña tripulación de marineros, cineastas, buceadores y narradores — cada uno eligiendo el mar como lugar de trabajo y la conservación del océano como vocación.", "crew.readmore_pg":"LEER MÁS", "crew.readless_pg":"MENOS", "news.plastic":"KG DE PLÁSTICO ENTRANDO AL OCÉANO HOY", "news.coral":"KM² DE ARRECIFE DE CORAL BLANQUEADO ESTE AÑO", "news.species":"ESPECIES EN RIESGO (LISTA ROJA UICN)", "news.temp":"ANOMALÍA DE TEMPERATURA DEL OCÉANO", "imp.title":"IMPRESSUM", "imp.brand":"MARCA & PI", "imp.legal":"REPRESENTANTE LEGAL", "imp.operative":"CONTACTO OPERATIVO", "imp.production":"CONTACTO DE PRODUCCIÓN", "imp.marketing_lbl":"CONTACTO DE MARKETING", "imp.coordination":"LÍNEA DIRECTA DE COORDINACIÓN", "imp.postal":"DIRECCIÓN POSTAL", "invest.title_pg":"INVERSIÓN", "invest.sub_pg":"Únete al viaje. Da forma a la historia.", "hero.season":"TEMPORADA 1 — PRÓXIMAMENTE"
+  ,
+    "news.title":"OCEAN DISPATCH"},
   fr:{
     "sound.toggle":"Soundtrack",
     "hero.scene":"Drone — Mer ouverte","hero.scene2":"Sous l'eau — Lumière du récif","hero.scene3":"Coucher de soleil — Horizon",
@@ -1856,23 +1897,71 @@ const dict = {
     "footer.explore":"Explorer","footer.join":"Rejoindre l'équipage","footer.contact":"Contact",
     "footer.address":"Hafenstraße 12, 20457 Hambourg, Allemagne","footer.lang":"Langue",
     "footer.rights":"Tous droits réservés.","footer.crafted":"Conçu avec révérence pour la mer."
-  }
+  ,
+    "show.reveal1":"NOUS NE POUVONS PAS ENCORE TE LE DIRE.", "show.reveal2":"Mais peut-être... tu le découvriras.", "show.heading":"COMMENCE LA CHASSE AU TRÉSOR", "show.follow":"SUIS-NOUS", "crew.title_pg":"L'ÉQUIPAGE", "crew.subtitle_pg":"Aye Maties est porté par un petit équipage de marins, cinéastes, plongeurs et conteurs — chacun ayant choisi la mer comme lieu de travail et la conservation des océans comme vocation.", "crew.readmore_pg":"LIRE PLUS", "crew.readless_pg":"MOINS", "news.plastic":"KG DE PLASTIQUE ENTRANT DANS L'OCÉAN AUJOURD'HUI", "news.coral":"KM² DE RÉCIF CORALLIEN BLANCHI CETTE ANNÉE", "news.species":"ESPÈCES MENACÉES (LISTE ROUGE UICN)", "news.temp":"ANOMALIE DE TEMPÉRATURE DE L'OCÉAN", "imp.title":"IMPRESSUM", "imp.brand":"MARQUE & PI", "imp.legal":"REPRÉSENTANT LÉGAL", "imp.operative":"CONTACT OPÉRATIONNEL", "imp.production":"CONTACT DE PRODUCTION", "imp.marketing_lbl":"CONTACT MARKETING", "imp.coordination":"LIGNE DIRECTE DE COORDINATION", "imp.postal":"ADRESSE POSTALE", "invest.title_pg":"INVESTISSEMENT", "invest.sub_pg":"Rejoignez le voyage. Façonnez l'histoire.", "hero.season":"SAISON 1 — BIENTÔT"
+  ,
+    "news.title":"OCEAN DISPATCH"}
 ,
-  pt:{"sound.toggle":"Soundtrack","nav.home":"INICIO","nav.crew":"TRIPULACAO","nav.show":"O SHOW","nav.news":"NOTICIAS","nav.invest":"INVESTIMENTO","nav.impressum":"IMPRESSUM","hero.eyebrow":"UMA SERIE ORIGINAL SAIL WISELY","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"Uma viagem imersiva onde aventura encontra proposito.","hero.cta":"Iniciar a Viagem","hero.scroll":"Rolar","hero.story":"Nossa Historia","hero.crew":"Nossa Tripulacao","hero.show":"O Show","about.eyebrow":"Nossa Historia","about.title":"Uma Tripulacao Unida pelo Mar","goals.eyebrow":"Para Onde Vamos","goals.title":"Nossos Objetivos para os Proximos Dez Anos","footer.tag":"Uma experiencia ousada de conservacao dos oceanos.","footer.rights":"Todos os direitos reservados.","footer.crafted":"Criado com reverencia pelo mar."},
-  it:{"sound.toggle":"Colonna Sonora","nav.home":"HOME","nav.crew":"EQUIPAGGIO","nav.show":"LO SHOW","nav.news":"NOTIZIE","nav.invest":"INVESTIMENTO","nav.impressum":"IMPRESSUM","hero.eyebrow":"UNA SERIE ORIGINALE SAIL WISELY","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"Un viaggio immersivo dove avventura e scopo si incontrano.","hero.cta":"Inizia il Viaggio","hero.scroll":"Scorri","hero.story":"La Nostra Storia","hero.crew":"Il Nostro Equipaggio","hero.show":"Lo Show","about.eyebrow":"La Nostra Storia","about.title":"Un Equipaggio Unito dal Mare","goals.eyebrow":"Dove Siamo Diretti","goals.title":"I Nostri Obiettivi per i Prossimi Dieci Anni","footer.tag":"Un audace esperienza di conservazione degli oceani.","footer.rights":"Tutti i diritti riservati.","footer.crafted":"Creato con riverenza per il mare."},
-  nl:{"sound.toggle":"Soundtrack","nav.home":"HOME","nav.crew":"BEMANNING","nav.show":"DE SHOW","nav.news":"NIEUWS","nav.invest":"INVESTERING","nav.impressum":"IMPRESSUM","hero.eyebrow":"EEN SAIL WISELY ORIGINELE SERIE","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"Een meeslepende reis waar avontuur doel ontmoet.","hero.cta":"Begin de Reis","hero.scroll":"Scrollen","hero.story":"Ons Verhaal","hero.crew":"Onze Bemanning","hero.show":"De Show","about.eyebrow":"Ons Verhaal","about.title":"Een Bemanning Verbonden door de Zee","goals.eyebrow":"Onze Koers","goals.title":"Onze Doelen voor de Komende Tien Jaar","footer.tag":"Een gedurfde oceaanconserveringservaring.","footer.rights":"Alle rechten voorbehouden.","footer.crafted":"Gemaakt met eerbied voor de zee."},
-  ru:{"sound.toggle":"Soundtrack","nav.home":"GLAVN","nav.crew":"KOMANDA","nav.show":"SHO","nav.news":"NOVOSTI","nav.invest":"INVEST","nav.impressum":"IMPRESSUM","hero.eyebrow":"SAIL WISELY ORIGINAL SERIES","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"Puteshestviye gde priklyucheniye vstrechayet tsel.","hero.cta":"Nachat","hero.scroll":"Prokrutit","hero.story":"Nasha Istoriya","hero.crew":"Nasha Komanda","hero.show":"Sho","about.eyebrow":"Nasha Istoriya","about.title":"Komanda svyazannaya morem","goals.eyebrow":"Nash Kurs","goals.title":"Nashi tseli na sleduyushchiye desyat let","footer.tag":"Smeliy opyt okhrany okeanov.","footer.rights":"Vse prava zashchishcheny.","footer.crafted":"Sozdano s uvazheniyem k moryu."},
-  pl:{"sound.toggle":"Soundtrack","nav.home":"STRONA","nav.crew":"ZALOGA","nav.show":"SHOW","nav.news":"AKTUALNOSCI","nav.invest":"INWESTYCJA","nav.impressum":"IMPRESSUM","hero.eyebrow":"ORYGINALNY SERIAL SAIL WISELY","hero.title1":"Aye Maties","hero.title2":"Pirackie Wyzwanie","hero.sub":"Immersyjna podroz, gdzie przygoda spotyka cel.","hero.cta":"Rozpocznij Podroz","hero.scroll":"Przewin","hero.story":"Nasza Historia","hero.crew":"Nasza Zaloga","hero.show":"Show","about.eyebrow":"Nasza Historia","about.title":"Zaloga Zjednoczona przez Morze","goals.eyebrow":"Nasz Kurs","goals.title":"Nasze Cele na Najblizsze Dziesiec Lat","footer.tag":"Odwazne doswiadczenie ochrony oceanow.","footer.rights":"Wszelkie prawa zastrzezone.","footer.crafted":"Stworzone z szacunkiem dla morza."},
-  sv:{"sound.toggle":"Soundtrack","nav.home":"HEM","nav.crew":"BESATTNING","nav.show":"SHOWEN","nav.news":"NYHETER","nav.invest":"INVESTERING","nav.impressum":"IMPRESSUM","hero.eyebrow":"EN SAIL WISELY ORIGINALSERIE","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"En uppslukande resa dar aventyr moter syfte.","hero.cta":"Paborja Resan","hero.scroll":"Scrolla","hero.story":"Var Historia","hero.crew":"Var Besattning","hero.show":"Showen","about.eyebrow":"Var Historia","about.title":"En Besattning Forenad av Havet","goals.eyebrow":"Var Kurs","goals.title":"Vara Mal for de Kommande Tio Aren","footer.tag":"En djarv upplevelse for bevarande av haven.","footer.rights":"Alla rattigheter forbehallna.","footer.crafted":"Skapad med vordnad for havet."},
-  no:{"sound.toggle":"Soundtrack","nav.home":"HJEM","nav.crew":"MANNSKAP","nav.show":"SHOWET","nav.news":"NYHETER","nav.invest":"INVESTERING","nav.impressum":"IMPRESSUM","hero.eyebrow":"EN SAIL WISELY ORIGINALSERIE","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"En oppslukende reise der eventyr moter formal.","hero.cta":"Start Reisen","hero.scroll":"Rull ned","hero.story":"Var Historie","hero.crew":"Vart Mannskap","hero.show":"Showet","about.eyebrow":"Var Historie","about.title":"Et Mannskap Bundet av Havet","goals.eyebrow":"Var Kurs","goals.title":"Vare Mal for de Neste Ti Arene","footer.tag":"En dristig opplevelse for bevaring av havene.","footer.rights":"Alle rettigheter forbeholdt.","footer.crafted":"Laget med aerefrykt for havet."},
-  da:{"sound.toggle":"Soundtrack","nav.home":"HJEM","nav.crew":"BESAETNING","nav.show":"SHOWET","nav.news":"NYHEDER","nav.invest":"INVESTERING","nav.impressum":"IMPRESSUM","hero.eyebrow":"EN SAIL WISELY ORIGINALSERIE","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"En fordybende rejse, hvor eventyr moder formal.","hero.cta":"Start Rejsen","hero.scroll":"Rul ned","hero.story":"Vores Historie","hero.crew":"Vores Besaetning","hero.show":"Showet","about.eyebrow":"Vores Historie","about.title":"En Besaetning Bundet af Havet","goals.eyebrow":"Vores Kurs","goals.title":"Vores Mal for de Naeste Ti Ar","footer.tag":"En dristig oplevelse for bevarelse af havene.","footer.rights":"Alle rettigheder forbeholdes.","footer.crafted":"Skabt med aerefrygt for havet."},
-  tr:{"sound.toggle":"Soundtrack","nav.home":"ANA SAYFA","nav.crew":"EKIP","nav.show":"GOSTERI","nav.news":"HABERLER","nav.invest":"YATIRIM","nav.impressum":"IMPRESSUM","hero.eyebrow":"BIR SAIL WISELY ORIJINAL SERISI","hero.title1":"Aye Maties","hero.title2":"Korsan Mucadelesi","hero.sub":"Maceranin amacla bulustu survukleyici bir yolculuk.","hero.cta":"Yolculuga Basla","hero.scroll":"Kaydir","hero.story":"Hikayemiz","hero.crew":"Ekibimiz","hero.show":"Gosteri","about.eyebrow":"Hikayemiz","about.title":"Denizle Bagli Bir Ekip","goals.eyebrow":"Yonumuz","goals.title":"Onumuzdeki On Yil Icin Hedeflerimiz","footer.tag":"Okyanuslar icin cesur bir deneyim.","footer.rights":"Tum haklari saklidir.","footer.crafted":"Denize saygiyla hazirlanmistir."},
-  zh:{"sound.toggle":"yuansheng","nav.home":"shouye","nav.crew":"chuanyuan","nav.show":"jiemu","nav.news":"xinwen","nav.invest":"touzi","nav.impressum":"banquan","hero.eyebrow":"SAIL WISELY yuanchuang xilie","hero.title1":"Aye Maties","hero.title2":"haodao tiaozhan","hero.sub":"maoxian yu shiming jiaozhide chengjin lvcheng","hero.cta":"kaishi hangxing","hero.scroll":"gundong","hero.story":"womenDe gushi","hero.crew":"womenDe chuanyuan","hero.show":"jiemu","about.eyebrow":"womenDe gushi","about.title":"yi hai wei niudai De chuanyuan","goals.eyebrow":"womenDe fangxiang","goals.title":"weilai shinian de mubiao","footer.tag":"baohu haiyang de dahdan tiyan","footer.rights":"baoliu suoyou quanli","footer.crafted":"yi dui haiyang De jingwei zhixin jingxin dazao"},
-  ja:{"sound.toggle":"Soundtrack","nav.home":"HOME","nav.crew":"CREW","nav.show":"SHOW","nav.news":"NEWS","nav.invest":"TOSHI","nav.impressum":"IMPRESSUM","hero.eyebrow":"SAIL WISELY ORIGINAL SERIES","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"Bouken to shimei ga majiawaru shinnyuugata no kokai","hero.cta":"Koukai wo hajimeru","hero.scroll":"Scroll","hero.story":"Watashitachi no Sutoorii","hero.crew":"Kuru","hero.show":"Shoo","about.eyebrow":"Watashitachi no Sutoorii","about.title":"Umi de musubareta kuru","goals.eyebrow":"Watashitachi no shinro","goals.title":"Kongo 10 nenkan no mokuhyou","footer.tag":"Kaiyo hogo no tame no daitan na taiken","footer.rights":"All rights reserved","footer.crafted":"Umi e no keii wo komete seisaku"},
-  ko:{"sound.toggle":"Soundtrack","nav.home":"HOME","nav.crew":"CREW","nav.show":"SHOW","nav.news":"NEWS","nav.invest":"TUJA","nav.impressum":"IMPRESSUM","hero.eyebrow":"SAIL WISELY ORIGINAL SERIES","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"Moheom gwa mokjeogi mannaneun molipsyeong hanghae","hero.cta":"Hanghae sijak","hero.scroll":"Seukeurol","hero.story":"Uriui iyagi","hero.crew":"Uri kuru","hero.show":"Syo","about.eyebrow":"Uriui iyagi","about.title":"Badaro yeongyeoldoen kuru","goals.eyebrow":"Uriui bangyang","goals.title":"Hyang hu 10 nyeon mokpyo","footer.tag":"Haeyang bojo reul wihan daedamhan gyeongheom","footer.rights":"Modeun gwonri boyu","footer.crafted":"Bada e daehan gyeongoeusim euro jejakdoem"},
-  ar:{"sound.toggle":"Soundtrack","nav.home":"alrayisiya","nav.crew":"altaqm","nav.show":"alarad","nav.news":"alakhbar","nav.invest":"istithmar","nav.impressum":"qanuni","hero.eyebrow":"silsila aslia min SAIL WISELY","hero.title1":"Aye Maties","hero.title2":"tahaddi alqarasina","hero.sub":"rihlat ghamira haythu tatalaqa almughamera bilhadaf","hero.cta":"ibda alrihla","hero.scroll":"tamrir","hero.story":"qissatuna","hero.crew":"taqmuna","hero.show":"alarad","about.eyebrow":"qissatuna","about.title":"taqm mutahid bilbahr","goals.eyebrow":"wihhatuna","goals.title":"ahdafuna lil sanawat alashr alqadima","footer.tag":"tajruba jaria lihmayat almuhtit","footer.rights":"jami alhquq mahfuza","footer.crafted":"suni biihtiram lilbahr"},
-  hi:{"sound.toggle":"Soundtrack","nav.home":"HOME","nav.crew":"DAL","nav.show":"SHOW","nav.news":"SAMACHAR","nav.invest":"NIVESH","nav.impressum":"IMPRESSUM","hero.eyebrow":"SAIL WISELY MOOL SHRINKHALA","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"Ek romanchak yatra jahan sahas uddeshya se milta hai","hero.cta":"Yatra shuru karen","hero.scroll":"Scroll kare","hero.story":"Humari kahani","hero.crew":"Humara dal","hero.show":"Show","about.eyebrow":"Humari kahani","about.title":"Samudra se juda ek dal","goals.eyebrow":"Humari disha","goals.title":"Agle das varshon ke liye hamare lakshya","footer.tag":"Mahasagar sanrakshan ke liye ek sahasi anubhav","footer.rights":"Sarvaadhikar surakshit","footer.crafted":"Samudra ke prati aadar ke saath banaya gaya"},
-  id:{"sound.toggle":"Soundtrack","nav.home":"BERANDA","nav.crew":"AWAK","nav.show":"PERTUNJUKAN","nav.news":"BERITA","nav.invest":"INVESTASI","nav.impressum":"IMPRESSUM","hero.eyebrow":"SERIAL ORISINAL SAIL WISELY","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"Perjalanan imersif di mana petualangan bertemu tujuan.","hero.cta":"Mulai Perjalanan","hero.scroll":"Gulir","hero.story":"Kisah Kami","hero.crew":"Awak Kami","hero.show":"Pertunjukan","about.eyebrow":"Kisah Kami","about.title":"Awak yang Disatukan oleh Laut","goals.eyebrow":"Ke Mana Kami Menuju","goals.title":"Tujuan Kami untuk Sepuluh Tahun ke Depan","footer.tag":"Pengalaman konservasi laut yang berani.","footer.rights":"Semua hak dilindungi.","footer.crafted":"Dibuat dengan penghormatan terhadap laut."}
+  pt:{"sound.toggle":"Soundtrack","nav.home":"INICIO","nav.crew":"TRIPULACAO","nav.show":"O SHOW","nav.news":"NOTICIAS","nav.invest":"INVESTIMENTO","nav.impressum":"IMPRESSUM","hero.eyebrow":"UMA SERIE ORIGINAL SAIL WISELY","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"Uma viagem imersiva onde aventura encontra proposito.","hero.cta":"Iniciar a Viagem","hero.scroll":"Rolar","hero.story":"Nossa Historia","hero.crew":"Nossa Tripulacao","hero.show":"O Show","about.eyebrow":"Nossa Historia","about.title":"Uma Tripulacao Unida pelo Mar","goals.eyebrow":"Para Onde Vamos","goals.title":"Nossos Objetivos para os Proximos Dez Anos","footer.tag":"Uma experiencia ousada de conservacao dos oceanos.","footer.rights":"Todos os direitos reservados.","footer.crafted":"Criado com reverencia pelo mar.",
+    "show.reveal1":"AINDA NÃO PODEMOS DIZER.", "show.reveal2":"Mas talvez... você vai descobrir.", "show.heading":"COMECE A CAÇA AO TESOURO", "show.follow":"SIGA-NOS", "crew.title_pg":"A TRIPULAÇÃO", "crew.subtitle_pg":"Aye Maties é formado por uma pequena tripulação de marinheiros, cineastas, mergulhadores e contadores de histórias — cada um escolhendo o mar como local de trabalho e a conservação dos oceanos como vocação.", "crew.readmore_pg":"LER MAIS", "crew.readless_pg":"MENOS", "news.plastic":"KG DE PLÁSTICO ENTRANDO NO OCEANO HOJE", "news.coral":"KM² DE RECIFE DE CORAL BRANQUEADO ESTE ANO", "news.species":"ESPÉCIES EM RISCO (LISTA VERMELHA IUCN)", "news.temp":"ANOMALIA DE TEMPERATURA DO OCEANO", "imp.title":"IMPRESSUM", "imp.brand":"MARCA & PI", "imp.legal":"REPRESENTANTE LEGAL", "imp.operative":"CONTACTO OPERACIONAL", "imp.production":"CONTACTO DE PRODUÇÃO", "imp.marketing_lbl":"CONTACTO DE MARKETING", "imp.coordination":"LINHA DIRETA DE COORDENAÇÃO", "imp.postal":"ENDEREÇO POSTAL", "invest.title_pg":"INVESTIMENTO", "invest.sub_pg":"Junte-se à viagem. Molde a história.", "hero.season":"TEMPORADA 1 — EM BREVE"
+  ,
+    "news.title":"OCEAN DISPATCH"},
+  it:{"sound.toggle":"Colonna Sonora","nav.home":"HOME","nav.crew":"EQUIPAGGIO","nav.show":"LO SHOW","nav.news":"NOTIZIE","nav.invest":"INVESTIMENTO","nav.impressum":"IMPRESSUM","hero.eyebrow":"UNA SERIE ORIGINALE SAIL WISELY","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"Un viaggio immersivo dove avventura e scopo si incontrano.","hero.cta":"Inizia il Viaggio","hero.scroll":"Scorri","hero.story":"La Nostra Storia","hero.crew":"Il Nostro Equipaggio","hero.show":"Lo Show","about.eyebrow":"La Nostra Storia","about.title":"Un Equipaggio Unito dal Mare","goals.eyebrow":"Dove Siamo Diretti","goals.title":"I Nostri Obiettivi per i Prossimi Dieci Anni","footer.tag":"Un audace esperienza di conservazione degli oceani.","footer.rights":"Tutti i diritti riservati.","footer.crafted":"Creato con riverenza per il mare.",
+    "show.reveal1":"NON POSSIAMO ANCORA DIRTELO.", "show.reveal2":"Ma forse... lo scoprirai.", "show.heading":"INIZIA LA CACCIA AL TESORO", "show.follow":"SEGUICI", "crew.title_pg":"L'EQUIPAGGIO", "crew.subtitle_pg":"Aye Maties è guidato da un piccolo equipaggio di marinai, registi, subacquei e narratori — ognuno ha scelto il mare come luogo di lavoro e la conservazione degli oceani come vocazione.", "crew.readmore_pg":"LEGGI DI PIÙ", "crew.readless_pg":"MENO", "news.plastic":"KG DI PLASTICA CHE ENTRA NELL'OCEANO OGGI", "news.coral":"KM² DI BARRIERA CORALLINA SBIANCATA QUEST'ANNO", "news.species":"SPECIE A RISCHIO (LISTA ROSSA IUCN)", "news.temp":"ANOMALIA DELLA TEMPERATURA DELL'OCEANO", "imp.title":"IMPRESSUM", "imp.brand":"MARCHIO & PI", "imp.legal":"RAPPRESENTANTE LEGALE", "imp.operative":"CONTATTO OPERATIVO", "imp.production":"CONTATTO PRODUZIONE", "imp.marketing_lbl":"CONTATTO MARKETING", "imp.coordination":"LINEA DIRETTA DI COORDINAMENTO", "imp.postal":"INDIRIZZO POSTALE", "invest.title_pg":"INVESTIMENTO", "invest.sub_pg":"Unisciti al viaggio. Forma la storia.", "hero.season":"STAGIONE 1 — PROSSIMAMENTE"
+  ,
+    "news.title":"OCEAN DISPATCH"},
+  nl:{"sound.toggle":"Soundtrack","nav.home":"HOME","nav.crew":"BEMANNING","nav.show":"DE SHOW","nav.news":"NIEUWS","nav.invest":"INVESTERING","nav.impressum":"IMPRESSUM","hero.eyebrow":"EEN SAIL WISELY ORIGINELE SERIE","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"Een meeslepende reis waar avontuur doel ontmoet.","hero.cta":"Begin de Reis","hero.scroll":"Scrollen","hero.story":"Ons Verhaal","hero.crew":"Onze Bemanning","hero.show":"De Show","about.eyebrow":"Ons Verhaal","about.title":"Een Bemanning Verbonden door de Zee","goals.eyebrow":"Onze Koers","goals.title":"Onze Doelen voor de Komende Tien Jaar","footer.tag":"Een gedurfde oceaanconserveringservaring.","footer.rights":"Alle rechten voorbehouden.","footer.crafted":"Gemaakt met eerbied voor de zee.",
+    "show.reveal1":"DAT KUNNEN WE NOG NIET VERTELLEN.", "show.reveal2":"Maar misschien... kom je het te weten.", "show.heading":"BEGIN DE JACHT NAAR DE SCHAT", "show.follow":"VOLG ONS", "crew.title_pg":"DE BEMANNING", "crew.subtitle_pg":"Aye Maties wordt gedragen door een kleine bemanning van zeilers, filmmakers, duikers en vertellers — elk van hen heeft de zee gekozen als werkplek en oceaanbescherming als roeping.", "crew.readmore_pg":"MEER LEZEN", "crew.readless_pg":"MINDER", "news.plastic":"KG PLASTIC VANDAAG IN DE OCEAAN", "news.coral":"KM² KORAALRIF GEBLEEKT DIT JAAR", "news.species":"BEDREIGDE SOORTEN (IUCN RODE LIJST)", "news.temp":"OCEAANTEMPERATUURANOMALIE", "imp.title":"IMPRESSUM", "imp.brand":"MERK & IE", "imp.legal":"WETTELIJK VERTEGENWOORDIGER", "imp.operative":"OPERATIONEEL CONTACT", "imp.production":"PRODUCTIECONTACT", "imp.marketing_lbl":"MARKETINGCONTACT", "imp.coordination":"DIRECTE COÖRDINATIELIJN", "imp.postal":"POSTADRES", "invest.title_pg":"INVESTERING", "invest.sub_pg":"Doe mee aan de reis. Vorm het verhaal.", "hero.season":"SEIZOEN 1 — BINNENKORT"
+  ,
+    "news.title":"OCEAN DISPATCH"},
+  ru:{"sound.toggle":"Soundtrack","nav.home":"GLAVN","nav.crew":"KOMANDA","nav.show":"SHO","nav.news":"NOVOSTI","nav.invest":"INVEST","nav.impressum":"IMPRESSUM","hero.eyebrow":"SAIL WISELY ORIGINAL SERIES","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"Puteshestviye gde priklyucheniye vstrechayet tsel.","hero.cta":"Nachat","hero.scroll":"Prokrutit","hero.story":"Nasha Istoriya","hero.crew":"Nasha Komanda","hero.show":"Sho","about.eyebrow":"Nasha Istoriya","about.title":"Komanda svyazannaya morem","goals.eyebrow":"Nash Kurs","goals.title":"Nashi tseli na sleduyushchiye desyat let","footer.tag":"Smeliy opyt okhrany okeanov.","footer.rights":"Vse prava zashchishcheny.","footer.crafted":"Sozdano s uvazheniyem k moryu.",
+    "show.reveal1":"МЫ ЕЩЁ НЕ МОЖЕМ ВАМ ЭТОГО СКАЗАТЬ.", "show.reveal2":"Но может быть... ты узнаешь.", "show.heading":"НАЧНИ ОХОТУ ЗА СОКРОВИЩЕМ", "show.follow":"СЛЕДИ ЗА НАМИ", "crew.title_pg":"ЭКИПАЖ", "crew.subtitle_pg":"Aye Maties — это небольшая команда моряков, кинематографистов, дайверов и рассказчиков, каждый из которых выбрал море своим рабочим местом, а охрану океана — своим призванием.", "crew.readmore_pg":"ЧИТАТЬ ДАЛЕЕ", "crew.readless_pg":"МЕНЬШЕ", "news.plastic":"КГ ПЛАСТИКА ПОСТУПАЕТ В ОКЕАН СЕГОДНЯ", "news.coral":"КМ² КОРАЛЛОВОГО РИФА ОБЕСЦВЕЧЕНО В ЭТОМ ГОДУ", "news.species":"ВИДЫ ПОД УГРОЗОЙ (КРАСНЫЙ СПИСОК МСОП)", "news.temp":"АНОМАЛИЯ ТЕМПЕРАТУРЫ ОКЕАНА", "imp.title":"ИМПРЕССУМ", "imp.brand":"БРЕНД И ИС", "imp.legal":"ЗАКОННЫЙ ПРЕДСТАВИТЕЛЬ", "imp.operative":"ОПЕРАТИВНЫЙ КОНТАКТ", "imp.production":"КОНТАКТ ПРОИЗВОДСТВА", "imp.marketing_lbl":"КОНТАКТ МАРКЕТИНГА", "imp.coordination":"ПРЯМАЯ ЛИНИЯ КООРДИНАЦИИ", "imp.postal":"ПОЧТОВЫЙ АДРЕС", "invest.title_pg":"ИНВЕСТИЦИИ", "invest.sub_pg":"Присоединяйтесь к путешествию. Формируйте историю.", "hero.season":"СЕЗОН 1 — СКОРО"
+  ,
+    "news.title":"OCEAN DISPATCH"},
+  pl:{"sound.toggle":"Soundtrack","nav.home":"STRONA","nav.crew":"ZALOGA","nav.show":"SHOW","nav.news":"AKTUALNOSCI","nav.invest":"INWESTYCJA","nav.impressum":"IMPRESSUM","hero.eyebrow":"ORYGINALNY SERIAL SAIL WISELY","hero.title1":"Aye Maties","hero.title2":"Pirackie Wyzwanie","hero.sub":"Immersyjna podroz, gdzie przygoda spotyka cel.","hero.cta":"Rozpocznij Podroz","hero.scroll":"Przewin","hero.story":"Nasza Historia","hero.crew":"Nasza Zaloga","hero.show":"Show","about.eyebrow":"Nasza Historia","about.title":"Zaloga Zjednoczona przez Morze","goals.eyebrow":"Nasz Kurs","goals.title":"Nasze Cele na Najblizsze Dziesiec Lat","footer.tag":"Odwazne doswiadczenie ochrony oceanow.","footer.rights":"Wszelkie prawa zastrzezone.","footer.crafted":"Stworzone z szacunkiem dla morza.",
+    "show.reveal1":"JESZCZE NIE MOŻEMY CI POWIEDZIEĆ.", "show.reveal2":"Ale może... dowiesz się.", "show.heading":"ROZPOCZNIJ POLOWANIE NA SKARB", "show.follow":"ŚLEDŹ NAS", "crew.title_pg":"ZAŁOGA", "crew.subtitle_pg":"Aye Maties to mała załoga żeglarzy, filmowców, nurków i gawędziarzy — każdy wybrał morze jako miejsce pracy, a ochronę oceanów jako powołanie.", "crew.readmore_pg":"CZYTAJ WIĘCEJ", "crew.readless_pg":"MNIEJ", "news.plastic":"KG PLASTIKU TRAFIA DO OCEANU DZIŚ", "news.coral":"KM² RAFY KORALOWEJ WYBIELONE W TYM ROKU", "news.species":"GATUNKI ZAGROŻONE (CZERWONA LISTA IUCN)", "news.temp":"ANOMALIA TEMPERATURY OCEANU", "imp.title":"IMPRESSUM", "imp.brand":"MARKA I IP", "imp.legal":"PRZEDSTAWICIEL PRAWNY", "imp.operative":"KONTAKT OPERACYJNY", "imp.production":"KONTAKT PRODUKCJI", "imp.marketing_lbl":"KONTAKT MARKETINGU", "imp.coordination":"BEZPOŚREDNIA LINIA KOORDYNACJI", "imp.postal":"ADRES POCZTOWY", "invest.title_pg":"INWESTYCJA", "invest.sub_pg":"Dołącz do podróży. Kształtuj historię.", "hero.season":"SEZON 1 — WKRÓTCE"
+  ,
+    "news.title":"OCEAN DISPATCH"},
+  sv:{"sound.toggle":"Soundtrack","nav.home":"HEM","nav.crew":"BESATTNING","nav.show":"SHOWEN","nav.news":"NYHETER","nav.invest":"INVESTERING","nav.impressum":"IMPRESSUM","hero.eyebrow":"EN SAIL WISELY ORIGINALSERIE","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"En uppslukande resa dar aventyr moter syfte.","hero.cta":"Paborja Resan","hero.scroll":"Scrolla","hero.story":"Var Historia","hero.crew":"Var Besattning","hero.show":"Showen","about.eyebrow":"Var Historia","about.title":"En Besattning Forenad av Havet","goals.eyebrow":"Var Kurs","goals.title":"Vara Mal for de Kommande Tio Aren","footer.tag":"En djarv upplevelse for bevarande av haven.","footer.rights":"Alla rattigheter forbehallna.","footer.crafted":"Skapad med vordnad for havet.",
+    "show.reveal1":"DET KAN VI ÄNNU INTE BERÄTTA.", "show.reveal2":"Men kanske... kommer du att få veta.", "show.heading":"BÖRJA JAKTEN PÅ SKATTEN", "show.follow":"FÖLJ OSS", "crew.title_pg":"BESÄTTNINGEN", "crew.subtitle_pg":"Aye Maties bärs av en liten besättning av seglare, filmare, dykare och berättare — var och en har valt havet som arbetsplats och havsskydd som kall.", "crew.readmore_pg":"LÄS MER", "crew.readless_pg":"MINDRE", "news.plastic":"KG PLAST TILL OCEANEN IDAG", "news.coral":"KM² KORALLREV BLEKTA I ÅR", "news.species":"HOTADE ARTER (IUCN RÖDLISTA)", "news.temp":"HAVSTEMPERATURAVVIKELSE", "imp.title":"IMPRESSUM", "imp.brand":"VARUMÄRKE & IP", "imp.legal":"JURIDISK REPRESENTANT", "imp.operative":"OPERATIV KONTAKT", "imp.production":"PRODUKTIONSKONTAKT", "imp.marketing_lbl":"MARKNADSFÖRINGSKONTAKT", "imp.coordination":"DIREKT KOORDINERINGSLINJE", "imp.postal":"POSTADRESS", "invest.title_pg":"INVESTERING", "invest.sub_pg":"Gå med på resan. Forma berättelsen.", "hero.season":"SÄSONG 1 — KOMMER SNART"
+  ,
+    "news.title":"OCEAN DISPATCH"},
+  no:{"sound.toggle":"Soundtrack","nav.home":"HJEM","nav.crew":"MANNSKAP","nav.show":"SHOWET","nav.news":"NYHETER","nav.invest":"INVESTERING","nav.impressum":"IMPRESSUM","hero.eyebrow":"EN SAIL WISELY ORIGINALSERIE","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"En oppslukende reise der eventyr moter formal.","hero.cta":"Start Reisen","hero.scroll":"Rull ned","hero.story":"Var Historie","hero.crew":"Vart Mannskap","hero.show":"Showet","about.eyebrow":"Var Historie","about.title":"Et Mannskap Bundet av Havet","goals.eyebrow":"Var Kurs","goals.title":"Vare Mal for de Neste Ti Arene","footer.tag":"En dristig opplevelse for bevaring av havene.","footer.rights":"Alle rettigheter forbeholdt.","footer.crafted":"Laget med aerefrykt for havet.",
+    "show.reveal1":"DET KAN VI ENNÅ IKKE FORTELLE DEG.", "show.reveal2":"Men kanskje... vil du finne ut av det.", "show.heading":"BEGYNN JAKTEN PÅ SKATTEN", "show.follow":"FØLG OSS", "crew.title_pg":"MANNSKAPET", "crew.subtitle_pg":"Aye Maties bæres av et lite mannskap av seilere, filmskapere, dykkere og fortellere — hver enkelt har valgt havet som arbeidsplass og havvern som kall.", "crew.readmore_pg":"LES MER", "crew.readless_pg":"MINDRE", "news.plastic":"KG PLAST TIL HAVET I DAG", "news.coral":"KM² KORALLREV BLEKET I ÅR", "news.species":"TRUEDE ARTER (IUCN RØDLISTE)", "news.temp":"HAVTEMPERATURAVVIK", "imp.title":"IMPRESSUM", "imp.brand":"MERKEVARE & IP", "imp.legal":"JURIDISK REPRESENTANT", "imp.operative":"OPERATIV KONTAKT", "imp.production":"PRODUKSJONSKONTAKT", "imp.marketing_lbl":"MARKEDSFØRINGSKONTAKT", "imp.coordination":"DIREKTE KOORDINERINGSLINJE", "imp.postal":"POSTADRESSE", "invest.title_pg":"INVESTERING", "invest.sub_pg":"Bli med på reisen. Form historien.", "hero.season":"SESONG 1 — KOMMER SNART"
+  ,
+    "news.title":"OCEAN DISPATCH"},
+  da:{"sound.toggle":"Soundtrack","nav.home":"HJEM","nav.crew":"BESAETNING","nav.show":"SHOWET","nav.news":"NYHEDER","nav.invest":"INVESTERING","nav.impressum":"IMPRESSUM","hero.eyebrow":"EN SAIL WISELY ORIGINALSERIE","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"En fordybende rejse, hvor eventyr moder formal.","hero.cta":"Start Rejsen","hero.scroll":"Rul ned","hero.story":"Vores Historie","hero.crew":"Vores Besaetning","hero.show":"Showet","about.eyebrow":"Vores Historie","about.title":"En Besaetning Bundet af Havet","goals.eyebrow":"Vores Kurs","goals.title":"Vores Mal for de Naeste Ti Ar","footer.tag":"En dristig oplevelse for bevarelse af havene.","footer.rights":"Alle rettigheder forbeholdes.","footer.crafted":"Skabt med aerefrygt for havet.",
+    "show.reveal1":"DET KAN VI ENDNU IKKE FORTÆLLE DIG.", "show.reveal2":"Men måske... vil du finde ud af det.", "show.heading":"BEGYND JAGTEN PÅ SKATTEN", "show.follow":"FØLG OS", "crew.title_pg":"BESÆTNINGEN", "crew.subtitle_pg":"Aye Maties bæres af en lille besætning af sejlere, filmskabere, dykkere og fortællere — alle har valgt havet som arbejdsplads og havbeskyttelse som kald.", "crew.readmore_pg":"LÆS MERE", "crew.readless_pg":"MINDRE", "news.plastic":"KG PLASTIK TIL HAVET I DAG", "news.coral":"KM² KORALREV BLEGNET I ÅR", "news.species":"TRUEDE ARTER (IUCN RØDLISTE)", "news.temp":"HAVTEMPERATURAFVIGELSE", "imp.title":"IMPRESSUM", "imp.brand":"MÆRKE & IP", "imp.legal":"JURIDISK REPRÆSENTANT", "imp.operative":"OPERATIV KONTAKT", "imp.production":"PRODUKTIONSKONTAKT", "imp.marketing_lbl":"MARKETINGKONTAKT", "imp.coordination":"DIREKTE KOORDINERINGSLINJE", "imp.postal":"POSTADRESSE", "invest.title_pg":"INVESTERING", "invest.sub_pg":"Slut dig til rejsen. Form historien.", "hero.season":"SÆSON 1 — KOMMER SNART"
+  ,
+    "news.title":"OCEAN DISPATCH"},
+  tr:{"sound.toggle":"Soundtrack","nav.home":"ANA SAYFA","nav.crew":"EKIP","nav.show":"GOSTERI","nav.news":"HABERLER","nav.invest":"YATIRIM","nav.impressum":"IMPRESSUM","hero.eyebrow":"BIR SAIL WISELY ORIJINAL SERISI","hero.title1":"Aye Maties","hero.title2":"Korsan Mucadelesi","hero.sub":"Maceranin amacla bulustu survukleyici bir yolculuk.","hero.cta":"Yolculuga Basla","hero.scroll":"Kaydir","hero.story":"Hikayemiz","hero.crew":"Ekibimiz","hero.show":"Gosteri","about.eyebrow":"Hikayemiz","about.title":"Denizle Bagli Bir Ekip","goals.eyebrow":"Yonumuz","goals.title":"Onumuzdeki On Yil Icin Hedeflerimiz","footer.tag":"Okyanuslar icin cesur bir deneyim.","footer.rights":"Tum haklari saklidir.","footer.crafted":"Denize saygiyla hazirlanmistir.",
+    "show.reveal1":"HENÜz SİZE SÖYLEYEMEYİZ.", "show.reveal2":"Ama belki... öğreneceksiniz.", "show.heading":"HAZİNE AVINA BAŞLA", "show.follow":"BİZİ TAKİP ET", "crew.title_pg":"EKİP", "crew.subtitle_pg":"Aye Maties, denizci, sinemacı, dalgıç ve hikaye anlatıcılarından oluşan küçük bir ekip tarafından taşınır — her biri denizi işyeri ve okyanus korumayı meslek olarak seçmiştir.", "crew.readmore_pg":"DAHA FAZLA OKU", "crew.readless_pg":"DAHA AZ", "news.plastic":"BUGÜN OKYANUS'A GİREN KG PLASTİK", "news.coral":"BU YIL AĞARAN KM² MERCANKAYALIĞı", "news.species":"TEHLİKEDEKİ TÜRLER (IUCN KIRMIZI LİSTE)", "news.temp":"OKYANUS SICAKLIK ANOMALİSİ", "imp.title":"IMPRESSUM", "imp.brand":"MARKA & FİKRİ MÜLKİYET", "imp.legal":"HUKUKİ TEMSİLCİ", "imp.operative":"OPERATİF TEMAS", "imp.production":"ÜRETİM TEMASI", "imp.marketing_lbl":"PAZARLAMA TEMASI", "imp.coordination":"DOĞRUDAN KOORDİNASYON HATTI", "imp.postal":"POSTA ADRESİ", "invest.title_pg":"YATIRIM", "invest.sub_pg":"Yolculuğa katıl. Hikayeyi şekillendir.", "hero.season":"SEZON 1 — YAKINDA"
+  ,
+    "news.title":"OCEAN DISPATCH"},
+  zh:{"sound.toggle":"yuansheng","nav.home":"shouye","nav.crew":"chuanyuan","nav.show":"jiemu","nav.news":"xinwen","nav.invest":"touzi","nav.impressum":"banquan","hero.eyebrow":"SAIL WISELY yuanchuang xilie","hero.title1":"Aye Maties","hero.title2":"haodao tiaozhan","hero.sub":"maoxian yu shiming jiaozhide chengjin lvcheng","hero.cta":"kaishi hangxing","hero.scroll":"gundong","hero.story":"womenDe gushi","hero.crew":"womenDe chuanyuan","hero.show":"jiemu","about.eyebrow":"womenDe gushi","about.title":"yi hai wei niudai De chuanyuan","goals.eyebrow":"womenDe fangxiang","goals.title":"weilai shinian de mubiao","footer.tag":"baohu haiyang de dahdan tiyan","footer.rights":"baoliu suoyou quanli","footer.crafted":"yi dui haiyang De jingwei zhixin jingxin dazao",
+    "show.reveal1":"我们还不能告诉你。", "show.reveal2":"但也许……你会发现的。", "show.heading":"开始寻宝之旅", "show.follow":"关注我们", "crew.title_pg":"船员", "crew.subtitle_pg":"Aye Maties 由一支由水手、电影人、潜水员和故事讲述者组成的小船员队伍支撑着——每个人都选择了大海作为工作场所，将海洋保护作为使命。", "crew.readmore_pg":"阅读更多", "crew.readless_pg":"收起", "news.plastic":"今天进入海洋的塑料（千克）", "news.coral":"今年漂白的珊瑚礁（平方公里）", "news.species":"濒危物种（IUCN红色名录）", "news.temp":"海洋温度异常", "imp.title":"版权声明", "imp.brand":"品牌与知识产权", "imp.legal":"法律代表", "imp.operative":"运营联系", "imp.production":"制作联系", "imp.marketing_lbl":"市场营销联系", "imp.coordination":"协调直线", "imp.postal":"邮政地址", "invest.title_pg":"投资", "invest.sub_pg":"加入航行。塑造故事。", "hero.season":"第1季 — 即将推出"
+  ,
+    "news.title":"OCEAN DISPATCH"},
+  ja:{"sound.toggle":"Soundtrack","nav.home":"HOME","nav.crew":"CREW","nav.show":"SHOW","nav.news":"NEWS","nav.invest":"TOSHI","nav.impressum":"IMPRESSUM","hero.eyebrow":"SAIL WISELY ORIGINAL SERIES","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"Bouken to shimei ga majiawaru shinnyuugata no kokai","hero.cta":"Koukai wo hajimeru","hero.scroll":"Scroll","hero.story":"Watashitachi no Sutoorii","hero.crew":"Kuru","hero.show":"Shoo","about.eyebrow":"Watashitachi no Sutoorii","about.title":"Umi de musubareta kuru","goals.eyebrow":"Watashitachi no shinro","goals.title":"Kongo 10 nenkan no mokuhyou","footer.tag":"Kaiyo hogo no tame no daitan na taiken","footer.rights":"All rights reserved","footer.crafted":"Umi e no keii wo komete seisaku",
+    "show.reveal1":"まだお伝えできません。", "show.reveal2":"でも、もしかしたら…あなたが知ることになるかもしれません。", "show.heading":"宝探しを始めよう", "show.follow":"フォローしてください", "crew.title_pg":"クルー", "crew.subtitle_pg":"Aye Matiesは、船乗り、映像作家、ダイバー、ストーリーテラーの小さなクルーによって支えられています。それぞれが海を職場として選び、海洋保護を使命としています。", "crew.readmore_pg":"続きを読む", "crew.readless_pg":"折りたたむ", "news.plastic":"今日海洋に入るプラスチック（kg）", "news.coral":"今年白化したサンゴ礁（km²）", "news.species":"絶滅危惧種（IUCNレッドリスト）", "news.temp":"海洋温度異常", "imp.title":"インプレッサム", "imp.brand":"ブランド・知的財産", "imp.legal":"法定代理人", "imp.operative":"運営連絡先", "imp.production":"制作連絡先", "imp.marketing_lbl":"マーケティング連絡先", "imp.coordination":"調整直通電話", "imp.postal":"郵便住所", "invest.title_pg":"投資", "invest.sub_pg":"航海に参加しましょう。物語を形にしてください。", "hero.season":"シーズン1 — 近日公開"
+  ,
+    "news.title":"OCEAN DISPATCH"},
+  ko:{"sound.toggle":"Soundtrack","nav.home":"HOME","nav.crew":"CREW","nav.show":"SHOW","nav.news":"NEWS","nav.invest":"TUJA","nav.impressum":"IMPRESSUM","hero.eyebrow":"SAIL WISELY ORIGINAL SERIES","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"Moheom gwa mokjeogi mannaneun molipsyeong hanghae","hero.cta":"Hanghae sijak","hero.scroll":"Seukeurol","hero.story":"Uriui iyagi","hero.crew":"Uri kuru","hero.show":"Syo","about.eyebrow":"Uriui iyagi","about.title":"Badaro yeongyeoldoen kuru","goals.eyebrow":"Uriui bangyang","goals.title":"Hyang hu 10 nyeon mokpyo","footer.tag":"Haeyang bojo reul wihan daedamhan gyeongheom","footer.rights":"Modeun gwonri boyu","footer.crafted":"Bada e daehan gyeongoeusim euro jejakdoem",
+    "show.reveal1":"아직 말씀드릴 수 없습니다.", "show.reveal2":"하지만 어쩌면… 알게 될 거예요.", "show.heading":"보물 사냥을 시작하라", "show.follow":"팔로우하세요", "crew.title_pg":"크루", "crew.subtitle_pg":"Aye Maties는 선원, 영화 제작자, 다이버, 이야기꾼으로 이루어진 소규모 크루가 운영합니다. 각자가 바다를 직장으로 선택하고 해양 보호를 소명으로 삼고 있습니다.", "crew.readmore_pg":"더 읽기", "crew.readless_pg":"접기", "news.plastic":"오늘 바다로 들어가는 플라스틱(kg)", "news.coral":"올해 백화된 산호초(km²)", "news.species":"위기종(IUCN 적색 목록)", "news.temp":"해양 온도 이상", "imp.title":"임프레숨", "imp.brand":"브랜드 & 지식재산", "imp.legal":"법정 대리인", "imp.operative":"운영 연락처", "imp.production":"제작 연락처", "imp.marketing_lbl":"마케팅 연락처", "imp.coordination":"조정 직통 전화", "imp.postal":"우편 주소", "invest.title_pg":"투자", "invest.sub_pg":"항해에 합류하세요. 이야기를 만들어가세요.", "hero.season":"시즌 1 — 곧 공개"
+  ,
+    "news.title":"OCEAN DISPATCH"},
+  ar:{"sound.toggle":"Soundtrack","nav.home":"alrayisiya","nav.crew":"altaqm","nav.show":"alarad","nav.news":"alakhbar","nav.invest":"istithmar","nav.impressum":"qanuni","hero.eyebrow":"silsila aslia min SAIL WISELY","hero.title1":"Aye Maties","hero.title2":"tahaddi alqarasina","hero.sub":"rihlat ghamira haythu tatalaqa almughamera bilhadaf","hero.cta":"ibda alrihla","hero.scroll":"tamrir","hero.story":"qissatuna","hero.crew":"taqmuna","hero.show":"alarad","about.eyebrow":"qissatuna","about.title":"taqm mutahid bilbahr","goals.eyebrow":"wihhatuna","goals.title":"ahdafuna lil sanawat alashr alqadima","footer.tag":"tajruba jaria lihmayat almuhtit","footer.rights":"jami alhquq mahfuza","footer.crafted":"suni biihtiram lilbahr",
+    "show.reveal1":"لا يمكننا إخبارك بعد.", "show.reveal2":"لكن ربما... ستعرف.", "show.heading":"ابدأ الصيد على الكنز", "show.follow":"تابعنا", "crew.title_pg":"الطاقم", "crew.subtitle_pg":"تتشكّل Aye Maties من طاقم صغير من البحارة وصنّاع الأفلام والغواصين والحكواتيين — يختار كل واحد منهم البحر مكان عمل، وحماية المحيطات رسالة.", "crew.readmore_pg":"اقرأ المزيد", "crew.readless_pg":"أقل", "news.plastic":"كجم بلاستيك يدخل المحيط اليوم", "news.coral":"كم² من الشعاب المرجانية تعرّضت للتبييض هذا العام", "news.species":"الأنواع المهددة (القائمة الحمراء للاتحاد الدولي)", "news.temp":"شذوذ درجة حرارة المحيط", "imp.title":"إمبريسوم", "imp.brand":"العلامة التجارية والملكية الفكرية", "imp.legal":"الممثل القانوني", "imp.operative":"جهة الاتصال التشغيلية", "imp.production":"جهة اتصال الإنتاج", "imp.marketing_lbl":"جهة اتصال التسويق", "imp.coordination":"خط التنسيق المباشر", "imp.postal":"العنوان البريدي", "invest.title_pg":"الاستثمار", "invest.sub_pg":"انضم إلى الرحلة. شكّل القصة.", "hero.season":"الموسم 1 — قريباً"
+  ,
+    "news.title":"OCEAN DISPATCH"},
+  hi:{"sound.toggle":"Soundtrack","nav.home":"HOME","nav.crew":"DAL","nav.show":"SHOW","nav.news":"SAMACHAR","nav.invest":"NIVESH","nav.impressum":"IMPRESSUM","hero.eyebrow":"SAIL WISELY MOOL SHRINKHALA","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"Ek romanchak yatra jahan sahas uddeshya se milta hai","hero.cta":"Yatra shuru karen","hero.scroll":"Scroll kare","hero.story":"Humari kahani","hero.crew":"Humara dal","hero.show":"Show","about.eyebrow":"Humari kahani","about.title":"Samudra se juda ek dal","goals.eyebrow":"Humari disha","goals.title":"Agle das varshon ke liye hamare lakshya","footer.tag":"Mahasagar sanrakshan ke liye ek sahasi anubhav","footer.rights":"Sarvaadhikar surakshit","footer.crafted":"Samudra ke prati aadar ke saath banaya gaya",
+    "show.reveal1":"हम अभी नहीं बता सकते।", "show.reveal2":"लेकिन शायद... आपको पता चल जाएगा।", "show.heading":"खजाने की खोज शुरू करें", "show.follow":"हमें फ़ॉलो करें", "crew.title_pg":"दल", "crew.subtitle_pg":"Aye Maties को नाविकों, फ़िल्म निर्माताओं, गोताखोरों और कहानीकारों की एक छोटी टीम द्वारा संचालित किया जाता है — जिनमें से प्रत्येक ने समुद्र को अपना कार्यस्थल और महासागर संरक्षण को अपनी पुकार चुना है।", "crew.readmore_pg":"और पढ़ें", "crew.readless_pg":"कम", "news.plastic":"आज समुद्र में जाने वाला प्लास्टिक (किग्रा)", "news.coral":"इस साल ब्लीच हुए मूंगे की चट्टान (वर्ग किमी)", "news.species":"खतरे में प्रजातियां (IUCN रेड लिस्ट)", "news.temp":"महासागर तापमान विसंगति", "imp.title":"इम्प्रेसम", "imp.brand":"ब्रांड और बौद्धिक संपदा", "imp.legal":"कानूनी प्रतिनिधि", "imp.operative":"परिचालन संपर्क", "imp.production":"उत्पादन संपर्क", "imp.marketing_lbl":"मार्केटिंग संपर्क", "imp.coordination":"समन्वय प्रत्यक्ष लाइन", "imp.postal":"डाक पता", "invest.title_pg":"निवेश", "invest.sub_pg":"यात्रा में शामिल हों। कहानी को आकार दें।", "hero.season":"सीज़न 1 — जल्द आ रहा है"
+  ,
+    "news.title":"OCEAN DISPATCH"},
+  id:{"sound.toggle":"Soundtrack","nav.home":"BERANDA","nav.crew":"AWAK","nav.show":"PERTUNJUKAN","nav.news":"BERITA","nav.invest":"INVESTASI","nav.impressum":"IMPRESSUM","hero.eyebrow":"SERIAL ORISINAL SAIL WISELY","hero.title1":"Aye Maties","hero.title2":"Pirate Challenge","hero.sub":"Perjalanan imersif di mana petualangan bertemu tujuan.","hero.cta":"Mulai Perjalanan","hero.scroll":"Gulir","hero.story":"Kisah Kami","hero.crew":"Awak Kami","hero.show":"Pertunjukan","about.eyebrow":"Kisah Kami","about.title":"Awak yang Disatukan oleh Laut","goals.eyebrow":"Ke Mana Kami Menuju","goals.title":"Tujuan Kami untuk Sepuluh Tahun ke Depan","footer.tag":"Pengalaman konservasi laut yang berani.","footer.rights":"Semua hak dilindungi.","footer.crafted":"Dibuat dengan penghormatan terhadap laut.",
+    "show.reveal1":"KAMI BELUM BISA MEMBERITAHUMU.", "show.reveal2":"Tapi mungkin... kamu akan tahu.", "show.heading":"MULAI BERBURU HARTA KARUN", "show.follow":"IKUTI KAMI", "crew.title_pg":"KREW", "crew.subtitle_pg":"Aye Maties dijalankan oleh krew kecil pelaut, pembuat film, penyelam, dan pendongeng — masing-masing memilih laut sebagai tempat kerja dan pelestarian samudra sebagai panggilan.", "crew.readmore_pg":"BACA SELENGKAPNYA", "crew.readless_pg":"KURANG", "news.plastic":"KG PLASTIK MASUK SAMUDRA HARI INI", "news.coral":"KM² TERUMBU KARANG MEMUTIH TAHUN INI", "news.species":"SPESIES TERANCAM (DAFTAR MERAH IUCN)", "news.temp":"ANOMALI SUHU SAMUDRA", "imp.title":"IMPRESSUM", "imp.brand":"MEREK & HKI", "imp.legal":"PERWAKILAN HUKUM", "imp.operative":"KONTAK OPERASIONAL", "imp.production":"KONTAK PRODUKSI", "imp.marketing_lbl":"KONTAK PEMASARAN", "imp.coordination":"JALUR LANGSUNG KOORDINASI", "imp.postal":"ALAMAT POS", "invest.title_pg":"INVESTASI", "invest.sub_pg":"Bergabunglah dalam perjalanan. Bentuk ceritanya.", "hero.season":"MUSIM 1 — SEGERA HADIR"
+  ,
+    "news.title":"OCEAN DISPATCH"}
 };
 
 let currentLang = localStorage.getItem('aym_lang') || 'en';
@@ -2567,7 +2656,8 @@ function initShowPage(){
   if(socials) socials.classList.remove('in');
   setTimeout(()=>{ if(fill) fill.classList.add('go'); }, 200);
   setTimeout(()=>{
-    const msg = 'WE CANNOT TELL YOU YET.';
+    const D = (dict[currentLang]||dict.en);
+    const msg = D['show.reveal1'] || 'WE CANNOT TELL YOU YET.';
     if(txt1){
       txt1.innerHTML='';
       [...msg].forEach((ch,i)=>{
@@ -2577,12 +2667,13 @@ function initShowPage(){
         setTimeout(()=>s.classList.add('in'), i*60);
       });
     }
+    if(sub) sub.textContent = D['show.reveal2'] || 'But maybe... you will find out.';
     setTimeout(()=>{ if(sub) sub.classList.add('in'); }, msg.length*60+400);
     setTimeout(()=>{
       if(txt1) txt1.style.opacity='0';
       if(sub) sub.style.opacity='0';
       setTimeout(()=>{
-        if(heading) heading.classList.add('in');
+        if(heading){ heading.textContent = D['show.heading'] || 'BEGINN DIE JAGD NACH DEM SCHATZ'; heading.classList.add('in'); }
         setTimeout(()=>{ if(socials) socials.classList.add('in'); }, 800);
       }, 1000);
     }, msg.length*60+3000);
@@ -2593,7 +2684,7 @@ function initShowPage(){
 function initCrewPage(){
   const headline = document.getElementById('crewPageHeadline');
   if(!headline) return;
-  const text = 'THE CREW';
+  const text = (dict[currentLang]||dict.en)['crew.title_pg'] || 'THE CREW';
   headline.innerHTML='';
   [...text].forEach((ch,i)=>{
     const s = document.createElement('span');
@@ -2870,6 +2961,58 @@ if(particlesContainer){
     }
   },{passive:true});
 })();
+
+/* ── Adaptive video quality + lazy loading ───────────────────────────── */
+(function(){
+  // Determine quality tier
+  const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  const ect = conn ? conn.effectiveType : null;
+  const use4K = (ect === '4g' || (!ect && window.devicePixelRatio >= 2 && screen.width >= 1800));
+
+  // Upgrade first (active) hero video to 4K if warranted
+  if(use4K){
+    document.querySelectorAll('.hv source[data-src-4k]').forEach(s=>{
+      if(s.dataset.src4k) s.src = s.dataset.src4k;
+    });
+    const active = document.querySelector('.hv.active');
+    if(active){
+      const s4k = active.querySelector('source[data-src-4k]');
+      if(s4k && s4k.dataset.src4k){ s4k.src = s4k.dataset.src4k; active.load(); }
+    }
+  }
+
+  // Lazy load all videos with data-src sources
+  const lazyObs = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(!entry.isIntersecting) return;
+      const v = entry.target;
+      let loaded = false;
+      v.querySelectorAll('source[data-src]').forEach(s=>{
+        const src = (use4K && s.dataset.src4k) ? s.dataset.src4k : s.dataset.src;
+        if(src){ s.src = src; loaded = true; }
+      });
+      if(loaded){ v.load(); v.play().catch(()=>{}); }
+      lazyObs.unobserve(v);
+    });
+  },{rootMargin:'400px'});
+
+  document.querySelectorAll('video:not(.hv)').forEach(v=>{
+    const hasSrc = v.querySelector('source[data-src]');
+    if(hasSrc) lazyObs.observe(v);
+  });
+
+  // Hero lazy videos load when switched to
+  window._loadHeroVideo = function(v){
+    if(v.readyState > 0) return;
+    v.querySelectorAll('source[data-src]').forEach(s=>{
+      const src = (use4K && s.dataset.src4k) ? s.dataset.src4k : s.dataset.src;
+      if(src) s.src = src;
+    });
+    v.load();
+    v.play().catch(()=>{});
+  };
+})();
+
 </script>
 </body>
 </html>
