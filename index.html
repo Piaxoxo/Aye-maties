@@ -3099,30 +3099,53 @@ window.addEventListener('resize', ()=>{ initParticles(); });
     const jellies = [];
     const biolume = new THREE.Color(0x00d4ff);
 
-    // 3 jellyfish: hemisphere bell + tentacle line segments
+    // 3 jellyfish: hemisphere bell + 8 bezier tentacles + bioluminescent point light
     for(let i=0;i<3;i++){
       const jelly = new THREE.Group();
       const bellGeo = new THREE.SphereGeometry(0.6, 24, 16, 0, Math.PI*2, 0, Math.PI*0.5);
       const bellMat = new THREE.MeshPhongMaterial({
-        color:0x6fd9ef, emissive:biolume, emissiveIntensity:0.55,
-        transparent:true, opacity:0.4, shininess:80, side:THREE.DoubleSide
+        color:0x6fd9ef, emissive:biolume, emissiveIntensity:0.65,
+        transparent:true, opacity:0.45, shininess:90, side:THREE.DoubleSide
       });
       const bell = new THREE.Mesh(bellGeo, bellMat);
       jelly.add(bell);
-      // 7 tentacles as thin elongated boxes
-      for(let t=0;t<7;t++){
-        const ang = (t/7)*Math.PI*2;
-        const tenGeo = new THREE.CylinderGeometry(0.015, 0.005, 1.1, 5);
-        const tenMat = new THREE.MeshPhongMaterial({ color:0x9fe8ff, emissive:biolume, emissiveIntensity:0.4, transparent:true, opacity:0.35 });
-        const ten = new THREE.Mesh(tenGeo, tenMat);
-        ten.position.set(Math.cos(ang)*0.32, -0.55, Math.sin(ang)*0.32);
-        ten.userData.ang = ang;
-        jelly.add(ten);
+      // Bioluminescent point light emanating from bell center
+      const jellyLight = new THREE.PointLight(0x00d4ff, 0.6, 3.5);
+      jellyLight.position.set(0, -0.1, 0);
+      jelly.add(jellyLight);
+      jelly.userData.jellyLight = jellyLight;
+      // 8 bezier tentacles (drawn as line segments approximating cubic bezier)
+      const tentacleGroup = new THREE.Group();
+      for(let t=0;t<8;t++){
+        const ang = (t/8)*Math.PI*2;
+        const points = [];
+        const segments = 12;
+        for(let s=0;s<=segments;s++){
+          const u = s/segments;
+          // Cubic bezier control: droops and waves outward
+          const p0y = 0;
+          const p1y = -0.4; const p1x = Math.cos(ang)*0.18; const p1z = Math.sin(ang)*0.18;
+          const p2y = -0.85; const p2x = Math.cos(ang)*0.5;  const p2z = Math.sin(ang)*0.5;
+          const p3y = -1.3;  const p3x = Math.cos(ang)*0.35; const p3z = Math.sin(ang)*0.35;
+          const b=(1-u), b2=b*b, b3=b2*b, u2=u*u, u3=u2*u;
+          const x = b3*Math.cos(ang)*0.3 + 3*b2*u*p1x + 3*b*u2*p2x + u3*p3x;
+          const y = b3*p0y + 3*b2*u*p1y + 3*b*u2*p2y + u3*p3y;
+          const z = b3*Math.sin(ang)*0.3 + 3*b2*u*p1z + 3*b*u2*p2z + u3*p3z;
+          points.push(new THREE.Vector3(x, y - 0.3, z));
+        }
+        const tenGeo = new THREE.BufferGeometry().setFromPoints(points);
+        const tenMat = new THREE.LineBasicMaterial({ color:0x9fe8ff, transparent:true, opacity:0.4 });
+        const tentacle = new THREE.Line(tenGeo, tenMat);
+        tentacle.userData.ang = ang;
+        tentacle.userData.basePoints = points.map(p=>p.clone());
+        tentacleGroup.add(tentacle);
       }
+      jelly.add(tentacleGroup);
+      jelly.userData.tentacleGroup = tentacleGroup;
       const scl = 0.7 + Math.random()*0.8;
       jelly.scale.setScalar(scl);
       jelly.position.set(-4 + i*3.4 + Math.random()*1.5, 1.4 + Math.random()*2, -3 - Math.random()*4);
-      jelly.userData = { baseY: jelly.position.y, phase: Math.random()*Math.PI*2, speed: 0.5+Math.random()*0.4 };
+      jelly.userData = { baseY: jelly.position.y, phase: Math.random()*Math.PI*2, speed: 0.5+Math.random()*0.4, jellyLight, tentacleGroup };
       group.add(jelly);
       jellies.push(jelly);
     }
@@ -3265,10 +3288,28 @@ window.addEventListener('resize', ()=>{ initParticles(); });
         const u = j.userData;
         j.position.y = u.baseY + Math.sin(t*u.speed + u.phase)*0.5;
         j.rotation.y = Math.sin(t*0.3 + u.phase)*0.25;
-        const pulse = 1 + Math.sin(t*1.6 + u.phase)*0.08;
-        j.children[0].scale.set(pulse, 2 - pulse, pulse);
-        for(let k=1;k<j.children.length;k++){
-          j.children[k].rotation.x = Math.sin(t*1.2 + u.phase + k)*0.2;
+        // Bell pulse: scale 0.9→1.1 with sin wave, period ~3s (2π/3s ≈ 2.09 rad/s)
+        const pulse = 0.9 + (Math.sin(t * 2.094 + u.phase) + 1) * 0.1;
+        j.children[0].scale.set(pulse, pulse * 0.9, pulse);
+        // Bioluminescent light flicker
+        if(u.jellyLight){
+          u.jellyLight.intensity = 0.5 + Math.sin(t * 2.094 + u.phase) * 0.15;
+        }
+        // Animate bezier tentacles with wave motion
+        if(u.tentacleGroup){
+          u.tentacleGroup.children.forEach((tentacle, ti)=>{
+            const bp = tentacle.userData.basePoints;
+            if(!bp) return;
+            const wavePts = bp.map((p, si)=>{
+              const wavePhase = si / bp.length;
+              const waveAmp = wavePhase * 0.18;
+              const waveFreq = 2.5;
+              const dx = Math.sin(t * waveFreq + u.phase + tentacle.userData.ang + wavePhase * Math.PI) * waveAmp;
+              const dz = Math.cos(t * waveFreq * 0.7 + u.phase + ti * 0.4 + wavePhase * Math.PI) * waveAmp * 0.5;
+              return new THREE.Vector3(p.x + dx, p.y, p.z + dz);
+            });
+            tentacle.geometry.setFromPoints(wavePts);
+          });
         }
       });
       // school swims along X with sine deviation in formation
@@ -4172,51 +4213,106 @@ if(particlesContainer){
   const ctx = canvas.getContext('2d');
   function resize(){ canvas.width=innerWidth; canvas.height=innerHeight; }
   resize(); window.addEventListener('resize',resize);
-  const particles = Array.from({length:60},()=>({
-    x:Math.random()*innerWidth, y:Math.random()*innerHeight,
-    r:Math.random()*2+0.5, vx:(Math.random()-.5)*.3, vy:-Math.random()*.4-.1,
-    o:Math.random()*.6+.1, life:Math.random()*Math.PI*2
+
+  // Micro bubbles — rising upward (viewer is deep, looking up)
+  const bubbles = Array.from({length:120},()=>({
+    x: Math.random()*innerWidth,
+    y: innerHeight + Math.random()*innerHeight,
+    r: Math.random()*1.5 + 0.5,
+    vx: (Math.random()-.5)*0.4,
+    vy: -(Math.random()*0.6 + 0.2),
+    o: Math.random()*0.25 + 0.05,
+    wobble: Math.random()*Math.PI*2,
+    wobbleSpeed: Math.random()*0.03 + 0.01
   }));
-  const rings = Array.from({length:8},(_,i)=>({ x:Math.random()*innerWidth, y:Math.random()*innerHeight, r:0, maxR:Math.random()*200+100, speed:Math.random()*.3+.1, o:0, phase:i*Math.PI/4 }));
-  let t=0, running=true;
+
+  let t = 0, running = true;
   function drawLoader(){
     if(!running) return;
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    const grad = ctx.createLinearGradient(0,0,0,canvas.height);
-    grad.addColorStop(0,'#000d1a'); grad.addColorStop(.5,'#01152b'); grad.addColorStop(1,'#000810');
-    ctx.fillStyle=grad; ctx.fillRect(0,0,canvas.width,canvas.height);
-    for(let i=0;i<5;i++){
-      const x = canvas.width*(0.2+i*0.15);
-      const rayGrad = ctx.createLinearGradient(x,0,x+80,canvas.height*.7);
-      rayGrad.addColorStop(0,`rgba(30,120,200,${0.04+Math.sin(t*.5+i)*.02})`);
-      rayGrad.addColorStop(1,'rgba(0,0,0,0)');
-      ctx.save(); ctx.beginPath();
-      ctx.moveTo(x-20,0); ctx.lineTo(x+20+i*10,0);
-      ctx.lineTo(x+80+i*10,canvas.height*.7); ctx.lineTo(x-60+i*5,canvas.height*.7);
-      ctx.closePath(); ctx.fillStyle=rayGrad; ctx.fill(); ctx.restore();
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    // Background: dark abyss at bottom, lighter towards top (we're looking up)
+    const bg = ctx.createLinearGradient(0, H, 0, 0);
+    bg.addColorStop(0, '#000810');
+    bg.addColorStop(0.3, '#000d1f');
+    bg.addColorStop(0.65, '#01395c');
+    bg.addColorStop(1, '#0a6e8a');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
+
+    // Light shafts converging from top-center (caustic/refracted light)
+    const cx = W * 0.5;
+    const numRays = 7;
+    for(let i = 0; i < numRays; i++){
+      const spread = 0.55;
+      const leftFrac = 0.5 + (i - numRays/2) * spread / numRays;
+      const bx = W * leftFrac;
+      const tw = 18 + i * 4;
+      const rayGrad = ctx.createLinearGradient(cx, 0, bx, H);
+      const alpha = 0.06 + Math.sin(t * 0.4 + i * 0.7) * 0.025;
+      rayGrad.addColorStop(0, `rgba(255,255,255,${alpha * 2.5})`);
+      rayGrad.addColorStop(0.3, `rgba(0,212,255,${alpha})`);
+      rayGrad.addColorStop(0.7, `rgba(10,110,138,${alpha * 0.4})`);
+      rayGrad.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(cx - tw * 0.5, 0);
+      ctx.lineTo(cx + tw * 0.5, 0);
+      ctx.lineTo(bx + 60, H);
+      ctx.lineTo(bx - 60, H);
+      ctx.closePath();
+      ctx.fillStyle = rayGrad;
+      ctx.globalAlpha = 0.9;
+      ctx.fill();
+      ctx.restore();
     }
-    rings.forEach(ring=>{
-      ring.r += ring.speed;
-      ring.o = (1 - ring.r/ring.maxR) * 0.15;
-      if(ring.r >= ring.maxR){ ring.r=0; ring.x=Math.random()*canvas.width; ring.y=Math.random()*canvas.height; }
-      ctx.beginPath(); ctx.arc(ring.x,ring.y,ring.r,0,Math.PI*2);
-      ctx.strokeStyle=`rgba(30,140,255,${ring.o})`; ctx.lineWidth=1; ctx.stroke();
-      ctx.beginPath(); ctx.arc(ring.x,ring.y,ring.r*.6,0,Math.PI*2);
-      ctx.strokeStyle=`rgba(100,200,255,${ring.o*.5})`; ctx.lineWidth=.5; ctx.stroke();
+
+    // Caustic ripple pattern at top (water surface)
+    ctx.save();
+    ctx.globalAlpha = 0.12 + Math.sin(t * 0.8) * 0.04;
+    for(let i = 0; i < 12; i++){
+      const cx2 = W * (0.1 + (i / 12) * 0.8) + Math.sin(t * 0.5 + i) * 30;
+      const cy2 = H * 0.04 + Math.sin(t * 1.1 + i * 0.7) * H * 0.03;
+      const r = 20 + Math.sin(t * 0.7 + i) * 10;
+      ctx.beginPath();
+      ctx.ellipse(cx2, cy2, r * 1.6, r * 0.5, Math.sin(t * 0.3 + i) * 0.4, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(255,255,255,0.6)`;
+      ctx.lineWidth = 0.8;
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    // Rising micro bubbles
+    bubbles.forEach(b => {
+      b.wobble += b.wobbleSpeed;
+      b.x += b.vx + Math.sin(b.wobble) * 0.3;
+      b.y += b.vy;
+      if(b.y < -10) {
+        b.y = H + Math.random() * 100;
+        b.x = Math.random() * W;
+      }
+      // Bubbles get brighter as they approach surface (top)
+      const heightFrac = 1 - (b.y / H);
+      const ao = b.o * (0.5 + heightFrac * 0.5);
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,255,255,${ao})`;
+      ctx.fill();
+      // subtle highlight
+      ctx.beginPath();
+      ctx.arc(b.x - b.r * 0.3, b.y - b.r * 0.3, b.r * 0.4, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,255,255,${ao * 0.6})`;
+      ctx.fill();
+      ctx.restore();
     });
-    particles.forEach(p=>{
-      p.life += .02; p.x += p.vx; p.y += p.vy;
-      if(p.y<-10){ p.y=canvas.height+10; p.x=Math.random()*canvas.width; }
-      if(p.x<-10) p.x=canvas.width+10;
-      if(p.x>canvas.width+10) p.x=-10;
-      const glow=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*3);
-      glow.addColorStop(0,`rgba(100,200,255,${p.o})`); glow.addColorStop(1,'rgba(0,0,0,0)');
-      ctx.beginPath(); ctx.arc(p.x,p.y,p.r*3,0,Math.PI*2); ctx.fillStyle=glow; ctx.fill();
-    });
-    t += .016;
+
+    t += 0.016;
     requestAnimationFrame(drawLoader);
   }
   drawLoader();
+
   let pct = 0;
   const bar = document.getElementById('loaderBar');
   const pctEl = document.getElementById('loaderPct');
