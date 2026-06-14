@@ -159,7 +159,6 @@
     font-family:var(--display);letter-spacing:.18em;font-size:18px;text-transform:uppercase;color:var(--ink);
     display:flex;align-items:center;gap:10px;
   }
-  .logo .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);display:inline-block;}
   nav.links{display:flex;gap:38px;align-items:center;}
   nav.links a{
     font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:400;
@@ -1364,7 +1363,7 @@ section { padding: clamp(60px, 8vw, 140px) 0; }
   .hero-title { font-size: clamp(120px, 7vw, 240px); }
 }
   </style>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><circle cx='20' cy='20' r='18' stroke='%23d4a84b' stroke-width='1.5' fill='%23010d1f'/><polygon points='20,5,21.5,19,20,22,18.5,19' fill='%23d4a84b'/><polygon points='20,35,21.5,21,20,18,18.5,21' fill='%237aacbe'/><circle cx='20' cy='20' r='2' fill='%23d4a84b'/></svg>">
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -1467,18 +1466,7 @@ section { padding: clamp(60px, 8vw, 140px) 0; }
   <div class="loader-sonar s2" aria-hidden="true"></div>
   <div class="loader-sonar s3" aria-hidden="true"></div>
   <div class="loader-content">
-    <div class="loader-logo"><svg class="logo-svg" viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="20" cy="20" r="18" stroke="rgba(212,168,75,0.4)" stroke-width="0.8"/>
-  <circle cx="20" cy="20" r="12" stroke="rgba(212,168,75,0.2)" stroke-width="0.5"/>
-  <polygon points="20,4 21.5,19 20,22 18.5,19" fill="#d4a84b"/>
-  <polygon points="20,36 21.5,21 20,18 18.5,21" fill="#7aacbe"/>
-  <line x1="20" y1="2.5" x2="20" y2="6" stroke="#d4a84b" stroke-width="1.2"/>
-  <line x1="37.5" y1="20" x2="34" y2="20" stroke="rgba(212,168,75,0.5)" stroke-width="0.8"/>
-  <line x1="2.5" y1="20" x2="6" y2="20" stroke="rgba(212,168,75,0.5)" stroke-width="0.8"/>
-  <circle cx="20" cy="20" r="2" fill="#d4a84b"/>
-  <text x="46" y="15" font-family="'Playfair Display',Georgia,serif" font-size="13" fill="#f0e8d0" letter-spacing="3" font-weight="400">AYE</text>
-  <text x="46" y="30" font-family="'Montserrat','Helvetica Neue',sans-serif" font-size="9" fill="rgba(212,168,75,0.9)" letter-spacing="5" font-weight="300">MATIES</text>
-</svg></div>
+    <div class="loader-logo"><img src="assets/images/logo.svg" class="logo-img logo-img-large" alt="Aye Maties" width="80" height="80"></div>
     <div class="loader-tagline">A Sail Wisely Original Series</div>
     <div class="loader-bar-wrap"><div class="loader-bar" id="loaderBar"></div></div>
     <div class="loader-pct" id="loaderPct">0%</div>
@@ -1488,18 +1476,7 @@ section { padding: clamp(60px, 8vw, 140px) 0; }
 
 
 <header>
-  <a href="#top" class="logo"><svg class="logo-svg" viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="20" cy="20" r="18" stroke="rgba(212,168,75,0.4)" stroke-width="0.8"/>
-  <circle cx="20" cy="20" r="12" stroke="rgba(212,168,75,0.2)" stroke-width="0.5"/>
-  <polygon points="20,4 21.5,19 20,22 18.5,19" fill="#d4a84b"/>
-  <polygon points="20,36 21.5,21 20,18 18.5,21" fill="#7aacbe"/>
-  <line x1="20" y1="2.5" x2="20" y2="6" stroke="#d4a84b" stroke-width="1.2"/>
-  <line x1="37.5" y1="20" x2="34" y2="20" stroke="rgba(212,168,75,0.5)" stroke-width="0.8"/>
-  <line x1="2.5" y1="20" x2="6" y2="20" stroke="rgba(212,168,75,0.5)" stroke-width="0.8"/>
-  <circle cx="20" cy="20" r="2" fill="#d4a84b"/>
-  <text x="46" y="15" font-family="'Playfair Display',Georgia,serif" font-size="13" fill="#f0e8d0" letter-spacing="3" font-weight="400">AYE</text>
-  <text x="46" y="30" font-family="'Montserrat','Helvetica Neue',sans-serif" font-size="9" fill="rgba(212,168,75,0.9)" letter-spacing="5" font-weight="300">MATIES</text>
-</svg></a>
+  <a href="#top" class="logo"><img src="assets/images/logo.svg" class="logo-img" alt="Aye Maties Pirate Challenge" width="40" height="40"></a>
   <nav class="links" id="nav">
     <a href="#home" data-page="home" data-i18n="nav.home">HOME</a>
     <a href="#crew" data-page="crew" data-i18n="nav.crew">CREW</a>
@@ -2007,18 +1984,7 @@ section { padding: clamp(60px, 8vw, 140px) 0; }
         <!-- Brand -->
         <div class="fg-brand">
           <div class="footer-brand" data-reveal>Aye Maties</div>
-          <svg class="logo-svg" viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="20" cy="20" r="18" stroke="rgba(212,168,75,0.4)" stroke-width="0.8"/>
-  <circle cx="20" cy="20" r="12" stroke="rgba(212,168,75,0.2)" stroke-width="0.5"/>
-  <polygon points="20,4 21.5,19 20,22 18.5,19" fill="#d4a84b"/>
-  <polygon points="20,36 21.5,21 20,18 18.5,21" fill="#7aacbe"/>
-  <line x1="20" y1="2.5" x2="20" y2="6" stroke="#d4a84b" stroke-width="1.2"/>
-  <line x1="37.5" y1="20" x2="34" y2="20" stroke="rgba(212,168,75,0.5)" stroke-width="0.8"/>
-  <line x1="2.5" y1="20" x2="6" y2="20" stroke="rgba(212,168,75,0.5)" stroke-width="0.8"/>
-  <circle cx="20" cy="20" r="2" fill="#d4a84b"/>
-  <text x="46" y="15" font-family="'Playfair Display',Georgia,serif" font-size="13" fill="#f0e8d0" letter-spacing="3" font-weight="400">AYE</text>
-  <text x="46" y="30" font-family="'Montserrat','Helvetica Neue',sans-serif" font-size="9" fill="rgba(212,168,75,0.9)" letter-spacing="5" font-weight="300">MATIES</text>
-</svg>
+          <img src="assets/images/logo.svg" class="logo-img" alt="Aye Maties" width="48" height="48">
           <small data-i18n="footer.tag">A bold ocean conservation experience — saving our oceans, one voyage, one challenge, one wave at a time.</small>
           <a href="https://soundcloud.com/AyeMaties" target="_blank" rel="noopener" class="footer-sc-link magnetic" aria-label="Listen on SoundCloud">
             <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M1.175 12.225c-.015.072 0 .144.072.216l1.007 6.458c0 .072.072.144.144.144s.144-.072.144-.144l1.007-6.458c0-.072-.072-.144-.144-.144a.144.144 0 0 0-.144.144l-1.007-6.458c0 .072.072.144.144.144s.144-.072.144-.144c0-.072-.072-.144-.144-.144s-.144.072-.144.144l-1.08 6.458zm15.697-6.602c-.288 0-.576.072-.864.144-.216-2.448-2.232-4.32-4.752-4.32-1.08 0-2.088.36-2.88.936v11.11c0 .216.144.36.36.36h7.992c1.44 0 2.592-1.152 2.592-2.592-.072-1.44-1.152-2.592-2.448-1.638z"/></svg>
