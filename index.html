@@ -1310,6 +1310,12 @@ section { padding: clamp(60px, 8vw, 140px) 0; }
   </svg>
 </div>
 
+
+<!-- Global page video backgrounds (fixed, switched per page) -->
+<div id="pageVideoBg" class="page-video-bg" aria-hidden="true">
+  <video id="pageVideoBgVid" muted loop playsinline preload="none"></video>
+</div>
+
 <div id="loader" class="premium" role="status" aria-label="Loading ocean experience">
   <canvas id="loaderCanvas"></canvas>
   <div class="loader-content">
@@ -1329,7 +1335,6 @@ section { padding: clamp(60px, 8vw, 140px) 0; }
     <a href="#crew" data-page="crew" data-i18n="nav.crew">CREW</a>
     <a href="#show" data-page="show" data-i18n="nav.show">DIE SHOW</a>
     <a href="#news" data-page="news" data-i18n="nav.news">NEWS</a>
-    <a href="#invest" data-page="invest" data-i18n="nav.invest">INVESTMENT</a>
     <a href="#impressum" data-page="impressum" data-i18n="nav.impressum">IMPRESSUM</a>
   </nav>
   <button class="ham" aria-label="Menu" aria-expanded="false">
@@ -1340,7 +1345,6 @@ section { padding: clamp(60px, 8vw, 140px) 0; }
     <a href="#crew" data-page="crew">CREW</a>
     <a href="#show" data-page="show">DIE SHOW</a>
     <a href="#news" data-page="news">NEWS</a>
-    <a href="#invest" data-page="invest">INVESTMENT</a>
     <a href="#impressum" data-page="impressum">IMPRESSUM</a>
   </div>
   <button class="theme-trigger" id="themeTrigger" aria-label="Theme settings" title="Theme Settings">
@@ -1827,7 +1831,6 @@ section { padding: clamp(60px, 8vw, 140px) 0; }
             <li><a href="#" onclick="event.preventDefault();showPage('crew')">Crew</a></li>
             <li><a href="#" onclick="event.preventDefault();showPage('show')">Die Show</a></li>
             <li><a href="#" onclick="event.preventDefault();showPage('news')">Ocean News</a></li>
-            <li><a href="#" onclick="event.preventDefault();showPage('invest')">Investment</a></li>
             <li><a href="#" onclick="event.preventDefault();showPage('impressum')">Impressum</a></li>
           </ul>
         </div>
@@ -1955,8 +1958,8 @@ section { padding: clamp(60px, 8vw, 140px) 0; }
 
       <!-- TikTok videos -->
       <div class="news-tiktoks" data-reveal>
-        <h2 data-i18n="news.tiktok_title">AYE MATIES ON TIKTOK</h2>
-        <p class="tiktok-label" data-i18n="news.tiktok_sub">Behind the scenes &amp; ocean stories</p>
+        <h2 data-i18n="news.tiktok_title">FROM THE OCEAN</h2>
+        <p class="tiktok-label" data-i18n="news.tiktok_sub">Ocean footage &amp; behind the scenes</p>
         <div class="tiktok-row">
           <div class="tiktok-item">
             <div class="tiktok-video-wrap" id="ttWrap1">
@@ -1967,8 +1970,7 @@ section { padding: clamp(60px, 8vw, 140px) 0; }
                 <div class="tiktok-play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
               </div>
             </div>
-            <span class="tiktok-caption" data-i18n="news.tt1">Aye Maties &mdash; Episode 1</span>
-            <span class="tiktok-badge"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.02-.07z"/></svg>@AyeMaties</span>
+            <span class="tiktok-caption" data-i18n="news.tt1">Ocean Story I</span>
           </div>
           <div class="tiktok-item">
             <div class="tiktok-video-wrap" id="ttWrap2">
@@ -1979,8 +1981,7 @@ section { padding: clamp(60px, 8vw, 140px) 0; }
                 <div class="tiktok-play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
               </div>
             </div>
-            <span class="tiktok-caption" data-i18n="news.tt2">Aye Maties &mdash; Episode 2</span>
-            <span class="tiktok-badge"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.02-.07z"/></svg>@AyeMaties</span>
+            <span class="tiktok-caption" data-i18n="news.tt2">Ocean Story II</span>
           </div>
         </div>
       </div>
@@ -2006,40 +2007,6 @@ section { padding: clamp(60px, 8vw, 140px) 0; }
     </div>
   </div>
 </div>
-
-<!-- PAGE: INVEST -->
-<div class="page" id="page-invest">
-  <div class="invest-page">
-    <div class="rope-divider"></div>
-    <div class="wrap invest-grid">
-      <div class="invest-text">
-        <span class="eyebrow" data-i18n="invest.eyebrow">Build With Us</span>
-        <h2 class="title" data-i18n="invest.title">We Are Not Selling Another Voyage &#8212; We Are Building the Ship</h2>
-        <p class="lead" data-i18n="invest.p1">This is not one more journey to book. It is an invitation to help shape what carries the mission forward.</p>
-        <p class="lead" data-i18n="invest.p2">Every plank, every sail, every mile at sea is built by people who chose to be part of something larger than a single trip.</p>
-        <a href="mailto:invest@ayematies.com" class="btn btn-outline magnetic"><span data-i18n="invest.btn">Become an Investor</span></a>
-      </div>
-      <div class="invest-boat" aria-hidden="true">
-        <svg viewBox="0 0 420 320" fill="none">
-          <line x1="20" y1="270" x2="400" y2="270" stroke="rgba(207,233,236,.25)" stroke-width="1.5"/>
-          <path d="M70 250 Q 210 320 350 250 L 320 200 Q 210 240 100 200 Z" stroke="#d8b873" stroke-width="2.4" fill="rgba(216,184,115,.05)"/>
-          <line x1="210" y1="200" x2="210" y2="74" stroke="#cfe9ec" stroke-width="3"/>
-          <path d="M213 82 Q280 110 213 172 Z" fill="rgba(207,233,236,.16)" stroke="#cfe9ec" stroke-width="1.6"/>
-          <path d="M210 74 L246 84 L210 94 Z" fill="#d8b873"/>
-        </svg>
-        <span class="invest-caption" data-i18n="invest.caption">laid keel by keel, plank by plank</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-  <!-- Chapter overlay system -->
-  <div id="chapterOverlay" aria-hidden="true">
-    <span class="chapter-num" id="chapterNum">I</span>
-    <span class="chapter-title" id="chapterTitle">THE SURFACE</span>
-  </div>
-</main>
 
 <script>
 /*!
@@ -3188,7 +3155,7 @@ document.querySelectorAll('.magnetic').forEach(btn=>{
 });
 
 /* ═══════════════════ SPA ROUTING ════════════════════════════════════════ */
-const PAGES = ['home','crew','show','news','invest','impressum'];
+const PAGES = ['home','crew','show','news','impressum'];
 let currentPage = 'home';
 
 function showPage(id){
@@ -3216,7 +3183,7 @@ function showPage(id){
     if(pageId==='show') initShowPage();
     if(pageId==='crew') initCrewPage();
     if(pageId==='news') initNewsPage();
-    if(pageId==='invest') initInvestPage();
+    
     if(pageId==='impressum') initImpressumPage();
     setTimeout(()=>{
       document.querySelectorAll('#page-'+pageId+' [data-reveal]').forEach(el=>{
@@ -3235,6 +3202,7 @@ function showPage(id){
       });
     }, 100);
     history.pushState(null, '', '#'+pageId);
+    document.dispatchEvent(new CustomEvent('ayematies:pagechange', {detail: pageId}));
     wipe.classList.remove('entering');
     wipe.classList.add('exiting');
     setTimeout(()=>wipe.classList.remove('exiting'),500);
@@ -3633,7 +3601,7 @@ if(particlesContainer){
 /* ── Touch swipe between pages ─────────────────────────────────────────── */
 (function(){
   let startX=0, startY=0;
-  const pages=['home','crew','show','news','invest','impressum'];
+  const pages=['home','crew','show','news','impressum'];
   document.addEventListener('touchstart',e=>{
     startX=e.touches[0].clientX;
     startY=e.touches[0].clientY;
@@ -4626,6 +4594,44 @@ document.querySelectorAll('.reveal-x-left,.reveal-x-right,.reveal-scale,.reveal-
     },{threshold:.3});
     chapters.forEach(c=>{ const el=document.querySelector(c.selector); if(el) chObs.observe(el); });
   }
+})();
+
+
+/* ── Page video background switcher ─────────────────────────────────────── */
+(function(){
+  const PAGE_VIDEOS = {
+    crew:       'assets/videos/ocean-vertical.mp4',
+    show:       'assets/videos/vertical-1.mp4',
+    news:       'assets/videos/cinematic-1.mp4',
+    impressum:  'assets/videos/hero-b-1080p.mp4',
+  };
+  const bgWrap = document.getElementById('pageVideoBg');
+  const bgVid  = document.getElementById('pageVideoBgVid');
+  if(!bgWrap || !bgVid) return;
+  let currentSrc = '';
+
+  function setPageVideo(pageId){
+    const src = PAGE_VIDEOS[pageId];
+    if(!src){ bgWrap.classList.remove('active'); bgVid.pause(); return; }
+    if(src === currentSrc){ bgWrap.classList.add('active'); if(bgVid.paused) bgVid.play().catch(()=>{}); return; }
+    currentSrc = src;
+    bgWrap.classList.remove('active');
+    setTimeout(()=>{
+      bgVid.src = src;
+      bgVid.load();
+      bgVid.play().catch(()=>{});
+      bgWrap.classList.add('active');
+    }, 300);
+  }
+
+  // Hook into showPage — run after page switch
+  const _origShowPage = window.showPage;
+  if(typeof showPage !== 'undefined'){
+    const origRef = showPage;
+    window.__setPageVideo = setPageVideo;
+  }
+  // Listen for page changes via custom event dispatched from showPage
+  document.addEventListener('ayematies:pagechange', e=>{ setPageVideo(e.detail); });
 })();
 
 </script>
