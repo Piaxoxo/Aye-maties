@@ -1,577 +1,563 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aye Maties — Saving Our Oceans</title>
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    :root {
-      --gold: #d4a84b;
-      --deep: #000d1a;
-      --cyan: #00c8ff;
-      --white: #f0ede8;
-    }
-    html, body { width:100%; height:100%; overflow-x:hidden; background:#000d1a; }
-    #c { position:fixed; inset:0; width:100%; height:100%; z-index:0; display:block; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aye Maties — Saving Our Oceans</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --gold: #d4a84b;
+  --deep: #000d1a;
+  --cyan: #00c8ff;
+  --white: #f0ede8;
+}
+html, body { width:100%; height:100%; overflow-x:hidden; background:#000d1a; }
+#c { position:fixed; inset:0; width:100%; height:100%; z-index:0; display:block; }
 
-    /* Loader */
-    #loader {
-      position:fixed; inset:0; z-index:1000;
-      background:#000;
-      display:flex; align-items:center; justify-content:center;
-      flex-direction:column;
-    }
-    .loader-inner { position:relative; display:flex; align-items:center; justify-content:center; flex-direction:column; }
-    .sonar-rings { position:absolute; width:160px; height:160px; }
-    .ring {
-      position:absolute; inset:0; border-radius:50%;
-      border:1px solid rgba(0,200,255,0.3);
-      animation:sonar 2.4s ease-out infinite;
-    }
-    .r2 { animation-delay:0.8s; }
-    .r3 { animation-delay:1.6s; }
-    @keyframes sonar {
-      0% { transform:scale(0.5); opacity:1; }
-      100% { transform:scale(2.5); opacity:0; }
-    }
-    .loader-logo { height:90px; position:relative; z-index:1; filter:drop-shadow(0 0 20px rgba(212,168,75,0.4)); }
-    .loader-bar-wrap { position:fixed; bottom:0; left:0; right:0; height:2px; background:rgba(255,255,255,0.05); }
-    .loader-bar { height:2px; background:var(--gold); width:0; transition:width 0.3s ease; }
+/* Loader */
+#loader {
+  position:fixed; inset:0; z-index:1000;
+  background:#000;
+  display:flex; align-items:center; justify-content:center;
+  flex-direction:column;
+}
+.loader-inner { position:relative; display:flex; align-items:center; justify-content:center; flex-direction:column; }
+.sonar-rings { position:absolute; width:160px; height:160px; }
+.ring {
+  position:absolute; inset:0; border-radius:50%;
+  border:1px solid rgba(0,200,255,0.3);
+  animation:sonar 2.4s ease-out infinite;
+}
+.r2 { animation-delay:0.8s; }
+.r3 { animation-delay:1.6s; }
+@keyframes sonar {
+  0% { transform:scale(0.5); opacity:1; }
+  100% { transform:scale(2.5); opacity:0; }
+}
+.loader-logo { height:90px; position:relative; z-index:1; filter:drop-shadow(0 0 20px rgba(212,168,75,0.4)); }
+.loader-bar-wrap { position:fixed; bottom:0; left:0; right:0; height:2px; background:rgba(255,255,255,0.05); }
+.loader-bar { height:2px; background:var(--gold); width:0; transition:width 0.3s ease; }
 
-    /* Nav */
-    #nav {
-      position:fixed; top:0; left:0; right:0; z-index:100;
-      padding:20px 40px;
-      display:flex; align-items:center; justify-content:space-between;
-      background:linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
-    }
-    .nav-logo { height:40px; }
-    .nav-label { font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:rgba(240,237,232,0.5); font-family:system-ui,sans-serif; }
+/* Nav */
+#nav {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  padding:20px 40px;
+  display:flex; align-items:center; justify-content:space-between;
+  background:linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
+}
+.nav-logo { height:40px; }
+.nav-label { font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:rgba(240,237,232,0.5); font-family:system-ui,sans-serif; }
 
-    /* Chapter text */
-    #chapter-text {
-      position:fixed; z-index:50;
-      bottom:18vh; left:8vw;
-      pointer-events:none;
-      font-family:'Georgia','Times New Roman',serif;
-    }
-    .eyebrow { font-size:11px; letter-spacing:0.3em; text-transform:uppercase; color:var(--gold); font-family:system-ui,sans-serif; margin-bottom:16px; }
-    .hero-title { font-size:clamp(64px,11vw,160px); font-weight:400; line-height:0.9; letter-spacing:-0.03em; color:#f0ede8; margin-bottom:24px; display:flex; flex-direction:column; }
-    .hero-title .line { display:block; }
-    .hero-title .gold { font-style:italic; color:var(--gold); margin-left:2vw; }
-    .hero-sub { font-size:clamp(13px,1.3vw,16px); color:rgba(240,237,232,0.55); font-family:system-ui,sans-serif; margin-bottom:32px; max-width:320px; line-height:1.65; }
-    .cta {
-      display:inline-block; padding:12px 28px;
-      border:1px solid rgba(212,168,75,0.6); color:var(--gold);
-      text-decoration:none; font-size:11px; letter-spacing:0.2em;
-      text-transform:uppercase; font-family:system-ui,sans-serif;
-      transition:background 0.3s, color 0.3s; pointer-events:all;
-    }
-    .cta:hover { background:var(--gold); color:#000; }
+/* Chapter text */
+#chapter-text {
+  position:fixed; z-index:50;
+  bottom:18vh; left:8vw;
+  pointer-events:none;
+  font-family:'Georgia','Times New Roman',serif;
+}
+.eyebrow { font-size:11px; letter-spacing:0.3em; text-transform:uppercase; color:var(--gold); font-family:system-ui,sans-serif; margin-bottom:16px; }
+.hero-title { font-size:clamp(64px,11vw,160px); font-weight:400; line-height:0.9; letter-spacing:-0.03em; color:#f0ede8; margin-bottom:24px; display:flex; flex-direction:column; }
+.hero-title .line { display:block; }
+.hero-title .gold { font-style:italic; color:var(--gold); margin-left:2vw; }
+.hero-sub { font-size:clamp(13px,1.3vw,16px); color:rgba(240,237,232,0.55); font-family:system-ui,sans-serif; margin-bottom:32px; max-width:320px; line-height:1.65; }
+.cta {
+  display:inline-block; padding:12px 28px;
+  border:1px solid rgba(212,168,75,0.6); color:var(--gold);
+  text-decoration:none; font-size:11px; letter-spacing:0.2em;
+  text-transform:uppercase; font-family:system-ui,sans-serif;
+  transition:background 0.3s, color 0.3s; pointer-events:all;
+}
+.cta:hover { background:var(--gold); color:#000; }
 
-    /* Compass cursor */
-    #compass-cursor {
-      position:fixed; top:0; left:0; z-index:200;
-      pointer-events:none; display:none;
-    }
+/* Compass cursor */
+#compass-cursor {
+  position:fixed; top:0; left:0; z-index:200;
+  pointer-events:none; display:none;
+}
 
-    /* Scroll container */
-    #scroll-container { position:relative; z-index:10; pointer-events:none; }
+/* Scroll container */
+#scroll-container { position:relative; z-index:10; pointer-events:none; }
 
-    @media (max-width:768px) {
-      #nav { padding:16px 20px; }
-      .nav-label { display:none; }
-      #chapter-text { bottom:12vh; left:5vw; }
-    }
-
-    @media (hover: none) {
-      #compass-cursor { display:none !important; }
-    }
-  </style>
+@media (max-width:768px) {
+  #nav { padding:16px 20px; }
+  .nav-label { display:none; }
+  #chapter-text { bottom:12vh; left:5vw; }
+}
+@media (hover: none) {
+  #compass-cursor { display:none !important; }
+}
+</style>
 </head>
 <body>
-  <!-- Loader -->
-  <div id="loader">
-    <div class="loader-inner">
-      <div class="sonar-rings">
-        <div class="ring r1"></div>
-        <div class="ring r2"></div>
-        <div class="ring r3"></div>
-      </div>
-      <img src="assets/images/logo.svg" alt="Aye Maties" class="loader-logo">
-      <div class="loader-bar-wrap"><div class="loader-bar" id="loader-bar"></div></div>
+
+<!-- Loader -->
+<div id="loader">
+  <div class="loader-inner">
+    <div class="sonar-rings">
+      <div class="ring r1"></div>
+      <div class="ring r2"></div>
+      <div class="ring r3"></div>
     </div>
+    <img src="assets/images/logo.svg" alt="Aye Maties" class="loader-logo">
+    <div class="loader-bar-wrap"><div class="loader-bar" id="loader-bar"></div></div>
   </div>
+</div>
 
-  <!-- WebGL Canvas -->
-  <canvas id="c"></canvas>
+<!-- WebGL Canvas -->
+<canvas id="c"></canvas>
 
-  <!-- Fixed Nav -->
-  <nav id="nav" style="opacity:0">
-    <img src="assets/images/logo.svg" alt="Aye Maties" class="nav-logo">
-    <span class="nav-label">Saving Our Oceans — Season I</span>
-  </nav>
+<!-- Fixed Nav -->
+<nav id="nav" style="opacity:0">
+  <img src="assets/images/logo.svg" alt="Aye Maties" class="nav-logo">
+  <span class="nav-label">Saving Our Oceans — Season I</span>
+</nav>
 
-  <!-- Hero Text -->
-  <div id="chapter-text" style="opacity:0">
-    <p class="eyebrow">Saving Our Oceans — Season I</p>
-    <h1 class="hero-title"><span class="line">Aye</span><span class="line gold">Maties</span></h1>
-    <p class="hero-sub">A youth-led challenge to protect our oceans.</p>
-    <a href="#" class="cta">Join the Mission ↓</a>
-  </div>
+<!-- Hero Text -->
+<div id="chapter-text" style="opacity:0">
+  <p class="eyebrow">Saving Our Oceans — Season I</p>
+  <h1 class="hero-title"><span class="line">Aye</span><span class="line gold">Maties</span></h1>
+  <p class="hero-sub">A youth-led challenge to protect our oceans.</p>
+  <a href="#" class="cta">Join the Mission ↓</a>
+</div>
 
-  <!-- Compass Cursor -->
-  <canvas id="compass-cursor"></canvas>
+<!-- Compass Cursor -->
+<canvas id="compass-cursor"></canvas>
 
-  <!-- Scroll Container (tall, for scroll-driven camera) -->
-  <div id="scroll-container" style="height:500vh; position:relative; z-index:10; pointer-events:none;"></div>
+<!-- Scroll Container (tall, for scroll-driven camera) -->
+<div id="scroll-container" style="height:500vh; position:relative; z-index:10; pointer-events:none;"></div>
 
-  <script type="importmap">
-  {
-    "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
-      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
-    }
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
   }
-  </script>
+}
+</script>
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
-  <script type="module">
-    import {
-      WebGLRenderer,
-      Scene,
-      PerspectiveCamera,
-      AmbientLight,
-      DirectionalLight,
-      PointLight,
-      PlaneGeometry,
-      ShaderMaterial,
-      Mesh,
-      BufferGeometry,
-      BufferAttribute,
-      Points,
-      Clock,
-      Vector2,
-      Vector3,
-      Color,
-      FogExp2,
-      DoubleSide,
-      AdditiveBlending,
-      ACESFilmicToneMapping,
-      SRGBColorSpace
-    } from 'three'
-    import { CatmullRomCurve3 } from 'three'
-    import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js'
-    import { RenderPass } from 'three/addons/postprocessing/RenderPass.js'
-    import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
-    import { OutputPass } from 'three/addons/postprocessing/OutputPass.js'
+<script type="module">
+import {
+  Scene,
+  PerspectiveCamera,
+  WebGLRenderer,
+  AmbientLight,
+  DirectionalLight,
+  PointLight,
+  PlaneGeometry,
+  BufferGeometry,
+  BufferAttribute,
+  ShaderMaterial,
+  Mesh,
+  Points,
+  Color,
+  FogExp2,
+  Vector2,
+  Vector3,
+  CatmullRomCurve3,
+  AdditiveBlending,
+  DoubleSide,
+  ACESFilmicToneMapping,
+  SRGBColorSpace
+} from 'three';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
-    // ─── Detect device ───────────────────────────────────────────────────────
-    const isMobile = window.innerWidth < 768 || ('ontouchstart' in window)
-    const isTouchDevice = ('ontouchstart' in window) || navigator.maxTouchPoints > 0
+// Device detection
+const isMobile = window.innerWidth < 768 || ('ontouchstart' in window);
+const isTouchDevice = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
 
-    // ─── Shared time uniform ─────────────────────────────────────────────────
-    const timeUniform = { value: 0 }
+// Renderer
+const renderer = new WebGLRenderer({
+  canvas: document.getElementById('c'),
+  antialias: true,
+  alpha: false
+});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.toneMapping = ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.2;
+renderer.outputColorSpace = SRGBColorSpace;
 
-    // ─── Renderer ────────────────────────────────────────────────────────────
-    const renderer = new WebGLRenderer({
-      canvas: document.getElementById('c'),
-      antialias: true,
-      alpha: false
-    })
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-    renderer.setSize(window.innerWidth, window.innerHeight)
-    renderer.toneMapping = ACESFilmicToneMapping
-    renderer.toneMappingExposure = 1.2
-    renderer.outputColorSpace = SRGBColorSpace
+// Scene
+const scene = new Scene();
+scene.fog = new FogExp2(0x000d1a, 0.035);
+scene.background = new Color(0x000d1a);
 
-    // ─── Scene ───────────────────────────────────────────────────────────────
-    const scene = new Scene()
-    scene.fog = new FogExp2(0x000d1a, 0.035)
-    scene.background = new Color(0x000d1a)
+// Camera
+const camera = new PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 200);
+camera.position.set(0, -1, 2);
 
-    // ─── Camera ──────────────────────────────────────────────────────────────
-    const camera = new PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 200)
-    camera.position.set(0, 0, 0)
+// Shared time uniform
+const timeUniform = { value: 0 };
 
-    // ─── Lights ──────────────────────────────────────────────────────────────
-    const ambient = new AmbientLight(0x001833, 0.5)
-    scene.add(ambient)
+// Lights
+const ambient = new AmbientLight(0x001833, 0.5);
+scene.add(ambient);
 
-    const sunLight = new DirectionalLight(0x4488ff, 2.0)
-    sunLight.position.set(5, 20, -10)
-    scene.add(sunLight)
+const sunLight = new DirectionalLight(0x4488ff, 2.0);
+sunLight.position.set(5, 20, -10);
+scene.add(sunLight);
 
-    const fillLight = new PointLight(0x002244, 1.0, 50)
-    fillLight.position.set(-5, -5, -15)
-    scene.add(fillLight)
+const fillLight = new PointLight(0x002244, 1.0, 50);
+fillLight.position.set(-5, -5, -15);
+scene.add(fillLight);
 
-    // ─── Water Surface Shader ────────────────────────────────────────────────
-    const waterVertShader = `
-      #define PI 3.14159265358979
-      uniform float uTime;
-      varying vec3 vPosition;
-      varying vec3 vNormal;
+// Water Surface Shader
+const waterVert = `
+#define PI 3.14159265359
 
-      vec3 gerstnerWave(vec2 dir, float steepness, float wavelength, vec3 p) {
-        float k = 2.0 * PI / wavelength;
-        float c = sqrt(9.8 / k);
-        vec2 d = normalize(dir);
-        float f = k * (dot(d, p.xz) - c * uTime);
-        float a = steepness / k;
-        return vec3(
-          d.x * (a * cos(f)),
-          a * sin(f),
-          d.y * (a * cos(f))
-        );
-      }
+uniform float uTime;
+varying vec3 vPosition;
+varying vec3 vNormal;
 
-      void main() {
-        vec3 p = position;
+vec3 gerstnerWave(vec2 dir, float steepness, float wavelength, vec3 p) {
+  float k = 2.0 * PI / wavelength;
+  float c = sqrt(9.8 / k);
+  vec2 d = normalize(dir);
+  float f = k * (dot(d, p.xz) - c * uTime);
+  float a = steepness / k;
+  return vec3(
+    d.x * (a * cos(f)),
+    a * sin(f),
+    d.y * (a * cos(f))
+  );
+}
 
-        p += gerstnerWave(vec2(1.0, 0.8), 0.15, 8.0, position);
-        p += gerstnerWave(vec2(-0.6, 0.9), 0.10, 5.0, position);
-        p += gerstnerWave(vec2(0.3, -1.0), 0.08, 3.0, position);
-        p += gerstnerWave(vec2(-0.9, 0.3), 0.05, 2.0, position);
+void main() {
+  vec3 p = position;
 
-        vPosition = p;
-        vNormal = normalize(normal);
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
-      }
-    `
+  p += gerstnerWave(vec2(1.0, 0.8),  0.15, 8.0, position);
+  p += gerstnerWave(vec2(-0.6, 0.9), 0.10, 5.0, position);
+  p += gerstnerWave(vec2(0.3, -1.0), 0.08, 3.0, position);
+  p += gerstnerWave(vec2(-0.9, 0.3), 0.05, 2.0, position);
 
-    const waterFragShader = `
-      uniform float uTime;
-      varying vec3 vPosition;
-      varying vec3 vNormal;
+  vPosition = p;
+  vNormal = normalize(normal);
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
+}
+`;
 
-      void main() {
-        vec2 uv = vPosition.xz * 0.3;
-        float caustic = sin(uv.x * 8.0 + uTime * 0.7) * sin(uv.y * 6.0 - uTime * 0.5);
-        caustic += sin(uv.x * 13.0 - uTime * 0.9) * sin(uv.y * 11.0 + uTime * 0.6);
-        caustic = caustic * 0.25 + 0.5;
+const waterFrag = `
+uniform float uTime;
+varying vec3 vPosition;
+varying vec3 vNormal;
 
-        vec3 viewDir = normalize(cameraPosition - vPosition);
-        float fresnel = pow(1.0 - max(dot(viewDir, vNormal), 0.0), 3.0);
+void main() {
+  vec2 uv = vPosition.xz * 0.3;
+  float caustic = sin(uv.x * 8.0 + uTime * 0.7) * sin(uv.y * 6.0 - uTime * 0.5);
+  caustic += sin(uv.x * 13.0 - uTime * 0.9) * sin(uv.y * 11.0 + uTime * 0.6);
+  caustic = caustic * 0.25 + 0.5;
 
-        vec3 shallowColor = vec3(0.0, 0.3, 0.5);
-        vec3 deepColor = vec3(0.0, 0.05, 0.15);
-        vec3 color = mix(deepColor, shallowColor, fresnel);
-        color += caustic * 0.15 * vec3(0.2, 0.8, 1.0);
+  vec3 viewDir = normalize(cameraPosition - vPosition);
+  float fresnel = pow(1.0 - max(dot(viewDir, vNormal), 0.0), 3.0);
 
-        gl_FragColor = vec4(color, 0.6);
-      }
-    `
+  vec3 shallowColor = vec3(0.0, 0.3, 0.5);
+  vec3 deepColor = vec3(0.0, 0.05, 0.15);
+  vec3 color = mix(deepColor, shallowColor, fresnel);
+  color += caustic * 0.15 * vec3(0.2, 0.8, 1.0);
 
-    const waterGeo = new PlaneGeometry(80, 80, 128, 128)
-    const waterMat = new ShaderMaterial({
-      uniforms: { uTime: timeUniform },
-      vertexShader: waterVertShader,
-      fragmentShader: waterFragShader,
-      transparent: true,
-      side: DoubleSide,
-      depthWrite: false
-    })
-    const water = new Mesh(waterGeo, waterMat)
-    water.rotation.x = -Math.PI / 2
-    water.position.y = 3
-    scene.add(water)
+  gl_FragColor = vec4(color, 0.6);
+}
+`;
 
-    // ─── God Rays ────────────────────────────────────────────────────────────
-    const godRayVert = `
-      varying vec2 vUv;
-      void main() {
-        vUv = uv;
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-      }
-    `
+const waterGeo = new PlaneGeometry(80, 80, 128, 128);
+const waterMat = new ShaderMaterial({
+  uniforms: { uTime: timeUniform },
+  vertexShader: waterVert,
+  fragmentShader: waterFrag,
+  transparent: true,
+  side: DoubleSide,
+  depthWrite: false
+});
+const waterMesh = new Mesh(waterGeo, waterMat);
+waterMesh.rotation.x = -Math.PI / 2;
+waterMesh.position.y = 3;
+scene.add(waterMesh);
 
-    const godRayFrag = `
-      varying vec2 vUv;
-      uniform float uTime;
-      uniform float uOpacity;
-      void main() {
-        float alpha = (1.0 - vUv.y) * vUv.y * 4.0;
-        alpha *= uOpacity;
-        alpha *= 0.8 + 0.2 * sin(uTime * 0.5 + vUv.x * 10.0);
-        gl_FragColor = vec4(0.3, 0.7, 1.0, alpha);
-      }
-    `
+// God Rays
+const godRayVert = `
+varying vec2 vUv;
+void main() {
+  vUv = uv;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+}
+`;
 
-    const godRays = []
-    for (let i = 0; i < 12; i++) {
-      const angle = (i / 12) * Math.PI * 0.4 - Math.PI * 0.2
-      const geo = new PlaneGeometry(0.4 + Math.random() * 1.2, 18 + Math.random() * 8, 1, 8)
-      const mat = new ShaderMaterial({
-        uniforms: {
-          uTime: timeUniform,
-          uOpacity: { value: 0.12 + Math.random() * 0.08 }
-        },
-        vertexShader: godRayVert,
-        fragmentShader: godRayFrag,
-        transparent: true,
-        blending: AdditiveBlending,
-        depthWrite: false,
-        side: DoubleSide
-      })
-      const mesh = new Mesh(geo, mat)
-      mesh.position.set(
-        Math.sin(angle) * 3 + (Math.random() - 0.5) * 4,
-        1,
-        -10 + Math.cos(angle) * 2
-      )
-      mesh.rotation.z = angle * 0.3
-      mesh.rotation.x = -0.1 - Math.random() * 0.2
-      scene.add(mesh)
-      godRays.push(mesh)
-    }
+const godRayFrag = `
+varying vec2 vUv;
+uniform float uTime;
+uniform float uOpacity;
+void main() {
+  float alpha = (1.0 - vUv.y) * vUv.y * 4.0;
+  alpha *= uOpacity;
+  alpha *= 0.8 + 0.2 * sin(uTime * 0.5 + vUv.x * 10.0);
+  gl_FragColor = vec4(0.3, 0.7, 1.0, alpha);
+}
+`;
 
-    // ─── Particles ───────────────────────────────────────────────────────────
-    const particleVert = `
-      attribute float aRandom;
-      uniform float uTime;
-      uniform float uPixelRatio;
-      varying float vRandom;
+const godRays = [];
+for (let i = 0; i < 12; i++) {
+  const angle = (i / 12) * Math.PI * 0.4 - Math.PI * 0.2;
+  const geo = new PlaneGeometry(0.4 + Math.random() * 1.2, 18 + Math.random() * 8, 1, 8);
+  const mat = new ShaderMaterial({
+    uniforms: {
+      uTime: timeUniform,
+      uOpacity: { value: 0.12 + Math.random() * 0.08 }
+    },
+    vertexShader: godRayVert,
+    fragmentShader: godRayFrag,
+    transparent: true,
+    blending: AdditiveBlending,
+    depthWrite: false,
+    side: DoubleSide
+  });
+  const mesh = new Mesh(geo, mat);
+  mesh.position.set(
+    Math.sin(angle) * 3 + (Math.random() - 0.5) * 4,
+    1,
+    -10 + Math.cos(angle) * 2
+  );
+  mesh.rotation.z = angle * 0.3;
+  mesh.rotation.x = -0.1 - Math.random() * 0.2;
+  scene.add(mesh);
+  godRays.push(mesh);
+}
 
-      void main() {
-        vRandom = aRandom;
-        vec3 p = position;
-        p.y += mod(uTime * (0.02 + aRandom * 0.05) + aRandom * 20.0, 20.0) - 10.0;
-        p.x += sin(uTime * 0.3 + aRandom * 6.28318) * 0.3;
+// Particle System
+const particleVert = `
+attribute float aRandom;
+uniform float uTime;
+uniform float uPixelRatio;
+varying float vRandom;
 
-        vec4 mvPosition = modelViewMatrix * vec4(p, 1.0);
-        gl_Position = projectionMatrix * mvPosition;
-        gl_PointSize = (2.0 + aRandom * 3.0) * uPixelRatio * (10.0 / -mvPosition.z);
-        gl_PointSize = clamp(gl_PointSize, 1.0, 8.0);
-      }
-    `
+void main() {
+  vRandom = aRandom;
+  vec3 p = position;
+  p.y += mod(uTime * (0.02 + aRandom * 0.05) + aRandom * 20.0, 20.0) - 10.0;
+  p.x += sin(uTime * 0.3 + aRandom * 6.28318) * 0.3;
 
-    const particleFrag = `
-      varying float vRandom;
-      uniform float uTime;
+  vec4 mvPosition = modelViewMatrix * vec4(p, 1.0);
+  gl_Position = projectionMatrix * mvPosition;
+  gl_PointSize = (2.0 + aRandom * 3.0) * uPixelRatio * (10.0 / -mvPosition.z);
+  gl_PointSize = clamp(gl_PointSize, 1.0, 8.0);
+}
+`;
 
-      void main() {
-        vec2 uv = gl_PointCoord - 0.5;
-        float dist = length(uv);
-        if (dist > 0.5) discard;
+const particleFrag = `
+varying float vRandom;
+uniform float uTime;
 
-        float alpha = (0.5 - dist) * 2.0;
-        alpha *= 0.4 + 0.6 * abs(sin(uTime * 0.8 + vRandom * 6.28318));
+void main() {
+  vec2 uv = gl_PointCoord - 0.5;
+  float dist = length(uv);
+  if (dist > 0.5) discard;
 
-        float t = sin(uTime * 0.5 + vRandom * 6.28318) * 0.5 + 0.5;
-        vec3 color = mix(vec3(0.0, 0.8, 1.0), vec3(0.4, 0.9, 1.0), t);
+  float alpha = (0.5 - dist) * 2.0;
+  alpha *= 0.4 + 0.6 * abs(sin(uTime * 0.8 + vRandom * 6.28318));
 
-        gl_FragColor = vec4(color, alpha * 0.8);
-      }
-    `
+  float t = sin(uTime * 0.5 + vRandom * 6.28318) * 0.5 + 0.5;
+  vec3 color = mix(vec3(0.0, 0.8, 1.0), vec3(0.4, 0.9, 1.0), t);
 
-    const count = isMobile ? 800 : 3000
-    const pGeo = new BufferGeometry()
-    const positions = new Float32Array(count * 3)
-    const randoms = new Float32Array(count)
+  gl_FragColor = vec4(color, alpha * 0.8);
+}
+`;
 
-    for (let i = 0; i < count; i++) {
-      positions[i * 3]     = (Math.random() - 0.5) * 40
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 20 - 5
-      positions[i * 3 + 2] = Math.random() * -40 - 5
-      randoms[i] = Math.random()
-    }
+const count = isMobile ? 800 : 3000;
+const particleGeo = new BufferGeometry();
+const positions = new Float32Array(count * 3);
+const randoms = new Float32Array(count);
 
-    pGeo.setAttribute('position', new BufferAttribute(positions, 3))
-    pGeo.setAttribute('aRandom', new BufferAttribute(randoms, 1))
+for (let i = 0; i < count; i++) {
+  positions[i * 3]     = (Math.random() - 0.5) * 40;
+  positions[i * 3 + 1] = (Math.random() - 0.5) * 20 - 5;
+  positions[i * 3 + 2] = Math.random() * -40 - 5;
+  randoms[i] = Math.random();
+}
 
-    const particleMat = new ShaderMaterial({
-      uniforms: {
-        uTime: timeUniform,
-        uPixelRatio: { value: renderer.getPixelRatio() }
-      },
-      vertexShader: particleVert,
-      fragmentShader: particleFrag,
-      transparent: true,
-      blending: AdditiveBlending,
-      depthWrite: false
-    })
+particleGeo.setAttribute('position', new BufferAttribute(positions, 3));
+particleGeo.setAttribute('aRandom', new BufferAttribute(randoms, 1));
 
-    const particles = new Points(pGeo, particleMat)
-    scene.add(particles)
+const particleMat = new ShaderMaterial({
+  uniforms: {
+    uTime: timeUniform,
+    uPixelRatio: { value: renderer.getPixelRatio() }
+  },
+  vertexShader: particleVert,
+  fragmentShader: particleFrag,
+  transparent: true,
+  blending: AdditiveBlending,
+  depthWrite: false
+});
 
-    // ─── Camera Path (Phase 2: scroll-driven) ────────────────────────────────
-    // TODO Phase 2: scroll-driven camera
-    const cameraPath = new CatmullRomCurve3([
-      new Vector3(0, -1, 5),
-      new Vector3(1, -2, -5),
-      new Vector3(-1, -3, -15),
-      new Vector3(0, -4, -25),
-    ])
+const particles = new Points(particleGeo, particleMat);
+scene.add(particles);
 
-    // ─── Post-Processing ─────────────────────────────────────────────────────
-    const composer = new EffectComposer(renderer)
-    composer.addPass(new RenderPass(scene, camera))
-    const bloom = new UnrealBloomPass(
-      new Vector2(window.innerWidth, window.innerHeight),
-      0.8,
-      0.4,
-      0.2
-    )
-    composer.addPass(bloom)
-    composer.addPass(new OutputPass())
+// Camera Path (TODO Phase 2: scroll-driven camera)
+const cameraPath = new CatmullRomCurve3([
+  new Vector3(0, -1, 5),
+  new Vector3(1, -2, -5),
+  new Vector3(-1, -3, -15),
+  new Vector3(0, -4, -25),
+]);
 
-    // ─── Compass Cursor ───────────────────────────────────────────────────────
-    const compassCanvas = document.getElementById('compass-cursor')
-    let mouseX = -200, mouseY = -200
-    let needleAngle = 0, targetNeedleAngle = 0
-    let bezelAngle = 0
+// Post-Processing
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+const bloom = new UnrealBloomPass(
+  new Vector2(window.innerWidth, window.innerHeight),
+  0.8,
+  0.4,
+  0.2
+);
+composer.addPass(bloom);
+composer.addPass(new OutputPass());
 
-    if (!isTouchDevice) {
-      compassCanvas.style.display = 'block'
-      compassCanvas.width = 64
-      compassCanvas.height = 64
-      compassCanvas.style.width = '64px'
-      compassCanvas.style.height = '64px'
-      document.body.style.cursor = 'none'
+// Loader Sequence
+let progress = 0;
+const loadInterval = setInterval(() => {
+  progress = Math.min(progress + Math.random() * 15, 90);
+  document.getElementById('loader-bar').style.width = progress + '%';
+}, 200);
 
-      document.addEventListener('mousemove', e => {
-        const prevX = mouseX
-        const prevY = mouseY
-        mouseX = e.clientX
-        mouseY = e.clientY
-        compassCanvas.style.transform = `translate(${mouseX - 32}px, ${mouseY - 32}px)`
-        const dx = mouseX - prevX
-        const dy = mouseY - prevY
-        if (Math.abs(dx) + Math.abs(dy) > 1) {
-          targetNeedleAngle = Math.atan2(dy, dx) + Math.PI / 2
-        }
-      })
-    }
+let frameCount = 0;
+function onReady() {
+  clearInterval(loadInterval);
+  document.getElementById('loader-bar').style.width = '100%';
 
-    function drawCompass(time) {
-      const ctx = compassCanvas.getContext('2d')
-      const cx = 32, cy = 32, r = 28
-      ctx.clearRect(0, 0, 64, 64)
+  setTimeout(() => {
+    const loader = document.getElementById('loader');
+    loader.style.transition = 'opacity 1.2s ease';
+    loader.style.opacity = '0';
+    setTimeout(() => { loader.style.display = 'none'; }, 1200);
 
-      bezelAngle += 0.005
-      ctx.save()
-      ctx.translate(cx, cy)
-      ctx.rotate(bezelAngle)
-      ctx.beginPath()
-      ctx.arc(0, 0, r, 0, Math.PI * 2)
-      ctx.strokeStyle = 'rgba(212,168,75,0.8)'
-      ctx.lineWidth = 1.5
-      ctx.stroke()
-      for (let i = 0; i < 36; i++) {
-        const a = (i / 36) * Math.PI * 2
-        const inner = i % 9 === 0 ? r - 6 : r - 3
-        ctx.beginPath()
-        ctx.moveTo(Math.cos(a) * inner, Math.sin(a) * inner)
-        ctx.lineTo(Math.cos(a) * r, Math.sin(a) * r)
-        ctx.strokeStyle = i % 9 === 0 ? 'rgba(212,168,75,0.9)' : 'rgba(212,168,75,0.4)'
-        ctx.lineWidth = i % 9 === 0 ? 1.5 : 0.75
-        ctx.stroke()
-      }
-      ctx.restore()
+    const nav = document.getElementById('nav');
+    nav.style.transition = 'opacity 1s ease 0.5s';
+    nav.style.opacity = '1';
 
-      needleAngle += (targetNeedleAngle - needleAngle) * 0.1
-      ctx.save()
-      ctx.translate(cx, cy)
-      ctx.rotate(needleAngle)
-      ctx.beginPath()
-      ctx.moveTo(0, -r + 8)
-      ctx.lineTo(-3, 0)
-      ctx.lineTo(3, 0)
-      ctx.closePath()
-      ctx.fillStyle = '#cc2200'
-      ctx.fill()
-      ctx.beginPath()
-      ctx.moveTo(0, r - 8)
-      ctx.lineTo(-3, 0)
-      ctx.lineTo(3, 0)
-      ctx.closePath()
-      ctx.fillStyle = '#f0ede8'
-      ctx.fill()
-      ctx.beginPath()
-      ctx.arc(0, 0, 3, 0, Math.PI * 2)
-      ctx.fillStyle = '#d4a84b'
-      ctx.fill()
-      ctx.restore()
-    }
+    const chText = document.getElementById('chapter-text');
+    chText.style.transition = 'opacity 1.2s ease 0.8s';
+    chText.style.opacity = '1';
+  }, 500);
+}
 
-    // ─── Loader Sequence ─────────────────────────────────────────────────────
-    let progress = 0
-    const loaderBar = document.getElementById('loader-bar')
-    const loadInterval = setInterval(() => {
-      progress = Math.min(progress + Math.random() * 15, 90)
-      loaderBar.style.width = progress + '%'
-    }, 200)
+function checkReady() {
+  frameCount++;
+  if (frameCount === 3) onReady();
+}
 
-    let frameCount = 0
-    let loaderDone = false
+// Compass Cursor
+const compassCanvas = document.getElementById('compass-cursor');
+let mouseX = -200, mouseY = -200;
+let needleAngle = 0, targetNeedleAngle = 0;
+let bezelAngle = 0;
 
-    function onReady() {
-      if (loaderDone) return
-      loaderDone = true
-      clearInterval(loadInterval)
-      loaderBar.style.width = '100%'
+if (!isTouchDevice) {
+  compassCanvas.style.display = 'block';
+  compassCanvas.width = 64;
+  compassCanvas.height = 64;
+  compassCanvas.style.width = '64px';
+  compassCanvas.style.height = '64px';
+  document.body.style.cursor = 'none';
 
-      setTimeout(() => {
-        const loader = document.getElementById('loader')
-        loader.style.transition = 'opacity 1.2s ease'
-        loader.style.opacity = '0'
-        setTimeout(() => { loader.style.display = 'none' }, 1200)
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    compassCanvas.style.transform = `translate(${mouseX - 32}px, ${mouseY - 32}px)`;
+    targetNeedleAngle += (e.movementX * 0.005);
+  });
+}
 
-        const nav = document.getElementById('nav')
-        nav.style.transition = 'opacity 1s ease 0.5s'
-        nav.style.opacity = '1'
+function drawCompass(time) {
+  const ctx = compassCanvas.getContext('2d');
+  const cx = 32, cy = 32, r = 28;
+  ctx.clearRect(0, 0, 64, 64);
 
-        const ct = document.getElementById('chapter-text')
-        ct.style.transition = 'opacity 1.2s ease 0.8s'
-        ct.style.opacity = '1'
-      }, 500)
-    }
+  bezelAngle += 0.005;
+  ctx.save();
+  ctx.translate(cx, cy);
+  ctx.rotate(bezelAngle);
+  ctx.beginPath();
+  ctx.arc(0, 0, r, 0, Math.PI * 2);
+  ctx.strokeStyle = 'rgba(212,168,75,0.8)';
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+  for (let i = 0; i < 36; i++) {
+    const a = (i / 36) * Math.PI * 2;
+    const inner = i % 9 === 0 ? r - 6 : r - 3;
+    ctx.beginPath();
+    ctx.moveTo(Math.cos(a) * inner, Math.sin(a) * inner);
+    ctx.lineTo(Math.cos(a) * r, Math.sin(a) * r);
+    ctx.strokeStyle = i % 9 === 0 ? 'rgba(212,168,75,0.9)' : 'rgba(212,168,75,0.4)';
+    ctx.lineWidth = i % 9 === 0 ? 1.5 : 0.75;
+    ctx.stroke();
+  }
+  ctx.restore();
 
-    // ─── Animation Loop ───────────────────────────────────────────────────────
-    const clock = new Clock()
+  needleAngle += (targetNeedleAngle - needleAngle) * 0.1;
+  ctx.save();
+  ctx.translate(cx, cy);
+  ctx.rotate(needleAngle);
+  ctx.beginPath();
+  ctx.moveTo(0, -r + 8);
+  ctx.lineTo(-3, 0);
+  ctx.lineTo(3, 0);
+  ctx.closePath();
+  ctx.fillStyle = '#cc2200';
+  ctx.fill();
+  ctx.beginPath();
+  ctx.moveTo(0, r - 8);
+  ctx.lineTo(-3, 0);
+  ctx.lineTo(3, 0);
+  ctx.closePath();
+  ctx.fillStyle = '#f0ede8';
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(0, 0, 3, 0, Math.PI * 2);
+  ctx.fillStyle = '#d4a84b';
+  ctx.fill();
+  ctx.restore();
+}
 
-    function animate() {
-      requestAnimationFrame(animate)
+// Animation Loop
+let startTime = null;
 
-      const time = clock.getElapsedTime()
-      timeUniform.value = time
+function animate(timestamp) {
+  requestAnimationFrame(animate);
+  if (!startTime) startTime = timestamp;
+  const time = (timestamp - startTime) / 1000;
 
-      // Idle camera sway
-      camera.position.x = Math.sin(time * 0.15) * 0.4
-      camera.position.y = -1 + Math.sin(time * 0.1) * 0.2
-      camera.position.z = 2 + Math.sin(time * 0.07) * 0.3
-      camera.lookAt(0, -2, -10)
+  timeUniform.value = time;
 
-      // Animate god rays
-      godRays.forEach((ray, i) => {
-        ray.rotation.z = Math.sin(time * 0.2 + i * 0.5) * 0.05
-      })
+  camera.position.x = Math.sin(time * 0.15) * 0.4;
+  camera.position.y = -1 + Math.sin(time * 0.1) * 0.2;
+  camera.position.z = 2 + Math.sin(time * 0.07) * 0.3;
+  camera.lookAt(0, -2, -10);
 
-      // Draw compass cursor
-      if (!isTouchDevice) drawCompass(time)
+  godRays.forEach((ray, i) => {
+    ray.rotation.z = Math.sin(time * 0.2 + i * 0.5) * 0.05;
+  });
 
-      // Check loader readiness
-      if (!loaderDone) {
-        frameCount++
-        if (frameCount === 3) onReady()
-      }
+  if (!isTouchDevice) drawCompass(time);
 
-      composer.render()
-    }
+  checkReady();
+  composer.render();
+}
 
-    animate()
+animate(0);
 
-    // ─── Resize Handler ───────────────────────────────────────────────────────
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight
-      camera.updateProjectionMatrix()
-      renderer.setSize(window.innerWidth, window.innerHeight)
-      composer.setSize(window.innerWidth, window.innerHeight)
-    })
-  </script>
+// Resize Handler
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  composer.setSize(window.innerWidth, window.innerHeight);
+});
+</script>
 </body>
 </html>
