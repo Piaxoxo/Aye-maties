@@ -1159,6 +1159,54 @@ section { padding: clamp(60px, 8vw, 140px) 0; }
 .chapter-title { font-size: 11px; letter-spacing: .25em; color: rgba(255,255,255,.4); text-transform: uppercase; }
 .hv { transition: opacity 1.2s cubic-bezier(.25,.46,.45,.94) !important; }
 
+/* ── REAL-TIME OCEAN 3D SECTION ── */
+.ocean-3d-section {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background: #010810;
+}
+#ocean3dCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.ocean3d-overlay {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  text-align: center;
+  pointer-events: none;
+}
+.ocean3d-label {
+  font-size: 10px;
+  letter-spacing: .3em;
+  color: rgba(255,255,255,.25);
+  text-transform: uppercase;
+}
+
+/* ── ATMOSPHERIC DEPTH ── */
+.depth-gradient-dark { position: relative; }
+.depth-gradient-dark::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(1,8,16,.9) 0%, transparent 20%, transparent 80%, rgba(1,8,16,.9) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+.section-rule {
+  border: none;
+  height: 120px;
+  background: linear-gradient(to bottom, transparent, rgba(1,12,24,.95), transparent);
+  margin: 0;
+}
+.parallax-slow { transform: translateZ(0); will-change: transform; }
+
 </style>
 </head>
 <body>
@@ -1260,6 +1308,13 @@ section { padding: clamp(60px, 8vw, 140px) 0; }
 </header>
 
 <main id="main-content">
+<div id="sectionVideoBg" aria-hidden="true">
+  <video id="sectionVid" muted loop playsinline preload="none"
+         style="position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;opacity:0;transition:opacity 1.5s ease;pointer-events:none;"
+         poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='%23010810'/%3E%3C/svg%3E">
+  </video>
+  <div id="sectionVidOverlay" style="position:fixed;inset:0;z-index:0;pointer-events:none;background:linear-gradient(to bottom,rgba(4,10,18,.7),rgba(4,10,18,.5),rgba(4,10,18,.8));opacity:0;transition:opacity 1.5s ease;"></div>
+</div>
 <span id="top"></span>
 
 <div class="page active" id="page-home">
@@ -1372,9 +1427,16 @@ section { padding: clamp(60px, 8vw, 140px) 0; }
     <div class="caption fade-up" data-i18n="divider.caption">— drifting between worlds, above and below the surface —</div>
   </div>
 
+  <section class="ocean-3d-section" id="ocean3d" aria-label="Live ocean simulation">
+    <canvas id="ocean3dCanvas"></canvas>
+    <div class="ocean3d-overlay">
+      <p class="ocean3d-label">LIVE OCEAN SIMULATION</p>
+    </div>
+  </section>
+
   <hr class="section-rule">
   <!-- ABOUT -->
-  <section class="about" id="about">
+  <section class="about depth-gradient-dark" id="about">
     <div class="wrap">
       <div class="about-grid">
         <div class="about-media" data-reveal>
@@ -1501,7 +1563,7 @@ section { padding: clamp(60px, 8vw, 140px) 0; }
 
   <hr class="section-rule">
   <!-- OCEAN POLLUTION AWARENESS -->
-  <section class="pollution" id="pollution">
+  <section class="pollution depth-gradient-dark" id="pollution">
     <div class="rope-divider"></div>
     <div class="wrap pollution-inner">
       <span class="section-num">02</span>
@@ -1564,7 +1626,7 @@ section { padding: clamp(60px, 8vw, 140px) 0; }
   </section>
 
   <!-- OUR GOALS — green roadmap -->
-  <section class="goals" id="goals">
+  <section class="goals depth-gradient-dark" id="goals">
     <div class="rope-divider"></div>
     <div class="wrap">
       <span class="section-num">03</span>
@@ -2960,6 +3022,7 @@ document.querySelectorAll('.magnetic').forEach(btn=>{
 /* ═══════════════════ SPA ROUTING ════════════════════════════════════════ */
 const PAGES = ['home','crew','show','news','invest','impressum'];
 let currentPage = 'home';
+window.currentPage = 'home';
 
 function showPage(id){
   const wipe=document.getElementById('page-wipe');
@@ -2974,6 +3037,7 @@ function showPage(id){
     const target = document.getElementById('page-'+pageId);
     if(target){ target.classList.add('active'); target.style.display='block'; }
     currentPage = pageId;
+    window.currentPage = pageId;
     document.querySelectorAll('nav.links a[data-page]').forEach(a=>{
       a.classList.toggle('spa-active', a.getAttribute('data-page')===pageId);
     });
@@ -3667,12 +3731,14 @@ document.querySelectorAll('.reveal-x-left,.reveal-x-right,.reveal-scale,.reveal-
 /* ── CHAPTER OVERLAY SYSTEM ─────────────────────────────────────── */
 (function(){
   const chapters = [
-    { selector: '.hero', num: 'I', title: 'THE SURFACE' },
-    { selector: '#about', num: 'II', title: 'BELOW THE SURFACE' },
-    { selector: '#pollution', num: 'III', title: 'THE STORM' },
-    { selector: '#open-water', num: 'IV', title: 'THE OCEAN IS CALLING' },
-    { selector: '#goals', num: 'V', title: 'OUR GOALS' },
-    { selector: '#coral-reef', num: 'VI', title: 'RESTORE THE REEF' },
+    { selector: '.hero',          num: 'I',    title: 'THE SURFACE',          video: 'hero-a-1080p.mp4' },
+    { selector: '#ocean3d',       num: 'II',   title: 'THE LIVING OCEAN',     video: null },
+    { selector: '#about',         num: 'III',  title: 'BELOW THE SURFACE',    video: 'ocean-hero-2.mp4' },
+    { selector: '#pollution',     num: 'IV',   title: 'THE STORM',            video: 'cinematic-1.mp4' },
+    { selector: '#storm-passage', num: 'V',    title: 'THE RECKONING',        video: null },
+    { selector: '#coral-reef',    num: 'VI',   title: 'RESTORE THE REEF',     video: null },
+    { selector: '#goals',         num: 'VII',  title: 'OUR GOALS',            video: 'ocean-hero-1.mp4' },
+    { selector: '#join',          num: 'VIII', title: 'THE VOYAGE AWAITS',    video: 'hero-b-1080p.mp4' },
   ];
   const chOverlay = document.getElementById('chapterOverlay');
   const chNum = document.getElementById('chapterNum');
@@ -3696,6 +3762,326 @@ document.querySelectorAll('.reveal-x-left,.reveal-x-right,.reveal-scale,.reveal-
   }
 })();
 
+</script>
+
+<script>
+(function initOcean3D() {
+  const canvas = document.getElementById('ocean3dCanvas');
+  if (!canvas || typeof THREE === 'undefined') return;
+
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 0.8;
+
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x010c1a, 0.035);
+  scene.background = new THREE.Color(0x010810);
+
+  const camera = new THREE.PerspectiveCamera(60, canvas.offsetWidth / canvas.offsetHeight, 0.1, 200);
+  camera.position.set(0, 3, 8);
+  camera.lookAt(0, 0, 0);
+
+  const ambientLight = new THREE.AmbientLight(0x0a1a2e, 1.5);
+  scene.add(ambientLight);
+
+  const sunLight = new THREE.DirectionalLight(0xffd4a0, 2.5);
+  sunLight.position.set(10, 20, 10);
+  scene.add(sunLight);
+
+  const fillLight = new THREE.DirectionalLight(0x004080, 0.8);
+  fillLight.position.set(-5, -5, -5);
+  scene.add(fillLight);
+
+  const waterVertexShader = `
+    uniform float uTime;
+    uniform vec2 uMouse;
+    uniform float uMouseStrength;
+
+    varying vec2 vUv;
+    varying vec3 vWorldPos;
+    varying vec3 vNormal;
+    varying float vElevation;
+
+    vec3 hash3(vec2 p) {
+      vec3 q = vec3(dot(p, vec2(127.1, 311.7)),
+                    dot(p, vec2(269.5, 183.3)),
+                    dot(p, vec2(419.2, 371.9)));
+      return fract(sin(q) * 43758.5453);
+    }
+
+    float wave(vec2 pos, vec2 dir, float freq, float phase, float amp) {
+      float k = freq * dot(pos, normalize(dir)) + phase * uTime;
+      return amp * sin(k);
+    }
+
+    void main() {
+      vUv = uv;
+      vec3 pos = position;
+
+      float w1 = wave(pos.xz, vec2(1.0, 0.8),  1.2, 0.7, 0.18);
+      float w2 = wave(pos.xz, vec2(-0.6, 1.0), 2.1, 0.9, 0.10);
+      float w3 = wave(pos.xz, vec2(0.3, -0.7), 3.5, 1.1, 0.06);
+      float w4 = wave(pos.xz, vec2(1.0, 0.2),  5.0, 0.6, 0.03);
+      float w5 = wave(pos.xz, vec2(-0.8, -0.4),7.0, 0.4, 0.015);
+
+      float mouseDist = length(pos.xz - uMouse * 8.0);
+      float mouseRipple = uMouseStrength * 0.12 * sin(mouseDist * 3.0 - uTime * 3.0) * exp(-mouseDist * 0.4);
+
+      pos.y += w1 + w2 + w3 + w4 + w5 + mouseRipple;
+      vElevation = pos.y;
+
+      float eps = 0.01;
+      float wx = wave(pos.xz + vec2(eps,0.), vec2(1.0, 0.8), 1.2, 0.7, 0.18)
+               + wave(pos.xz + vec2(eps,0.), vec2(-0.6,1.0), 2.1, 0.9, 0.10)
+               + wave(pos.xz + vec2(eps,0.), vec2(0.3,-0.7), 3.5, 1.1, 0.06);
+      float wz = wave(pos.xz + vec2(0.,eps), vec2(1.0, 0.8), 1.2, 0.7, 0.18)
+               + wave(pos.xz + vec2(0.,eps), vec2(-0.6,1.0), 2.1, 0.9, 0.10)
+               + wave(pos.xz + vec2(0.,eps), vec2(0.3,-0.7), 3.5, 1.1, 0.06);
+
+      vNormal = normalize(vec3(-(wx - (w1+w2+w3))/eps, 1.0, -(wz - (w1+w2+w3))/eps));
+      vWorldPos = (modelMatrix * vec4(pos, 1.0)).xyz;
+
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+    }
+  `;
+
+  const waterFragmentShader = `
+    uniform float uTime;
+    uniform vec3 uSunDirection;
+    uniform vec3 uSunColor;
+    uniform vec3 uDeepColor;
+    uniform vec3 uShallowColor;
+    uniform vec3 uFoamColor;
+    uniform float uFresnelPower;
+
+    varying vec2 vUv;
+    varying vec3 vWorldPos;
+    varying vec3 vNormal;
+    varying float vElevation;
+
+    void main() {
+      vec3 viewDir = normalize(cameraPosition - vWorldPos);
+
+      float fresnel = pow(1.0 - max(0.0, dot(vNormal, viewDir)), uFresnelPower);
+      fresnel = clamp(fresnel, 0.0, 1.0);
+
+      float depth = (vElevation + 0.5) / 1.0;
+      vec3 waterColor = mix(uDeepColor, uShallowColor, depth * 0.6 + 0.2);
+
+      vec3 halfVec = normalize(uSunDirection + viewDir);
+      float spec = pow(max(0.0, dot(vNormal, halfVec)), 128.0);
+      vec3 specular = uSunColor * spec * 2.5;
+
+      float sss = max(0.0, dot(vNormal, uSunDirection)) * 0.3;
+      vec3 sssColor = vec3(0.05, 0.3, 0.5) * sss;
+
+      float foam = smoothstep(0.12, 0.22, vElevation);
+      vec3 foamColor = uFoamColor * foam * 0.4;
+
+      float caustic = sin(vUv.x * 30.0 + uTime * 2.0) * sin(vUv.y * 25.0 + uTime * 1.5) * 0.04;
+      caustic += sin(vUv.x * 50.0 - uTime * 1.8) * sin(vUv.y * 40.0 + uTime * 2.2) * 0.02;
+      caustic = max(0.0, caustic);
+
+      vec3 skyColor = mix(vec3(0.02, 0.08, 0.2), vec3(0.5, 0.7, 1.0), fresnel * 0.5);
+
+      vec3 finalColor = waterColor + specular + sssColor + foamColor + vec3(caustic * 0.5, caustic, caustic * 0.3);
+      finalColor = mix(finalColor, skyColor, fresnel * 0.3);
+
+      float horizonFade = smoothstep(0.0, 40.0, length(vWorldPos.xz));
+      finalColor = mix(finalColor, vec3(0.01, 0.05, 0.12), horizonFade * 0.7);
+
+      gl_FragColor = vec4(finalColor, 1.0);
+    }
+  `;
+
+  const waterGeo = new THREE.PlaneGeometry(60, 60, 128, 128);
+  waterGeo.rotateX(-Math.PI / 2);
+
+  const waterUniforms = {
+    uTime: { value: 0 },
+    uMouse: { value: new THREE.Vector2(0, 0) },
+    uMouseStrength: { value: 0 },
+    uSunDirection: { value: new THREE.Vector3(0.5, 0.8, 0.3).normalize() },
+    uSunColor: { value: new THREE.Color(0xffd080) },
+    uDeepColor: { value: new THREE.Color(0x010d20) },
+    uShallowColor: { value: new THREE.Color(0x0a3060) },
+    uFoamColor: { value: new THREE.Color(0xc0e0ff) },
+    uFresnelPower: { value: 3.0 },
+  };
+
+  const waterMat = new THREE.ShaderMaterial({
+    vertexShader: waterVertexShader,
+    fragmentShader: waterFragmentShader,
+    uniforms: waterUniforms,
+    side: THREE.DoubleSide,
+  });
+
+  const waterMesh = new THREE.Mesh(waterGeo, waterMat);
+  scene.add(waterMesh);
+
+  const sprayCount = 600;
+  const sprayPositions = new Float32Array(sprayCount * 3);
+  for (let i = 0; i < sprayCount; i++) {
+    sprayPositions[i * 3] = (Math.random() - 0.5) * 40;
+    sprayPositions[i * 3 + 1] = Math.random() * 3;
+    sprayPositions[i * 3 + 2] = (Math.random() - 0.5) * 40;
+  }
+  const sprayGeo = new THREE.BufferGeometry();
+  sprayGeo.setAttribute('position', new THREE.BufferAttribute(sprayPositions, 3));
+  const sprayMat = new THREE.PointsMaterial({
+    color: 0x88bbdd, size: 0.04, transparent: true, opacity: 0.4,
+    sizeAttenuation: true, depthWrite: false,
+  });
+  const spray = new THREE.Points(sprayGeo, sprayMat);
+  scene.add(spray);
+
+  for (let i = 0; i < 5; i++) {
+    const shaftGeo = new THREE.ConeGeometry(0.3 + i * 0.1, 8, 6, 1, true);
+    const shaftMat = new THREE.MeshBasicMaterial({
+      color: 0x1a5080, transparent: true, opacity: 0.03 + i * 0.005,
+      side: THREE.DoubleSide, depthWrite: false,
+    });
+    const shaft = new THREE.Mesh(shaftGeo, shaftMat);
+    shaft.position.set((Math.random() - 0.5) * 20, -2, (Math.random() - 0.5) * 20);
+    shaft.rotation.z = (Math.random() - 0.5) * 0.3;
+    scene.add(shaft);
+  }
+
+  let targetMouseX = 0, targetMouseY = 0;
+  let mouseStrengthTarget = 0;
+
+  function handleMouseMove(e) {
+    const rect = canvas.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width * 2 - 1;
+    const y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+    targetMouseX = x;
+    targetMouseY = y;
+    mouseStrengthTarget = 1;
+    setTimeout(() => mouseStrengthTarget = 0, 1000);
+  }
+
+  const section3d = document.getElementById('ocean3d');
+  const obsOcean = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        canvas.addEventListener('mousemove', handleMouseMove);
+      } else {
+        canvas.removeEventListener('mousemove', handleMouseMove);
+        mouseStrengthTarget = 0;
+      }
+    });
+  }, { threshold: 0.1 });
+  if (section3d) obsOcean.observe(section3d);
+
+  let camAngle = 0;
+
+  function onResize() {
+    const w = canvas.offsetWidth, h = canvas.offsetHeight;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+  }
+  window.addEventListener('resize', onResize);
+
+  let isVisible = false;
+  const visObs = new IntersectionObserver(e => { isVisible = e[0].isIntersecting; }, { threshold: 0.05 });
+  if (section3d) visObs.observe(section3d);
+
+  let t = 0;
+  function animateOcean() {
+    requestAnimationFrame(animateOcean);
+    if (!isVisible) return;
+
+    t += 0.016;
+    waterUniforms.uTime.value = t;
+
+    waterUniforms.uMouse.value.x += (targetMouseX - waterUniforms.uMouse.value.x) * 0.05;
+    waterUniforms.uMouse.value.y += (targetMouseY - waterUniforms.uMouse.value.y) * 0.05;
+    waterUniforms.uMouseStrength.value += (mouseStrengthTarget - waterUniforms.uMouseStrength.value) * 0.03;
+
+    camAngle += 0.003;
+    camera.position.x = Math.sin(camAngle * 0.7) * 1.5;
+    camera.position.y = 3 + Math.sin(camAngle) * 0.3;
+    camera.lookAt(0, 0, 0);
+
+    spray.rotation.y += 0.0005;
+
+    renderer.render(scene, camera);
+  }
+  animateOcean();
+})();
+</script>
+
+<script>
+(function initSectionVideos(){
+  const vid = document.getElementById('sectionVid');
+  const overlay = document.getElementById('sectionVidOverlay');
+  if(!vid) return;
+
+  const sectionVideos = {
+    'about':     'assets/videos/ocean-hero-2.mp4',
+    'pollution': 'assets/videos/cinematic-1.mp4',
+    'goals':     'assets/videos/ocean-hero-1.mp4',
+    'join':      'assets/videos/hero-b-1080p.mp4',
+  };
+
+  let currentSrc = null;
+
+  function switchVideo(src) {
+    if(src === currentSrc) return;
+    currentSrc = src;
+    if(!src) {
+      vid.style.opacity = '0';
+      overlay.style.opacity = '0';
+      return;
+    }
+    vid.style.opacity = '0';
+    setTimeout(() => {
+      vid.src = src;
+      vid.load();
+      vid.play().catch(()=>{});
+      vid.style.opacity = '1';
+      overlay.style.opacity = '1';
+    }, 600);
+  }
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(!e.isIntersecting || window.currentPage !== 'home') return;
+      const id = e.target.id;
+      switchVideo(sectionVideos[id] || null);
+    });
+  }, { threshold: 0.4 });
+
+  Object.keys(sectionVideos).forEach(id => {
+    const el = document.getElementById(id);
+    if(el) obs.observe(el);
+  });
+
+  const heroObs = new IntersectionObserver(entries => {
+    if(entries[0].isIntersecting) switchVideo(null);
+  }, { threshold: 0.5 });
+  const hero = document.querySelector('.hero');
+  if(hero) heroObs.observe(hero);
+})();
+</script>
+
+<script>
+(function heroToOcean(){
+  const hero = document.querySelector('.hero');
+  const ocean = document.getElementById('ocean3d');
+  if(!hero || !ocean) return;
+
+  window.addEventListener('scroll', () => {
+    if(window.currentPage !== 'home') return;
+    const heroBottom = hero.getBoundingClientRect().bottom;
+    const vh = window.innerHeight;
+    const t = Math.max(0, Math.min(1, 1 - heroBottom / vh));
+    hero.style.opacity = 1 - t * 0.8;
+  }, { passive: true });
+})();
 </script>
 
 
