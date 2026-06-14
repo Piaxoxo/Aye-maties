@@ -1030,6 +1030,135 @@
   .stagger-children.in > *:nth-child(5){opacity:1;transform:none;transition-delay:.4s;}
   .stagger-children.in > *:nth-child(6){opacity:1;transform:none;transition-delay:.5s;}
 
+
+/* ── COMPREHENSIVE RESPONSIVE SYSTEM ─────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body, main, section, .page, .wrap { max-width: 100vw; overflow-x: hidden; }
+.wrap {
+  width: 100%;
+  max-width: min(1400px, 90vw);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(20px, 5vw, 80px);
+  padding-right: clamp(20px, 5vw, 80px);
+}
+.hero-inner {
+  padding-left: clamp(24px, 6vw, 120px);
+  padding-right: clamp(24px, 6vw, 120px);
+  max-width: 100%;
+}
+.hero-title {
+  font-size: clamp(32px, 8.5vw, 140px);
+  line-height: .94;
+  letter-spacing: -.02em;
+  word-break: keep-all;
+  overflow-wrap: normal;
+  hyphens: none;
+}
+.hero-title .line { overflow: visible; display: block; }
+.hero-sub { max-width: min(540px, 90vw); }
+.hero-meta { flex-wrap: wrap; gap: clamp(12px, 2vw, 30px); }
+.btn {
+  padding: clamp(12px, 1.5vw, 18px) clamp(20px, 3vw, 38px);
+  font-size: clamp(10px, 1vw, 12px);
+  white-space: nowrap;
+}
+section { padding: clamp(60px, 8vw, 140px) 0; }
+.section-heading {
+  font-size: clamp(36px, 6vw, 110px);
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+.page-title {
+  font-size: clamp(36px, 7vw, 120px);
+  word-break: keep-all;
+}
+.news-headline { font-size: clamp(28px, 7vw, 100px); word-break: keep-all; }
+.stat-counters { grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); }
+.crew-page .page-headline { font-size: clamp(36px, 8vw, 120px); word-break: keep-all; }
+.crew-featured { gap: clamp(16px, 2vw, 28px); }
+.coral-section .wrap { padding-bottom: 0; }
+#coralCanvas { width: 100%; height: clamp(260px, 40vw, 450px); touch-action: none; }
+.loader-logo { font-size: clamp(24px, 5vw, 72px); letter-spacing: clamp(.1em, 2vw, .35em); }
+.loader-bar-wrap { width: min(240px, 70vw); }
+.a11y-panel { width: min(320px, 100vw); }
+@media (min-width: 1800px) {
+  html { font-size: 18px; }
+  .wrap { max-width: min(1600px, 88vw); }
+  .hero-title { font-size: clamp(80px, 7.5vw, 180px); }
+  section { padding: clamp(100px, 10vw, 180px) 0; }
+}
+@media (min-width: 2400px) {
+  html { font-size: 22px; }
+  .wrap { max-width: min(2000px, 85vw); }
+  .hero-title { font-size: clamp(120px, 7vw, 220px); }
+}
+@media (max-width: 980px) {
+  nav.links { display: none; }
+  .ham { display: flex; }
+  .about-grid { grid-template-columns: 1fr; gap: 60px; }
+  .card-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .footer-grid > div:first-child { grid-column: 1/-1; }
+  .crew-featured { grid-template-columns: 1fr 1fr; }
+  .hero-title { font-size: clamp(32px, 8vw, 90px); }
+  .stat-counters { grid-template-columns: 1fr 1fr; }
+  .goals-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .hero-title { font-size: clamp(30px, 10.5vw, 56px); line-height: .92; }
+  .hero-sub { font-size: 14px; line-height: 1.7; }
+  .hero-eyebrow-mono { font-size: 9px; letter-spacing: .18em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: calc(100vw - 48px); }
+  .hero-season { font-size: 9px; letter-spacing: .18em; }
+  .hero-meta { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .btn { padding: 13px 22px; font-size: 10px; }
+  .section-heading { font-size: clamp(28px, 9vw, 52px); }
+  .page-title { font-size: clamp(28px, 9vw, 52px); }
+  section { padding: clamp(50px, 12vw, 90px) 0; }
+  .stat-counters { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .stat-counter-card { padding: 20px 16px; }
+  .stat-counter-card .big-num { font-size: clamp(24px, 7vw, 40px); }
+  .news-cards { display: flex; flex-direction: column; gap: 16px; }
+  .news-headline { font-size: clamp(26px, 10vw, 52px); }
+  .crew-featured { grid-template-columns: 1fr; }
+  .crew-compact { grid-template-columns: 1fr 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .a11y-trigger { left: 16px; bottom: 16px; }
+  .sound-toggle .soundtrack-label { display: inline !important; }
+  .vi-title { font-size: clamp(36px, 11vw, 80px); }
+  #coralCanvas { height: 260px; }
+  #cursorTrail { display: none; }
+  .cursor-compass { display: none; }
+  .cursor-glow { display: none; }
+}
+@media (max-width: 900px) and (orientation: landscape) {
+  .hero { min-height: 100svh; }
+  .hero-title { font-size: clamp(28px, 6vh, 64px); }
+  .hero-inner { padding-top: clamp(80px, 12vh, 120px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* Chapter overlay system */
+#chapterOverlay {
+  position: fixed; left: clamp(20px, 4vw, 60px); bottom: clamp(60px, 8vh, 100px);
+  z-index: 500; pointer-events: none;
+  opacity: 0; transform: translateX(-20px);
+  transition: opacity .6s ease, transform .6s ease;
+  display: flex; flex-direction: column; gap: 4px;
+}
+#chapterOverlay.show { opacity: 1; transform: translateX(0); }
+.chapter-num { font-size: 10px; letter-spacing: .3em; color: rgba(216,184,115,.5); text-transform: uppercase; }
+.chapter-title { font-size: 11px; letter-spacing: .25em; color: rgba(255,255,255,.4); text-transform: uppercase; }
+.hv { transition: opacity 1.2s cubic-bezier(.25,.46,.45,.94) !important; }
+
 </style>
 </head>
 <body>
@@ -1420,6 +1549,20 @@
   </section>
 
   <hr class="section-rule">
+  <section class="video-interlude vi-storm" id="storm-passage" aria-label="Storm Passage">
+    <div class="vi-bg">
+      <video class="vi-video" muted loop playsinline preload="none" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='%23010408'/%3E%3C/svg%3E">
+        <source data-src="assets/videos/cinematic-1.mp4" data-src-4k="assets/videos/cinematic-4k.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="vi-overlay" style="background:linear-gradient(to bottom,rgba(1,4,8,.6),rgba(1,4,8,.3),rgba(1,4,8,.7))"></div>
+    <div class="vi-content">
+      <span class="vi-line" data-reveal></span>
+      <h2 class="vi-title" data-reveal style="font-size:clamp(40px,6vw,100px)">THE STORM<br>BEFORE<br>THE CALM</h2>
+      <span class="vi-line" data-reveal></span>
+    </div>
+  </section>
+
   <!-- OUR GOALS — green roadmap -->
   <section class="goals" id="goals">
     <div class="rope-divider"></div>
@@ -1680,6 +1823,11 @@
 </div>
 
 
+  <!-- Chapter overlay system -->
+  <div id="chapterOverlay" aria-hidden="true">
+    <span class="chapter-num" id="chapterNum">I</span>
+    <span class="chapter-title" id="chapterTitle">THE SURFACE</span>
+  </div>
 </main>
 
 <script>
@@ -3513,6 +3661,39 @@ document.querySelectorAll('.reveal-x-left,.reveal-x-right,.reveal-scale,.reveal-
     requestAnimationFrame(drawCoralGame);
   }
   drawCoralGame();
+})();
+
+
+/* ── CHAPTER OVERLAY SYSTEM ─────────────────────────────────────── */
+(function(){
+  const chapters = [
+    { selector: '.hero', num: 'I', title: 'THE SURFACE' },
+    { selector: '#about', num: 'II', title: 'BELOW THE SURFACE' },
+    { selector: '#pollution', num: 'III', title: 'THE STORM' },
+    { selector: '#open-water', num: 'IV', title: 'THE OCEAN IS CALLING' },
+    { selector: '#goals', num: 'V', title: 'OUR GOALS' },
+    { selector: '#coral-reef', num: 'VI', title: 'RESTORE THE REEF' },
+  ];
+  const chOverlay = document.getElementById('chapterOverlay');
+  const chNum = document.getElementById('chapterNum');
+  const chTitle = document.getElementById('chapterTitle');
+  if(chOverlay){
+    let hideTimer;
+    const chObs = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting && currentPage==='home'){
+          const ch = chapters.find(c=>e.target.matches(c.selector));
+          if(!ch) return;
+          clearTimeout(hideTimer);
+          chNum.textContent = ch.num;
+          chTitle.textContent = ch.title;
+          chOverlay.classList.add('show');
+          hideTimer = setTimeout(()=>chOverlay.classList.remove('show'), 2200);
+        }
+      });
+    },{threshold:.3});
+    chapters.forEach(c=>{ const el=document.querySelector(c.selector); if(el) chObs.observe(el); });
+  }
 })();
 
 </script>
