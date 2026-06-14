@@ -920,9 +920,10 @@
   .news-page{min-height:100vh;background:var(--deep);padding:140px 0 100px;}
   .news-headline{font-family:var(--display);text-transform:uppercase;font-size:clamp(38px,7vw,100px);font-weight:400;letter-spacing:-.01em;}
   .news-date{font-family:var(--serif);font-style:italic;color:var(--gold-soft);font-size:15px;letter-spacing:.06em;margin-top:10px;}
-  .stat-counters{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:28px;margin:60px 0;}
-  .stat-counter-card{padding:34px 28px;border:1px solid rgba(255,255,255,.08);border-radius:18px;background:rgba(255,255,255,.02);}
-  .stat-counter-card .big-num{font-family:var(--display);font-size:clamp(32px,4vw,52px);color:var(--gold-soft);font-weight:400;font-variant-numeric:tabular-nums;}
+  .stat-counters{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0;border-top:1px solid rgba(212,168,75,0.12);margin:clamp(48px,8vw,100px) 0;}
+  .stat-counter-card{padding:clamp(32px,5vw,56px) clamp(24px,4vw,48px);border-right:1px solid rgba(212,168,75,0.08);background:transparent;}
+  .stat-counter-card:last-child{border-right:none;}
+  .stat-counter-card .big-num{font-family:var(--editorial);font-size:clamp(42px,7vw,88px);font-weight:200;color:var(--cream);line-height:1;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;}
   .stat-counter-card .stat-label{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:10px;}
   .news-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:28px;margin-top:60px;}
   .news-card{padding:32px 28px;border:1px solid rgba(0,212,255,0.12);border-radius:18px;background:rgba(1,15,30,0.45);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);box-shadow:0 8px 32px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.06);transition:all .4s var(--ease);}
@@ -1480,6 +1481,11 @@ section { padding: clamp(60px, 8vw, 140px) 0; }
 @media(max-width:768px){
   #waterScene { height: 60vh !important; }
   .hero-3d-section { height: 60vh; }
+  #about .about-grid { grid-template-columns: 1fr !important; gap: clamp(32px,8vw,60px) !important; padding-left: 0 !important; }
+  #pollution .pollution-cols { grid-template-columns: 1fr !important; gap: clamp(32px,8vw,60px) !important; }
+  .stat-giant { font-size: clamp(64px,28vw,120px); }
+  .chapter-mark { display: none; }
+  .goal-item { grid-template-columns: clamp(44px,14vw,72px) 1fr; }
 }
 /* Ultra-wide and 4K / TV optimization */
 @media(min-width:2400px){
@@ -1734,9 +1740,13 @@ section { padding: clamp(60px, 8vw, 140px) 0; }
     <div class="hero-inner">
       <span class="hero-eyebrow-mono fade-up" id="heroEyebrow" data-i18n="hero.eyebrow">A SAIL WISELY ORIGINAL SERIES</span>
       <h1 class="hero-title" data-mpx="0.5">
-        <span class="line"><span data-i18n="hero.title1">Aye Maties</span></span>
-        <span class="line"><span data-i18n="hero.title2">Pirate Challenge</span></span>
+        <span class="line"><span data-i18n="hero.h1a">Aye</span></span>
+        <span class="line" style="padding-left:clamp(40px,8vw,120px);"><span data-i18n="hero.h1b">Maties</span></span>
       </h1>
+      <div style="display:flex;align-items:center;gap:24px;margin-top:clamp(24px,3vw,40px);" class="fade-up">
+        <div style="width:40px;height:1px;background:var(--gold);opacity:0.6;"></div>
+        <span class="eyebrow" data-i18n="hero.eyebrow_sub">Saving Our Oceans — Season I</span>
+      </div>
       <span class="hero-season fade-up" data-i18n="hero.season">SEASON 1 &#8212; COMING SOON</span>
       <p class="hero-sub fade-up" id="heroSub" data-i18n="hero.sub">An immersive voyage where adventure meets purpose — uniting explorers, dreamers and changemakers to protect the oceans that connect us all.</p>
       <div class="hero-meta fade-up" id="heroMeta">
@@ -1773,27 +1783,29 @@ section { padding: clamp(60px, 8vw, 140px) 0; }
 
   <hr class="section-rule">
   <!-- ABOUT -->
-  <section class="about" id="about">
-    <div class="wrap">
-      <div class="about-grid">
-        <div class="about-media" data-reveal>
-          <video autoplay muted loop playsinline>
-            <source src="assets/videos/ocean-scene-1.mp4" type="video/mp4">
-          </video>
-          <div class="frame"></div>
-          <div class="tag" data-i18n="about.tag">"The ocean doesn't ask permission to be vast — it simply is. We ask permission to protect it."</div>
-        </div>
-        <div class="about-text glass" style="padding:clamp(28px,3.5vw,52px);">
-          <span class="section-num">01</span>
+  <section class="about scene scene--breathe" id="about" style="background:var(--abyss);" data-px="1">
+    <div class="wrap" style="position:relative;z-index:2;">
+      <span class="stat-giant" style="left:-2%;top:-20%;opacity:1;">01</span>
+      <span class="chapter-mark" aria-hidden="true">BEAUTY OF THE DEEP</span>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,120px);align-items:end;padding-left:clamp(0px,4vw,80px);" class="about-grid">
+        <div>
           <span class="eyebrow" data-i18n="about.eyebrow">Our Story</span>
-          <h2 class="title" data-reveal data-i18n="about.title">A Crew Bound by the Sea</h2>
-          <p class="lead dropcap" data-reveal data-i18n="about.p1">Aye Maties was born from a simple belief: that adventure and responsibility can sail the same course. What began as a small band of ocean lovers has grown into a global pirate-spirited movement — turning curiosity about the sea into real, measurable change.</p>
-          <hr class="grad-rule">
-          <p class="lead" data-reveal data-i18n="about.p2">Every expedition, workshop and challenge we craft is designed with the same intention — to leave the water cleaner, the next generation more aware, and every guest forever changed by what lies beneath the surface.</p>
-          <div class="stat-row stagger-children">
-            <div class="stat" data-reveal><b data-counter="48">0</b><span data-i18n="about.stat1">Tonnes of ocean waste collected</span></div>
-            <div class="stat" data-reveal><b data-counter="120">0</b><span data-i18n="about.stat2">Expeditions completed</span></div>
-            <div class="stat" data-reveal><b data-counter="32">0</b><span data-i18n="about.stat3">Coastal communities supported</span></div>
+          <h2 class="editorial-pull" style="margin-top:24px;" data-reveal>
+            <span class="line-reveal"><span data-i18n="about.line1">Deeper than</span></span>
+            <span class="line-reveal" style="transition-delay:.12s"><span><em data-i18n="about.line2">any mountain</em></span></span>
+            <span class="line-reveal" style="transition-delay:.24s"><span data-i18n="about.line3">is tall.</span></span>
+          </h2>
+          <div class="cinema-rule" style="margin:48px 0;"></div>
+          <p class="lead" data-reveal data-i18n="about.p1" style="max-width:42ch;">Aye Maties was born from a simple belief: that adventure and responsibility can sail the same course. What began as a small band of ocean lovers has grown into a global pirate-spirited movement — turning curiosity about the sea into real, measurable change.</p>
+        </div>
+        <div style="position:relative;" data-reveal>
+          <div class="about-media glass" style="border-radius:4px;overflow:hidden;aspect-ratio:3/4;position:relative;">
+            <video muted loop playsinline preload="none" style="width:100%;height:100%;object-fit:cover;transform:scale(1.05);">
+              <source data-src="assets/videos/ocean-scene-1.mp4" type="video/mp4">
+            </video>
+            <div style="position:absolute;bottom:24px;left:24px;right:24px;">
+              <p style="font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(240,232,208,.6);" data-i18n="about.caption">Atlantic Ocean, 2024</p>
+            </div>
           </div>
         </div>
       </div>
@@ -1917,26 +1929,32 @@ section { padding: clamp(60px, 8vw, 140px) 0; }
   <hr class="section-rule">
   <!-- OCEAN POLLUTION AWARENESS -->
 <div class="scene-transition" aria-hidden="true"><div class="st-line"></div></div>
-  <section class="pollution" id="pollution">
-    <div class="rope-divider"></div>
-    <div class="wrap pollution-inner">
-      <span class="section-num">02</span>
-      <span class="eyebrow" data-i18n="poll.eyebrow">The Tide We're Fighting</span>
-      <h2 class="title" data-reveal data-i18n="poll.title">Our Oceans Are Drowning In What We Throw Away</h2>
+  <section class="pollution scene" id="pollution" style="min-height:100vh;background:#000;position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;z-index:0;">
+      <video muted loop playsinline preload="none" style="width:100%;height:100%;object-fit:cover;opacity:0.25;">
+        <source data-src="assets/videos/ocean-scene-1.mp4" type="video/mp4">
+      </video>
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.5),rgba(0,8,16,0.9));"></div>
+    </div>
+    <div class="wrap pollution-inner" style="position:relative;z-index:2;padding-top:clamp(80px,15vw,180px);padding-bottom:clamp(80px,15vw,180px);">
+      <span class="eyebrow" style="display:block;margin-bottom:clamp(40px,8vw,100px);" data-i18n="poll.eyebrow">The Tide We're Fighting</span>
 
-      <div class="story-lines">
-        <p class="story-line reveal-mask" data-reveal data-i18n="poll.story1">The ocean doesn't die all at once. It dies a little more, every day.</p>
-        <p class="story-line reveal-mask" data-reveal data-i18n="poll.story2">A young sea turtle swims thousands of kilometres — just like generations before her. A piece of plastic drifts by. To her, it looks like a jellyfish.</p>
-        <p class="story-line reveal-mask" data-reveal data-i18n="poll.story3">She is not alone. Every year, millions of tonnes of plastic enter our oceans — and, eventually, us.</p>
-        <p class="story-line reveal-mask" data-reveal data-i18n="poll.story4">The ocean doesn't need us. We need the ocean. The question isn't whether it will change — it's whether we act before living worlds become only memories.</p>
+      <div style="display:flex;align-items:flex-end;gap:24px;margin-bottom:60px;" data-reveal>
+        <div style="font-family:var(--editorial);font-size:clamp(96px,20vw,260px);font-weight:200;line-height:0.85;letter-spacing:-0.04em;color:var(--cream);">8M</div>
+        <div style="padding-bottom:clamp(12px,2vw,28px);">
+          <div style="font-family:var(--sans);font-size:clamp(14px,1.5vw,18px);color:rgba(240,232,208,0.55);letter-spacing:.06em;line-height:1.5;" data-i18n="poll.stat_label">tons of plastic<br>enter our oceans<br>every year</div>
+        </div>
       </div>
 
-      <p class="lead" data-reveal data-i18n="poll.p1">Every year, millions of tonnes of plastic and waste enter our seas — choking reefs, poisoning marine life and unraveling the fragile balance that sustains our planet. Pollution doesn't stop at the shoreline; it travels with the current, reaching the most remote corners of the ocean.</p>
-      <p class="lead" data-reveal data-i18n="poll.p2">Aye Maties exists to turn awareness into action. Every expedition removes real waste from real waters — and every guest leaves understanding that the fight against ocean pollution is one we can only win together.</p>
-      <div class="stat-row stagger-children">
-        <div class="stat" data-reveal><b data-counter="11">0</b><span data-i18n="poll.stat1">Million tonnes of plastic enter the ocean yearly</span></div>
-        <div class="stat" data-reveal><b data-counter="700">0</b><span data-i18n="poll.stat2">Marine species threatened by pollution</span></div>
-        <div class="stat" data-reveal><b data-counter="48">0</b><span data-i18n="poll.stat3">Tonnes already removed by our crews</span></div>
+      <div class="cinema-rule"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,120px);margin-top:60px;" class="pollution-cols">
+        <p class="lead" data-reveal data-i18n="poll.p1" style="max-width:38ch;">Every year, millions of tonnes of plastic and waste enter our seas — choking reefs, poisoning marine life and unraveling the fragile balance that sustains our planet. Pollution doesn't stop at the shoreline; it travels with the current.</p>
+        <div data-reveal style="display:flex;flex-direction:column;justify-content:flex-end;">
+          <span class="eyebrow" style="margin-bottom:16px;" data-i18n="poll.stat2_label">coral bleaching</span>
+          <div style="font-family:var(--editorial);font-size:clamp(48px,8vw,100px);font-weight:300;color:var(--gold);line-height:1;" data-counter="60">0</div>
+          <p style="font-family:var(--sans);font-size:13px;letter-spacing:.06em;color:var(--muted);margin-top:8px;" data-i18n="poll.stat2_sub">% of reefs affected</p>
+        </div>
       </div>
 
       <div class="fact-grid">
@@ -1979,6 +1997,17 @@ section { padding: clamp(60px, 8vw, 140px) 0; }
     </div>
   </section>
 
+  <!-- EDITORIAL PAUSE -->
+  <div class="ocean-quote scene--breathe" style="background:var(--deep);text-align:center;">
+    <div class="wrap">
+      <div class="ocean-quote__text" data-reveal style="margin:0 auto;">
+        "The sea does not reward those who are too anxious, too greedy, or too impatient."
+      </div>
+      <p class="ocean-quote__attr" data-reveal style="transition-delay:.4s;text-align:center;">— Anne Morrow Lindbergh</p>
+      <div class="cinema-rule"></div>
+    </div>
+  </div>
+
   <!-- OUR GOALS — green roadmap -->
 <div class="scene-transition" aria-hidden="true"><div class="st-line"></div></div>
   <section class="goals" id="goals">
@@ -1987,27 +2016,39 @@ section { padding: clamp(60px, 8vw, 140px) 0; }
       <span class="section-num">03</span>
       <span class="eyebrow" data-i18n="goals.eyebrow">Where We're Headed</span>
       <h2 class="title" data-reveal data-i18n="goals.title">Our Goals for the Next Ten Years</h2>
-      <p class="lead" data-reveal data-i18n="goals.p1">We measure ourselves not by how far we sail, but by how much lighter we leave the water behind us. Here's what we're steering toward.</p>
-      <div class="goal-track">
-        <article class="gcard" data-reveal>
-          <span class="gyear" data-i18n="goals.y1">Year 1–2</span>
-          <h3 data-i18n="goals.t1">Launch Our Own Vessel</h3>
-          <p data-i18n="goals.d1">Fund and launch a dedicated research-and-cleanup ship, doubling the number of guided expeditions each season.</p>
+      <p class="lead" data-reveal data-i18n="goals.p1" style="max-width:46ch;">We measure ourselves not by how far we sail, but by how much lighter we leave the water behind us. Here's what we're steering toward.</p>
+      <div class="goal-list" style="margin-top:clamp(48px,8vw,100px);border-top:1px solid rgba(212,168,75,0.1);">
+        <article class="goal-item" data-reveal>
+          <span class="goal-num">01</span>
+          <div>
+            <span class="eyebrow" style="display:block;margin-bottom:14px;" data-i18n="goals.y1">Year 1–2</span>
+            <h3 class="goal-title" data-i18n="goals.t1">Launch Our Own Vessel</h3>
+            <p class="goal-body" data-i18n="goals.d1">Fund and launch a dedicated research-and-cleanup ship, doubling the number of guided expeditions each season.</p>
+          </div>
         </article>
-        <article class="gcard" data-reveal>
-          <span class="gyear" data-i18n="goals.y2">Year 3–5</span>
-          <h3 data-i18n="goals.t2">Halve Our Footprint</h3>
-          <p data-i18n="goals.d2">Cut our own carbon and waste footprint in half, and partner with 50 coastal communities on restoration projects.</p>
+        <article class="goal-item" data-reveal>
+          <span class="goal-num">02</span>
+          <div>
+            <span class="eyebrow" style="display:block;margin-bottom:14px;" data-i18n="goals.y2">Year 3–5</span>
+            <h3 class="goal-title" data-i18n="goals.t2">Halve Our Footprint</h3>
+            <p class="goal-body" data-i18n="goals.d2">Cut our own carbon and waste footprint in half, and partner with 50 coastal communities on restoration projects.</p>
+          </div>
         </article>
-        <article class="gcard" data-reveal>
-          <span class="gyear" data-i18n="goals.y3">Year 6–8</span>
-          <h3 data-i18n="goals.t3">Reach 100,000 People</h3>
-          <p data-i18n="goals.d3">Grow our education programmes to reach 100,000 people — turning every guest into an advocate for the ocean.</p>
+        <article class="goal-item" data-reveal>
+          <span class="goal-num">03</span>
+          <div>
+            <span class="eyebrow" style="display:block;margin-bottom:14px;" data-i18n="goals.y3">Year 6–8</span>
+            <h3 class="goal-title" data-i18n="goals.t3">Reach 100,000 People</h3>
+            <p class="goal-body" data-i18n="goals.d3">Grow our education programmes to reach 100,000 people — turning every guest into an advocate for the ocean.</p>
+          </div>
         </article>
-        <article class="gcard" data-reveal>
-          <span class="gyear" data-i18n="goals.y4">Year 10</span>
-          <h3 data-i18n="goals.t4">A Carbon-Neutral Fleet</h3>
-          <p data-i18n="goals.d4">Sail a fully carbon-neutral fleet, remove over 1,000 tonnes of ocean waste a year, and inspire a new generation of ocean guardians.</p>
+        <article class="goal-item" data-reveal>
+          <span class="goal-num">04</span>
+          <div>
+            <span class="eyebrow" style="display:block;margin-bottom:14px;" data-i18n="goals.y4">Year 10</span>
+            <h3 class="goal-title" data-i18n="goals.t4">A Carbon-Neutral Fleet</h3>
+            <p class="goal-body" data-i18n="goals.d4">Sail a fully carbon-neutral fleet, remove over 1,000 tonnes of ocean waste a year, and inspire a new generation of ocean guardians.</p>
+          </div>
         </article>
       </div>
     </div>
@@ -2407,6 +2448,8 @@ const dict = {
     "divider.caption":"— drifting between worlds, above and below the surface —",
     "interlude.line1":"Beneath the surface,","interlude.line2":"the story continues.",
     "about.eyebrow":"Our Story","about.title":"A Crew Bound by the Sea",
+    "about.line1":"Deeper than","about.line2":"any mountain","about.line3":"is tall.","about.caption":"Atlantic Ocean, 2024",
+    "poll.stat2_label":"coral bleaching","poll.stat2_sub":"% of reefs affected","hero.eyebrow_sub":"Saving Our Oceans — Season I","hero.h1a":"Aye","hero.h1b":"Maties",
     "about.tag":"“The ocean doesn't ask permission to be vast — it simply is. We ask permission to protect it.”",
     "about.p1":"Aye Maties was born from a simple belief: that adventure and responsibility can sail the same course. What began as a small band of ocean lovers has grown into a global pirate-spirited movement — turning curiosity about the sea into real, measurable change.",
     "about.p2":"Every expedition, workshop and challenge we craft is designed with the same intention — to leave the water cleaner, the next generation more aware, and every guest forever changed by what lies beneath the surface.",
@@ -4233,6 +4276,43 @@ if(typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined'){
       }
     );
   });
+
+  /* Cinematic section entry — text lines stagger in */
+  document.querySelectorAll('.line-reveal').forEach(el => {
+    ScrollTrigger.create({
+      trigger: el.closest('section') || el.parentElement,
+      start: 'top 78%',
+      onEnter: () => el.classList.add('in'),
+      onLeaveBack: () => el.classList.remove('in'),
+    });
+  });
+
+  /* Stat giant — horizontal drift on scroll */
+  gsap.utils.toArray('.stat-giant').forEach(el => {
+    gsap.fromTo(el,
+      { x: '-8%', opacity: 0 },
+      { x: '0%', opacity: 1, duration: 2, ease: 'expo.out',
+        scrollTrigger: { trigger: el.parentElement, start: 'top 90%', end: 'top 30%', scrub: 1 }
+      }
+    );
+  });
+
+  /* Editorial pull — word weight shift */
+  gsap.utils.toArray('.editorial-pull').forEach(el => {
+    gsap.from(el, {
+      y: 48, opacity: 0, duration: 1.6, ease: 'expo.out',
+      scrollTrigger: { trigger: el, start: 'top 82%' }
+    });
+  });
+
+  /* Cinematic parallax on portrait video in about section */
+  const aboutMedia = document.querySelector('.about-media video');
+  if(aboutMedia) {
+    gsap.to(aboutMedia, {
+      scale: 1, y: '-5%',
+      scrollTrigger: { trigger: aboutMedia.closest('section'), scrub: 1.5, start: 'top bottom', end: 'bottom top' }
+    });
+  }
 }
 
 /* ---------------- Hero video fade on scroll ---------------- */
