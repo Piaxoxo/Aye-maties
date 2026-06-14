@@ -1,0 +1,4 @@
+
+# Claude Code agent worktrees (never track as submodules)
+.claude/worktrees/
+.claude/
