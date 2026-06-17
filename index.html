@@ -511,6 +511,19 @@
   .manifesto-band p{margin-top:26px;max-width:540px;color:var(--muted);font-family:var(--serif);
     font-weight:300;font-size:clamp(16px,1.6vw,20px);line-height:1.7;}
 
+  /* INTERLUDE — full-bleed cinematic video band */
+  .interlude{position:relative;height:82vh;min-height:520px;overflow:hidden;
+    display:flex;align-items:center;justify-content:center;text-align:center;}
+  .interlude video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    filter:brightness(.56) saturate(1.15);}
+  .interlude::after{content:'';position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(7,13,22,.55), rgba(7,13,22,.28) 45%, rgba(7,13,22,.72));}
+  .interlude .il-inner{position:relative;z-index:2;padding:0 26px;max-width:920px;}
+  .interlude q{font-family:var(--serif);font-style:italic;font-weight:300;quotes:none;
+    font-size:clamp(24px,4vw,52px);line-height:1.3;color:var(--ink);
+    text-shadow:0 10px 50px rgba(7,13,22,.6);}
+  .interlude .il-sub{margin-top:24px;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-soft);}
+
   /* CREW — meet the team (layout ref: glassy avatar grid) */
   .crew{padding:170px 0;background:linear-gradient(180deg, var(--deep2) 0%, var(--deep) 100%);}
   .crew-head{margin-bottom:74px;}
@@ -601,7 +614,7 @@
   <section class="hero">
     <div class="hero-bg">
       <video autoplay muted loop playsinline poster="">
-        <source src="assets/videos/ocean-hero-1.mp4" type="video/mp4">
+        <source src="assets/videos/open-sea.mp4" type="video/mp4">
       </video>
     </div>
     <canvas id="particles"></canvas>
@@ -701,6 +714,17 @@
           <p data-reveal data-i18n="manifesto.bandsub">Every wave we protect, every shore we restore and every guardian we inspire is a chapter in a story far larger than ourselves — one written for the generations still to come.</p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- INTERLUDE -->
+  <section class="interlude">
+    <video autoplay muted loop playsinline preload="metadata">
+      <source src="assets/videos/coast.mp4" type="video/mp4">
+    </video>
+    <div class="il-inner">
+      <q data-i18n="il.quote">We don't ask people to make time for the ocean — we bring the ocean into the time they already make.</q>
+      <div class="il-sub" data-i18n="il.sub">Aye Maties — Saving Our Oceans</div>
     </div>
   </section>
 
@@ -974,8 +998,8 @@
 
   <!-- CTA -->
   <section class="cta" id="join">
-    <video autoplay muted loop playsinline>
-      <source src="assets/videos/ocean-hero-1.mp4" type="video/mp4">
+    <video autoplay muted loop playsinline preload="metadata">
+      <source src="assets/videos/reef.mp4" type="video/mp4">
     </video>
     <div class="cta-inner">
       <span class="hero-eyebrow" data-i18n="cta.eyebrow">Your Voyage Awaits</span>
@@ -1091,6 +1115,7 @@ const dict = {
     "exp.e2":"Drift Deeper","exp.t2":"Bound by One Ocean","exp.p2":"Every coast, every current, every creature is woven together by the same restless sea that shapes us all.",
     "exp.e3":"The Reason","exp.t3":"Worth Protecting","exp.p3":"What we love, we protect. Join the crew and help keep this fragile blue heart beating.",
     "exp.hint":"Scroll to explore",
+    "il.quote":"We don't ask people to make time for the ocean — we bring the ocean into the time they already make.","il.sub":"Aye Maties — Saving Our Oceans",
     "about.eyebrow":"The Format","about.title":"About Aye Maties",
     "about.p1":"Aye Maties is an internationally adaptable, partly scripted reality format that brings a diverse group of participants aboard a large working sailing ship to take on authentic maritime, historical and ecological challenges.",
     "about.p2":"The confined, constantly moving environment leaves no room for delay and demands swift cooperation and decisive action under real pressure. Conflicts are not staged; they arise naturally from spatial conditions, environmental demands and interpersonal dynamics. The format deliberately structures this tension — centred on dialogues between generations: Care vs. Ignorance, Duty vs. Temptation and Tradition vs. modern superficiality — to drive personal growth and narrative progression.",
@@ -1185,6 +1210,7 @@ const dict = {
     "exp.e2":"Tiefer treiben","exp.t2":"Vereint durch ein Meer","exp.p2":"Jede Küste, jede Strömung, jedes Lebewesen ist durch dieselbe rastlose See verbunden, die uns alle formt.",
     "exp.e3":"Der Grund","exp.t3":"Wert, beschützt zu werden","exp.p3":"Was wir lieben, das schützen wir. Werde Teil der Crew und hilf, dieses zerbrechliche blaue Herz am Schlagen zu halten.",
     "exp.hint":"Scrollen zum Entdecken",
+    "il.quote":"Wir bitten die Menschen nicht, sich Zeit für das Meer zu nehmen — wir bringen das Meer in die Zeit, die sie sich ohnehin nehmen.","il.sub":"Aye Maties — Saving Our Oceans",
     "about.eyebrow":"Das Format","about.title":"Über Aye Maties",
     "about.p1":"Aye Maties ist ein international adaptierbares, teils geskriptetes Reality-Format, das eine diverse Gruppe von Teilnehmenden auf ein großes Arbeits-Segelschiff bringt, um authentische maritime, historische und ökologische Herausforderungen zu bewältigen.",
     "about.p2":"Die begrenzte, sich ständig bewegende Umgebung lässt kein Aufschieben zu und erfordert schnelle Zusammenarbeit und entschlossenes Handeln unter realem Druck. Konflikte werden nicht inszeniert; sie entstehen natürlich aus räumlichen Gegebenheiten, Umweltanforderungen und interpersonalen Dynamiken. Das Format strukturiert diese Spannung gezielt – zentriert auf Generationendialoge: Fürsorge vs. Ignoranz, Pflicht vs. Versuchung und Tradition vs. moderne Oberflächlichkeit – um persönliches Wachstum und narrativen Fortschritt voranzutreiben.",
@@ -1279,6 +1305,7 @@ const dict = {
     "exp.e2":"Desciende más","exp.t2":"Unidos por un océano","exp.p2":"Cada costa, cada corriente, cada criatura está entrelazada por el mismo mar incansable que nos da forma a todos.",
     "exp.e3":"La razón","exp.t3":"Digno de proteger","exp.p3":"Lo que amamos, lo protegemos. Únete a la tripulación y ayuda a mantener latiendo este frágil corazón azul.",
     "exp.hint":"Desplázate para explorar",
+    "il.quote":"No pedimos a la gente que dedique tiempo al océano — llevamos el océano al tiempo que ya dedican.","il.sub":"Aye Maties — Saving Our Oceans",
     "about.eyebrow":"El Formato","about.title":"Sobre Aye Maties",
     "about.p1":"Aye Maties es un formato de telerrealidad internacionalmente adaptable y parcialmente guionizado que lleva a un grupo diverso de participantes a bordo de un gran velero de trabajo para afrontar auténticos desafíos marítimos, históricos y ecológicos.",
     "about.p2":"El entorno reducido y en constante movimiento no permite aplazamientos y exige cooperación rápida y acción decidida bajo presión real. Los conflictos no se escenifican; surgen de forma natural de las condiciones del espacio, las exigencias del entorno y las dinámicas interpersonales. El formato estructura deliberadamente esta tensión — centrada en el diálogo entre generaciones: Cuidado vs. Indiferencia, Deber vs. Tentación y Tradición vs. superficialidad moderna — para impulsar el crecimiento personal y el avance narrativo.",
@@ -1373,6 +1400,7 @@ const dict = {
     "exp.e2":"Plongez plus profond","exp.t2":"Unis par un seul océan","exp.p2":"Chaque côte, chaque courant, chaque créature est reliée par la même mer infatigable qui nous façonne tous.",
     "exp.e3":"La raison","exp.t3":"Digne d'être protégé","exp.p3":"Ce que nous aimons, nous le protégeons. Rejoignez l'équipage et aidez à faire battre ce fragile cœur bleu.",
     "exp.hint":"Faites défiler pour explorer",
+    "il.quote":"Nous ne demandons pas aux gens de prendre du temps pour l'océan — nous amenons l'océan dans le temps qu'ils prennent déjà.","il.sub":"Aye Maties — Saving Our Oceans",
     "about.eyebrow":"Le Format","about.title":"À propos d'Aye Maties",
     "about.p1":"Aye Maties est un format de téléréalité adaptable à l'international et en partie scénarisé, qui réunit un groupe diversifié de participants à bord d'un grand voilier de travail pour relever d'authentiques défis maritimes, historiques et écologiques.",
     "about.p2":"L'environnement exigu et en mouvement permanent ne laisse aucune place au report et exige une coopération rapide et une action décisive sous une pression réelle. Les conflits ne sont pas mis en scène ; ils naissent naturellement des contraintes d'espace, des exigences environnementales et des dynamiques interpersonnelles. Le format structure délibérément cette tension — centrée sur le dialogue entre générations : Bienveillance vs. Indifférence, Devoir vs. Tentation et Tradition vs. superficialité moderne — pour favoriser la croissance personnelle et la progression narrative.",
