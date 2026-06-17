@@ -206,25 +206,35 @@
   }
   .lead{font-family:var(--serif);font-weight:300;font-size:clamp(17px,1.7vw,22px);color:var(--muted);line-height:1.7;max-width:640px;}
 
-  /* OCEAN DIVIDER */
-  .ocean-divider{position:relative;height:46vh;min-height:340px;overflow:hidden;}
-  .ocean-divider canvas{position:absolute;inset:0;width:100%;height:100%;}
-  .ocean-divider .orb{
-    position:absolute;left:50%;top:50%;width:170px;height:170px;border-radius:50%;
-    transform:translate(-50%,-50%);
-    background:radial-gradient(circle at 32% 30%, rgba(255,255,255,.55), rgba(207,233,236,.12) 40%, rgba(31,85,112,.05) 70%);
-    backdrop-filter:blur(2px);
-    box-shadow:0 0 90px rgba(207,233,236,.25), inset 0 0 60px rgba(255,255,255,.18);
-    border:1px solid rgba(255,255,255,.25);
-    z-index:2;
+  /* 3D EXPERIENCE — scroll-driven particle morph (globe → wave → heart) */
+  .experience{position:relative;height:340vh;
+    background:linear-gradient(180deg, var(--deep) 0%, #081522 50%, var(--deep) 100%);}
+  .exp-sticky{position:sticky;top:0;height:100vh;overflow:hidden;}
+  #expCanvas{position:absolute;inset:0;width:100%;height:100%;display:block;}
+  .exp-overlay{position:absolute;inset:0;z-index:2;pointer-events:none;
+    display:flex;align-items:center;justify-content:center;}
+  .exp-stage{
+    position:absolute;text-align:center;max-width:680px;padding:0 26px;
+    opacity:0;transform:translateY(22px);
+    transition:opacity .9s var(--ease), transform .9s var(--ease);
   }
-  .ocean-divider .orb::after{
-    content:'';position:absolute;inset:14px;border-radius:50%;border:1px solid rgba(255,255,255,.15);
+  .exp-stage.active{opacity:1;transform:translateY(0);}
+  .exp-stage .eyebrow{justify-content:center;margin-bottom:14px;}
+  .exp-stage .eyebrow::before{width:30px;}
+  .exp-title{
+    font-family:var(--display);font-weight:400;text-transform:uppercase;line-height:1.02;
+    font-size:clamp(40px,7vw,96px);letter-spacing:-.01em;margin-bottom:22px;
+    text-shadow:0 8px 50px rgba(7,13,22,.6);
   }
-  .ocean-divider .caption{
-    position:absolute;bottom:38px;left:50%;transform:translateX(-50%);text-align:center;z-index:3;
-    font-family:var(--serif);font-style:italic;color:var(--muted);font-size:15px;letter-spacing:.06em;
-  }
+  .exp-stage p{font-family:var(--serif);font-weight:300;font-size:clamp(17px,1.8vw,22px);
+    color:var(--ink);opacity:.85;line-height:1.7;}
+  .exp-progress{position:absolute;left:50%;bottom:50px;transform:translateX(-50%);
+    width:170px;height:2px;background:rgba(255,255,255,.14);border-radius:2px;overflow:hidden;z-index:3;}
+  .exp-progress span{position:absolute;left:0;top:0;height:100%;width:0;
+    background:linear-gradient(90deg, var(--gold), var(--gold-soft));transition:width .15s linear;}
+  .exp-hint{position:absolute;left:50%;bottom:74px;transform:translateX(-50%);z-index:3;
+    font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);
+    transition:opacity .6s ease;}
 
   /* ABOUT */
   .about{padding:170px 0;background:linear-gradient(180deg,var(--deep) 0%,var(--deep2) 100%);overflow:hidden;}
@@ -493,12 +503,31 @@
     </div>
   </section>
 
-  <!-- DIVIDER / OCEAN -->
-  <div class="ocean-divider">
-    <canvas id="oceanCanvas"></canvas>
-    <div class="orb" id="orb"></div>
-    <div class="caption" data-i18n="divider.caption">— drifting between worlds, above and below the surface —</div>
-  </div>
+  <!-- 3D EXPERIENCE -->
+  <section class="experience" id="experience">
+    <div class="exp-sticky">
+      <canvas id="expCanvas"></canvas>
+      <div class="exp-overlay">
+        <div class="exp-stage active" data-stage="0">
+          <span class="eyebrow" data-i18n="exp.e1">The Voyage Begins</span>
+          <h2 class="exp-title" data-i18n="exp.t1">One Blue Planet</h2>
+          <p data-i18n="exp.p1">Seen from afar, our world is mostly water — a single, living ocean that cradles every story yet to be told.</p>
+        </div>
+        <div class="exp-stage" data-stage="1">
+          <span class="eyebrow" data-i18n="exp.e2">Drift Deeper</span>
+          <h2 class="exp-title" data-i18n="exp.t2">Bound by One Ocean</h2>
+          <p data-i18n="exp.p2">Every coast, every current, every creature is woven together by the same restless sea that shapes us all.</p>
+        </div>
+        <div class="exp-stage" data-stage="2">
+          <span class="eyebrow" data-i18n="exp.e3">The Reason</span>
+          <h2 class="exp-title" data-i18n="exp.t3">Worth Protecting</h2>
+          <p data-i18n="exp.p3">What we love, we protect. Join the crew and help keep this fragile blue heart beating.</p>
+        </div>
+      </div>
+      <div class="exp-hint" data-i18n="exp.hint">Scroll to explore</div>
+      <div class="exp-progress"><span id="expBar"></span></div>
+    </div>
+  </section>
 
   <!-- ABOUT -->
   <section class="about" id="about">
@@ -771,6 +800,10 @@ const dict = {
     "hero.sub":"An immersive voyage where adventure meets purpose — uniting explorers, dreamers and changemakers to protect the oceans that connect us all.",
     "hero.cta":"Begin the Voyage","hero.scroll":"Scroll",
     "divider.caption":"— drifting between worlds, above and below the surface —",
+    "exp.e1":"The Voyage Begins","exp.t1":"One Blue Planet","exp.p1":"Seen from afar, our world is mostly water — a single, living ocean that cradles every story yet to be told.",
+    "exp.e2":"Drift Deeper","exp.t2":"Bound by One Ocean","exp.p2":"Every coast, every current, every creature is woven together by the same restless sea that shapes us all.",
+    "exp.e3":"The Reason","exp.t3":"Worth Protecting","exp.p3":"What we love, we protect. Join the crew and help keep this fragile blue heart beating.",
+    "exp.hint":"Scroll to explore",
     "about.eyebrow":"Our Story","about.title":"A Crew Bound by the Sea",
     "about.tag":"“The ocean doesn't ask permission to be vast — it simply is. We ask permission to protect it.”",
     "about.p1":"Aye Maties was born from a simple belief: that adventure and responsibility can sail the same course. What began as a small band of ocean lovers has grown into a global pirate-spirited movement — turning curiosity about the sea into real, measurable change.",
@@ -821,6 +854,10 @@ const dict = {
     "hero.sub":"Eine immersive Reise, bei der Abenteuer auf Sinn trifft — sie vereint Entdecker, Träumer und Macher im Schutz der Ozeane, die uns alle verbinden.",
     "hero.cta":"Reise beginnen","hero.scroll":"Scrollen",
     "divider.caption":"— treibend zwischen Welten, über und unter der Oberfläche —",
+    "exp.e1":"Die Reise beginnt","exp.t1":"Ein blauer Planet","exp.p1":"Aus der Ferne betrachtet besteht unsere Welt fast nur aus Wasser — ein einziger, lebendiger Ozean, der jede noch ungeschriebene Geschichte in sich trägt.",
+    "exp.e2":"Tiefer treiben","exp.t2":"Vereint durch ein Meer","exp.p2":"Jede Küste, jede Strömung, jedes Lebewesen ist durch dieselbe rastlose See verbunden, die uns alle formt.",
+    "exp.e3":"Der Grund","exp.t3":"Wert, beschützt zu werden","exp.p3":"Was wir lieben, das schützen wir. Werde Teil der Crew und hilf, dieses zerbrechliche blaue Herz am Schlagen zu halten.",
+    "exp.hint":"Scrollen zum Entdecken",
     "about.eyebrow":"Unsere Geschichte","about.title":"Eine Crew, verbunden durch das Meer",
     "about.tag":"„Das Meer bittet nicht um Erlaubnis, weit zu sein — es ist es einfach. Wir bitten um die Erlaubnis, es zu schützen.“",
     "about.p1":"Aye Maties entstand aus einer einfachen Überzeugung: dass Abenteuer und Verantwortung denselben Kurs segeln können. Was als kleine Gruppe von Meeresliebhabern begann, ist zu einer globalen, piratisch-inspirierten Bewegung gewachsen — die Neugier auf das Meer in echten, messbaren Wandel verwandelt.",
@@ -871,6 +908,10 @@ const dict = {
     "hero.sub":"Un viaje inmersivo donde la aventura encuentra el propósito — uniendo exploradores, soñadores y agentes de cambio para proteger los océanos que nos conectan a todos.",
     "hero.cta":"Comenzar el viaje","hero.scroll":"Desplázate",
     "divider.caption":"— a la deriva entre mundos, sobre y bajo la superficie —",
+    "exp.e1":"Comienza el viaje","exp.t1":"Un planeta azul","exp.p1":"Vista desde lejos, nuestra Tierra es casi toda agua — un único océano vivo que acuna cada historia aún por contar.",
+    "exp.e2":"Desciende más","exp.t2":"Unidos por un océano","exp.p2":"Cada costa, cada corriente, cada criatura está entrelazada por el mismo mar incansable que nos da forma a todos.",
+    "exp.e3":"La razón","exp.t3":"Digno de proteger","exp.p3":"Lo que amamos, lo protegemos. Únete a la tripulación y ayuda a mantener latiendo este frágil corazón azul.",
+    "exp.hint":"Desplázate para explorar",
     "about.eyebrow":"Nuestra historia","about.title":"Una tripulación unida por el mar",
     "about.tag":"«El océano no pide permiso para ser inmenso — simplemente lo es. Nosotros pedimos permiso para protegerlo.»",
     "about.p1":"Aye Maties nació de una creencia simple: que la aventura y la responsabilidad pueden navegar el mismo rumbo. Lo que comenzó como un pequeño grupo de amantes del océano se ha convertido en un movimiento global de espíritu pirata — transformando la curiosidad por el mar en cambios reales y medibles.",
@@ -921,6 +962,10 @@ const dict = {
     "hero.sub":"Un voyage immersif où l'aventure rencontre le sens — réunissant explorateurs, rêveurs et acteurs du changement pour protéger les océans qui nous unissent tous.",
     "hero.cta":"Commencer le voyage","hero.scroll":"Défiler",
     "divider.caption":"— à la dérive entre les mondes, au-dessus et au-dessous de la surface —",
+    "exp.e1":"Le voyage commence","exp.t1":"Une planète bleue","exp.p1":"Vue de loin, notre Terre n'est presque que de l'eau — un océan unique et vivant qui berce chaque histoire encore à raconter.",
+    "exp.e2":"Plongez plus profond","exp.t2":"Unis par un seul océan","exp.p2":"Chaque côte, chaque courant, chaque créature est reliée par la même mer infatigable qui nous façonne tous.",
+    "exp.e3":"La raison","exp.t3":"Digne d'être protégé","exp.p3":"Ce que nous aimons, nous le protégeons. Rejoignez l'équipage et aidez à faire battre ce fragile cœur bleu.",
+    "exp.hint":"Faites défiler pour explorer",
     "about.eyebrow":"Notre histoire","about.title":"Un équipage uni par la mer",
     "about.tag":"« L'océan ne demande pas la permission d'être immense — il l'est, tout simplement. Nous demandons la permission de le protéger. »",
     "about.p1":"Aye Maties est né d'une conviction simple : l'aventure et la responsabilité peuvent naviguer le même cap. Ce qui a commencé comme un petit groupe d'amoureux de l'océan est devenu un mouvement mondial à l'esprit pirate — transformant la curiosité pour la mer en changements réels et mesurables.",
@@ -1129,50 +1174,6 @@ function drawParticles(){
 initParticles(); drawParticles();
 window.addEventListener('resize', ()=>{ initParticles(); });
 
-/* ---------------- Ocean divider canvas waves ---------------- */
-const oCanvas = document.getElementById('oceanCanvas');
-const oCtx = oCanvas.getContext('2d');
-function sizeOcean(){ oCanvas.width = oCanvas.offsetWidth*devicePixelRatio; oCanvas.height = oCanvas.offsetHeight*devicePixelRatio; }
-sizeOcean();
-window.addEventListener('resize', sizeOcean);
-let t=0;
-function drawOcean(){
-  t += 0.012;
-  const w=oCanvas.width, h=oCanvas.height;
-  oCtx.clearRect(0,0,w,h);
-  const grad = oCtx.createLinearGradient(0,0,0,h);
-  grad.addColorStop(0,'#0c1a29'); grad.addColorStop(1,'#070d16');
-  oCtx.fillStyle = grad; oCtx.fillRect(0,0,w,h);
-  const layers = [
-    {amp:18,len:.012,speed:1,alpha:.16,offset:.42,color:'31,85,112'},
-    {amp:26,len:.009,speed:.7,alpha:.14,offset:.55,color:'18,50,73'},
-    {amp:14,len:.016,speed:1.4,alpha:.22,offset:.66,color:'207,233,236'}
-  ];
-  layers.forEach(L=>{
-    oCtx.beginPath();
-    oCtx.moveTo(0,h);
-    for(let x=0;x<=w;x+=8){
-      const y = h*L.offset + Math.sin(x*L.len + t*L.speed)*L.amp*devicePixelRatio;
-      oCtx.lineTo(x,y);
-    }
-    oCtx.lineTo(w,h); oCtx.closePath();
-    oCtx.fillStyle = `rgba(${L.color},${L.alpha})`;
-    oCtx.fill();
-  });
-  requestAnimationFrame(drawOcean);
-}
-drawOcean();
-
-/* Floating orb */
-const orbEl = document.getElementById('orb');
-(function loopOrb(){
-  const t2 = performance.now()/1000;
-  const oy = Math.sin(t2/4.5*Math.PI*2)*22;
-  const ox = Math.sin(t2/6*Math.PI*2 + 1)*16;
-  orbEl.style.transform = `translate(calc(-50% + ${ox}px), calc(-50% + ${oy}px))`;
-  requestAnimationFrame(loopOrb);
-})();
-
 /* ---------------- Reveal on scroll ---------------- */
 const revealObserver = new IntersectionObserver((entries)=>{
   entries.forEach(entry=>{
@@ -1251,6 +1252,176 @@ document.querySelectorAll('.magnetic').forEach(btn=>{
 
 /* Apply initial language */
 applyLang(currentLang);
+</script>
+
+<!-- ---------------- 3D Experience (Three.js particle morph) ---------------- -->
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+</script>
+<script type="module">
+import * as THREE from 'three';
+
+(function initExperience(){
+  const section = document.getElementById('experience');
+  const canvas  = document.getElementById('expCanvas');
+  if(!section || !canvas) return;
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const mobile  = window.innerWidth < 720;
+  const COUNT   = mobile ? 4000 : 7400;
+
+  let renderer;
+  try{
+    renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true, powerPreference:'high-performance' });
+  }catch(e){ return; } // no WebGL → overlay text remains as graceful fallback
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
+  const scene  = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 100);
+  camera.position.set(0, 0, mobile ? 13.5 : 11);
+
+  /* ---- soft round point sprite ---- */
+  function makeSprite(){
+    const s = 64, c = document.createElement('canvas'); c.width = c.height = s;
+    const g = c.getContext('2d');
+    const grd = g.createRadialGradient(s/2, s/2, 0, s/2, s/2, s/2);
+    grd.addColorStop(0,   'rgba(255,255,255,1)');
+    grd.addColorStop(.25, 'rgba(255,255,255,.85)');
+    grd.addColorStop(1,   'rgba(255,255,255,0)');
+    g.fillStyle = grd; g.fillRect(0, 0, s, s);
+    const tex = new THREE.CanvasTexture(c); tex.needsUpdate = true; return tex;
+  }
+
+  /* ---- target shapes (each Float32Array of COUNT*3) ---- */
+  const sphere = new Float32Array(COUNT*3);
+  const wave   = new Float32Array(COUNT*3);
+  const heart  = new Float32Array(COUNT*3);
+
+  const R = 5.0, GA = Math.PI * (3 - Math.sqrt(5)); // golden angle
+  for(let i=0; i<COUNT; i++){
+    const j = i*3;
+    // GLOBE — fibonacci sphere (even distribution)
+    const y = 1 - (i / (COUNT-1)) * 2;
+    const rad = Math.sqrt(Math.max(0, 1 - y*y));
+    const th = GA * i;
+    sphere[j]   = Math.cos(th) * rad * R;
+    sphere[j+1] = y * R;
+    sphere[j+2] = Math.sin(th) * rad * R;
+
+    // WAVE — wide rippling sheet
+    const wx = (Math.random()-0.5) * 15;
+    const wz = (Math.random()-0.5) * 15;
+    wave[j]   = wx;
+    wave[j+1] = Math.sin(wx*0.6) * 0.9 + Math.cos(wz*0.5) * 0.9;
+    wave[j+2] = wz;
+
+    // HEART — filled parametric heart (area-uniform)
+    const t = Math.random() * Math.PI * 2;
+    const k = Math.sqrt(Math.random());
+    const hx = 16 * Math.pow(Math.sin(t),3) * k;
+    const hy = (13*Math.cos(t) - 5*Math.cos(2*t) - 2*Math.cos(3*t) - Math.cos(4*t)) * k;
+    const sc = 0.34;
+    heart[j]   = hx * sc;
+    heart[j+1] = hy * sc + 0.4;
+    heart[j+2] = (Math.random()-0.5) * 1.8;
+  }
+
+  /* ---- colours: gold / gold-soft / foam ---- */
+  const colors = new Float32Array(COUNT*3);
+  const col = new THREE.Color();
+  for(let i=0; i<COUNT; i++){
+    const r = Math.random();
+    if(r < 0.6)      col.setRGB(0.847, 0.722, 0.451); // gold
+    else if(r < 0.85) col.setRGB(0.94,  0.87,  0.71);  // gold-soft
+    else              col.setRGB(0.81,  0.91,  0.93);  // foam
+    const b = 0.78 + Math.random()*0.22;
+    colors[i*3] = col.r*b; colors[i*3+1] = col.g*b; colors[i*3+2] = col.b*b;
+  }
+
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(sphere.slice(), 3));
+  geo.setAttribute('color',    new THREE.BufferAttribute(colors, 3));
+
+  const mat = new THREE.PointsMaterial({
+    size: mobile ? 0.11 : 0.09, map: makeSprite(), vertexColors: true,
+    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+    sizeAttenuation: true
+  });
+
+  const points = new THREE.Points(geo, mat);
+  scene.add(points);
+
+  /* ---- resize ---- */
+  function resize(){
+    const w = canvas.clientWidth || window.innerWidth;
+    const h = canvas.clientHeight || window.innerHeight;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h; camera.updateProjectionMatrix();
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  /* ---- pointer parallax ---- */
+  let pmX = 0, pmY = 0;
+  window.addEventListener('pointermove', e=>{
+    pmX = (e.clientX / window.innerWidth  - 0.5);
+    pmY = (e.clientY / window.innerHeight - 0.5);
+  }, { passive:true });
+
+  /* ---- stage overlay + progress ---- */
+  const stages = Array.from(section.querySelectorAll('.exp-stage'));
+  const bar    = document.getElementById('expBar');
+  const hint   = section.querySelector('.exp-hint');
+  let curStage = 0;
+  function updateOverlay(p){
+    const idx = p < 0.30 ? 0 : (p < 0.66 ? 1 : 2);
+    if(idx !== curStage){
+      stages.forEach((s,i)=> s.classList.toggle('active', i===idx));
+      curStage = idx;
+    }
+    if(bar)  bar.style.width = (p*100).toFixed(1) + '%';
+    if(hint) hint.style.opacity = p < 0.06 ? '1' : '0';
+  }
+
+  const pos = geo.attributes.position.array;
+  const smooth = f => f*f*(3 - 2*f);
+
+  function frame(){
+    requestAnimationFrame(frame);
+    const time = performance.now() * 0.001;
+
+    // scroll progress through the tall section
+    const rect = section.getBoundingClientRect();
+    const total = rect.height - window.innerHeight;
+    const p = Math.min(1, Math.max(0, (-rect.top) / (total || 1)));
+
+    // only do the heavy work while the scene is on (or near) screen
+    const visible = rect.bottom > 0 && rect.top < window.innerHeight;
+    if(visible){
+      let A, B, f;
+      if(p < 0.5){ A = sphere; B = wave;  f = p / 0.5; }
+      else       { A = wave;   B = heart; f = (p - 0.5) / 0.5; }
+      const ef = smooth(f);
+      for(let i=0; i<pos.length; i++) pos[i] = A[i] + (B[i]-A[i])*ef;
+      geo.attributes.position.needsUpdate = true;
+
+      if(!reduced){
+        points.rotation.y = time*0.07 + p*Math.PI*0.6;
+        points.rotation.z = Math.sin(time*0.2)*0.05;
+        points.position.y = Math.sin(time*0.5)*0.15;
+      }else{
+        points.rotation.y = p*Math.PI*0.6;
+      }
+      camera.position.x += (pmX*1.8 - camera.position.x)*0.04;
+      camera.position.y += (-pmY*1.1 - camera.position.y)*0.04;
+      camera.lookAt(0,0,0);
+
+      renderer.render(scene, camera);
+      updateOverlay(p);
+    }
+  }
+  frame();
+})();
 </script>
 </body>
 </html>
