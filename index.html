@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Aye Maties — Pirate Challenge | Saving Our Oceans</title>
-<meta name="description" content="Aye Maties — a luxury ocean conservation experience. Join the Pirate Challenge and help save our oceans through immersive expeditions, education and adventure.">
+<meta name="description" content="Aye Maties — Pirate Challenge: an internationally adaptable, partly scripted maritime reality format aboard a working sailing ship, uniting adventure, heritage and ocean conservation. Saving our oceans.">
+<link rel="icon" type="image/png" href="assets/images/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Marcellus&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -63,6 +64,12 @@
     font-family:var(--display);font-size:clamp(28px,5vw,46px);letter-spacing:.35em;
     color:var(--gold-soft);opacity:.9;
   }
+  .loader-logo{
+    width:clamp(170px,32vw,280px);height:auto;
+    filter:drop-shadow(0 18px 60px rgba(0,0,0,.6));
+    animation:logoFloat 4s var(--ease) infinite;
+  }
+  @keyframes logoFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
   .loader-bar{width:220px;height:1px;background:rgba(255,255,255,.12);position:relative;overflow:hidden;}
   .loader-bar span{position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;
     transition:transform 1.4s cubic-bezier(.65,0,.2,1);}
@@ -249,6 +256,18 @@
     border:1px solid rgba(255,255,255,.15);padding:16px 22px;border-radius:14px;
     font-family:var(--serif);font-style:italic;font-size:15px;color:var(--gold-soft);max-width:240px;
   }
+  /* About logo showcase panel */
+  .logo-panel{
+    display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(60% 55% at 50% 45%, rgba(31,85,112,.35), rgba(7,13,22,0) 70%),
+               linear-gradient(160deg, rgba(255,255,255,.05), rgba(255,255,255,.012));
+    border:1px solid rgba(255,255,255,.1);
+  }
+  .logo-panel img{
+    width:78%;height:auto;object-fit:contain;
+    filter:drop-shadow(0 22px 70px rgba(0,0,0,.55));
+    animation:logoFloat 6s var(--ease) infinite;
+  }
   .about-text p{margin-top:26px;}
   .stat-row{display:flex;gap:54px;margin-top:54px;flex-wrap:wrap;}
   .stat b{display:block;font-family:var(--display);font-size:clamp(34px,4vw,52px);color:var(--gold-soft);font-weight:400;}
@@ -330,6 +349,24 @@
   .btn-glow:hover::after{opacity:.8;}
   @keyframes spin{to{transform:rotate(360deg);}}
 
+  /* IMPRESSUM / LEGAL */
+  .impressum{padding:150px 0 40px;background:var(--deep);}
+  .impressum .wrap{max-width:1100px;}
+  .impressum-head{margin-bottom:54px;}
+  .impressum-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:30px;}
+  .imp-card{
+    background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.09);border-radius:18px;
+    padding:34px 32px;transition:border-color .5s ease;
+  }
+  .imp-card:hover{border-color:rgba(216,184,115,.32);}
+  .imp-card h4{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:18px;}
+  .imp-card p{font-family:var(--serif);font-weight:300;font-size:16px;line-height:1.75;color:var(--muted);}
+  .imp-card p strong{color:var(--ink);font-weight:400;}
+  .imp-card a{color:var(--gold-soft);transition:color .3s ease;}
+  .imp-card a:hover{color:var(--ink);}
+  .imp-card.span-2{grid-column:1/-1;}
+  .imp-note{margin-top:36px;font-family:var(--serif);font-style:italic;font-size:14px;color:var(--muted);opacity:.8;}
+
   /* FOOTER */
   footer.site{
     position:relative;padding:120px 0 50px;background:var(--deep);overflow:hidden;
@@ -344,6 +381,8 @@
   .footer-grid li{list-style:none;margin-bottom:13px;}
   .footer-grid a{font-size:14px;color:var(--muted);transition:color .4s ease, padding-left .4s ease;font-weight:300;}
   .footer-grid a:hover{color:var(--ink);padding-left:6px;}
+  .footer-logo{width:clamp(150px,18vw,210px);height:auto;margin-bottom:6px;
+    filter:drop-shadow(0 14px 44px rgba(0,0,0,.5));}
   .footer-brand{font-family:var(--display);font-size:clamp(34px,5vw,58px);letter-spacing:.06em;text-transform:uppercase;}
   .footer-brand small{display:block;margin-top:18px;font-family:var(--serif);font-style:italic;font-size:15px;color:var(--muted);font-weight:300;max-width:320px;line-height:1.6;}
   .footer-bottom{
@@ -426,6 +465,7 @@
     .card-grid{grid-template-columns:1fr;}
     .manifesto-grid{grid-template-columns:1fr;gap:50px;}
     .crew-grid{grid-template-columns:1fr 1fr;}
+    .impressum-grid{grid-template-columns:1fr;}
     .footer-grid{grid-template-columns:1fr 1fr;}
     .footer-grid > div:first-child{grid-column:1/-1;}
   }
@@ -445,7 +485,7 @@
 <div class="cursor-ring"></div>
 
 <div id="loader">
-  <div class="loader-mark">AYE&nbsp;MATIES</div>
+  <img class="loader-logo" src="assets/images/logo.png" alt="Aye Maties — Pirate Challenge — Saving Our Oceans">
   <div class="loader-bar"><span></span></div>
 </div>
 
@@ -533,22 +573,19 @@
   <section class="about" id="about">
     <div class="wrap">
       <div class="about-grid">
-        <div class="about-media" data-reveal>
-          <video autoplay muted loop playsinline>
-            <source src="assets/videos/ocean-hero-2.mp4" type="video/mp4">
-          </video>
+        <div class="about-media logo-panel" data-reveal>
+          <img src="assets/images/logo.png" alt="Aye Maties — Pirate Challenge — Saving Our Oceans">
           <div class="frame"></div>
-          <div class="tag" data-i18n="about.tag">"The ocean doesn't ask permission to be vast — it simply is. We ask permission to protect it."</div>
         </div>
         <div class="about-text">
-          <span class="eyebrow" data-i18n="about.eyebrow">Our Story</span>
-          <h2 class="title" data-reveal data-i18n="about.title">A Crew Bound by the Sea</h2>
-          <p class="lead" data-reveal data-i18n="about.p1">Aye Maties was born from a simple belief: that adventure and responsibility can sail the same course. What began as a small band of ocean lovers has grown into a global pirate-spirited movement — turning curiosity about the sea into real, measurable change.</p>
-          <p class="lead" data-reveal data-i18n="about.p2">Every expedition, workshop and challenge we craft is designed with the same intention — to leave the water cleaner, the next generation more aware, and every guest forever changed by what lies beneath the surface.</p>
+          <span class="eyebrow" data-i18n="about.eyebrow">The Format</span>
+          <h2 class="title" data-reveal data-i18n="about.title">About Aye Maties</h2>
+          <p class="lead" data-reveal data-i18n="about.p1">Aye Maties is an internationally adaptable, partly scripted reality format that brings a diverse group of participants aboard a large working sailing ship to take on authentic maritime, historical and ecological challenges.</p>
+          <p class="lead" data-reveal data-i18n="about.p2">The confined, constantly moving environment leaves no room for delay and demands swift cooperation and decisive action under real pressure. Conflicts are not staged; they arise naturally from spatial conditions, environmental demands and interpersonal dynamics. The format deliberately structures this tension — centred on dialogues between generations: Care vs. Ignorance, Duty vs. Temptation and Tradition vs. modern superficiality — to drive personal growth and narrative progression.</p>
           <div class="stat-row">
-            <div class="stat" data-reveal><b data-counter="48">0</b><span data-i18n="about.stat1">Tonnes of ocean waste collected</span></div>
-            <div class="stat" data-reveal><b data-counter="120">0</b><span data-i18n="about.stat2">Expeditions completed</span></div>
-            <div class="stat" data-reveal><b data-counter="32">0</b><span data-i18n="about.stat3">Coastal communities supported</span></div>
+            <div class="stat" data-reveal><b data-counter="7">0</b><span data-i18n="about.stat1">Seasons across the voyage</span></div>
+            <div class="stat" data-reveal><b data-counter="6">0</b><span data-i18n="about.stat2">National editions</span></div>
+            <div class="stat" data-reveal><b data-counter="1">0</b><span data-i18n="about.stat3">International final voyage</span></div>
           </div>
         </div>
       </div>
@@ -738,19 +775,54 @@
     </div>
   </section>
 
+  <!-- IMPRESSUM / LEGAL -->
+  <section class="impressum" id="impressum">
+    <div class="wrap">
+      <div class="impressum-head">
+        <span class="eyebrow" data-i18n="imp.eyebrow">Legal Notice</span>
+        <h2 class="title" data-reveal data-i18n="imp.title">Impressum</h2>
+      </div>
+      <div class="impressum-grid">
+        <div class="imp-card span-2" data-reveal>
+          <h4 data-i18n="imp.ipHead">Trademark &amp; Intellectual Property</h4>
+          <p><strong>„Aye Maties"</strong> (Font: „Ariston") is a trademark and IP of <strong>Sail Wisely (Ireland) CLG</strong> — an Irish Company Limited by Guarantee.</p>
+        </div>
+        <div class="imp-card" data-reveal>
+          <h4 data-i18n="imp.repHead">Legal Representation</h4>
+          <p><strong>Mason Hayes &amp; Curran</strong><br>Barrow Street, Dublin 4, D04 TR29, Ireland<br>+353 1 614 5000 · <a href="https://www.mhc.ie" target="_blank" rel="noopener">MHC.ie</a><br><span data-i18n="imp.repBy">Represented by Claire Lord / Partner</span></p>
+        </div>
+        <div class="imp-card" data-reveal>
+          <h4 data-i18n="imp.postHead">Postal Address</h4>
+          <p>c/o Capt. Peter Brucha<br>Jubiläumstrasse 19<br>2345 Brunn/Geb., Austria</p>
+        </div>
+        <div class="imp-card" data-reveal>
+          <h4 data-i18n="imp.opHead">Operative Contact</h4>
+          <p><a href="mailto:AyeMaties@gmail.com">AyeMaties@gmail.com</a><br><span data-i18n="imp.opBy">c/o Capt. Peter Brucha — Founder, Sail Wisely &amp; Aye Maties</span><br><a href="tel:+4369910861086">+43 699 1086 1086</a></p>
+        </div>
+        <div class="imp-card" data-reveal>
+          <h4 data-i18n="imp.prodHead">Production Contact</h4>
+          <p><a href="mailto:AyeMaties@proton.me">AyeMaties@proton.me</a><br><span data-i18n="imp.prodBy">c/o Dr. Dino Stelzl — Director, Sail Wisely CLG @ Aye Maties</span></p>
+        </div>
+        <div class="imp-card span-2" data-reveal>
+          <h4 data-i18n="imp.soundHead">Soundtrack</h4>
+          <p><span data-i18n="imp.soundPre">Preview at</span> <a href="https://soundcloud.com/AyeMaties" target="_blank" rel="noopener">soundcloud.com/AyeMaties</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <footer class="site" id="contact">
     <div class="footer-glow"></div>
     <div class="wrap">
       <div class="footer-grid">
         <div>
-          <div class="footer-brand">Aye Maties</div>
-          <small data-i18n="footer.tag">A luxury ocean conservation experience — saving our oceans, one voyage, one challenge, one wave at a time.</small>
+          <img class="footer-logo" src="assets/images/logo.png" alt="Aye Maties — Pirate Challenge — Saving Our Oceans">
+          <small data-i18n="footer.tag">A partly scripted maritime reality format — saving our oceans, one season, one challenge, one wave at a time.</small>
           <div class="social" style="margin-top:30px;">
-            <a href="#" aria-label="Instagram">IG</a>
-            <a href="#" aria-label="Facebook">FB</a>
-            <a href="#" aria-label="YouTube">YT</a>
-            <a href="#" aria-label="LinkedIn">IN</a>
+            <a href="https://soundcloud.com/AyeMaties" target="_blank" rel="noopener" aria-label="SoundCloud">SC</a>
+            <a href="mailto:AyeMaties@gmail.com" aria-label="Email">@</a>
+            <a href="#impressum" aria-label="Impressum">§</a>
           </div>
         </div>
         <div>
@@ -758,16 +830,16 @@
           <ul>
             <li><a href="#about" data-i18n="nav.about">About</a></li>
             <li><a href="#services" data-i18n="nav.services">Services</a></li>
-            <li><a href="#testimonials" data-i18n="nav.testimonials">Voices</a></li>
-            <li><a href="#join" data-i18n="footer.join">Join the Crew</a></li>
+            <li><a href="#crew" data-i18n="nav.crew">Crew</a></li>
+            <li><a href="#impressum" data-i18n="imp.title">Impressum</a></li>
           </ul>
         </div>
         <div>
           <h4 data-i18n="footer.contact">Contact</h4>
           <ul>
-            <li><a href="mailto:hello@ayematies.com">hello@ayematies.com</a></li>
-            <li><a href="tel:+4930000000">+49 30 000 0000</a></li>
-            <li><span data-i18n="footer.address">Hafenstraße 12, 20457 Hamburg, Germany</span></li>
+            <li><a href="mailto:AyeMaties@gmail.com">AyeMaties@gmail.com</a></li>
+            <li><a href="tel:+4369910861086">+43 699 1086 1086</a></li>
+            <li><span data-i18n="footer.address">Jubiläumstrasse 19, 2345 Brunn/Geb., Austria</span></li>
           </ul>
         </div>
         <div>
@@ -781,8 +853,8 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <span>© 2026 Aye Maties. <span data-i18n="footer.rights">All rights reserved.</span></span>
-        <span data-i18n="footer.crafted">Crafted with reverence for the sea.</span>
+        <span>© 2026 Sail Wisely (Ireland) CLG. <span data-i18n="footer.rights">All rights reserved.</span></span>
+        <span data-i18n="footer.crafted">Profit is a tool — not the objective.</span>
       </div>
     </div>
   </footer>
@@ -804,11 +876,15 @@ const dict = {
     "exp.e2":"Drift Deeper","exp.t2":"Bound by One Ocean","exp.p2":"Every coast, every current, every creature is woven together by the same restless sea that shapes us all.",
     "exp.e3":"The Reason","exp.t3":"Worth Protecting","exp.p3":"What we love, we protect. Join the crew and help keep this fragile blue heart beating.",
     "exp.hint":"Scroll to explore",
-    "about.eyebrow":"Our Story","about.title":"A Crew Bound by the Sea",
-    "about.tag":"“The ocean doesn't ask permission to be vast — it simply is. We ask permission to protect it.”",
-    "about.p1":"Aye Maties was born from a simple belief: that adventure and responsibility can sail the same course. What began as a small band of ocean lovers has grown into a global pirate-spirited movement — turning curiosity about the sea into real, measurable change.",
-    "about.p2":"Every expedition, workshop and challenge we craft is designed with the same intention — to leave the water cleaner, the next generation more aware, and every guest forever changed by what lies beneath the surface.",
-    "about.stat1":"Tonnes of ocean waste collected","about.stat2":"Expeditions completed","about.stat3":"Coastal communities supported",
+    "about.eyebrow":"The Format","about.title":"About Aye Maties",
+    "about.p1":"Aye Maties is an internationally adaptable, partly scripted reality format that brings a diverse group of participants aboard a large working sailing ship to take on authentic maritime, historical and ecological challenges.",
+    "about.p2":"The confined, constantly moving environment leaves no room for delay and demands swift cooperation and decisive action under real pressure. Conflicts are not staged; they arise naturally from spatial conditions, environmental demands and interpersonal dynamics. The format deliberately structures this tension — centred on dialogues between generations: Care vs. Ignorance, Duty vs. Temptation and Tradition vs. modern superficiality — to drive personal growth and narrative progression.",
+    "about.stat1":"Seasons across the voyage","about.stat2":"National editions","about.stat3":"International final voyage",
+    "imp.eyebrow":"Legal Notice","imp.title":"Impressum",
+    "imp.ipHead":"Trademark & Intellectual Property","imp.repHead":"Legal Representation","imp.repBy":"Represented by Claire Lord / Partner",
+    "imp.postHead":"Postal Address","imp.opHead":"Operative Contact","imp.opBy":"c/o Capt. Peter Brucha — Founder, Sail Wisely & Aye Maties",
+    "imp.prodHead":"Production Contact","imp.prodBy":"c/o Dr. Dino Stelzl — Director, Sail Wisely CLG @ Aye Maties",
+    "imp.soundHead":"Soundtrack","imp.soundPre":"Preview at",
     "manifesto.eyebrow":"Who We Are",
     "manifesto.statement":"We're not just an expedition — we're a movement for the sea.",
     "manifesto.p":"We redefine what it means to explore — embracing the ocean, honouring its depths and uniting curious souls around a single, shared purpose: to protect the waters that connect us all.",
@@ -842,10 +918,10 @@ const dict = {
     "cta.eyebrow":"Your Voyage Awaits","cta.title":"Set Sail With Purpose",
     "cta.sub":"Join the crew. Become part of a movement that turns wonder into action — and the ocean's future into ours.",
     "cta.btn":"Join the Crew",
-    "footer.tag":"A luxury ocean conservation experience — saving our oceans, one voyage, one challenge, one wave at a time.",
+    "footer.tag":"A partly scripted maritime reality format — saving our oceans, one season, one challenge, one wave at a time.",
     "footer.explore":"Explore","footer.join":"Join the Crew","footer.contact":"Contact",
-    "footer.address":"Hafenstraße 12, 20457 Hamburg, Germany","footer.lang":"Language",
-    "footer.rights":"All rights reserved.","footer.crafted":"Crafted with reverence for the sea."
+    "footer.address":"Jubiläumstrasse 19, 2345 Brunn/Geb., Austria","footer.lang":"Language",
+    "footer.rights":"All rights reserved.","footer.crafted":"Profit is a tool — not the objective."
   },
   de:{
     "nav.about":"Über uns","nav.services":"Angebote","nav.crew":"Crew","nav.testimonials":"Stimmen","nav.contact":"Kontakt",
@@ -858,11 +934,15 @@ const dict = {
     "exp.e2":"Tiefer treiben","exp.t2":"Vereint durch ein Meer","exp.p2":"Jede Küste, jede Strömung, jedes Lebewesen ist durch dieselbe rastlose See verbunden, die uns alle formt.",
     "exp.e3":"Der Grund","exp.t3":"Wert, beschützt zu werden","exp.p3":"Was wir lieben, das schützen wir. Werde Teil der Crew und hilf, dieses zerbrechliche blaue Herz am Schlagen zu halten.",
     "exp.hint":"Scrollen zum Entdecken",
-    "about.eyebrow":"Unsere Geschichte","about.title":"Eine Crew, verbunden durch das Meer",
-    "about.tag":"„Das Meer bittet nicht um Erlaubnis, weit zu sein — es ist es einfach. Wir bitten um die Erlaubnis, es zu schützen.“",
-    "about.p1":"Aye Maties entstand aus einer einfachen Überzeugung: dass Abenteuer und Verantwortung denselben Kurs segeln können. Was als kleine Gruppe von Meeresliebhabern begann, ist zu einer globalen, piratisch-inspirierten Bewegung gewachsen — die Neugier auf das Meer in echten, messbaren Wandel verwandelt.",
-    "about.p2":"Jede Expedition, jeder Workshop und jede Challenge wird mit derselben Absicht gestaltet — das Wasser sauberer zu hinterlassen, die nächste Generation aufzuklären und jeden Gast für immer von dem zu verändern, was unter der Oberfläche liegt.",
-    "about.stat1":"Tonnen Meeresmüll gesammelt","about.stat2":"Abgeschlossene Expeditionen","about.stat3":"Unterstützte Küstengemeinden",
+    "about.eyebrow":"Das Format","about.title":"Über Aye Maties",
+    "about.p1":"Aye Maties ist ein international adaptierbares, teils geskriptetes Reality-Format, das eine diverse Gruppe von Teilnehmenden auf ein großes Arbeits-Segelschiff bringt, um authentische maritime, historische und ökologische Herausforderungen zu bewältigen.",
+    "about.p2":"Die begrenzte, sich ständig bewegende Umgebung lässt kein Aufschieben zu und erfordert schnelle Zusammenarbeit und entschlossenes Handeln unter realem Druck. Konflikte werden nicht inszeniert; sie entstehen natürlich aus räumlichen Gegebenheiten, Umweltanforderungen und interpersonalen Dynamiken. Das Format strukturiert diese Spannung gezielt – zentriert auf Generationendialoge: Fürsorge vs. Ignoranz, Pflicht vs. Versuchung und Tradition vs. moderne Oberflächlichkeit – um persönliches Wachstum und narrativen Fortschritt voranzutreiben.",
+    "about.stat1":"Staffeln über die Reise","about.stat2":"Nationale Editionen","about.stat3":"Internationale Abschlussreise",
+    "imp.eyebrow":"Rechtliche Angaben","imp.title":"Impressum",
+    "imp.ipHead":"Marke & geistiges Eigentum","imp.repHead":"Rechtliche Vertretung","imp.repBy":"Vertreten durch Claire Lord / Partner",
+    "imp.postHead":"Postanschrift","imp.opHead":"Operativer Kontakt","imp.opBy":"c/o Capt. Peter Brucha — Gründer, Sail Wisely & Aye Maties",
+    "imp.prodHead":"Produktionskontakt","imp.prodBy":"c/o Dr. Dino Stelzl — Director, Sail Wisely CLG @ Aye Maties",
+    "imp.soundHead":"Soundtrack","imp.soundPre":"Vorschau auf",
     "manifesto.eyebrow":"Wer wir sind",
     "manifesto.statement":"Wir sind nicht nur eine Expedition — wir sind eine Bewegung für das Meer.",
     "manifesto.p":"Wir definieren neu, was Entdecken bedeutet — wir begegnen dem Ozean mit Respekt, ehren seine Tiefen und vereinen neugierige Menschen um ein gemeinsames Ziel: die Gewässer zu schützen, die uns alle verbinden.",
@@ -896,10 +976,10 @@ const dict = {
     "cta.eyebrow":"Deine Reise wartet","cta.title":"Segle mit Sinn",
     "cta.sub":"Werde Teil der Crew. Werde Teil einer Bewegung, die Staunen in Handeln verwandelt — und die Zukunft der Ozeane zu unserer macht.",
     "cta.btn":"Der Crew beitreten",
-    "footer.tag":"Ein luxuriöses Erlebnis für den Schutz der Ozeane — die Meere retten, eine Reise, eine Challenge, eine Welle nach der anderen.",
+    "footer.tag":"Ein teils geskriptetes maritimes Reality-Format — die Meere retten, eine Staffel, eine Challenge, eine Welle nach der anderen.",
     "footer.explore":"Entdecken","footer.join":"Der Crew beitreten","footer.contact":"Kontakt",
-    "footer.address":"Hafenstraße 12, 20457 Hamburg, Deutschland","footer.lang":"Sprache",
-    "footer.rights":"Alle Rechte vorbehalten.","footer.crafted":"Mit Ehrfurcht vor dem Meer gestaltet."
+    "footer.address":"Jubiläumstrasse 19, 2345 Brunn/Geb., Österreich","footer.lang":"Sprache",
+    "footer.rights":"Alle Rechte vorbehalten.","footer.crafted":"Profit ist ein Werkzeug — nicht das Ziel."
   },
   es:{
     "nav.about":"Nosotros","nav.services":"Servicios","nav.crew":"Tripulación","nav.testimonials":"Voces","nav.contact":"Contacto",
@@ -912,11 +992,15 @@ const dict = {
     "exp.e2":"Desciende más","exp.t2":"Unidos por un océano","exp.p2":"Cada costa, cada corriente, cada criatura está entrelazada por el mismo mar incansable que nos da forma a todos.",
     "exp.e3":"La razón","exp.t3":"Digno de proteger","exp.p3":"Lo que amamos, lo protegemos. Únete a la tripulación y ayuda a mantener latiendo este frágil corazón azul.",
     "exp.hint":"Desplázate para explorar",
-    "about.eyebrow":"Nuestra historia","about.title":"Una tripulación unida por el mar",
-    "about.tag":"«El océano no pide permiso para ser inmenso — simplemente lo es. Nosotros pedimos permiso para protegerlo.»",
-    "about.p1":"Aye Maties nació de una creencia simple: que la aventura y la responsabilidad pueden navegar el mismo rumbo. Lo que comenzó como un pequeño grupo de amantes del océano se ha convertido en un movimiento global de espíritu pirata — transformando la curiosidad por el mar en cambios reales y medibles.",
-    "about.p2":"Cada expedición, taller y desafío que creamos tiene la misma intención — dejar el agua más limpia, a la próxima generación más consciente, y a cada huésped transformado para siempre por lo que yace bajo la superficie.",
-    "about.stat1":"Toneladas de residuos oceánicos recolectados","about.stat2":"Expediciones realizadas","about.stat3":"Comunidades costeras apoyadas",
+    "about.eyebrow":"El Formato","about.title":"Sobre Aye Maties",
+    "about.p1":"Aye Maties es un formato de telerrealidad internacionalmente adaptable y parcialmente guionizado que lleva a un grupo diverso de participantes a bordo de un gran velero de trabajo para afrontar auténticos desafíos marítimos, históricos y ecológicos.",
+    "about.p2":"El entorno reducido y en constante movimiento no permite aplazamientos y exige cooperación rápida y acción decidida bajo presión real. Los conflictos no se escenifican; surgen de forma natural de las condiciones del espacio, las exigencias del entorno y las dinámicas interpersonales. El formato estructura deliberadamente esta tensión — centrada en el diálogo entre generaciones: Cuidado vs. Indiferencia, Deber vs. Tentación y Tradición vs. superficialidad moderna — para impulsar el crecimiento personal y el avance narrativo.",
+    "about.stat1":"Temporadas en la travesía","about.stat2":"Ediciones nacionales","about.stat3":"Travesía final internacional",
+    "imp.eyebrow":"Aviso legal","imp.title":"Aviso legal",
+    "imp.ipHead":"Marca y propiedad intelectual","imp.repHead":"Representación legal","imp.repBy":"Representada por Claire Lord / Socia",
+    "imp.postHead":"Dirección postal","imp.opHead":"Contacto operativo","imp.opBy":"c/o Capt. Peter Brucha — Fundador, Sail Wisely & Aye Maties",
+    "imp.prodHead":"Contacto de producción","imp.prodBy":"c/o Dr. Dino Stelzl — Director, Sail Wisely CLG @ Aye Maties",
+    "imp.soundHead":"Banda sonora","imp.soundPre":"Escucha en",
     "manifesto.eyebrow":"Quiénes somos",
     "manifesto.statement":"No somos solo una expedición — somos un movimiento por el mar.",
     "manifesto.p":"Redefinimos lo que significa explorar — abrazando el océano, honrando sus profundidades y uniendo a almas curiosas en torno a un único propósito compartido: proteger las aguas que nos conectan a todos.",
@@ -950,10 +1034,10 @@ const dict = {
     "cta.eyebrow":"Tu viaje te espera","cta.title":"Zarpa con propósito",
     "cta.sub":"Únete a la tripulación. Forma parte de un movimiento que convierte el asombro en acción — y el futuro del océano en el nuestro.",
     "cta.btn":"Únete a la tripulación",
-    "footer.tag":"Una experiencia de lujo para la conservación del océano — salvando nuestros mares, un viaje, un desafío, una ola a la vez.",
+    "footer.tag":"Un formato de telerrealidad marítima parcialmente guionizado — salvando nuestros mares, una temporada, un desafío, una ola a la vez.",
     "footer.explore":"Explorar","footer.join":"Únete a la tripulación","footer.contact":"Contacto",
-    "footer.address":"Hafenstraße 12, 20457 Hamburgo, Alemania","footer.lang":"Idioma",
-    "footer.rights":"Todos los derechos reservados.","footer.crafted":"Creado con reverencia por el mar."
+    "footer.address":"Jubiläumstrasse 19, 2345 Brunn/Geb., Austria","footer.lang":"Idioma",
+    "footer.rights":"Todos los derechos reservados.","footer.crafted":"El beneficio es una herramienta — no el objetivo."
   },
   fr:{
     "nav.about":"À propos","nav.services":"Services","nav.crew":"Équipage","nav.testimonials":"Voix","nav.contact":"Contact",
@@ -966,11 +1050,15 @@ const dict = {
     "exp.e2":"Plongez plus profond","exp.t2":"Unis par un seul océan","exp.p2":"Chaque côte, chaque courant, chaque créature est reliée par la même mer infatigable qui nous façonne tous.",
     "exp.e3":"La raison","exp.t3":"Digne d'être protégé","exp.p3":"Ce que nous aimons, nous le protégeons. Rejoignez l'équipage et aidez à faire battre ce fragile cœur bleu.",
     "exp.hint":"Faites défiler pour explorer",
-    "about.eyebrow":"Notre histoire","about.title":"Un équipage uni par la mer",
-    "about.tag":"« L'océan ne demande pas la permission d'être immense — il l'est, tout simplement. Nous demandons la permission de le protéger. »",
-    "about.p1":"Aye Maties est né d'une conviction simple : l'aventure et la responsabilité peuvent naviguer le même cap. Ce qui a commencé comme un petit groupe d'amoureux de l'océan est devenu un mouvement mondial à l'esprit pirate — transformant la curiosité pour la mer en changements réels et mesurables.",
-    "about.p2":"Chaque expédition, atelier et défi que nous concevons poursuit la même intention — laisser l'eau plus propre, la prochaine génération plus consciente, et chaque invité à jamais transformé par ce qui se cache sous la surface.",
-    "about.stat1":"Tonnes de déchets océaniques collectées","about.stat2":"Expéditions réalisées","about.stat3":"Communautés côtières soutenues",
+    "about.eyebrow":"Le Format","about.title":"À propos d'Aye Maties",
+    "about.p1":"Aye Maties est un format de téléréalité adaptable à l'international et en partie scénarisé, qui réunit un groupe diversifié de participants à bord d'un grand voilier de travail pour relever d'authentiques défis maritimes, historiques et écologiques.",
+    "about.p2":"L'environnement exigu et en mouvement permanent ne laisse aucune place au report et exige une coopération rapide et une action décisive sous une pression réelle. Les conflits ne sont pas mis en scène ; ils naissent naturellement des contraintes d'espace, des exigences environnementales et des dynamiques interpersonnelles. Le format structure délibérément cette tension — centrée sur le dialogue entre générations : Bienveillance vs. Indifférence, Devoir vs. Tentation et Tradition vs. superficialité moderne — pour favoriser la croissance personnelle et la progression narrative.",
+    "about.stat1":"Saisons sur la traversée","about.stat2":"Éditions nationales","about.stat3":"Voyage final international",
+    "imp.eyebrow":"Mentions légales","imp.title":"Mentions légales",
+    "imp.ipHead":"Marque & propriété intellectuelle","imp.repHead":"Représentation juridique","imp.repBy":"Représentée par Claire Lord / Associée",
+    "imp.postHead":"Adresse postale","imp.opHead":"Contact opérationnel","imp.opBy":"c/o Capt. Peter Brucha — Fondateur, Sail Wisely & Aye Maties",
+    "imp.prodHead":"Contact production","imp.prodBy":"c/o Dr. Dino Stelzl — Directeur, Sail Wisely CLG @ Aye Maties",
+    "imp.soundHead":"Bande-son","imp.soundPre":"Écouter sur",
     "manifesto.eyebrow":"Qui nous sommes",
     "manifesto.statement":"Nous ne sommes pas qu'une expédition — nous sommes un mouvement pour la mer.",
     "manifesto.p":"Nous redéfinissons ce que signifie explorer — en embrassant l'océan, en honorant ses profondeurs et en réunissant les âmes curieuses autour d'un seul but commun : protéger les eaux qui nous relient tous.",
@@ -1004,10 +1092,10 @@ const dict = {
     "cta.eyebrow":"Votre voyage vous attend","cta.title":"Prenez le large, avec sens",
     "cta.sub":"Rejoignez l'équipage. Faites partie d'un mouvement qui transforme l'émerveillement en action — et l'avenir de l'océan en notre avenir commun.",
     "cta.btn":"Rejoindre l'équipage",
-    "footer.tag":"Une expérience de luxe pour la préservation des océans — sauver nos mers, un voyage, un défi, une vague à la fois.",
+    "footer.tag":"Un format de téléréalité maritime en partie scénarisé — sauver nos mers, une saison, un défi, une vague à la fois.",
     "footer.explore":"Explorer","footer.join":"Rejoindre l'équipage","footer.contact":"Contact",
-    "footer.address":"Hafenstraße 12, 20457 Hambourg, Allemagne","footer.lang":"Langue",
-    "footer.rights":"Tous droits réservés.","footer.crafted":"Conçu avec révérence pour la mer."
+    "footer.address":"Jubiläumstrasse 19, 2345 Brunn/Geb., Autriche","footer.lang":"Langue",
+    "footer.rights":"Tous droits réservés.","footer.crafted":"Le profit est un outil — pas l'objectif."
   }
 };
 
@@ -1218,7 +1306,7 @@ const counterObserver = new IntersectionObserver((entries)=>{
           const p = Math.min(1, (now-startTime)/dur);
           const eased = 1 - Math.pow(1-p, 3);
           const val = Math.floor(eased*target);
-          el.textContent = val + (target>=100?'':'+');
+          el.textContent = val + (el.dataset.suffix || '');
           if(p<1) requestAnimationFrame(tick);
         }
         requestAnimationFrame(tick);
