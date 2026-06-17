@@ -273,59 +273,31 @@
   .stat b{display:block;font-family:var(--display);font-size:clamp(34px,4vw,52px);color:var(--gold-soft);font-weight:400;}
   .stat span{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);}
 
-  /* SERVICES */
-  .services{padding:170px 0 120px;background:var(--deep2);}
-  .services-head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:80px;flex-wrap:wrap;}
-  .card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
-  .scard{
-    position:relative;background:linear-gradient(160deg, rgba(255,255,255,.05), rgba(255,255,255,.015));
-    border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:42px 34px;
-    overflow:hidden;transition:transform .7s var(--ease), border-color .6s ease, background .6s ease;
-    transform:translateY(0);
+  /* SOUNDTRACK */
+  .soundtrack{padding:170px 0;background:linear-gradient(180deg,var(--deep) 0%, var(--deep2) 100%);overflow:hidden;}
+  .sound-head{max-width:760px;margin-bottom:64px;}
+  .sound-head .lead{margin-top:24px;}
+  .track-list{list-style:none;border-top:1px solid rgba(255,255,255,.1);}
+  .track a{
+    display:grid;grid-template-columns:auto auto 1fr auto;align-items:center;gap:24px;
+    padding:28px 8px;border-bottom:1px solid rgba(255,255,255,.1);
+    transition:padding-left .5s var(--ease),background .5s ease;
   }
-  .scard:hover{transform:translateY(-14px);border-color:rgba(216,184,115,.4);background:linear-gradient(160deg, rgba(216,184,115,.1), rgba(255,255,255,.02));}
-  .scard .num{font-family:var(--serif);font-style:italic;color:var(--gold-soft);font-size:15px;opacity:.8;}
-  .scard h3{
-    font-family:var(--display);font-size:clamp(22px,2.4vw,28px);font-weight:400;text-transform:uppercase;
-    margin:26px 0 16px;letter-spacing:.01em;
+  .track a:hover{padding-left:24px;background:linear-gradient(90deg,rgba(216,184,115,.07),transparent 60%);}
+  .track .t-num{font-family:var(--serif);font-style:italic;color:var(--gold-soft);font-size:15px;opacity:.7;}
+  .track .t-play{
+    width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.25);
+    display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--gold-soft);
+    transition:border-color .4s ease,background .4s ease,color .4s ease,transform .4s var(--ease);
   }
-  .scard p{color:var(--muted);font-size:15px;line-height:1.7;font-weight:300;font-family:var(--serif);}
-  .scard .glow{
-    position:absolute;width:220px;height:220px;border-radius:50%;
-    background:radial-gradient(circle, rgba(216,184,115,.22), transparent 70%);
-    right:-90px;bottom:-90px;opacity:0;transition:opacity .6s ease;pointer-events:none;
-  }
-  .scard:hover .glow{opacity:1;}
-  .scard .arrow{
-    margin-top:28px;display:inline-flex;align-items:center;gap:10px;font-size:11px;
-    letter-spacing:.22em;text-transform:uppercase;color:var(--gold-soft);opacity:0;transform:translateY(8px);
-    transition:opacity .5s ease, transform .5s ease;
-  }
-  .scard:hover .arrow{opacity:1;transform:translateY(0);}
-
-  /* TESTIMONIALS */
-  .testi{padding:170px 0;background:linear-gradient(180deg,var(--deep2) 0%, var(--deep) 100%);position:relative;}
-  .testi-track{display:flex;gap:28px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px;
-    scrollbar-width:none;}
-  .testi-track::-webkit-scrollbar{display:none;}
-  .tcard{
-    flex:0 0 min(560px,84vw);scroll-snap-align:center;
-    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
-    backdrop-filter:blur(16px);border-radius:22px;padding:46px 42px;
-    display:flex;flex-direction:column;justify-content:space-between;gap:34px;min-height:300px;
-  }
-  .tcard q{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(19px,2.1vw,25px);
-    line-height:1.6;color:var(--ink);quotes:none;}
-  .tcard q::before,.tcard q::after{content:'';}
-  .tcard footer{display:flex;align-items:center;gap:16px;}
-  .tavatar{
-    width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-    background:linear-gradient(135deg, var(--gold), var(--ocean-light));font-family:var(--display);
-    color:var(--deep);font-size:16px;
-  }
-  .tname{font-size:13px;letter-spacing:.06em;}
-  .trole{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:3px;}
-  .testi-stars{color:var(--gold-soft);font-size:13px;letter-spacing:3px;}
+  .track a:hover .t-play{border-color:var(--gold-soft);background:var(--gold-soft);color:var(--deep);transform:scale(1.08);}
+  .track .t-name{font-family:var(--display);font-weight:400;font-size:clamp(20px,2.4vw,30px);
+    text-transform:uppercase;letter-spacing:.01em;}
+  .track .t-meta{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-align:right;}
+  .sound-links{display:flex;align-items:center;gap:36px;margin-top:54px;flex-wrap:wrap;}
+  .sound-yt{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-soft);
+    transition:color .4s ease,padding-left .4s ease;}
+  .sound-yt:hover{color:var(--ink);padding-left:6px;}
 
   /* CTA */
   .cta{position:relative;height:92vh;min-height:620px;display:flex;align-items:center;justify-content:center;
@@ -541,25 +513,6 @@
     text-shadow:0 10px 50px rgba(7,13,22,.6);}
   .interlude .il-sub{margin-top:24px;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-soft);}
 
-  /* CREW — meet the team (layout ref: glassy avatar grid) */
-  .crew{padding:170px 0;background:linear-gradient(180deg, var(--deep2) 0%, var(--deep) 100%);}
-  .crew-head{margin-bottom:74px;}
-  .crew-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;}
-  .crew-card{
-    background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(14px);
-    border-radius:20px;padding:40px 28px;text-align:center;
-    transition:transform .6s var(--ease), border-color .5s ease, background .5s ease;
-  }
-  .crew-card:hover{transform:translateY(-12px);border-color:rgba(216,184,115,.4);background:rgba(216,184,115,.06);}
-  .crew-avatar{
-    width:84px;height:84px;border-radius:50%;margin:0 auto 24px;display:flex;align-items:center;justify-content:center;
-    font-family:var(--display);font-size:28px;color:var(--deep);
-    background:linear-gradient(135deg, var(--gold), var(--ocean-light));
-    box-shadow:0 0 0 1px rgba(255,255,255,.15), 0 14px 40px rgba(0,0,0,.4);
-  }
-  .crew-card h3{font-family:var(--display);font-weight:400;font-size:19px;letter-spacing:.02em;margin-bottom:9px;}
-  .crew-card .role{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-soft);}
-
   [data-reveal]{opacity:0;transform:translateY(64px);}
   [data-reveal].in{animation:reveal 1.1s var(--ease) forwards;}
   @keyframes reveal{to{opacity:1;transform:translateY(0);}}
@@ -567,9 +520,7 @@
   @media(max-width:980px){
     nav.links{display:none;}
     .about-grid{grid-template-columns:1fr;gap:50px;}
-    .card-grid{grid-template-columns:1fr;}
     .manifesto-grid{grid-template-columns:1fr;gap:50px;}
-    .crew-grid{grid-template-columns:1fr 1fr;}
     .gallery-grid{grid-template-columns:1fr 1fr;}
     .impressum-grid{grid-template-columns:1fr;}
     .sp-kpis,.sp-phases,.sp-values,.sp-metrics{grid-template-columns:1fr 1fr;}
@@ -583,7 +534,8 @@
     .hero-meta{flex-direction:column;align-items:flex-start;gap:22px;}
     .stat-row{gap:34px;}
     .manifesto-band{gap:20px;}
-    .crew-grid{grid-template-columns:1fr;}
+    .track a{grid-template-columns:auto auto 1fr;gap:16px;}
+    .track .t-meta{display:none;}
     .sp-kpis,.sp-phases,.sp-metrics{grid-template-columns:1fr;}
     .sp-values{grid-template-columns:1fr 1fr;}
     .legend{grid-template-columns:1fr;}
@@ -606,9 +558,8 @@
   <a href="#top" class="logo"><span class="dot"></span> Aye&nbsp;Maties</a>
   <nav class="links">
     <a href="#about" data-i18n="nav.about">About</a>
-    <a href="#services" data-i18n="nav.services">Services</a>
-    <a href="#crew" data-i18n="nav.crew">Crew</a>
-    <a href="#testimonials" data-i18n="nav.testimonials">Voices</a>
+    <a href="#world" data-i18n="nav.world">The World</a>
+    <a href="#soundtrack" data-i18n="nav.soundtrack">Soundtrack</a>
     <a href="#sponsor" data-i18n="nav.sponsor">Partner</a>
     <a href="#contact" data-i18n="nav.contact">Contact</a>
   </nav>
@@ -638,15 +589,15 @@
     <canvas id="particles"></canvas>
     <div class="rays" id="rays"></div>
     <div class="hero-inner">
-      <span class="hero-eyebrow fade-up" id="heroEyebrow" data-i18n="hero.eyebrow">A Luxury Ocean Conservation Experience</span>
+      <span class="hero-eyebrow fade-up" id="heroEyebrow" data-i18n="hero.eyebrow">A Maritime Reality Format · Saving Our Oceans</span>
       <h1 class="hero-title">
         <span class="line"><span data-i18n="hero.title1">Aye Maties</span></span>
         <span class="line"><span data-i18n="hero.title2">Pirate Challenge</span></span>
       </h1>
-      <p class="hero-sub fade-up" id="heroSub" data-i18n="hero.sub">An immersive voyage where adventure meets purpose — uniting explorers, dreamers and changemakers to protect the oceans that connect us all.</p>
+      <p class="hero-sub fade-up" id="heroSub" data-i18n="hero.sub">A partly scripted reality format aboard a real working sailing ship — where authentic maritime, historical and ecological challenges unite a crew around one mission: to protect the oceans that connect us all.</p>
       <div class="hero-meta fade-up" id="heroMeta">
-        <a class="btn" href="#services">
-          <span data-i18n="hero.cta">Begin the Voyage</span>
+        <a class="btn" href="#about">
+          <span data-i18n="hero.cta">Discover the Format</span>
           <svg viewBox="0 0 16 10" fill="none"><path d="M1 5h14M10 1l5 4-5 4" stroke="currentColor" stroke-width="1.3"/></svg>
         </a>
         <div class="scroll-cue">
@@ -747,69 +698,6 @@
   </section>
 
   <!-- SERVICES -->
-  <section class="services" id="services">
-    <div class="wrap">
-      <div class="services-head">
-        <div>
-          <span class="eyebrow" data-i18n="services.eyebrow">What We Offer</span>
-          <h2 class="title" data-reveal data-i18n="services.title">Voyages of Purpose</h2>
-        </div>
-        <p class="lead" data-reveal data-i18n="services.lead">From open-water expeditions to hands-on education, every offering is a chapter in the same story — saving our oceans, one challenge at a time.</p>
-      </div>
-      <div class="card-grid">
-
-        <article class="scard" data-reveal>
-          <span class="num">01</span>
-          <h3 data-i18n="services.c1.title">The Pirate Challenge</h3>
-          <p data-i18n="services.c1.desc">A multi-day adventure trail combining navigation, teamwork and ocean clean-up missions — designed to turn curiosity into lifelong stewardship of the sea.</p>
-          <span class="arrow" data-i18n="services.learn">Discover More →</span>
-          <div class="glow"></div>
-        </article>
-
-        <article class="scard" data-reveal>
-          <span class="num">02</span>
-          <h3 data-i18n="services.c2.title">Ocean Clean-Up Expeditions</h3>
-          <p data-i18n="services.c2.desc">Guided coastal and underwater missions where guests actively remove debris, document marine life and contribute to verified conservation data.</p>
-          <span class="arrow" data-i18n="services.learn">Discover More →</span>
-          <div class="glow"></div>
-        </article>
-
-        <article class="scard" data-reveal>
-          <span class="num">03</span>
-          <h3 data-i18n="services.c3.title">School & Youth Programmes</h3>
-          <p data-i18n="services.c3.desc">Immersive educational journeys that bring marine science to life — empowering the next generation of ocean guardians through play, story and discovery.</p>
-          <span class="arrow" data-i18n="services.learn">Discover More →</span>
-          <div class="glow"></div>
-        </article>
-
-        <article class="scard" data-reveal>
-          <span class="num">04</span>
-          <h3 data-i18n="services.c4.title">Corporate Crew Retreats</h3>
-          <p data-i18n="services.c4.desc">Purpose-driven team experiences at sea — blending leadership development with tangible environmental impact for forward-thinking organisations.</p>
-          <span class="arrow" data-i18n="services.learn">Discover More →</span>
-          <div class="glow"></div>
-        </article>
-
-        <article class="scard" data-reveal>
-          <span class="num">05</span>
-          <h3 data-i18n="services.c5.title">Coastal Restoration Projects</h3>
-          <p data-i18n="services.c5.desc">Long-term partnerships with local communities to restore reefs, replant mangroves and rebuild fragile coastal ecosystems for future generations.</p>
-          <span class="arrow" data-i18n="services.learn">Discover More →</span>
-          <div class="glow"></div>
-        </article>
-
-        <article class="scard" data-reveal>
-          <span class="num">06</span>
-          <h3 data-i18n="services.c6.title">Private Sailing Experiences</h3>
-          <p data-i18n="services.c6.desc">Bespoke luxury voyages for individuals and families — a quiet, restorative journey across open water, paired with meaningful ocean encounters.</p>
-          <span class="arrow" data-i18n="services.learn">Discover More →</span>
-          <div class="glow"></div>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
   <!-- VIDEO GALLERY -->
   <section class="gallery" id="world">
     <div class="wrap">
@@ -838,74 +726,54 @@
     </div>
   </section>
 
-  <!-- CREW -->
-  <section class="crew" id="crew">
+  <!-- SOUNDTRACK -->
+  <section class="soundtrack" id="soundtrack">
     <div class="wrap">
-      <div class="crew-head">
-        <span class="eyebrow" data-i18n="crew.eyebrow">Meet the Crew</span>
-        <h2 class="title" data-reveal data-i18n="crew.title">The Hands Behind the Helm</h2>
+      <div class="sound-head">
+        <span class="eyebrow" data-i18n="snd.eyebrow">The Original Soundtrack</span>
+        <h2 class="title" data-reveal data-i18n="snd.title">The Sound of the Sea</h2>
+        <p class="lead" data-reveal data-i18n="snd.lead">A cinematic score written for the world of Aye Maties — the voice of the ocean, between longing and warning. Preview the soundtrack on SoundCloud and YouTube.</p>
       </div>
-      <div class="crew-grid">
-        <article class="crew-card" data-reveal>
-          <div class="crew-avatar">M</div>
-          <h3 data-i18n="crew.n1">Mara Vance</h3>
-          <div class="role" data-i18n="crew.r1">Expedition Lead</div>
-        </article>
-        <article class="crew-card" data-reveal>
-          <div class="crew-avatar">E</div>
-          <h3 data-i18n="crew.n2">Eli Nakamura</h3>
-          <div class="role" data-i18n="crew.r2">Marine Biologist</div>
-        </article>
-        <article class="crew-card" data-reveal>
-          <div class="crew-avatar">T</div>
-          <h3 data-i18n="crew.n3">Théo Marchand</h3>
-          <div class="role" data-i18n="crew.r3">Dive Master</div>
-        </article>
-        <article class="crew-card" data-reveal>
-          <div class="crew-avatar">A</div>
-          <h3 data-i18n="crew.n4">Ada Okafor</h3>
-          <div class="role" data-i18n="crew.r4">Conservation Director</div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section class="testi" id="testimonials">
-    <div class="wrap">
-      <span class="eyebrow" data-i18n="testi.eyebrow">Voices From the Crew</span>
-      <h2 class="title" data-reveal data-i18n="testi.title" style="margin-bottom:60px;">Stories From the Water</h2>
-    </div>
-    <div class="wrap">
-      <div class="testi-track">
-        <div class="tcard">
-          <div>
-            <div class="testi-stars">★★★★★</div>
-            <q data-i18n="testi.q1">"An experience that rewired how my children see the ocean. They didn't just learn about conservation — they lived it, hands in the water, hearts fully open."</q>
-          </div>
-          <footer><div class="tavatar">L</div><div><div class="tname" data-i18n="testi.n1">Lena Brandt</div><div class="trole" data-i18n="testi.r1">Family Voyager · Hamburg</div></div></footer>
-        </div>
-        <div class="tcard">
-          <div>
-            <div class="testi-stars">★★★★★</div>
-            <q data-i18n="testi.q2">"Beyond luxury — beyond adventure. The Pirate Challenge gave our team a shared purpose we still talk about, months later."</q>
-          </div>
-          <footer><div class="tavatar">M</div><div><div class="tname" data-i18n="testi.n2">Marco Fontaine</div><div class="trole" data-i18n="testi.r2">Corporate Retreat Lead · Paris</div></div></footer>
-        </div>
-        <div class="tcard">
-          <div>
-            <div class="testi-stars">★★★★★</div>
-            <q data-i18n="testi.q3">"Every detail felt considered — the boats, the guides, the silence of the sea at sunrise. A journey that changes how you live afterward."</q>
-          </div>
-          <footer><div class="tavatar">S</div><div><div class="tname" data-i18n="testi.n3">Sofía Herrera</div><div class="trole" data-i18n="testi.r3">Private Sailing Guest · Madrid</div></div></footer>
-        </div>
-        <div class="tcard">
-          <div>
-            <div class="testi-stars">★★★★★</div>
-            <q data-i18n="testi.q4">"We came for an expedition and left as ocean advocates. Aye Maties doesn't sell a trip — it gifts a perspective."</q>
-          </div>
-          <footer><div class="tavatar">J</div><div><div class="tname" data-i18n="testi.n4">James Whitfield</div><div class="trole" data-i18n="testi.r4">Restoration Partner · London</div></div></footer>
-        </div>
+      <ul class="track-list">
+        <li class="track" data-reveal>
+          <a href="https://www.youtube.com/watch?v=u3F6tcw4avs" target="_blank" rel="noopener">
+            <span class="t-num">01</span>
+            <span class="t-play" aria-hidden="true">▶</span>
+            <span class="t-name">The Sea Keeps Score</span>
+            <span class="t-meta" data-i18n="snd.ost">Original Soundtrack</span>
+          </a>
+        </li>
+        <li class="track" data-reveal>
+          <a href="https://soundcloud.com/ayematies/if-the-ocean-dies" target="_blank" rel="noopener">
+            <span class="t-num">02</span>
+            <span class="t-play" aria-hidden="true">▶</span>
+            <span class="t-name">If the Ocean Dies</span>
+            <span class="t-meta">SoundCloud</span>
+          </a>
+        </li>
+        <li class="track" data-reveal>
+          <a href="https://soundcloud.com/ayematies/aye-maties-theme-song" target="_blank" rel="noopener">
+            <span class="t-num">03</span>
+            <span class="t-play" aria-hidden="true">▶</span>
+            <span class="t-name" data-i18n="snd.theme">Aye Maties — Theme Song</span>
+            <span class="t-meta">SoundCloud</span>
+          </a>
+        </li>
+        <li class="track" data-reveal>
+          <a href="https://soundcloud.com/ayematies/what-good-is-gold" target="_blank" rel="noopener">
+            <span class="t-num">04</span>
+            <span class="t-play" aria-hidden="true">▶</span>
+            <span class="t-name">What Good Is Gold</span>
+            <span class="t-meta">SoundCloud</span>
+          </a>
+        </li>
+      </ul>
+      <div class="sound-links">
+        <a class="btn" href="https://soundcloud.com/AyeMaties" target="_blank" rel="noopener">
+          <span data-i18n="snd.sc">Listen on SoundCloud</span>
+          <svg viewBox="0 0 16 10" fill="none"><path d="M1 5h14M10 1l5 4-5 4" stroke="currentColor" stroke-width="1.3"/></svg>
+        </a>
+        <a class="sound-yt" href="https://www.youtube.com/@AyeMaties" target="_blank" rel="noopener" data-i18n="snd.yt">Watch on YouTube →</a>
       </div>
     </div>
   </section>
@@ -1048,12 +916,12 @@
       <source src="assets/videos/reef.mp4" type="video/mp4">
     </video>
     <div class="cta-inner">
-      <span class="hero-eyebrow" data-i18n="cta.eyebrow">Your Voyage Awaits</span>
+      <span class="hero-eyebrow" data-i18n="cta.eyebrow">Join the Movement</span>
       <h2 data-i18n="cta.title">Set Sail With Purpose</h2>
-      <p data-i18n="cta.sub">Join the crew. Become part of a movement that turns wonder into action — and the ocean's future into ours.</p>
+      <p data-i18n="cta.sub">Become part of a story far larger than ourselves — a movement that turns wonder into action, and the ocean's future into ours.</p>
       <div class="magnetic-wrap">
         <a href="#contact" class="btn btn-glow magnetic">
-          <span data-i18n="cta.btn">Join the Crew</span>
+          <span data-i18n="cta.btn">Get in Touch</span>
           <svg viewBox="0 0 16 10" fill="none"><path d="M1 5h14M10 1l5 4-5 4" stroke="currentColor" stroke-width="1.3"/></svg>
         </a>
       </div>
@@ -1106,6 +974,7 @@
           <small data-i18n="footer.tag">A partly scripted maritime reality format — saving our oceans, one season, one challenge, one wave at a time.</small>
           <div class="social" style="margin-top:30px;">
             <a href="https://soundcloud.com/AyeMaties" target="_blank" rel="noopener" aria-label="SoundCloud">SC</a>
+            <a href="https://www.youtube.com/@AyeMaties" target="_blank" rel="noopener" aria-label="YouTube">YT</a>
             <a href="mailto:AyeMaties@gmail.com" aria-label="Email">@</a>
             <a href="#impressum" aria-label="Impressum">§</a>
           </div>
@@ -1114,8 +983,9 @@
           <h4 data-i18n="footer.explore">Explore</h4>
           <ul>
             <li><a href="#about" data-i18n="nav.about">About</a></li>
-            <li><a href="#services" data-i18n="nav.services">Services</a></li>
-            <li><a href="#crew" data-i18n="nav.crew">Crew</a></li>
+            <li><a href="#world" data-i18n="nav.world">The World</a></li>
+            <li><a href="#soundtrack" data-i18n="nav.soundtrack">Soundtrack</a></li>
+            <li><a href="#sponsor" data-i18n="nav.sponsor">Partner</a></li>
             <li><a href="#impressum" data-i18n="imp.title">Impressum</a></li>
           </ul>
         </div>
@@ -1151,11 +1021,11 @@
 /* ---------------- i18n ---------------- */
 const dict = {
   en:{
-    "nav.about":"About","nav.services":"Services","nav.crew":"Crew","nav.testimonials":"Voices","nav.contact":"Contact",
-    "hero.eyebrow":"A Luxury Ocean Conservation Experience",
+    "nav.about":"About","nav.world":"The World","nav.soundtrack":"Soundtrack","nav.contact":"Contact",
+    "hero.eyebrow":"A Maritime Reality Format · Saving Our Oceans",
     "hero.title1":"Aye Maties","hero.title2":"Pirate Challenge",
-    "hero.sub":"An immersive voyage where adventure meets purpose — uniting explorers, dreamers and changemakers to protect the oceans that connect us all.",
-    "hero.cta":"Begin the Voyage","hero.scroll":"Scroll",
+    "hero.sub":"A partly scripted reality format aboard a real working sailing ship — where authentic maritime, historical and ecological challenges unite a crew around one mission: to protect the oceans that connect us all.",
+    "hero.cta":"Discover the Format","hero.scroll":"Scroll",
     "divider.caption":"— drifting between worlds, above and below the surface —",
     "exp.e1":"The Voyage Begins","exp.t1":"One Blue Planet","exp.p1":"Seen from afar, our world is mostly water — a single, living ocean that cradles every story yet to be told.",
     "exp.e2":"Drift Deeper","exp.t2":"Bound by One Ocean","exp.p2":"Every coast, every current, every creature is woven together by the same restless sea that shapes us all.",
@@ -1219,43 +1089,24 @@ const dict = {
     "manifesto.caption":"— light finds its way, even to the depths —",
     "manifesto.band":"We Believe the Sea Knows No Boundaries",
     "manifesto.bandsub":"Every wave we protect, every shore we restore and every guardian we inspire is a chapter in a story far larger than ourselves — one written for the generations still to come.",
-    "crew.eyebrow":"Meet the Crew","crew.title":"The Hands Behind the Helm",
-    "crew.n1":"Mara Vance","crew.r1":"Expedition Lead",
-    "crew.n2":"Eli Nakamura","crew.r2":"Marine Biologist",
-    "crew.n3":"Théo Marchand","crew.r3":"Dive Master",
-    "crew.n4":"Ada Okafor","crew.r4":"Conservation Director",
-    "services.eyebrow":"What We Offer","services.title":"Voyages of Purpose",
-    "services.lead":"From open-water expeditions to hands-on education, every offering is a chapter in the same story — saving our oceans, one challenge at a time.",
-    "services.learn":"Discover More →",
-    "services.c1.title":"The Pirate Challenge","services.c1.desc":"A multi-day adventure trail combining navigation, teamwork and ocean clean-up missions — designed to turn curiosity into lifelong stewardship of the sea.",
-    "services.c2.title":"Ocean Clean-Up Expeditions","services.c2.desc":"Guided coastal and underwater missions where guests actively remove debris, document marine life and contribute to verified conservation data.",
-    "services.c3.title":"School & Youth Programmes","services.c3.desc":"Immersive educational journeys that bring marine science to life — empowering the next generation of ocean guardians through play, story and discovery.",
-    "services.c4.title":"Corporate Crew Retreats","services.c4.desc":"Purpose-driven team experiences at sea — blending leadership development with tangible environmental impact for forward-thinking organisations.",
-    "services.c5.title":"Coastal Restoration Projects","services.c5.desc":"Long-term partnerships with local communities to restore reefs, replant mangroves and rebuild fragile coastal ecosystems for future generations.",
-    "services.c6.title":"Private Sailing Experiences","services.c6.desc":"Bespoke luxury voyages for individuals and families — a quiet, restorative journey across open water, paired with meaningful ocean encounters.",
-    "testi.eyebrow":"Voices From the Crew","testi.title":"Stories From the Water",
-    "testi.q1":"“An experience that rewired how my children see the ocean. They didn't just learn about conservation — they lived it, hands in the water, hearts fully open.”",
-    "testi.n1":"Lena Brandt","testi.r1":"Family Voyager · Hamburg",
-    "testi.q2":"“Beyond luxury — beyond adventure. The Pirate Challenge gave our team a shared purpose we still talk about, months later.”",
-    "testi.n2":"Marco Fontaine","testi.r2":"Corporate Retreat Lead · Paris",
-    "testi.q3":"“Every detail felt considered — the boats, the guides, the silence of the sea at sunrise. A journey that changes how you live afterward.”",
-    "testi.n3":"Sofía Herrera","testi.r3":"Private Sailing Guest · Madrid",
-    "testi.q4":"“We came for an expedition and left as ocean advocates. Aye Maties doesn't sell a trip — it gifts a perspective.”",
-    "testi.n4":"James Whitfield","testi.r4":"Restoration Partner · London",
-    "cta.eyebrow":"Your Voyage Awaits","cta.title":"Set Sail With Purpose",
-    "cta.sub":"Join the crew. Become part of a movement that turns wonder into action — and the ocean's future into ours.",
-    "cta.btn":"Join the Crew",
+    "snd.eyebrow":"The Original Soundtrack","snd.title":"The Sound of the Sea",
+    "snd.lead":"A cinematic score written for the world of Aye Maties — the voice of the ocean, between longing and warning. Preview the soundtrack on SoundCloud and YouTube.",
+    "snd.ost":"Original Soundtrack","snd.theme":"Aye Maties — Theme Song",
+    "snd.sc":"Listen on SoundCloud","snd.yt":"Watch on YouTube →",
+    "cta.eyebrow":"Join the Movement","cta.title":"Set Sail With Purpose",
+    "cta.sub":"Become part of a story far larger than ourselves — a movement that turns wonder into action, and the ocean's future into ours.",
+    "cta.btn":"Get in Touch",
     "footer.tag":"A partly scripted maritime reality format — saving our oceans, one season, one challenge, one wave at a time.",
     "footer.explore":"Explore","footer.join":"Join the Crew","footer.contact":"Contact",
     "footer.address":"Jubiläumstrasse 19, 2345 Brunn/Geb., Austria","footer.lang":"Language",
     "footer.rights":"All rights reserved.","footer.crafted":"Profit is a tool — not the objective."
   },
   de:{
-    "nav.about":"Über uns","nav.services":"Angebote","nav.crew":"Crew","nav.testimonials":"Stimmen","nav.contact":"Kontakt",
-    "hero.eyebrow":"Ein luxuriöses Erlebnis für den Schutz der Ozeane",
+    "nav.about":"Über uns","nav.world":"Die Welt","nav.soundtrack":"Soundtrack","nav.contact":"Kontakt",
+    "hero.eyebrow":"Ein maritimes Reality-Format · Saving Our Oceans",
     "hero.title1":"Aye Maties","hero.title2":"Pirate Challenge",
-    "hero.sub":"Eine immersive Reise, bei der Abenteuer auf Sinn trifft — sie vereint Entdecker, Träumer und Macher im Schutz der Ozeane, die uns alle verbinden.",
-    "hero.cta":"Reise beginnen","hero.scroll":"Scrollen",
+    "hero.sub":"Ein teils geskriptetes Reality-Format an Bord eines echten Arbeits-Segelschiffs — wo authentische maritime, historische und ökologische Herausforderungen eine Crew um eine Mission vereinen: die Ozeane zu schützen, die uns alle verbinden.",
+    "hero.cta":"Das Format entdecken","hero.scroll":"Scrollen",
     "divider.caption":"— treibend zwischen Welten, über und unter der Oberfläche —",
     "exp.e1":"Die Reise beginnt","exp.t1":"Ein blauer Planet","exp.p1":"Aus der Ferne betrachtet besteht unsere Welt fast nur aus Wasser — ein einziger, lebendiger Ozean, der jede noch ungeschriebene Geschichte in sich trägt.",
     "exp.e2":"Tiefer treiben","exp.t2":"Vereint durch ein Meer","exp.p2":"Jede Küste, jede Strömung, jedes Lebewesen ist durch dieselbe rastlose See verbunden, die uns alle formt.",
@@ -1319,43 +1170,24 @@ const dict = {
     "manifesto.caption":"— das Licht findet seinen Weg, selbst in die Tiefe —",
     "manifesto.band":"Wir glauben, das Meer kennt keine Grenzen",
     "manifesto.bandsub":"Jede Welle, die wir schützen, jede Küste, die wir wiederherstellen, und jeder Hüter, den wir inspirieren, ist ein Kapitel einer Geschichte, die größer ist als wir — geschrieben für die kommenden Generationen.",
-    "crew.eyebrow":"Lerne die Crew kennen","crew.title":"Die Hände am Steuer",
-    "crew.n1":"Mara Vance","crew.r1":"Expeditionsleitung",
-    "crew.n2":"Eli Nakamura","crew.r2":"Meeresbiologe",
-    "crew.n3":"Théo Marchand","crew.r3":"Tauchlehrer",
-    "crew.n4":"Ada Okafor","crew.r4":"Leitung Naturschutz",
-    "services.eyebrow":"Unsere Angebote","services.title":"Reisen mit Sinn",
-    "services.lead":"Von Hochsee-Expeditionen bis zu praxisnaher Bildung — jedes Angebot ist ein Kapitel derselben Geschichte: den Ozean zu retten, eine Challenge nach der anderen.",
-    "services.learn":"Mehr entdecken →",
-    "services.c1.title":"Die Pirate Challenge","services.c1.desc":"Eine mehrtägige Abenteuerreise mit Navigation, Teamarbeit und Reinigungsmissionen — gestaltet, um aus Neugier lebenslanges Engagement für das Meer zu machen.",
-    "services.c2.title":"Ozean-Aufräumexpeditionen","services.c2.desc":"Geführte Küsten- und Unterwassermissionen, bei denen Gäste aktiv Müll entfernen, Meereslebewesen dokumentieren und zu verifizierten Daten beitragen.",
-    "services.c3.title":"Schul- & Jugendprogramme","services.c3.desc":"Immersive Bildungsreisen, die Meereswissenschaft lebendig machen — und die nächste Generation von Ozean-Hütern durch Spiel, Geschichten und Entdeckung stärken.",
-    "services.c4.title":"Firmen-Crew-Retreats","services.c4.desc":"Sinnstiftende Team-Erlebnisse auf See — eine Verbindung aus Führungskräfteentwicklung und spürbarer Umweltwirkung für zukunftsorientierte Organisationen.",
-    "services.c5.title":"Küsten-Restaurationsprojekte","services.c5.desc":"Langfristige Partnerschaften mit lokalen Gemeinden zur Wiederherstellung von Riffen, Mangroven und empfindlichen Küstenökosystemen für kommende Generationen.",
-    "services.c6.title":"Private Segelerlebnisse","services.c6.desc":"Maßgeschneiderte Luxusreisen für Einzelpersonen und Familien — eine ruhige, erholsame Fahrt über offenes Wasser mit bedeutungsvollen Begegnungen mit dem Meer.",
-    "testi.eyebrow":"Stimmen der Crew","testi.title":"Geschichten vom Wasser",
-    "testi.q1":"„Eine Erfahrung, die verändert hat, wie meine Kinder den Ozean sehen. Sie haben Naturschutz nicht nur gelernt — sie haben ihn gelebt, mit den Händen im Wasser und offenem Herzen.“",
-    "testi.n1":"Lena Brandt","testi.r1":"Familienreisende · Hamburg",
-    "testi.q2":"„Mehr als Luxus — mehr als Abenteuer. Die Pirate Challenge gab unserem Team ein gemeinsames Ziel, über das wir noch Monate später sprechen.“",
-    "testi.n2":"Marco Fontaine","testi.r2":"Leiter Firmen-Retreat · Paris",
-    "testi.q3":"„Jedes Detail war durchdacht — die Boote, die Guides, die Stille des Meeres bei Sonnenaufgang. Eine Reise, die das Leben danach verändert.“",
-    "testi.n3":"Sofía Herrera","testi.r3":"Gast Privatsegeln · Madrid",
-    "testi.q4":"„Wir kamen für eine Expedition und gingen als Ozean-Botschafter. Aye Maties verkauft keine Reise — es schenkt eine Perspektive.“",
-    "testi.n4":"James Whitfield","testi.r4":"Restaurationspartner · London",
-    "cta.eyebrow":"Deine Reise wartet","cta.title":"Segle mit Sinn",
-    "cta.sub":"Werde Teil der Crew. Werde Teil einer Bewegung, die Staunen in Handeln verwandelt — und die Zukunft der Ozeane zu unserer macht.",
-    "cta.btn":"Der Crew beitreten",
+    "snd.eyebrow":"Der Original-Soundtrack","snd.title":"Der Klang des Meeres",
+    "snd.lead":"Eine cineastische Musikreise für die Welt von Aye Maties — die Stimme des Ozeans, zwischen Sehnsucht und Warnung. Höre den Soundtrack auf SoundCloud und YouTube.",
+    "snd.ost":"Original-Soundtrack","snd.theme":"Aye Maties — Titellied",
+    "snd.sc":"Auf SoundCloud hören","snd.yt":"Auf YouTube ansehen →",
+    "cta.eyebrow":"Werde Teil der Bewegung","cta.title":"Segle mit Sinn",
+    "cta.sub":"Werde Teil einer Geschichte, die größer ist als wir — einer Bewegung, die Staunen in Handeln verwandelt und die Zukunft der Ozeane zu unserer macht.",
+    "cta.btn":"Kontakt aufnehmen",
     "footer.tag":"Ein teils geskriptetes maritimes Reality-Format — die Meere retten, eine Staffel, eine Challenge, eine Welle nach der anderen.",
     "footer.explore":"Entdecken","footer.join":"Der Crew beitreten","footer.contact":"Kontakt",
     "footer.address":"Jubiläumstrasse 19, 2345 Brunn/Geb., Österreich","footer.lang":"Sprache",
     "footer.rights":"Alle Rechte vorbehalten.","footer.crafted":"Profit ist ein Werkzeug — nicht das Ziel."
   },
   es:{
-    "nav.about":"Nosotros","nav.services":"Servicios","nav.crew":"Tripulación","nav.testimonials":"Voces","nav.contact":"Contacto",
-    "hero.eyebrow":"Una experiencia de lujo para la conservación del océano",
+    "nav.about":"Nosotros","nav.world":"El Mundo","nav.soundtrack":"Banda sonora","nav.contact":"Contacto",
+    "hero.eyebrow":"Un formato de telerrealidad marítima · Saving Our Oceans",
     "hero.title1":"Aye Maties","hero.title2":"Pirate Challenge",
-    "hero.sub":"Un viaje inmersivo donde la aventura encuentra el propósito — uniendo exploradores, soñadores y agentes de cambio para proteger los océanos que nos conectan a todos.",
-    "hero.cta":"Comenzar el viaje","hero.scroll":"Desplázate",
+    "hero.sub":"Un formato de telerrealidad parcialmente guionizado a bordo de un velero de trabajo real — donde auténticos desafíos marítimos, históricos y ecológicos unen a una tripulación en torno a una misión: proteger los océanos que nos conectan a todos.",
+    "hero.cta":"Descubre el formato","hero.scroll":"Desplázate",
     "divider.caption":"— a la deriva entre mundos, sobre y bajo la superficie —",
     "exp.e1":"Comienza el viaje","exp.t1":"Un planeta azul","exp.p1":"Vista desde lejos, nuestra Tierra es casi toda agua — un único océano vivo que acuna cada historia aún por contar.",
     "exp.e2":"Desciende más","exp.t2":"Unidos por un océano","exp.p2":"Cada costa, cada corriente, cada criatura está entrelazada por el mismo mar incansable que nos da forma a todos.",
@@ -1419,43 +1251,24 @@ const dict = {
     "manifesto.caption":"— la luz encuentra su camino, incluso en las profundidades —",
     "manifesto.band":"Creemos que el mar no conoce fronteras",
     "manifesto.bandsub":"Cada ola que protegemos, cada costa que restauramos y cada guardián que inspiramos es un capítulo de una historia mucho mayor que nosotros — escrita para las generaciones que están por venir.",
-    "crew.eyebrow":"Conoce a la tripulación","crew.title":"Las manos al timón",
-    "crew.n1":"Mara Vance","crew.r1":"Líder de expedición",
-    "crew.n2":"Eli Nakamura","crew.r2":"Bióloga marina",
-    "crew.n3":"Théo Marchand","crew.r3":"Instructor de buceo",
-    "crew.n4":"Ada Okafor","crew.r4":"Directora de conservación",
-    "services.eyebrow":"Lo que ofrecemos","services.title":"Viajes con propósito",
-    "services.lead":"Desde expediciones en alta mar hasta educación práctica, cada propuesta es un capítulo de la misma historia — salvar nuestros océanos, un desafío a la vez.",
-    "services.learn":"Descubre más →",
-    "services.c1.title":"El Pirate Challenge","services.c1.desc":"Una ruta de aventura de varios días que combina navegación, trabajo en equipo y misiones de limpieza oceánica — diseñada para convertir la curiosidad en compromiso de por vida con el mar.",
-    "services.c2.title":"Expediciones de limpieza oceánica","services.c2.desc":"Misiones guiadas costeras y submarinas donde los huéspedes retiran residuos, documentan vida marina y contribuyen a datos de conservación verificados.",
-    "services.c3.title":"Programas escolares y juveniles","services.c3.desc":"Viajes educativos inmersivos que dan vida a la ciencia marina — formando a la próxima generación de guardianes del océano a través del juego, la narrativa y el descubrimiento.",
-    "services.c4.title":"Retiros corporativos de tripulación","services.c4.desc":"Experiencias de equipo con propósito en el mar — combinando desarrollo de liderazgo con un impacto ambiental tangible para organizaciones visionarias.",
-    "services.c5.title":"Proyectos de restauración costera","services.c5.desc":"Alianzas a largo plazo con comunidades locales para restaurar arrecifes, replantar manglares y reconstruir frágiles ecosistemas costeros para las futuras generaciones.",
-    "services.c6.title":"Experiencias privadas de navegación","services.c6.desc":"Viajes de lujo a medida para individuos y familias — un recorrido tranquilo y restaurador por mar abierto, junto a encuentros oceánicos significativos.",
-    "testi.eyebrow":"Voces de la tripulación","testi.title":"Historias desde el agua",
-    "testi.q1":"«Una experiencia que cambió la forma en que mis hijos ven el océano. No solo aprendieron sobre conservación — la vivieron, con las manos en el agua y el corazón abierto.»",
-    "testi.n1":"Lena Brandt","testi.r1":"Viajera familiar · Hamburgo",
-    "testi.q2":"«Más que lujo — más que aventura. El Pirate Challenge le dio a nuestro equipo un propósito compartido del que aún hablamos meses después.»",
-    "testi.n2":"Marco Fontaine","testi.r2":"Líder de retiro corporativo · París",
-    "testi.q3":"«Cada detalle estaba cuidado — los barcos, los guías, el silencio del mar al amanecer. Un viaje que cambia tu forma de vivir después.»",
-    "testi.n3":"Sofía Herrera","testi.r3":"Huésped de navegación privada · Madrid",
-    "testi.q4":"«Vinimos por una expedición y nos fuimos como defensores del océano. Aye Maties no vende un viaje — regala una perspectiva.»",
-    "testi.n4":"James Whitfield","testi.r4":"Socio de restauración · Londres",
-    "cta.eyebrow":"Tu viaje te espera","cta.title":"Zarpa con propósito",
-    "cta.sub":"Únete a la tripulación. Forma parte de un movimiento que convierte el asombro en acción — y el futuro del océano en el nuestro.",
-    "cta.btn":"Únete a la tripulación",
+    "snd.eyebrow":"La banda sonora original","snd.title":"El sonido del mar",
+    "snd.lead":"Un viaje musical cinematográfico creado para el mundo de Aye Maties — la voz del océano, entre el anhelo y la advertencia. Escucha la banda sonora en SoundCloud y YouTube.",
+    "snd.ost":"Banda sonora original","snd.theme":"Aye Maties — Tema principal",
+    "snd.sc":"Escuchar en SoundCloud","snd.yt":"Ver en YouTube →",
+    "cta.eyebrow":"Únete al movimiento","cta.title":"Zarpa con propósito",
+    "cta.sub":"Forma parte de una historia mucho mayor que nosotros — un movimiento que convierte el asombro en acción y el futuro del océano en el nuestro.",
+    "cta.btn":"Ponte en contacto",
     "footer.tag":"Un formato de telerrealidad marítima parcialmente guionizado — salvando nuestros mares, una temporada, un desafío, una ola a la vez.",
     "footer.explore":"Explorar","footer.join":"Únete a la tripulación","footer.contact":"Contacto",
     "footer.address":"Jubiläumstrasse 19, 2345 Brunn/Geb., Austria","footer.lang":"Idioma",
     "footer.rights":"Todos los derechos reservados.","footer.crafted":"El beneficio es una herramienta — no el objetivo."
   },
   fr:{
-    "nav.about":"À propos","nav.services":"Services","nav.crew":"Équipage","nav.testimonials":"Voix","nav.contact":"Contact",
-    "hero.eyebrow":"Une expérience de luxe pour la préservation des océans",
+    "nav.about":"À propos","nav.world":"Le Monde","nav.soundtrack":"Bande-son","nav.contact":"Contact",
+    "hero.eyebrow":"Un format de téléréalité maritime · Saving Our Oceans",
     "hero.title1":"Aye Maties","hero.title2":"Pirate Challenge",
-    "hero.sub":"Un voyage immersif où l'aventure rencontre le sens — réunissant explorateurs, rêveurs et acteurs du changement pour protéger les océans qui nous unissent tous.",
-    "hero.cta":"Commencer le voyage","hero.scroll":"Défiler",
+    "hero.sub":"Un format de téléréalité en partie scénarisé à bord d'un véritable voilier de travail — où d'authentiques défis maritimes, historiques et écologiques réunissent un équipage autour d'une mission : protéger les océans qui nous unissent tous.",
+    "hero.cta":"Découvrir le format","hero.scroll":"Défiler",
     "divider.caption":"— à la dérive entre les mondes, au-dessus et au-dessous de la surface —",
     "exp.e1":"Le voyage commence","exp.t1":"Une planète bleue","exp.p1":"Vue de loin, notre Terre n'est presque que de l'eau — un océan unique et vivant qui berce chaque histoire encore à raconter.",
     "exp.e2":"Plongez plus profond","exp.t2":"Unis par un seul océan","exp.p2":"Chaque côte, chaque courant, chaque créature est reliée par la même mer infatigable qui nous façonne tous.",
@@ -1519,32 +1332,13 @@ const dict = {
     "manifesto.caption":"— la lumière trouve son chemin, jusque dans les profondeurs —",
     "manifesto.band":"Nous croyons que la mer ne connaît aucune frontière",
     "manifesto.bandsub":"Chaque vague que nous protégeons, chaque rivage que nous restaurons et chaque gardien que nous inspirons est un chapitre d'une histoire bien plus grande que nous — écrite pour les générations à venir.",
-    "crew.eyebrow":"Rencontrez l'équipage","crew.title":"Les mains à la barre",
-    "crew.n1":"Mara Vance","crew.r1":"Cheffe d'expédition",
-    "crew.n2":"Eli Nakamura","crew.r2":"Biologiste marin",
-    "crew.n3":"Théo Marchand","crew.r3":"Maître plongeur",
-    "crew.n4":"Ada Okafor","crew.r4":"Directrice de la conservation",
-    "services.eyebrow":"Notre offre","services.title":"Des voyages porteurs de sens",
-    "services.lead":"Des expéditions en haute mer à l'éducation pratique, chaque offre est un chapitre de la même histoire — sauver nos océans, un défi à la fois.",
-    "services.learn":"En savoir plus →",
-    "services.c1.title":"Le Pirate Challenge","services.c1.desc":"Un parcours d'aventure de plusieurs jours alliant navigation, esprit d'équipe et missions de nettoyage océanique — pensé pour transformer la curiosité en engagement durable envers la mer.",
-    "services.c2.title":"Expéditions de nettoyage océanique","services.c2.desc":"Missions guidées côtières et sous-marines où les participants retirent des déchets, documentent la vie marine et contribuent à des données de conservation vérifiées.",
-    "services.c3.title":"Programmes scolaires et jeunesse","services.c3.desc":"Des voyages éducatifs immersifs qui donnent vie aux sciences marines — formant la prochaine génération de gardiens de l'océan par le jeu, le récit et la découverte.",
-    "services.c4.title":"Retraites d'entreprise en équipage","services.c4.desc":"Des expériences d'équipe porteuses de sens en mer — alliant développement du leadership et impact environnemental concret pour des organisations visionnaires.",
-    "services.c5.title":"Projets de restauration côtière","services.c5.desc":"Des partenariats durables avec les communautés locales pour restaurer les récifs, replanter les mangroves et reconstruire des écosystèmes côtiers fragiles pour les générations futures.",
-    "services.c6.title":"Expériences de navigation privées","services.c6.desc":"Des voyages de luxe sur mesure pour individus et familles — une traversée paisible et ressourçante en mer ouverte, ponctuée de rencontres océaniques signifiantes.",
-    "testi.eyebrow":"Les voix de l'équipage","testi.title":"Récits venus de la mer",
-    "testi.q1":"« Une expérience qui a transformé le regard de mes enfants sur l'océan. Ils n'ont pas seulement appris la conservation — ils l'ont vécue, les mains dans l'eau et le cœur grand ouvert. »",
-    "testi.n1":"Lena Brandt","testi.r1":"Voyageuse en famille · Hambourg",
-    "testi.q2":"« Plus que du luxe — plus que de l'aventure. Le Pirate Challenge a donné à notre équipe un objectif commun dont nous parlons encore des mois plus tard. »",
-    "testi.n2":"Marco Fontaine","testi.r2":"Responsable retraite d'entreprise · Paris",
-    "testi.q3":"« Chaque détail était pensé — les bateaux, les guides, le silence de la mer au lever du soleil. Un voyage qui change votre façon de vivre ensuite. »",
-    "testi.n3":"Sofía Herrera","testi.r3":"Invitée navigation privée · Madrid",
-    "testi.q4":"« Nous sommes venus pour une expédition et repartis en défenseurs de l'océan. Aye Maties ne vend pas un voyage — il offre une perspective. »",
-    "testi.n4":"James Whitfield","testi.r4":"Partenaire de restauration · Londres",
-    "cta.eyebrow":"Votre voyage vous attend","cta.title":"Prenez le large, avec sens",
-    "cta.sub":"Rejoignez l'équipage. Faites partie d'un mouvement qui transforme l'émerveillement en action — et l'avenir de l'océan en notre avenir commun.",
-    "cta.btn":"Rejoindre l'équipage",
+    "snd.eyebrow":"La bande originale","snd.title":"Le son de la mer",
+    "snd.lead":"Un voyage musical cinématographique créé pour l'univers d'Aye Maties — la voix de l'océan, entre désir et avertissement. Écoutez la bande-son sur SoundCloud et YouTube.",
+    "snd.ost":"Bande originale","snd.theme":"Aye Maties — Générique",
+    "snd.sc":"Écouter sur SoundCloud","snd.yt":"Voir sur YouTube →",
+    "cta.eyebrow":"Rejoignez le mouvement","cta.title":"Prenez le large, avec sens",
+    "cta.sub":"Faites partie d'une histoire bien plus grande que nous — un mouvement qui transforme l'émerveillement en action, et l'avenir de l'océan en notre avenir commun.",
+    "cta.btn":"Nous contacter",
     "footer.tag":"Un format de téléréalité maritime en partie scénarisé — sauver nos mers, une saison, un défi, une vague à la fois.",
     "footer.explore":"Explorer","footer.join":"Rejoindre l'équipage","footer.contact":"Contact",
     "footer.address":"Jubiläumstrasse 19, 2345 Brunn/Geb., Autriche","footer.lang":"Langue",
@@ -1629,7 +1423,7 @@ function loopRing(){
   requestAnimationFrame(loopRing);
 }
 loopRing();
-document.querySelectorAll('a,button,.scard,.tcard').forEach(el=>{
+document.querySelectorAll('a,button,.track').forEach(el=>{
   el.addEventListener('mouseenter', ()=>{ ring.classList.add('big'); cursor.style.background='var(--gold)'; });
   el.addEventListener('mouseleave', ()=>{ ring.classList.remove('big'); cursor.style.background='var(--gold-soft)'; });
 });
