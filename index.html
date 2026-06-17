@@ -511,6 +511,23 @@
   .manifesto-band p{margin-top:26px;max-width:540px;color:var(--muted);font-family:var(--serif);
     font-weight:300;font-size:clamp(16px,1.6vw,20px);line-height:1.7;}
 
+  /* VIDEO GALLERY — the world of Aye Maties */
+  .gallery{padding:170px 0;background:var(--deep);}
+  .gallery-head{margin-bottom:60px;}
+  .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  .gtile{position:relative;aspect-ratio:3/4;border-radius:18px;overflow:hidden;
+    border:1px solid rgba(255,255,255,.1);background:var(--deep2);}
+  .gtile video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.04);
+    filter:brightness(.8) saturate(1.1);transition:transform 1.3s var(--ease),filter .6s ease;}
+  .gtile:hover video{transform:scale(1.13);filter:brightness(.92) saturate(1.18);}
+  .gtile::after{content:'';position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(7,13,22,.05) 30%, rgba(7,13,22,.85));}
+  .gtile .gcap{position:absolute;left:0;bottom:0;z-index:2;padding:26px 24px;}
+  .gtile .gnum{font-family:var(--serif);font-style:italic;color:var(--gold-soft);font-size:14px;}
+  .gtile h3{font-family:var(--display);font-weight:400;text-transform:uppercase;
+    font-size:clamp(18px,1.6vw,23px);letter-spacing:.01em;margin:8px 0 7px;}
+  .gtile p{font-size:13px;color:var(--muted);line-height:1.5;font-family:var(--serif);font-weight:300;}
+
   /* INTERLUDE — full-bleed cinematic video band */
   .interlude{position:relative;height:82vh;min-height:520px;overflow:hidden;
     display:flex;align-items:center;justify-content:center;text-align:center;}
@@ -553,6 +570,7 @@
     .card-grid{grid-template-columns:1fr;}
     .manifesto-grid{grid-template-columns:1fr;gap:50px;}
     .crew-grid{grid-template-columns:1fr 1fr;}
+    .gallery-grid{grid-template-columns:1fr 1fr;}
     .impressum-grid{grid-template-columns:1fr;}
     .sp-kpis,.sp-phases,.sp-values,.sp-metrics{grid-template-columns:1fr 1fr;}
     .sp-grid3{grid-template-columns:1fr;}
@@ -788,6 +806,34 @@
           <div class="glow"></div>
         </article>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO GALLERY -->
+  <section class="gallery" id="world">
+    <div class="wrap">
+      <div class="gallery-head">
+        <span class="eyebrow" data-i18n="gal.eyebrow">Aboard & Below</span>
+        <h2 class="title" data-reveal data-i18n="gal.title">The World of Aye Maties</h2>
+      </div>
+      <div class="gallery-grid">
+        <article class="gtile" data-reveal>
+          <video data-lazy muted loop playsinline preload="none"><source src="assets/videos/vessel.mp4" type="video/mp4"></video>
+          <div class="gcap"><div class="gnum">01</div><h3 data-i18n="gal.t1">The Vessel</h3><p data-i18n="gal.s1">A real working sailing ship — our entire world for seven seasons.</p></div>
+        </article>
+        <article class="gtile" data-reveal>
+          <video data-lazy muted loop playsinline preload="none"><source src="assets/videos/sails.mp4" type="video/mp4"></video>
+          <div class="gcap"><div class="gnum">02</div><h3 data-i18n="gal.t2">Under Sail</h3><p data-i18n="gal.s2">Wind, rope and discipline — where character, not vanity, keeps you afloat.</p></div>
+        </article>
+        <article class="gtile" data-reveal>
+          <video data-lazy muted loop playsinline preload="none"><source src="assets/videos/turtles.mp4" type="video/mp4"></video>
+          <div class="gcap"><div class="gnum">03</div><h3 data-i18n="gal.t3">The Wildlife</h3><p data-i18n="gal.s3">The living ocean we set out to understand — and to protect.</p></div>
+        </article>
+        <article class="gtile" data-reveal>
+          <video data-lazy muted loop playsinline preload="none"><source src="assets/videos/debris.mp4" type="video/mp4"></video>
+          <div class="gcap"><div class="gnum">04</div><h3 data-i18n="gal.t4">The Mission</h3><p data-i18n="gal.s4">Every wave left cleaner than we found it. Change demands hands in the water.</p></div>
+        </article>
       </div>
     </div>
   </section>
@@ -1116,6 +1162,11 @@ const dict = {
     "exp.e3":"The Reason","exp.t3":"Worth Protecting","exp.p3":"What we love, we protect. Join the crew and help keep this fragile blue heart beating.",
     "exp.hint":"Scroll to explore",
     "il.quote":"We don't ask people to make time for the ocean — we bring the ocean into the time they already make.","il.sub":"Aye Maties — Saving Our Oceans",
+    "gal.eyebrow":"Aboard & Below","gal.title":"The World of Aye Maties",
+    "gal.t1":"The Vessel","gal.s1":"A real working sailing ship — our entire world for seven seasons.",
+    "gal.t2":"Under Sail","gal.s2":"Wind, rope and discipline — where character, not vanity, keeps you afloat.",
+    "gal.t3":"The Wildlife","gal.s3":"The living ocean we set out to understand — and to protect.",
+    "gal.t4":"The Mission","gal.s4":"Every wave left cleaner than we found it. Change demands hands in the water.",
     "about.eyebrow":"The Format","about.title":"About Aye Maties",
     "about.p1":"Aye Maties is an internationally adaptable, partly scripted reality format that brings a diverse group of participants aboard a large working sailing ship to take on authentic maritime, historical and ecological challenges.",
     "about.p2":"The confined, constantly moving environment leaves no room for delay and demands swift cooperation and decisive action under real pressure. Conflicts are not staged; they arise naturally from spatial conditions, environmental demands and interpersonal dynamics. The format deliberately structures this tension — centred on dialogues between generations: Care vs. Ignorance, Duty vs. Temptation and Tradition vs. modern superficiality — to drive personal growth and narrative progression.",
@@ -1211,6 +1262,11 @@ const dict = {
     "exp.e3":"Der Grund","exp.t3":"Wert, beschützt zu werden","exp.p3":"Was wir lieben, das schützen wir. Werde Teil der Crew und hilf, dieses zerbrechliche blaue Herz am Schlagen zu halten.",
     "exp.hint":"Scrollen zum Entdecken",
     "il.quote":"Wir bitten die Menschen nicht, sich Zeit für das Meer zu nehmen — wir bringen das Meer in die Zeit, die sie sich ohnehin nehmen.","il.sub":"Aye Maties — Saving Our Oceans",
+    "gal.eyebrow":"An Deck & darunter","gal.title":"Die Welt von Aye Maties",
+    "gal.t1":"Das Schiff","gal.s1":"Ein echtes Arbeits-Segelschiff — sieben Staffeln lang unsere ganze Welt.",
+    "gal.t2":"Unter Segeln","gal.s2":"Wind, Tauwerk und Disziplin — wo Charakter, nicht Eitelkeit, dich über Wasser hält.",
+    "gal.t3":"Die Tierwelt","gal.s3":"Der lebendige Ozean, den wir verstehen — und schützen wollen.",
+    "gal.t4":"Die Mission","gal.s4":"Jede Welle sauberer hinterlassen, als wir sie vorfanden. Wandel verlangt Hände im Wasser.",
     "about.eyebrow":"Das Format","about.title":"Über Aye Maties",
     "about.p1":"Aye Maties ist ein international adaptierbares, teils geskriptetes Reality-Format, das eine diverse Gruppe von Teilnehmenden auf ein großes Arbeits-Segelschiff bringt, um authentische maritime, historische und ökologische Herausforderungen zu bewältigen.",
     "about.p2":"Die begrenzte, sich ständig bewegende Umgebung lässt kein Aufschieben zu und erfordert schnelle Zusammenarbeit und entschlossenes Handeln unter realem Druck. Konflikte werden nicht inszeniert; sie entstehen natürlich aus räumlichen Gegebenheiten, Umweltanforderungen und interpersonalen Dynamiken. Das Format strukturiert diese Spannung gezielt – zentriert auf Generationendialoge: Fürsorge vs. Ignoranz, Pflicht vs. Versuchung und Tradition vs. moderne Oberflächlichkeit – um persönliches Wachstum und narrativen Fortschritt voranzutreiben.",
@@ -1306,6 +1362,11 @@ const dict = {
     "exp.e3":"La razón","exp.t3":"Digno de proteger","exp.p3":"Lo que amamos, lo protegemos. Únete a la tripulación y ayuda a mantener latiendo este frágil corazón azul.",
     "exp.hint":"Desplázate para explorar",
     "il.quote":"No pedimos a la gente que dedique tiempo al océano — llevamos el océano al tiempo que ya dedican.","il.sub":"Aye Maties — Saving Our Oceans",
+    "gal.eyebrow":"A bordo y bajo el agua","gal.title":"El mundo de Aye Maties",
+    "gal.t1":"El buque","gal.s1":"Un velero de trabajo real — nuestro mundo entero durante siete temporadas.",
+    "gal.t2":"A toda vela","gal.s2":"Viento, cabo y disciplina — donde el carácter, no la vanidad, te mantiene a flote.",
+    "gal.t3":"La vida marina","gal.s3":"El océano vivo que queremos comprender — y proteger.",
+    "gal.t4":"La misión","gal.s4":"Cada ola más limpia de como la encontramos. El cambio exige manos en el agua.",
     "about.eyebrow":"El Formato","about.title":"Sobre Aye Maties",
     "about.p1":"Aye Maties es un formato de telerrealidad internacionalmente adaptable y parcialmente guionizado que lleva a un grupo diverso de participantes a bordo de un gran velero de trabajo para afrontar auténticos desafíos marítimos, históricos y ecológicos.",
     "about.p2":"El entorno reducido y en constante movimiento no permite aplazamientos y exige cooperación rápida y acción decidida bajo presión real. Los conflictos no se escenifican; surgen de forma natural de las condiciones del espacio, las exigencias del entorno y las dinámicas interpersonales. El formato estructura deliberadamente esta tensión — centrada en el diálogo entre generaciones: Cuidado vs. Indiferencia, Deber vs. Tentación y Tradición vs. superficialidad moderna — para impulsar el crecimiento personal y el avance narrativo.",
@@ -1401,6 +1462,11 @@ const dict = {
     "exp.e3":"La raison","exp.t3":"Digne d'être protégé","exp.p3":"Ce que nous aimons, nous le protégeons. Rejoignez l'équipage et aidez à faire battre ce fragile cœur bleu.",
     "exp.hint":"Faites défiler pour explorer",
     "il.quote":"Nous ne demandons pas aux gens de prendre du temps pour l'océan — nous amenons l'océan dans le temps qu'ils prennent déjà.","il.sub":"Aye Maties — Saving Our Oceans",
+    "gal.eyebrow":"À bord & sous la surface","gal.title":"Le monde d'Aye Maties",
+    "gal.t1":"Le navire","gal.s1":"Un véritable voilier de travail — notre monde entier pendant sept saisons.",
+    "gal.t2":"Toutes voiles dehors","gal.s2":"Vent, cordage et discipline — où le caractère, pas la vanité, vous garde à flot.",
+    "gal.t3":"La faune","gal.s3":"L'océan vivant que nous voulons comprendre — et protéger.",
+    "gal.t4":"La mission","gal.s4":"Chaque vague laissée plus propre qu'à notre arrivée. Le changement exige des mains dans l'eau.",
     "about.eyebrow":"Le Format","about.title":"À propos d'Aye Maties",
     "about.p1":"Aye Maties est un format de téléréalité adaptable à l'international et en partie scénarisé, qui réunit un groupe diversifié de participants à bord d'un grand voilier de travail pour relever d'authentiques défis maritimes, historiques et écologiques.",
     "about.p2":"L'environnement exigu et en mouvement permanent ne laisse aucune place au report et exige une coopération rapide et une action décisive sous une pression réelle. Les conflits ne sont pas mis en scène ; ils naissent naturellement des contraintes d'espace, des exigences environnementales et des dynamiques interpersonnelles. Le format structure délibérément cette tension — centrée sur le dialogue entre générations : Bienveillance vs. Indifférence, Devoir vs. Tentation et Tradition vs. superficialité moderne — pour favoriser la croissance personnelle et la progression narrative.",
@@ -1648,6 +1714,21 @@ function drawParticles(){
 }
 initParticles(); drawParticles();
 window.addEventListener('resize', ()=>{ initParticles(); });
+
+/* ---------------- Lazy-play gallery videos ---------------- */
+const lazyVids = document.querySelectorAll('video[data-lazy]');
+if(lazyVids.length){
+  const vObs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      const v = e.target;
+      if(e.isIntersecting){
+        if(v.dataset.loaded !== '1'){ v.load(); v.dataset.loaded = '1'; }
+        const p = v.play(); if(p && p.catch) p.catch(()=>{});
+      } else { v.pause(); }
+    });
+  }, { threshold:.25 });
+  lazyVids.forEach(v=> vObs.observe(v));
+}
 
 /* ---------------- Reveal on scroll ---------------- */
 const revealObserver = new IntersectionObserver((entries)=>{
