@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aye Maties — Legal · Impressum · Privacy · Cookies</title>
+<meta name="description" content="Legal notice (Impressum), Privacy Policy and Cookie Policy for Aye Maties — Pirate Challenge.">
+<link rel="icon" type="image/png" href="assets/images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Marcellus&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div id="dive"><span class="ring"></span></div>
+<canvas id="ocean-gl"></canvas>
+<div class="depth-haze"></div>
+<div class="cursor"></div><div class="cursor-ring"></div>
+
+<a href="index.html" class="brand-mark"><span class="pip"></span> Aye&nbsp;Maties</a>
+<button class="compass-btn" id="compass" aria-label="Open navigation">
+  <svg viewBox="0 0 100 100" aria-hidden="true">
+    <defs><radialGradient id="cg" cx="50%" cy="42%" r="62%"><stop offset="0%" stop-color="#0a4f73"/><stop offset="100%" stop-color="#02080f"/></radialGradient></defs>
+    <circle cx="50" cy="50" r="46" fill="url(#cg)" stroke="#e6c574" stroke-width="1.6"/>
+    <circle cx="50" cy="50" r="38" fill="none" stroke="rgba(94,230,218,.45)" stroke-width=".6"/>
+    <g class="compass-rose">
+      <polygon points="50,12 53,47 50,50 47,47" fill="#f3e6bb"/><polygon points="50,88 53,53 50,50 47,53" fill="#7fa6b6"/>
+      <polygon points="12,50 47,47 50,50 47,53" fill="#7fa6b6"/><polygon points="88,50 53,47 50,50 53,53" fill="#7fa6b6"/>
+      <polygon points="26,26 48,48 50,50 46,49" fill="#3a7185"/><polygon points="74,74 52,52 50,50 54,51" fill="#3a7185"/>
+      <polygon points="74,26 52,48 50,50 51,46" fill="#3a7185"/><polygon points="26,74 48,52 50,50 49,54" fill="#3a7185"/>
+    </g>
+    <g class="compass-needle"><polygon points="50,20 46,50 54,50" fill="#e6c574"/><polygon points="50,80 46,50 54,50" fill="#23c6c0"/><circle cx="50" cy="50" r="3.4" fill="#02080f" stroke="#e6c574" stroke-width="1.1"/></g>
+    <text x="50" y="11" text-anchor="middle" font-size="6.5" fill="#e6c574" font-family="serif">N</text>
+  </svg>
+</button>
+
+<nav id="nav-overlay" aria-label="Primary">
+  <div class="veil"></div>
+  <video autoplay muted loop playsinline preload="none"><source src="assets/videos/ocean-vertical.mp4" type="video/mp4"></video>
+  <svg class="nav-rose" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="48" fill="none" stroke="#5ee6da" stroke-width=".4"/><circle cx="50" cy="50" r="34" fill="none" stroke="#e6c574" stroke-width=".4"/><polygon points="50,4 54,48 50,50 46,48" fill="#5ee6da"/><polygon points="50,96 54,52 50,50 46,52" fill="#5ee6da"/><polygon points="4,50 48,48 50,50 48,52" fill="#5ee6da"/><polygon points="96,50 52,48 50,50 52,52" fill="#5ee6da"/></svg>
+  <span class="nav-close">Close ✕</span>
+  <div class="nav-links">
+    <a href="index.html"><span class="idx">01</span>About</a>
+    <a href="index.html#crew"><span class="idx">02</span>The Crew</a>
+    <a href="index.html#soundtrack"><span class="idx">03</span>Soundtrack</a>
+    <a href="index.html#ocean"><span class="idx">04</span>The Ocean</a>
+    <a href="sponsors.html"><span class="idx">05</span>Sponsors</a>
+    <a href="#top"><span class="idx">06</span>Legal</a>
+  </div>
+  <div class="nav-foot">
+    <a href="https://soundcloud.com/ayematies" target="_blank" rel="noopener">SoundCloud</a>
+    <a href="https://www.youtube.com/@AyeMaties" target="_blank" rel="noopener">YouTube</a>
+    <a href="mailto:AyeMaties@gmail.com">Contact</a>
+  </div>
+</nav>
+
+<main class="page" id="top">
+
+  <section class="page-hero" style="min-height:56svh">
+    <video autoplay muted loop playsinline preload="auto"><source src="assets/videos/ocean-vertical.mp4" type="video/mp4"></video>
+    <div class="wrap">
+      <span class="eyebrow" data-hero>Legal</span>
+      <h1 data-reveal>Legal Notice</h1>
+    </div>
+  </section>
+
+  <section class="band" style="padding-top:clamp(60px,8vh,100px)">
+    <div class="wrap" style="max-width:1080px">
+      <div class="legal-tabs" data-reveal>
+        <button class="active" data-tab="impressum">Impressum</button>
+        <button data-tab="privacy">Privacy Policy</button>
+        <button data-tab="cookies">Cookie Policy</button>
+      </div>
+
+      <!-- ============ IMPRESSUM ============ -->
+      <div class="legal-panel active" id="impressum">
+        <div class="legal-grid">
+          <div class="legal-card span-2"><h4>Trademark &amp; Intellectual Property</h4><p><strong>„Aye Maties"</strong> (Font: „Ariston") is a trademark and IP of <strong>Sail Wisely (Ireland) CLG</strong> — an Irish Company Limited by Guarantee.</p></div>
+          <div class="legal-card"><h4>Legal Representation</h4><p><strong>Mason Hayes &amp; Curran</strong><br>Barrow Street, Dublin 4, D04 TR29, Ireland<br>+353 1 614 5000 · <a href="https://www.mhc.ie" target="_blank" rel="noopener">MHC.ie</a><br>Represented by Claire Lord / Partner</p></div>
+          <div class="legal-card"><h4>Postal Address</h4><p>c/o Capt. Peter Brucha<br>Jubiläumstrasse 19<br>2345 Brunn/Geb., Austria</p></div>
+          <div class="legal-card"><h4>Operative Contact</h4><p><a href="mailto:AyeMaties@gmail.com">AyeMaties@gmail.com</a><br>c/o Capt. Peter Brucha — Founder, Sail Wisely &amp; Aye Maties<br><a href="tel:+4369910861086">+43 699 1086 1086</a></p></div>
+          <div class="legal-card"><h4>Production Contact</h4><p><a href="mailto:AyeMaties@proton.me">AyeMaties@proton.me</a><br>c/o Dr. Dino Stelzl — Director, Sail Wisely CLG @ Aye Maties</p></div>
+          <div class="legal-card span-2"><h4>Soundtrack</h4><p>Preview at <a href="https://soundcloud.com/ayematies" target="_blank" rel="noopener">soundcloud.com/ayematies</a></p></div>
+        </div>
+      </div>
+
+      <!-- ============ PRIVACY ============ -->
+      <div class="legal-panel" id="privacy">
+        <div class="prose">
+          <p>This Privacy Policy explains how <strong>Sail Wisely (Ireland) CLG</strong> (“Aye Maties”, “we”, “us”) handles personal data in connection with this website, in line with the EU General Data Protection Regulation (GDPR).</p>
+          <h3>1. Controller</h3>
+          <p>Sail Wisely (Ireland) CLG · c/o Capt. Peter Brucha, Jubiläumstrasse 19, 2345 Brunn am Gebirge, Austria · <a href="mailto:AyeMaties@gmail.com">AyeMaties@gmail.com</a>.</p>
+          <h3>2. What we collect</h3>
+          <p>This is a largely static website. We do not run our own accounts, newsletters or tracking analytics. Data may be processed in the following limited cases:</p>
+          <ul>
+            <li><strong>Server logs:</strong> our hosting provider may temporarily process technical data (IP address, browser type, time of request) to deliver the site securely. This is based on our legitimate interest (Art. 6(1)(f) GDPR).</li>
+            <li><strong>Local preferences:</strong> your soundtrack choice and volume are stored in your browser’s <em>localStorage</em> on your device. This never leaves your device and is not personal data we receive.</li>
+            <li><strong>Email contact:</strong> if you write to us, we process your message and contact details solely to respond (Art. 6(1)(b)/(f) GDPR).</li>
+          </ul>
+          <h3>3. Third-party services &amp; embeds</h3>
+          <p>To deliver the cinematic experience, the site loads a small number of external resources. When these load, the respective provider may receive your IP address and set their own cookies:</p>
+          <ul>
+            <li><strong>SoundCloud</strong> (soundtrack player) — <a href="https://soundcloud.com/pages/privacy" target="_blank" rel="noopener">SoundCloud privacy</a>. The player only loads / plays after you actively start it.</li>
+            <li><strong>Google Fonts</strong> (typography) — <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google privacy</a>.</li>
+            <li><strong>jsDelivr CDN</strong> (3D/WebGL library).</li>
+            <li>Outbound links to <strong>YouTube</strong> and <strong>SoundCloud</strong> open on their own platforms under their policies.</li>
+          </ul>
+          <h3>4. Your rights</h3>
+          <p>You have the right to access, rectification, erasure, restriction, data portability and objection, and to lodge a complaint with a supervisory authority (in Austria: the Datenschutzbehörde). To exercise any right, contact <a href="mailto:AyeMaties@gmail.com">AyeMaties@gmail.com</a>.</p>
+          <h3>5. Retention</h3>
+          <p>We keep email correspondence only as long as necessary to handle your request and to meet legal obligations. Local preferences remain until you clear your browser storage.</p>
+          <p style="color:var(--muted-2);font-style:italic">Last updated: June 2026. This notice may be updated as the project and its services evolve.</p>
+        </div>
+      </div>
+
+      <!-- ============ COOKIES ============ -->
+      <div class="legal-panel" id="cookies">
+        <div class="prose">
+          <p>We keep cookies to a strict minimum. This site sets <strong>no advertising or analytics cookies</strong> of its own.</p>
+          <h3>1. Strictly necessary / preferences</h3>
+          <p>We use your browser’s <em>localStorage</em> (not a tracking cookie) to remember whether you turned the soundtrack on and at what volume, so the experience behaves the way you left it. This stays on your device and can be cleared at any time via your browser settings.</p>
+          <h3>2. Third-party cookies</h3>
+          <ul>
+            <li><strong>SoundCloud:</strong> when you start the soundtrack, SoundCloud’s embedded player may set cookies needed for playback. See the <a href="https://soundcloud.com/pages/cookies" target="_blank" rel="noopener">SoundCloud cookie policy</a>.</li>
+            <li><strong>Google Fonts / jsDelivr:</strong> requested to render fonts and the 3D library; these may log technical request data but are not used by us for tracking.</li>
+          </ul>
+          <h3>3. Managing cookies</h3>
+          <p>You can block or delete cookies and clear local storage in your browser settings at any time. Doing so may reset your soundtrack preference and limit the embedded player.</p>
+          <p style="color:var(--muted-2);font-style:italic">Last updated: June 2026.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="site-footer" id="contact">
+    <div class="footer-glow"></div>
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <img class="footer-logo" src="assets/images/logo.png" alt="Aye Maties">
+          <small>A cinematic maritime adventure — saving our oceans, one season, one challenge, one wave at a time.</small>
+          <div class="social">
+            <a href="https://soundcloud.com/ayematies" target="_blank" rel="noopener" aria-label="SoundCloud">SC</a>
+            <a href="https://www.youtube.com/@AyeMaties" target="_blank" rel="noopener" aria-label="YouTube">YT</a>
+            <a href="mailto:AyeMaties@gmail.com" aria-label="Email">@</a>
+          </div>
+        </div>
+        <div><h4>Explore</h4><ul><li><a href="index.html">About</a></li><li><a href="index.html#crew">The Crew</a></li><li><a href="index.html#soundtrack">Soundtrack</a></li><li><a href="index.html#ocean">The Ocean</a></li></ul></div>
+        <div><h4>More</h4><ul><li><a href="sponsors.html">Sponsors</a></li><li><a href="#impressum">Impressum</a></li><li><a href="#privacy">Privacy</a></li><li><a href="#cookies">Cookies</a></li></ul></div>
+        <div><h4>Contact</h4><ul><li><a href="mailto:AyeMaties@gmail.com">AyeMaties@gmail.com</a></li><li><a href="tel:+4369910861086">+43 699 1086 1086</a></li><li><span style="color:var(--muted-2);font-size:14px">Brunn am Gebirge, Austria</span></li></ul></div>
+      </div>
+      <div class="footer-bottom"><span>© 2026 Sail Wisely (Ireland) CLG. All rights reserved.</span><span>Profit is a tool — not the objective.</span></div>
+    </div>
+  </footer>
+</main>
+
+<div id="sound-dock">
+  <div class="sound-ctrl"><button id="sound-mute" aria-label="Mute">🔊</button><input id="sound-vol" class="vol" type="range" min="0" max="100" value="70" aria-label="Volume"></div>
+  <button class="sound-btn" id="sound-btn" aria-label="Toggle soundtrack">
+    <span class="sound-ico"><span class="glow"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M2 12c2-3 4-3 6 0s4 3 6 0 4-3 6 0"/><path d="M2 17c2-3 4-3 6 0s4 3 6 0 4-3 6 0" opacity=".5"/></svg></span>
+    <span class="eq"><i></i><i></i><i></i><i></i></span><span class="label-off">Soundtrack</span><span class="label-on">Sound On</span>
+  </button>
+</div>
+<iframe id="sc-frame" title="Aye Maties soundtrack" allow="autoplay" frameborder="0"
+  src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fayematies&color=%23e6c574&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
+
+<script>
+/* legal tabs + deep-link */
+(function(){
+  const tabs=[...document.querySelectorAll('.legal-tabs button')];
+  const panels=[...document.querySelectorAll('.legal-panel')];
+  function show(id){
+    tabs.forEach(t=>t.classList.toggle('active',t.dataset.tab===id));
+    panels.forEach(p=>p.classList.toggle('active',p.id===id));
+  }
+  tabs.forEach(t=>t.addEventListener('click',()=>{show(t.dataset.tab);history.replaceState(null,'','#'+t.dataset.tab);}));
+  function fromHash(){const h=location.hash.replace('#','');const el=h&&document.getElementById(h);if(el&&el.classList.contains('legal-panel')){show(h);el.scrollIntoView({behavior:'smooth',block:'start'});}}
+  addEventListener('hashchange',fromHash);
+  fromHash();
+})();
+</script>
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }</script>
+<script type="module">import { initOcean } from './assets/js/ocean.module.js'; initOcean({ planet: false });</script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
