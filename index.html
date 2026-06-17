@@ -513,6 +513,53 @@
     text-shadow:0 10px 50px rgba(7,13,22,.6);}
   .interlude .il-sub{margin-top:24px;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-soft);}
 
+  /* Hero gold frame (reference motif) */
+  .hero-frame{position:absolute;inset:clamp(14px,2.4vw,30px);z-index:3;pointer-events:none;
+    border:1px solid rgba(216,184,115,.5);box-shadow:0 0 60px rgba(7,13,22,.4) inset;}
+
+  /* Ghost button variant */
+  .btn-ghost::before{background:rgba(216,184,115,.16);}
+  .btn-ghost:hover{color:var(--gold-soft);border-color:var(--gold-soft);}
+
+  /* CREW / CAST */
+  .crew{padding:170px 0;background:linear-gradient(180deg,var(--deep2) 0%, var(--deep) 100%);overflow:hidden;}
+  .crew-head{max-width:760px;margin-bottom:70px;}
+  .crew-head .lead{margin-top:24px;}
+  .crew-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:60px 34px;}
+  .cast{display:flex;flex-direction:column;}
+  .cast-photo{position:relative;aspect-ratio:4/5;border-radius:6px;overflow:hidden;
+    background:radial-gradient(60% 55% at 50% 38%, rgba(31,85,112,.4), rgba(7,13,22,.25));
+    border:1px solid rgba(255,255,255,.1);}
+  .cast-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;
+    transition:transform 1.3s var(--ease);}
+  .cast:hover .cast-photo img{transform:scale(1.05);}
+  .cast-mono{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-family:var(--display);font-size:clamp(38px,5vw,60px);color:rgba(216,184,115,.45);letter-spacing:.06em;}
+  .cast-photo .frame{position:absolute;inset:14px;border:1px solid rgba(216,184,115,.45);z-index:2;pointer-events:none;}
+  .cast h3{font-family:var(--display);font-weight:400;text-transform:uppercase;
+    font-size:clamp(21px,2.1vw,27px);color:var(--gold-soft);margin:30px 0 10px;text-align:center;letter-spacing:.02em;}
+  .cast .role{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);
+    text-align:center;margin-bottom:20px;opacity:.85;}
+  .cast p{font-family:var(--serif);font-weight:300;font-size:15px;line-height:1.72;color:var(--muted);text-align:center;}
+
+  /* OCEAN — NEWS & FACTS */
+  .ocean{padding:170px 0;background:var(--deep);overflow:hidden;}
+  .ocean-head{max-width:760px;margin-bottom:60px;}
+  .ocean-head .lead{margin-top:24px;}
+  .fact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+  .fact{background:linear-gradient(160deg,rgba(31,85,112,.22),rgba(255,255,255,.02));
+    border:1px solid rgba(216,184,115,.22);border-radius:18px;padding:36px 28px;
+    transition:transform .6s var(--ease),border-color .5s;}
+  .fact:hover{transform:translateY(-8px);border-color:rgba(216,184,115,.5);}
+  .fact b{display:block;font-family:var(--display);font-size:clamp(30px,3.6vw,48px);color:var(--gold-soft);
+    font-weight:400;line-height:1;margin-bottom:18px;}
+  .fact span{font-family:var(--serif);font-weight:300;font-size:15px;line-height:1.6;color:var(--muted);}
+  .fact-note{margin-top:30px;font-family:var(--serif);font-style:italic;font-size:14px;color:var(--muted);opacity:.8;}
+  .ocean-links{margin-top:34px;}
+  .ocean-links .sound-yt{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-soft);
+    transition:color .4s ease,padding-left .4s ease;}
+  .ocean-links .sound-yt:hover{color:var(--ink);padding-left:6px;}
+
   [data-reveal]{opacity:0;transform:translateY(64px);}
   [data-reveal].in{animation:reveal 1.1s var(--ease) forwards;}
   @keyframes reveal{to{opacity:1;transform:translateY(0);}}
@@ -521,6 +568,8 @@
     nav.links{display:none;}
     .about-grid{grid-template-columns:1fr;gap:50px;}
     .manifesto-grid{grid-template-columns:1fr;gap:50px;}
+    .crew-grid{grid-template-columns:1fr 1fr;gap:46px 28px;}
+    .fact-grid{grid-template-columns:1fr 1fr;}
     .gallery-grid{grid-template-columns:1fr 1fr;}
     .impressum-grid{grid-template-columns:1fr;}
     .sp-kpis,.sp-phases,.sp-values,.sp-metrics{grid-template-columns:1fr 1fr;}
@@ -534,6 +583,8 @@
     .hero-meta{flex-direction:column;align-items:flex-start;gap:22px;}
     .stat-row{gap:34px;}
     .manifesto-band{gap:20px;}
+    .crew-grid{grid-template-columns:1fr;}
+    .fact-grid{grid-template-columns:1fr 1fr;}
     .track a{grid-template-columns:auto auto 1fr;gap:16px;}
     .track .t-meta{display:none;}
     .sp-kpis,.sp-phases,.sp-metrics{grid-template-columns:1fr;}
@@ -558,8 +609,9 @@
   <a href="#top" class="logo"><span class="dot"></span> Aye&nbsp;Maties</a>
   <nav class="links">
     <a href="#about" data-i18n="nav.about">About</a>
-    <a href="#world" data-i18n="nav.world">The World</a>
+    <a href="#crew" data-i18n="nav.crew">Crew</a>
     <a href="#soundtrack" data-i18n="nav.soundtrack">Soundtrack</a>
+    <a href="#ocean" data-i18n="nav.ocean">Ocean</a>
     <a href="#sponsor" data-i18n="nav.sponsor">Partner</a>
     <a href="#contact" data-i18n="nav.contact">Contact</a>
   </nav>
@@ -588,16 +640,17 @@
     </div>
     <canvas id="particles"></canvas>
     <div class="rays" id="rays"></div>
+    <div class="hero-frame"></div>
     <div class="hero-inner">
-      <span class="hero-eyebrow fade-up" id="heroEyebrow" data-i18n="hero.eyebrow">A Maritime Reality Format · Saving Our Oceans</span>
+      <span class="hero-eyebrow fade-up" id="heroEyebrow" data-i18n="hero.eyebrow">Aye Maties · Pirate Challenge</span>
       <h1 class="hero-title">
-        <span class="line"><span data-i18n="hero.title1">Aye Maties</span></span>
-        <span class="line"><span data-i18n="hero.title2">Pirate Challenge</span></span>
+        <span class="line"><span data-i18n="hero.title1">Adventure Has</span></span>
+        <span class="line"><span data-i18n="hero.title2">A New Course</span></span>
       </h1>
-      <p class="hero-sub fade-up" id="heroSub" data-i18n="hero.sub">A partly scripted reality format aboard a real working sailing ship — where authentic maritime, historical and ecological challenges unite a crew around one mission: to protect the oceans that connect us all.</p>
+      <p class="hero-sub fade-up" id="heroSub" data-i18n="hero.sub">A cinematic ocean adventure where courage, teamwork and the spirit of the sea meet a mission that matters: saving our oceans.</p>
       <div class="hero-meta fade-up" id="heroMeta">
-        <a class="btn" href="#about">
-          <span data-i18n="hero.cta">Discover the Format</span>
+        <a class="btn" href="#crew">
+          <span data-i18n="hero.cta">Meet the Crew</span>
           <svg viewBox="0 0 16 10" fill="none"><path d="M1 5h14M10 1l5 4-5 4" stroke="currentColor" stroke-width="1.3"/></svg>
         </a>
         <div class="scroll-cue">
@@ -644,15 +697,100 @@
         </div>
         <div class="about-text">
           <span class="eyebrow" data-i18n="about.eyebrow">The Format</span>
-          <h2 class="title" data-reveal data-i18n="about.title">About Aye Maties</h2>
-          <p class="lead" data-reveal data-i18n="about.p1">Aye Maties is an internationally adaptable, partly scripted reality format that brings a diverse group of participants aboard a large working sailing ship to take on authentic maritime, historical and ecological challenges.</p>
-          <p class="lead" data-reveal data-i18n="about.p2">The confined, constantly moving environment leaves no room for delay and demands swift cooperation and decisive action under real pressure. Conflicts are not staged; they arise naturally from spatial conditions, environmental demands and interpersonal dynamics. The format deliberately structures this tension — centred on dialogues between generations: Care vs. Ignorance, Duty vs. Temptation and Tradition vs. modern superficiality — to drive personal growth and narrative progression.</p>
+          <h2 class="title" data-reveal data-i18n="about.title">What is Aye Maties?</h2>
+          <p class="lead" data-reveal data-i18n="about.p1">Aye Maties — Pirate Challenge is a new cinematic TV and entertainment adventure built around the power of the sea, the thrill of discovery and the strength of a crew facing extraordinary challenges together.</p>
+          <p class="lead" data-reveal data-i18n="about.p2">Guided by the legendary Cpt. Old Salt, modern-day challengers enter a world of maritime trials, hidden mysteries, teamwork and unforgettable ocean-bound experiences. But behind every adventure lies a greater purpose: drawing attention to the beauty, fragility and protection of our oceans.</p>
+          <p class="lead" data-reveal data-i18n="about.p3">Combining powerful storytelling, authentic maritime atmosphere, cinematic visuals and an international entertainment concept, Aye Maties invites audiences to follow an adventure where the greatest treasure is the future of our seas.</p>
           <div class="stat-row">
             <div class="stat" data-reveal><b data-counter="7">0</b><span data-i18n="about.stat1">Seasons across the voyage</span></div>
             <div class="stat" data-reveal><b data-counter="6">0</b><span data-i18n="about.stat2">National editions</span></div>
             <div class="stat" data-reveal><b data-counter="1">0</b><span data-i18n="about.stat3">International final voyage</span></div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CREW / CAST -->
+  <section class="crew" id="crew">
+    <div class="wrap">
+      <div class="crew-head">
+        <span class="eyebrow" data-i18n="crew.eyebrow">The Crew</span>
+        <h2 class="title" data-reveal data-i18n="crew.title">Meet the Faces of Aye Maties</h2>
+        <p class="lead" data-reveal data-i18n="crew.lead">A crew of storytellers, artists and adventurers — each bringing their craft and spirit to the world of Aye Maties.</p>
+      </div>
+      <div class="crew-grid">
+
+        <article class="cast" data-reveal>
+          <div class="cast-photo"><span class="cast-mono">OS</span><img src="assets/images/crew/old-salt.jpg" alt="Cpt. Old Salt" loading="lazy" onerror="this.remove()"><div class="frame"></div></div>
+          <h3>Cpt. Old Salt</h3>
+          <div class="role">Creator · Executive Producer</div>
+          <p>Old Salt is the heart and original creator of Aye Maties. As a highly experienced USCG 500-Ton Captain, he brings authentic maritime expertise, leadership and the true spirit of adventure to the project. In his role as Cpt. Old Salt, he leads the crew into a world of mystery, challenges and ocean-bound discovery. As the project's principal producer and visionary, Peter is the man who first set the course for Aye Maties — and continues to guide its journey from idea to reality.</p>
+        </article>
+
+        <article class="cast" data-reveal>
+          <div class="cast-photo"><span class="cast-mono">PS</span><img src="assets/images/crew/pia-sekulic.jpg" alt="Pia Alice Sekulic" loading="lazy" onerror="this.remove()"><div class="frame"></div></div>
+          <h3>Pia Alice Sekulic</h3>
+          <div class="role">Head of Marketing</div>
+          <p>Pia Alice Sekulic leads the marketing of Aye Maties, bringing strategy, creativity and a strong understanding of audience behaviour to the project. With a background in Neuromarketing and Business Psychology studied in Vienna, she knows how to turn stories into meaningful connections and build an engaged community around the adventure. As Head of Marketing, Pia ensures that the spirit, mission and journey of Aye Maties reach audiences far beyond the horizon.</p>
+        </article>
+
+        <article class="cast" data-reveal>
+          <div class="cast-photo"><span class="cast-mono">DS</span><img src="assets/images/crew/dino-stelzl.jpg" alt="Dino Stelzl" loading="lazy" onerror="this.remove()"><div class="frame"></div></div>
+          <h3>Dino Stelzl</h3>
+          <div class="role">Film Director · Producer</div>
+          <p>Dino Stelzl is the film director and producer behind the cinematic world of Aye Maties. With many years of experience in television, film production and visual storytelling, he transforms the project's adventurous vision into powerful images, emotional moments and compelling stories. Combining classic filmmaking with modern creative technologies, Dino shapes the distinctive look and narrative spirit of Aye Maties — bringing its characters, ocean-bound adventures and mission to life on screen.</p>
+        </article>
+
+        <article class="cast" data-reveal>
+          <div class="cast-photo"><span class="cast-mono">AN</span><img src="assets/images/crew/niddl-stelzl.jpg" alt="Anita &quot;Niddl&quot; Stelzl" loading="lazy" onerror="this.remove()"><div class="frame"></div></div>
+          <h3>Anita &ldquo;Niddl&rdquo; Stelzl</h3>
+          <div class="role">Presenter · Singer · Sea Soul</div>
+          <p>The multi-faceted &lsquo;Niddl&rsquo; joins Aye Maties not only as a powerful singer and charismatic presenter but as a true soul of the sea. Known from her success on Starmania and her vibrant career in music and entertainment, she brings her unique energy and voice to the project. As a passionate advocate for the ocean, she embodies the spirit of discovery and helps share the mission of protecting our seas with the world.</p>
+        </article>
+
+        <article class="cast" data-reveal>
+          <div class="cast-photo"><span class="cast-mono">NZ</span><img src="assets/images/crew/natascha-zenig.jpg" alt="Natascha Zenig" loading="lazy" onerror="this.remove()"><div class="frame"></div></div>
+          <h3>Natascha Zenig</h3>
+          <div class="role">Makeup Artist · SFX Artist · Body Painter</div>
+          <p>Natascha Zenig brings the characters and visual world of Aye Maties to life through makeup, special effects and body art. Based between Vienna, Los Angeles and Cancún, she combines professional artistry with a distinctive passion for expressive Dark Art aesthetics. Her work spans character makeup, SFX transformations and detailed body painting using both brush and airbrush techniques. With her creative eye and skilled craftsmanship, Natascha helps transform the crew of Aye Maties into authentic figures of adventure, mystery and the sea.</p>
+        </article>
+
+        <article class="cast" data-reveal>
+          <div class="cast-photo"><span class="cast-mono">SP</span><img src="assets/images/crew/silas-pross.jpg" alt="Silas Pross" loading="lazy" onerror="this.remove()"><div class="frame"></div></div>
+          <h3>Silas Pross</h3>
+          <div class="role">Director of Photography · Cameraman · CGI Expert</div>
+          <p>Silas Pross shapes the visual world of Aye Maties through cinematography, camera work and digital creativity. As Director of Photography and cameraman, he captures the project's cinematic atmosphere, from powerful character moments to dramatic adventures at sea. With his additional expertise in CGI, Silas helps extend the world beyond the camera, creating visual elements that support the mystery, scale and adventurous spirit of the story. His technical precision and artistic eye are essential to bringing the voyage of Aye Maties vividly to the screen.</p>
+        </article>
+
+        <article class="cast" data-reveal>
+          <div class="cast-photo"><span class="cast-mono">MS</span><img src="assets/images/crew/michael-schumpelt.jpg" alt="Michael Schumpelt" loading="lazy" onerror="this.remove()"><div class="frame"></div></div>
+          <h3>Michael Schumpelt</h3>
+          <div class="role">Cameraman · Visual AI Expert</div>
+          <p>Michael Schumpelt combines the art of cinematography with the creative possibilities of artificial intelligence. As a cameraman for Aye Maties, he captures the atmosphere, energy and authentic moments of the adventure. With his expertise in Visual AI, he also helps develop innovative imagery and visual concepts that expand the project's cinematic world. His blend of technical skill, creative vision and modern storytelling tools makes him an important part of the crew behind the voyage.</p>
+        </article>
+
+        <article class="cast" data-reveal>
+          <div class="cast-photo"><span class="cast-mono">ML</span><img src="assets/images/crew/michael-lehner.jpg" alt="Michael Lehner" loading="lazy" onerror="this.remove()"><div class="frame"></div></div>
+          <h3>Michael Lehner</h3>
+          <div class="role">Set Photographer</div>
+          <p>Michael Lehner captures the world of Aye Maties beyond the moving image. As Set Photographer, he documents the atmosphere, characters and unforgettable moments behind the adventure — creating powerful stills that preserve the spirit of the production. With an instinct for authentic emotion and cinematic detail, Michael turns life on set into striking imagery for promotion, storytelling and lasting memories of the voyage.</p>
+        </article>
+
+        <article class="cast" data-reveal>
+          <div class="cast-photo"><span class="cast-mono">MH</span><img src="assets/images/crew/matthias-hauser.jpg" alt="Matthias Hauser" loading="lazy" onerror="this.remove()"><div class="frame"></div></div>
+          <h3>Matthias Hauser</h3>
+          <div class="role">Set Hand · First Assistant · Driver</div>
+          <p>Matthias Hauser is a reliable and versatile member of the Aye Maties production crew. As Set Hand and First Assistant, he supports the team wherever practical coordination, preparation and hands-on assistance are needed during filming. In his role as Driver, he also helps ensure that crew, equipment and production requirements reach their destination safely and on time. With his commitment, flexibility and positive energy, Matthias is an important part of keeping the adventure moving — both on set and on the road.</p>
+        </article>
+
+        <article class="cast" data-reveal>
+          <div class="cast-photo"><span class="cast-mono">KS</span><img src="assets/images/crew/koray-schober.jpg" alt="Koray Schober" loading="lazy" onerror="this.remove()"><div class="frame"></div></div>
+          <h3>Koray Schober</h3>
+          <div class="role">Second Assistant · Driver</div>
+          <p>Koray Schober supports the Aye Maties production team as Second Assistant and Driver. With reliability, flexibility and a hands-on approach, he assists the crew throughout the filming process and helps ensure that people, equipment and essential production needs are in the right place at the right time. Whether behind the scenes on set or on the road between locations, Koray plays an important role in keeping the voyage organised, efficient and moving forward.</p>
+        </article>
+
       </div>
     </div>
   </section>
@@ -731,8 +869,8 @@
     <div class="wrap">
       <div class="sound-head">
         <span class="eyebrow" data-i18n="snd.eyebrow">The Original Soundtrack</span>
-        <h2 class="title" data-reveal data-i18n="snd.title">The Sound of the Sea</h2>
-        <p class="lead" data-reveal data-i18n="snd.lead">A cinematic score written for the world of Aye Maties — the voice of the ocean, between longing and warning. Preview the soundtrack on SoundCloud and YouTube.</p>
+        <h2 class="title" data-reveal data-i18n="snd.title">Listen to the Soundtrack</h2>
+        <p class="lead" data-reveal data-i18n="snd.lead">The adventure begins long before the sails are raised. The official Aye Maties soundtrack is already setting the mood for the journey ahead — with cinematic themes inspired by the sea, the spirit of adventure and the mysteries waiting beyond the horizon. Step into the world of Aye Maties, feel the call of the ocean and listen to the music that will accompany our crew on their voyage.</p>
       </div>
       <ul class="track-list">
         <li class="track" data-reveal>
@@ -769,11 +907,36 @@
         </li>
       </ul>
       <div class="sound-links">
-        <a class="btn" href="https://soundcloud.com/AyeMaties" target="_blank" rel="noopener">
-          <span data-i18n="snd.sc">Listen on SoundCloud</span>
+        <a class="btn" href="https://soundcloud.com/ayematies/aye-maties-theme-song" target="_blank" rel="noopener">
+          <span data-i18n="snd.play">Play Aye Maties Theme Song</span>
+          <svg viewBox="0 0 16 10" fill="none"><path d="M1 5h14M10 1l5 4-5 4" stroke="currentColor" stroke-width="1.3"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="https://soundcloud.com/AyeMaties" target="_blank" rel="noopener">
+          <span data-i18n="snd.full">Listen to Full Soundtrack</span>
           <svg viewBox="0 0 16 10" fill="none"><path d="M1 5h14M10 1l5 4-5 4" stroke="currentColor" stroke-width="1.3"/></svg>
         </a>
         <a class="sound-yt" href="https://www.youtube.com/@AyeMaties" target="_blank" rel="noopener" data-i18n="snd.yt">Watch on YouTube →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- OCEAN — NEWS & FACTS -->
+  <section class="ocean" id="ocean">
+    <div class="wrap">
+      <div class="ocean-head">
+        <span class="eyebrow" data-i18n="oc.eyebrow">News &amp; Facts</span>
+        <h2 class="title" data-reveal data-i18n="oc.title">Why the Ocean Needs Us</h2>
+        <p class="lead" data-reveal data-i18n="oc.lead">Behind every adventure lies a greater purpose. Here we share facts and news on ocean pollution and marine protection — because the greatest treasure is the future of our seas.</p>
+      </div>
+      <div class="fact-grid">
+        <div class="fact" data-reveal><b>8–11M t</b><span data-i18n="oc.f1">Plastic waste enters the ocean every year — close to a truckload every single minute.</span></div>
+        <div class="fact" data-reveal><b>50%+</b><span data-i18n="oc.f2">Of the oxygen we breathe is produced by the ocean and its tiny phytoplankton.</span></div>
+        <div class="fact" data-reveal><b>1 in 3</b><span data-i18n="oc.f3">Assessed fish stocks are now fished beyond biologically sustainable limits.</span></div>
+        <div class="fact" data-reveal><b>~8%</b><span data-i18n="oc.f4">Of the ocean is currently under some form of protection — far short of the 30% goal for 2030.</span></div>
+      </div>
+      <p class="fact-note" data-i18n="oc.note">Indicative figures compiled from UNEP, NOAA, FAO and IUCN. We keep this space updated with news on marine conservation as our voyage continues.</p>
+      <div class="ocean-links">
+        <a class="sound-yt" href="https://www.youtube.com/@AyeMaties" target="_blank" rel="noopener" data-i18n="oc.follow">Follow the mission on YouTube →</a>
       </div>
     </div>
   </section>
@@ -983,8 +1146,9 @@
           <h4 data-i18n="footer.explore">Explore</h4>
           <ul>
             <li><a href="#about" data-i18n="nav.about">About</a></li>
-            <li><a href="#world" data-i18n="nav.world">The World</a></li>
+            <li><a href="#crew" data-i18n="nav.crew">Crew</a></li>
             <li><a href="#soundtrack" data-i18n="nav.soundtrack">Soundtrack</a></li>
+            <li><a href="#ocean" data-i18n="nav.ocean">Ocean</a></li>
             <li><a href="#sponsor" data-i18n="nav.sponsor">Partner</a></li>
             <li><a href="#impressum" data-i18n="imp.title">Impressum</a></li>
           </ul>
@@ -1021,11 +1185,11 @@
 /* ---------------- i18n ---------------- */
 const dict = {
   en:{
-    "nav.about":"About","nav.world":"The World","nav.soundtrack":"Soundtrack","nav.contact":"Contact",
-    "hero.eyebrow":"A Maritime Reality Format · Saving Our Oceans",
-    "hero.title1":"Aye Maties","hero.title2":"Pirate Challenge",
-    "hero.sub":"A partly scripted reality format aboard a real working sailing ship — where authentic maritime, historical and ecological challenges unite a crew around one mission: to protect the oceans that connect us all.",
-    "hero.cta":"Discover the Format","hero.scroll":"Scroll",
+    "nav.about":"About","nav.crew":"Crew","nav.soundtrack":"Soundtrack","nav.ocean":"Ocean","nav.contact":"Contact",
+    "hero.eyebrow":"Aye Maties · Pirate Challenge",
+    "hero.title1":"Adventure Has","hero.title2":"A New Course",
+    "hero.sub":"A cinematic ocean adventure where courage, teamwork and the spirit of the sea meet a mission that matters: saving our oceans.",
+    "hero.cta":"Meet the Crew","hero.scroll":"Scroll",
     "divider.caption":"— drifting between worlds, above and below the surface —",
     "exp.e1":"The Voyage Begins","exp.t1":"One Blue Planet","exp.p1":"Seen from afar, our world is mostly water — a single, living ocean that cradles every story yet to be told.",
     "exp.e2":"Drift Deeper","exp.t2":"Bound by One Ocean","exp.p2":"Every coast, every current, every creature is woven together by the same restless sea that shapes us all.",
@@ -1037,10 +1201,20 @@ const dict = {
     "gal.t2":"Under Sail","gal.s2":"Wind, rope and discipline — where character, not vanity, keeps you afloat.",
     "gal.t3":"The Wildlife","gal.s3":"The living ocean we set out to understand — and to protect.",
     "gal.t4":"The Mission","gal.s4":"Every wave left cleaner than we found it. Change demands hands in the water.",
-    "about.eyebrow":"The Format","about.title":"About Aye Maties",
-    "about.p1":"Aye Maties is an internationally adaptable, partly scripted reality format that brings a diverse group of participants aboard a large working sailing ship to take on authentic maritime, historical and ecological challenges.",
-    "about.p2":"The confined, constantly moving environment leaves no room for delay and demands swift cooperation and decisive action under real pressure. Conflicts are not staged; they arise naturally from spatial conditions, environmental demands and interpersonal dynamics. The format deliberately structures this tension — centred on dialogues between generations: Care vs. Ignorance, Duty vs. Temptation and Tradition vs. modern superficiality — to drive personal growth and narrative progression.",
+    "about.eyebrow":"The Format","about.title":"What is Aye Maties?",
+    "about.p1":"Aye Maties — Pirate Challenge is a new cinematic TV and entertainment adventure built around the power of the sea, the thrill of discovery and the strength of a crew facing extraordinary challenges together.",
+    "about.p2":"Guided by the legendary Cpt. Old Salt, modern-day challengers enter a world of maritime trials, hidden mysteries, teamwork and unforgettable ocean-bound experiences. But behind every adventure lies a greater purpose: drawing attention to the beauty, fragility and protection of our oceans.",
+    "about.p3":"Combining powerful storytelling, authentic maritime atmosphere, cinematic visuals and an international entertainment concept, Aye Maties invites audiences to follow an adventure where the greatest treasure is the future of our seas.",
     "about.stat1":"Seasons across the voyage","about.stat2":"National editions","about.stat3":"International final voyage",
+    "crew.eyebrow":"The Crew","crew.title":"Meet the Faces of Aye Maties","crew.lead":"A crew of storytellers, artists and adventurers — each bringing their craft and spirit to the world of Aye Maties.",
+    "oc.eyebrow":"News & Facts","oc.title":"Why the Ocean Needs Us",
+    "oc.lead":"Behind every adventure lies a greater purpose. Here we share facts and news on ocean pollution and marine protection — because the greatest treasure is the future of our seas.",
+    "oc.f1":"Plastic waste enters the ocean every year — close to a truckload every single minute.",
+    "oc.f2":"Of the oxygen we breathe is produced by the ocean and its tiny phytoplankton.",
+    "oc.f3":"Assessed fish stocks are now fished beyond biologically sustainable limits.",
+    "oc.f4":"Of the ocean is currently under some form of protection — far short of the 30% goal for 2030.",
+    "oc.note":"Indicative figures compiled from UNEP, NOAA, FAO and IUCN. We keep this space updated with news on marine conservation as our voyage continues.",
+    "oc.follow":"Follow the mission on YouTube →",
     "imp.eyebrow":"Legal Notice","imp.title":"Impressum",
     "imp.ipHead":"Trademark & Intellectual Property","imp.repHead":"Legal Representation","imp.repBy":"Represented by Claire Lord / Partner",
     "imp.postHead":"Postal Address","imp.opHead":"Operative Contact","imp.opBy":"c/o Capt. Peter Brucha — Founder, Sail Wisely & Aye Maties",
@@ -1089,10 +1263,10 @@ const dict = {
     "manifesto.caption":"— light finds its way, even to the depths —",
     "manifesto.band":"We Believe the Sea Knows No Boundaries",
     "manifesto.bandsub":"Every wave we protect, every shore we restore and every guardian we inspire is a chapter in a story far larger than ourselves — one written for the generations still to come.",
-    "snd.eyebrow":"The Original Soundtrack","snd.title":"The Sound of the Sea",
-    "snd.lead":"A cinematic score written for the world of Aye Maties — the voice of the ocean, between longing and warning. Preview the soundtrack on SoundCloud and YouTube.",
+    "snd.eyebrow":"The Original Soundtrack","snd.title":"Listen to the Soundtrack",
+    "snd.lead":"The adventure begins long before the sails are raised. The official Aye Maties soundtrack is already setting the mood for the journey ahead — with cinematic themes inspired by the sea, the spirit of adventure and the mysteries waiting beyond the horizon. Step into the world of Aye Maties, feel the call of the ocean and listen to the music that will accompany our crew on their voyage.",
     "snd.ost":"Original Soundtrack","snd.theme":"Aye Maties — Theme Song",
-    "snd.sc":"Listen on SoundCloud","snd.yt":"Watch on YouTube →",
+    "snd.play":"Play Aye Maties Theme Song","snd.full":"Listen to Full Soundtrack","snd.yt":"Watch on YouTube →",
     "cta.eyebrow":"Join the Movement","cta.title":"Set Sail With Purpose",
     "cta.sub":"Become part of a story far larger than ourselves — a movement that turns wonder into action, and the ocean's future into ours.",
     "cta.btn":"Get in Touch",
@@ -1102,11 +1276,11 @@ const dict = {
     "footer.rights":"All rights reserved.","footer.crafted":"Profit is a tool — not the objective."
   },
   de:{
-    "nav.about":"Über uns","nav.world":"Die Welt","nav.soundtrack":"Soundtrack","nav.contact":"Kontakt",
-    "hero.eyebrow":"Ein maritimes Reality-Format · Saving Our Oceans",
-    "hero.title1":"Aye Maties","hero.title2":"Pirate Challenge",
-    "hero.sub":"Ein teils geskriptetes Reality-Format an Bord eines echten Arbeits-Segelschiffs — wo authentische maritime, historische und ökologische Herausforderungen eine Crew um eine Mission vereinen: die Ozeane zu schützen, die uns alle verbinden.",
-    "hero.cta":"Das Format entdecken","hero.scroll":"Scrollen",
+    "nav.about":"Über uns","nav.crew":"Crew","nav.soundtrack":"Soundtrack","nav.ocean":"Ozean","nav.contact":"Kontakt",
+    "hero.eyebrow":"Aye Maties · Pirate Challenge",
+    "hero.title1":"Das Abenteuer","hero.title2":"Nimmt neuen Kurs",
+    "hero.sub":"Ein cineastisches Ozean-Abenteuer, in dem Mut, Teamgeist und der Geist der See auf eine Mission treffen, die zählt: unsere Ozeane zu retten.",
+    "hero.cta":"Die Crew kennenlernen","hero.scroll":"Scrollen",
     "divider.caption":"— treibend zwischen Welten, über und unter der Oberfläche —",
     "exp.e1":"Die Reise beginnt","exp.t1":"Ein blauer Planet","exp.p1":"Aus der Ferne betrachtet besteht unsere Welt fast nur aus Wasser — ein einziger, lebendiger Ozean, der jede noch ungeschriebene Geschichte in sich trägt.",
     "exp.e2":"Tiefer treiben","exp.t2":"Vereint durch ein Meer","exp.p2":"Jede Küste, jede Strömung, jedes Lebewesen ist durch dieselbe rastlose See verbunden, die uns alle formt.",
@@ -1118,10 +1292,20 @@ const dict = {
     "gal.t2":"Unter Segeln","gal.s2":"Wind, Tauwerk und Disziplin — wo Charakter, nicht Eitelkeit, dich über Wasser hält.",
     "gal.t3":"Die Tierwelt","gal.s3":"Der lebendige Ozean, den wir verstehen — und schützen wollen.",
     "gal.t4":"Die Mission","gal.s4":"Jede Welle sauberer hinterlassen, als wir sie vorfanden. Wandel verlangt Hände im Wasser.",
-    "about.eyebrow":"Das Format","about.title":"Über Aye Maties",
-    "about.p1":"Aye Maties ist ein international adaptierbares, teils geskriptetes Reality-Format, das eine diverse Gruppe von Teilnehmenden auf ein großes Arbeits-Segelschiff bringt, um authentische maritime, historische und ökologische Herausforderungen zu bewältigen.",
-    "about.p2":"Die begrenzte, sich ständig bewegende Umgebung lässt kein Aufschieben zu und erfordert schnelle Zusammenarbeit und entschlossenes Handeln unter realem Druck. Konflikte werden nicht inszeniert; sie entstehen natürlich aus räumlichen Gegebenheiten, Umweltanforderungen und interpersonalen Dynamiken. Das Format strukturiert diese Spannung gezielt – zentriert auf Generationendialoge: Fürsorge vs. Ignoranz, Pflicht vs. Versuchung und Tradition vs. moderne Oberflächlichkeit – um persönliches Wachstum und narrativen Fortschritt voranzutreiben.",
+    "about.eyebrow":"Das Format","about.title":"Was ist Aye Maties?",
+    "about.p1":"Aye Maties — Pirate Challenge ist ein neues cineastisches TV- und Entertainment-Abenteuer rund um die Kraft des Meeres, den Reiz der Entdeckung und die Stärke einer Crew, die außergewöhnliche Herausforderungen gemeinsam meistert.",
+    "about.p2":"Geführt vom legendären Cpt. Old Salt betreten moderne Herausforderer eine Welt aus maritimen Prüfungen, verborgenen Geheimnissen, Teamgeist und unvergesslichen Erlebnissen auf See. Doch hinter jedem Abenteuer steht ein größeres Ziel: die Aufmerksamkeit auf die Schönheit, Verletzlichkeit und den Schutz unserer Ozeane zu lenken.",
+    "about.p3":"Durch die Verbindung von kraftvollem Storytelling, authentischer maritimer Atmosphäre, cineastischen Bildern und einem internationalen Entertainment-Konzept lädt Aye Maties sein Publikum ein, einem Abenteuer zu folgen, in dem der größte Schatz die Zukunft unserer Meere ist.",
     "about.stat1":"Staffeln über die Reise","about.stat2":"Nationale Editionen","about.stat3":"Internationale Abschlussreise",
+    "crew.eyebrow":"Die Crew","crew.title":"Die Gesichter von Aye Maties","crew.lead":"Eine Crew aus Geschichtenerzählern, Künstlern und Abenteurern — jede:r bringt ihr Handwerk und ihren Geist in die Welt von Aye Maties ein.",
+    "oc.eyebrow":"News & Fakten","oc.title":"Warum der Ozean uns braucht",
+    "oc.lead":"Hinter jedem Abenteuer steht ein größeres Ziel. Hier teilen wir Fakten und News zu Meeresverschmutzung und Meeresschutz — denn der größte Schatz ist die Zukunft unserer Meere.",
+    "oc.f1":"Plastikmüll gelangt jedes Jahr ins Meer — fast eine LKW-Ladung pro Minute.",
+    "oc.f2":"Des Sauerstoffs, den wir atmen, wird vom Ozean und seinem winzigen Phytoplankton erzeugt.",
+    "oc.f3":"Der untersuchten Fischbestände werden über biologisch nachhaltige Grenzen hinaus befischt.",
+    "oc.f4":"Des Ozeans steht derzeit unter einer Form von Schutz — weit entfernt vom 30-%-Ziel für 2030.",
+    "oc.note":"Richtwerte zusammengestellt aus Daten von UNEP, NOAA, FAO und IUCN. Wir halten diesen Bereich mit News zum Meeresschutz aktuell, während unsere Reise weitergeht.",
+    "oc.follow":"Folge der Mission auf YouTube →",
     "imp.eyebrow":"Rechtliche Angaben","imp.title":"Impressum",
     "imp.ipHead":"Marke & geistiges Eigentum","imp.repHead":"Rechtliche Vertretung","imp.repBy":"Vertreten durch Claire Lord / Partner",
     "imp.postHead":"Postanschrift","imp.opHead":"Operativer Kontakt","imp.opBy":"c/o Capt. Peter Brucha — Gründer, Sail Wisely & Aye Maties",
@@ -1170,10 +1354,10 @@ const dict = {
     "manifesto.caption":"— das Licht findet seinen Weg, selbst in die Tiefe —",
     "manifesto.band":"Wir glauben, das Meer kennt keine Grenzen",
     "manifesto.bandsub":"Jede Welle, die wir schützen, jede Küste, die wir wiederherstellen, und jeder Hüter, den wir inspirieren, ist ein Kapitel einer Geschichte, die größer ist als wir — geschrieben für die kommenden Generationen.",
-    "snd.eyebrow":"Der Original-Soundtrack","snd.title":"Der Klang des Meeres",
-    "snd.lead":"Eine cineastische Musikreise für die Welt von Aye Maties — die Stimme des Ozeans, zwischen Sehnsucht und Warnung. Höre den Soundtrack auf SoundCloud und YouTube.",
+    "snd.eyebrow":"Der Original-Soundtrack","snd.title":"Hör in den Soundtrack",
+    "snd.lead":"Das Abenteuer beginnt lange, bevor die Segel gesetzt werden. Der offizielle Aye-Maties-Soundtrack stimmt schon jetzt auf die Reise ein — mit cineastischen Themen, inspiriert von der See, dem Geist des Abenteuers und den Geheimnissen jenseits des Horizonts. Tritt ein in die Welt von Aye Maties, spüre den Ruf des Ozeans und höre die Musik, die unsere Crew auf ihrer Reise begleitet.",
     "snd.ost":"Original-Soundtrack","snd.theme":"Aye Maties — Titellied",
-    "snd.sc":"Auf SoundCloud hören","snd.yt":"Auf YouTube ansehen →",
+    "snd.play":"Titellied abspielen","snd.full":"Ganzen Soundtrack hören","snd.yt":"Auf YouTube ansehen →",
     "cta.eyebrow":"Werde Teil der Bewegung","cta.title":"Segle mit Sinn",
     "cta.sub":"Werde Teil einer Geschichte, die größer ist als wir — einer Bewegung, die Staunen in Handeln verwandelt und die Zukunft der Ozeane zu unserer macht.",
     "cta.btn":"Kontakt aufnehmen",
@@ -1183,11 +1367,11 @@ const dict = {
     "footer.rights":"Alle Rechte vorbehalten.","footer.crafted":"Profit ist ein Werkzeug — nicht das Ziel."
   },
   es:{
-    "nav.about":"Nosotros","nav.world":"El Mundo","nav.soundtrack":"Banda sonora","nav.contact":"Contacto",
-    "hero.eyebrow":"Un formato de telerrealidad marítima · Saving Our Oceans",
-    "hero.title1":"Aye Maties","hero.title2":"Pirate Challenge",
-    "hero.sub":"Un formato de telerrealidad parcialmente guionizado a bordo de un velero de trabajo real — donde auténticos desafíos marítimos, históricos y ecológicos unen a una tripulación en torno a una misión: proteger los océanos que nos conectan a todos.",
-    "hero.cta":"Descubre el formato","hero.scroll":"Desplázate",
+    "nav.about":"Nosotros","nav.crew":"Tripulación","nav.soundtrack":"Banda sonora","nav.ocean":"Océano","nav.contact":"Contacto",
+    "hero.eyebrow":"Aye Maties · Pirate Challenge",
+    "hero.title1":"La aventura","hero.title2":"Toma un nuevo rumbo",
+    "hero.sub":"Una aventura oceánica cinematográfica donde el valor, el trabajo en equipo y el espíritu del mar se encuentran con una misión que importa: salvar nuestros océanos.",
+    "hero.cta":"Conoce a la tripulación","hero.scroll":"Desplázate",
     "divider.caption":"— a la deriva entre mundos, sobre y bajo la superficie —",
     "exp.e1":"Comienza el viaje","exp.t1":"Un planeta azul","exp.p1":"Vista desde lejos, nuestra Tierra es casi toda agua — un único océano vivo que acuna cada historia aún por contar.",
     "exp.e2":"Desciende más","exp.t2":"Unidos por un océano","exp.p2":"Cada costa, cada corriente, cada criatura está entrelazada por el mismo mar incansable que nos da forma a todos.",
@@ -1199,10 +1383,20 @@ const dict = {
     "gal.t2":"A toda vela","gal.s2":"Viento, cabo y disciplina — donde el carácter, no la vanidad, te mantiene a flote.",
     "gal.t3":"La vida marina","gal.s3":"El océano vivo que queremos comprender — y proteger.",
     "gal.t4":"La misión","gal.s4":"Cada ola más limpia de como la encontramos. El cambio exige manos en el agua.",
-    "about.eyebrow":"El Formato","about.title":"Sobre Aye Maties",
-    "about.p1":"Aye Maties es un formato de telerrealidad internacionalmente adaptable y parcialmente guionizado que lleva a un grupo diverso de participantes a bordo de un gran velero de trabajo para afrontar auténticos desafíos marítimos, históricos y ecológicos.",
-    "about.p2":"El entorno reducido y en constante movimiento no permite aplazamientos y exige cooperación rápida y acción decidida bajo presión real. Los conflictos no se escenifican; surgen de forma natural de las condiciones del espacio, las exigencias del entorno y las dinámicas interpersonales. El formato estructura deliberadamente esta tensión — centrada en el diálogo entre generaciones: Cuidado vs. Indiferencia, Deber vs. Tentación y Tradición vs. superficialidad moderna — para impulsar el crecimiento personal y el avance narrativo.",
+    "about.eyebrow":"El Formato","about.title":"¿Qué es Aye Maties?",
+    "about.p1":"Aye Maties — Pirate Challenge es una nueva aventura cinematográfica de televisión y entretenimiento construida en torno al poder del mar, la emoción del descubrimiento y la fuerza de una tripulación que afronta desafíos extraordinarios en equipo.",
+    "about.p2":"Guiados por el legendario Cpt. Old Salt, los retadores de hoy entran en un mundo de pruebas marítimas, misterios ocultos, trabajo en equipo y experiencias inolvidables en el mar. Pero tras cada aventura hay un propósito mayor: llamar la atención sobre la belleza, la fragilidad y la protección de nuestros océanos.",
+    "about.p3":"Combinando una narrativa poderosa, una atmósfera marítima auténtica, imágenes cinematográficas y un concepto de entretenimiento internacional, Aye Maties invita al público a seguir una aventura donde el mayor tesoro es el futuro de nuestros mares.",
     "about.stat1":"Temporadas en la travesía","about.stat2":"Ediciones nacionales","about.stat3":"Travesía final internacional",
+    "crew.eyebrow":"La Tripulación","crew.title":"Conoce los rostros de Aye Maties","crew.lead":"Una tripulación de narradores, artistas y aventureros — cada uno aporta su oficio y su espíritu al mundo de Aye Maties.",
+    "oc.eyebrow":"Noticias y datos","oc.title":"Por qué el océano nos necesita",
+    "oc.lead":"Tras cada aventura hay un propósito mayor. Aquí compartimos datos y noticias sobre la contaminación del mar y la protección marina — porque el mayor tesoro es el futuro de nuestros mares.",
+    "oc.f1":"De residuos plásticos llegan al océano cada año — casi un camión por minuto.",
+    "oc.f2":"Del oxígeno que respiramos lo produce el océano y su diminuto fitoplancton.",
+    "oc.f3":"De las poblaciones de peces evaluadas se pescan por encima de límites sostenibles.",
+    "oc.f4":"Del océano está hoy bajo alguna forma de protección — lejos del objetivo del 30% para 2030.",
+    "oc.note":"Cifras orientativas recopiladas de UNEP, NOAA, FAO e IUCN. Mantenemos este espacio actualizado con noticias sobre conservación marina a medida que avanza nuestra travesía.",
+    "oc.follow":"Sigue la misión en YouTube →",
     "imp.eyebrow":"Aviso legal","imp.title":"Aviso legal",
     "imp.ipHead":"Marca y propiedad intelectual","imp.repHead":"Representación legal","imp.repBy":"Representada por Claire Lord / Socia",
     "imp.postHead":"Dirección postal","imp.opHead":"Contacto operativo","imp.opBy":"c/o Capt. Peter Brucha — Fundador, Sail Wisely & Aye Maties",
@@ -1251,10 +1445,10 @@ const dict = {
     "manifesto.caption":"— la luz encuentra su camino, incluso en las profundidades —",
     "manifesto.band":"Creemos que el mar no conoce fronteras",
     "manifesto.bandsub":"Cada ola que protegemos, cada costa que restauramos y cada guardián que inspiramos es un capítulo de una historia mucho mayor que nosotros — escrita para las generaciones que están por venir.",
-    "snd.eyebrow":"La banda sonora original","snd.title":"El sonido del mar",
-    "snd.lead":"Un viaje musical cinematográfico creado para el mundo de Aye Maties — la voz del océano, entre el anhelo y la advertencia. Escucha la banda sonora en SoundCloud y YouTube.",
+    "snd.eyebrow":"La banda sonora original","snd.title":"Escucha la banda sonora",
+    "snd.lead":"La aventura comienza mucho antes de izar las velas. La banda sonora oficial de Aye Maties ya marca el tono del viaje que viene — con temas cinematográficos inspirados en el mar, el espíritu de la aventura y los misterios que aguardan más allá del horizonte. Entra en el mundo de Aye Maties, siente la llamada del océano y escucha la música que acompañará a nuestra tripulación en su travesía.",
     "snd.ost":"Banda sonora original","snd.theme":"Aye Maties — Tema principal",
-    "snd.sc":"Escuchar en SoundCloud","snd.yt":"Ver en YouTube →",
+    "snd.play":"Reproducir el tema principal","snd.full":"Escuchar la banda sonora completa","snd.yt":"Ver en YouTube →",
     "cta.eyebrow":"Únete al movimiento","cta.title":"Zarpa con propósito",
     "cta.sub":"Forma parte de una historia mucho mayor que nosotros — un movimiento que convierte el asombro en acción y el futuro del océano en el nuestro.",
     "cta.btn":"Ponte en contacto",
@@ -1264,11 +1458,11 @@ const dict = {
     "footer.rights":"Todos los derechos reservados.","footer.crafted":"El beneficio es una herramienta — no el objetivo."
   },
   fr:{
-    "nav.about":"À propos","nav.world":"Le Monde","nav.soundtrack":"Bande-son","nav.contact":"Contact",
-    "hero.eyebrow":"Un format de téléréalité maritime · Saving Our Oceans",
-    "hero.title1":"Aye Maties","hero.title2":"Pirate Challenge",
-    "hero.sub":"Un format de téléréalité en partie scénarisé à bord d'un véritable voilier de travail — où d'authentiques défis maritimes, historiques et écologiques réunissent un équipage autour d'une mission : protéger les océans qui nous unissent tous.",
-    "hero.cta":"Découvrir le format","hero.scroll":"Défiler",
+    "nav.about":"À propos","nav.crew":"Équipage","nav.soundtrack":"Bande-son","nav.ocean":"Océan","nav.contact":"Contact",
+    "hero.eyebrow":"Aye Maties · Pirate Challenge",
+    "hero.title1":"L'aventure","hero.title2":"Prend un nouveau cap",
+    "hero.sub":"Une aventure océanique cinématographique où le courage, l'esprit d'équipe et l'âme de la mer rencontrent une mission qui compte : sauver nos océans.",
+    "hero.cta":"Rencontrer l'équipage","hero.scroll":"Défiler",
     "divider.caption":"— à la dérive entre les mondes, au-dessus et au-dessous de la surface —",
     "exp.e1":"Le voyage commence","exp.t1":"Une planète bleue","exp.p1":"Vue de loin, notre Terre n'est presque que de l'eau — un océan unique et vivant qui berce chaque histoire encore à raconter.",
     "exp.e2":"Plongez plus profond","exp.t2":"Unis par un seul océan","exp.p2":"Chaque côte, chaque courant, chaque créature est reliée par la même mer infatigable qui nous façonne tous.",
@@ -1280,10 +1474,20 @@ const dict = {
     "gal.t2":"Toutes voiles dehors","gal.s2":"Vent, cordage et discipline — où le caractère, pas la vanité, vous garde à flot.",
     "gal.t3":"La faune","gal.s3":"L'océan vivant que nous voulons comprendre — et protéger.",
     "gal.t4":"La mission","gal.s4":"Chaque vague laissée plus propre qu'à notre arrivée. Le changement exige des mains dans l'eau.",
-    "about.eyebrow":"Le Format","about.title":"À propos d'Aye Maties",
-    "about.p1":"Aye Maties est un format de téléréalité adaptable à l'international et en partie scénarisé, qui réunit un groupe diversifié de participants à bord d'un grand voilier de travail pour relever d'authentiques défis maritimes, historiques et écologiques.",
-    "about.p2":"L'environnement exigu et en mouvement permanent ne laisse aucune place au report et exige une coopération rapide et une action décisive sous une pression réelle. Les conflits ne sont pas mis en scène ; ils naissent naturellement des contraintes d'espace, des exigences environnementales et des dynamiques interpersonnelles. Le format structure délibérément cette tension — centrée sur le dialogue entre générations : Bienveillance vs. Indifférence, Devoir vs. Tentation et Tradition vs. superficialité moderne — pour favoriser la croissance personnelle et la progression narrative.",
+    "about.eyebrow":"Le Format","about.title":"Qu'est-ce qu'Aye Maties ?",
+    "about.p1":"Aye Maties — Pirate Challenge est une nouvelle aventure télévisuelle et de divertissement cinématographique bâtie autour de la puissance de la mer, du frisson de la découverte et de la force d'un équipage relevant ensemble des défis extraordinaires.",
+    "about.p2":"Guidés par le légendaire Cpt. Old Salt, les aventuriers d'aujourd'hui entrent dans un monde d'épreuves maritimes, de mystères cachés, d'esprit d'équipe et d'expériences inoubliables en mer. Mais derrière chaque aventure se cache un but plus grand : attirer l'attention sur la beauté, la fragilité et la protection de nos océans.",
+    "about.p3":"En combinant un récit puissant, une atmosphère maritime authentique, des images cinématographiques et un concept de divertissement international, Aye Maties invite le public à suivre une aventure où le plus grand trésor est l'avenir de nos mers.",
     "about.stat1":"Saisons sur la traversée","about.stat2":"Éditions nationales","about.stat3":"Voyage final international",
+    "crew.eyebrow":"L'Équipage","crew.title":"Les visages d'Aye Maties","crew.lead":"Un équipage de conteurs, d'artistes et d'aventuriers — chacun apporte son savoir-faire et son esprit à l'univers d'Aye Maties.",
+    "oc.eyebrow":"Actus & Faits","oc.title":"Pourquoi l'océan a besoin de nous",
+    "oc.lead":"Derrière chaque aventure se cache un but plus grand. Nous partageons ici des faits et des actualités sur la pollution marine et la protection des océans — car le plus grand trésor est l'avenir de nos mers.",
+    "oc.f1":"De déchets plastiques entrent dans l'océan chaque année — près d'un camion par minute.",
+    "oc.f2":"De l'oxygène que nous respirons est produit par l'océan et son minuscule phytoplancton.",
+    "oc.f3":"Des stocks de poissons évalués sont exploités au-delà des limites durables.",
+    "oc.f4":"De l'océan bénéficie aujourd'hui d'une forme de protection — loin de l'objectif de 30 % pour 2030.",
+    "oc.note":"Chiffres indicatifs compilés à partir de l'UNEP, de la NOAA, de la FAO et de l'IUCN. Nous tenons cet espace à jour avec des actualités sur la conservation marine au fil de notre voyage.",
+    "oc.follow":"Suivez la mission sur YouTube →",
     "imp.eyebrow":"Mentions légales","imp.title":"Mentions légales",
     "imp.ipHead":"Marque & propriété intellectuelle","imp.repHead":"Représentation juridique","imp.repBy":"Représentée par Claire Lord / Associée",
     "imp.postHead":"Adresse postale","imp.opHead":"Contact opérationnel","imp.opBy":"c/o Capt. Peter Brucha — Fondateur, Sail Wisely & Aye Maties",
@@ -1332,10 +1536,10 @@ const dict = {
     "manifesto.caption":"— la lumière trouve son chemin, jusque dans les profondeurs —",
     "manifesto.band":"Nous croyons que la mer ne connaît aucune frontière",
     "manifesto.bandsub":"Chaque vague que nous protégeons, chaque rivage que nous restaurons et chaque gardien que nous inspirons est un chapitre d'une histoire bien plus grande que nous — écrite pour les générations à venir.",
-    "snd.eyebrow":"La bande originale","snd.title":"Le son de la mer",
-    "snd.lead":"Un voyage musical cinématographique créé pour l'univers d'Aye Maties — la voix de l'océan, entre désir et avertissement. Écoutez la bande-son sur SoundCloud et YouTube.",
+    "snd.eyebrow":"La bande originale","snd.title":"Écoutez la bande-son",
+    "snd.lead":"L'aventure commence bien avant que les voiles ne soient hissées. La bande originale officielle d'Aye Maties installe déjà l'ambiance du voyage à venir — avec des thèmes cinématographiques inspirés de la mer, de l'esprit d'aventure et des mystères au-delà de l'horizon. Entrez dans l'univers d'Aye Maties, ressentez l'appel de l'océan et écoutez la musique qui accompagnera notre équipage dans son périple.",
     "snd.ost":"Bande originale","snd.theme":"Aye Maties — Générique",
-    "snd.sc":"Écouter sur SoundCloud","snd.yt":"Voir sur YouTube →",
+    "snd.play":"Écouter le générique","snd.full":"Écouter toute la bande-son","snd.yt":"Voir sur YouTube →",
     "cta.eyebrow":"Rejoignez le mouvement","cta.title":"Prenez le large, avec sens",
     "cta.sub":"Faites partie d'une histoire bien plus grande que nous — un mouvement qui transforme l'émerveillement en action, et l'avenir de l'océan en notre avenir commun.",
     "cta.btn":"Nous contacter",
