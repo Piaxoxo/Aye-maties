@@ -346,6 +346,66 @@
     display:flex;align-items:center;justify-content:center;font-size:13px;transition:all .4s var(--ease);}
   .social a:hover{border-color:var(--gold-soft);background:var(--gold-soft);color:var(--deep);transform:translateY(-4px);}
 
+  /* MANIFESTO — editorial (layout ref: bold statement page) */
+  .manifesto{padding:170px 0;background:var(--deep2);overflow:hidden;}
+  .manifesto-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:84px;align-items:center;}
+  .manifesto-left .eyebrow{margin-bottom:28px;}
+  .manifesto-statement{
+    font-family:var(--display);font-weight:400;text-transform:uppercase;line-height:1.03;
+    font-size:clamp(32px,4.8vw,68px);letter-spacing:-.01em;margin-bottom:30px;
+  }
+  .manifesto-left .lead{margin-bottom:44px;}
+  .badge{
+    display:inline-flex;flex-direction:column;gap:3px;padding:18px 32px;border-radius:18px;
+    border:1px solid rgba(216,184,115,.4);
+    background:linear-gradient(160deg, rgba(216,184,115,.12), rgba(255,255,255,.02));
+    transition:transform .5s var(--ease), border-color .5s ease;
+  }
+  .badge:hover{transform:translateY(-4px);border-color:rgba(216,184,115,.7);}
+  .badge span{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);}
+  .badge strong{font-family:var(--display);font-weight:400;font-size:22px;color:var(--gold-soft);letter-spacing:.02em;}
+  .manifesto-media{position:relative;border-radius:8px;overflow:hidden;aspect-ratio:3/4;}
+  .manifesto-media img{width:100%;height:100%;object-fit:cover;transform:scale(1.05);
+    transition:transform 1.4s var(--ease);}
+  .manifesto-media:hover img{transform:scale(1.12);}
+  .manifesto-media .frame{position:absolute;inset:16px;border:1px solid rgba(255,255,255,.25);pointer-events:none;}
+  .manifesto-media .glass-cap{
+    position:absolute;left:26px;bottom:26px;padding:13px 22px;border-radius:13px;
+    background:rgba(8,16,26,.5);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.15);
+    font-family:var(--serif);font-style:italic;font-size:15px;color:var(--foam);
+  }
+  .manifesto-band{
+    margin-top:130px;display:flex;align-items:flex-start;gap:42px;flex-wrap:wrap;
+    border-top:1px solid rgba(255,255,255,.1);padding-top:64px;
+  }
+  .manifesto-band .num{font-family:var(--serif);font-style:italic;color:var(--gold-soft);font-size:20px;opacity:.8;padding-top:12px;}
+  .manifesto-band .band-text{flex:1;min-width:280px;}
+  .manifesto-band h3{
+    font-family:var(--display);font-weight:400;text-transform:uppercase;line-height:1.02;
+    font-size:clamp(30px,5.4vw,80px);letter-spacing:-.01em;
+  }
+  .manifesto-band p{margin-top:26px;max-width:540px;color:var(--muted);font-family:var(--serif);
+    font-weight:300;font-size:clamp(16px,1.6vw,20px);line-height:1.7;}
+
+  /* CREW — meet the team (layout ref: glassy avatar grid) */
+  .crew{padding:170px 0;background:linear-gradient(180deg, var(--deep2) 0%, var(--deep) 100%);}
+  .crew-head{margin-bottom:74px;}
+  .crew-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;}
+  .crew-card{
+    background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(14px);
+    border-radius:20px;padding:40px 28px;text-align:center;
+    transition:transform .6s var(--ease), border-color .5s ease, background .5s ease;
+  }
+  .crew-card:hover{transform:translateY(-12px);border-color:rgba(216,184,115,.4);background:rgba(216,184,115,.06);}
+  .crew-avatar{
+    width:84px;height:84px;border-radius:50%;margin:0 auto 24px;display:flex;align-items:center;justify-content:center;
+    font-family:var(--display);font-size:28px;color:var(--deep);
+    background:linear-gradient(135deg, var(--gold), var(--ocean-light));
+    box-shadow:0 0 0 1px rgba(255,255,255,.15), 0 14px 40px rgba(0,0,0,.4);
+  }
+  .crew-card h3{font-family:var(--display);font-weight:400;font-size:19px;letter-spacing:.02em;margin-bottom:9px;}
+  .crew-card .role{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-soft);}
+
   [data-reveal]{opacity:0;transform:translateY(64px);}
   [data-reveal].in{animation:reveal 1.1s var(--ease) forwards;}
   @keyframes reveal{to{opacity:1;transform:translateY(0);}}
@@ -354,12 +414,16 @@
     nav.links{display:none;}
     .about-grid{grid-template-columns:1fr;gap:50px;}
     .card-grid{grid-template-columns:1fr;}
+    .manifesto-grid{grid-template-columns:1fr;gap:50px;}
+    .crew-grid{grid-template-columns:1fr 1fr;}
     .footer-grid{grid-template-columns:1fr 1fr;}
     .footer-grid > div:first-child{grid-column:1/-1;}
   }
   @media(max-width:560px){
     .hero-meta{flex-direction:column;align-items:flex-start;gap:22px;}
     .stat-row{gap:34px;}
+    .manifesto-band{gap:20px;}
+    .crew-grid{grid-template-columns:1fr;}
     .footer-grid{grid-template-columns:1fr;}
     .footer-bottom{flex-direction:column;align-items:flex-start;}
   }
@@ -380,6 +444,7 @@
   <nav class="links">
     <a href="#about" data-i18n="nav.about">About</a>
     <a href="#services" data-i18n="nav.services">Services</a>
+    <a href="#crew" data-i18n="nav.crew">Crew</a>
     <a href="#testimonials" data-i18n="nav.testimonials">Voices</a>
     <a href="#contact" data-i18n="nav.contact">Contact</a>
   </nav>
@@ -461,6 +526,35 @@
     </div>
   </section>
 
+  <!-- MANIFESTO / WHO WE ARE -->
+  <section class="manifesto" id="manifesto">
+    <div class="wrap">
+      <div class="manifesto-grid">
+        <div class="manifesto-left">
+          <span class="eyebrow" data-i18n="manifesto.eyebrow">Who We Are</span>
+          <h2 class="manifesto-statement" data-reveal data-i18n="manifesto.statement">We're not just an expedition — we're a movement for the sea.</h2>
+          <p class="lead" data-reveal data-i18n="manifesto.p">We redefine what it means to explore — embracing the ocean, honouring its depths and uniting curious souls around a single, shared purpose: to protect the waters that connect us all.</p>
+          <a class="badge" href="#join" data-reveal>
+            <span data-i18n="manifesto.badge1">Be a Part of</span>
+            <strong data-i18n="manifesto.badge2">Something Great</strong>
+          </a>
+        </div>
+        <div class="manifesto-media" data-reveal>
+          <img src="assets/images/underwater-light.png" alt="Sunlight piercing through the ocean surface" loading="lazy">
+          <div class="frame"></div>
+          <div class="glass-cap" data-i18n="manifesto.caption">— light finds its way, even to the depths —</div>
+        </div>
+      </div>
+      <div class="manifesto-band">
+        <span class="num">01</span>
+        <div class="band-text">
+          <h3 data-reveal data-i18n="manifesto.band">We Believe the Sea Knows No Boundaries</h3>
+          <p data-reveal data-i18n="manifesto.bandsub">Every wave we protect, every shore we restore and every guardian we inspire is a chapter in a story far larger than ourselves — one written for the generations still to come.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- SERVICES -->
   <section class="services" id="services">
     <div class="wrap">
@@ -521,6 +615,38 @@
           <div class="glow"></div>
         </article>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- CREW -->
+  <section class="crew" id="crew">
+    <div class="wrap">
+      <div class="crew-head">
+        <span class="eyebrow" data-i18n="crew.eyebrow">Meet the Crew</span>
+        <h2 class="title" data-reveal data-i18n="crew.title">The Hands Behind the Helm</h2>
+      </div>
+      <div class="crew-grid">
+        <article class="crew-card" data-reveal>
+          <div class="crew-avatar">M</div>
+          <h3 data-i18n="crew.n1">Mara Vance</h3>
+          <div class="role" data-i18n="crew.r1">Expedition Lead</div>
+        </article>
+        <article class="crew-card" data-reveal>
+          <div class="crew-avatar">E</div>
+          <h3 data-i18n="crew.n2">Eli Nakamura</h3>
+          <div class="role" data-i18n="crew.r2">Marine Biologist</div>
+        </article>
+        <article class="crew-card" data-reveal>
+          <div class="crew-avatar">T</div>
+          <h3 data-i18n="crew.n3">Théo Marchand</h3>
+          <div class="role" data-i18n="crew.r3">Dive Master</div>
+        </article>
+        <article class="crew-card" data-reveal>
+          <div class="crew-avatar">A</div>
+          <h3 data-i18n="crew.n4">Ada Okafor</h3>
+          <div class="role" data-i18n="crew.r4">Conservation Director</div>
+        </article>
       </div>
     </div>
   </section>
@@ -639,7 +765,7 @@
 /* ---------------- i18n ---------------- */
 const dict = {
   en:{
-    "nav.about":"About","nav.services":"Services","nav.testimonials":"Voices","nav.contact":"Contact",
+    "nav.about":"About","nav.services":"Services","nav.crew":"Crew","nav.testimonials":"Voices","nav.contact":"Contact",
     "hero.eyebrow":"A Luxury Ocean Conservation Experience",
     "hero.title1":"Aye Maties","hero.title2":"Pirate Challenge",
     "hero.sub":"An immersive voyage where adventure meets purpose — uniting explorers, dreamers and changemakers to protect the oceans that connect us all.",
@@ -650,6 +776,18 @@ const dict = {
     "about.p1":"Aye Maties was born from a simple belief: that adventure and responsibility can sail the same course. What began as a small band of ocean lovers has grown into a global pirate-spirited movement — turning curiosity about the sea into real, measurable change.",
     "about.p2":"Every expedition, workshop and challenge we craft is designed with the same intention — to leave the water cleaner, the next generation more aware, and every guest forever changed by what lies beneath the surface.",
     "about.stat1":"Tonnes of ocean waste collected","about.stat2":"Expeditions completed","about.stat3":"Coastal communities supported",
+    "manifesto.eyebrow":"Who We Are",
+    "manifesto.statement":"We're not just an expedition — we're a movement for the sea.",
+    "manifesto.p":"We redefine what it means to explore — embracing the ocean, honouring its depths and uniting curious souls around a single, shared purpose: to protect the waters that connect us all.",
+    "manifesto.badge1":"Be a Part of","manifesto.badge2":"Something Great",
+    "manifesto.caption":"— light finds its way, even to the depths —",
+    "manifesto.band":"We Believe the Sea Knows No Boundaries",
+    "manifesto.bandsub":"Every wave we protect, every shore we restore and every guardian we inspire is a chapter in a story far larger than ourselves — one written for the generations still to come.",
+    "crew.eyebrow":"Meet the Crew","crew.title":"The Hands Behind the Helm",
+    "crew.n1":"Mara Vance","crew.r1":"Expedition Lead",
+    "crew.n2":"Eli Nakamura","crew.r2":"Marine Biologist",
+    "crew.n3":"Théo Marchand","crew.r3":"Dive Master",
+    "crew.n4":"Ada Okafor","crew.r4":"Conservation Director",
     "services.eyebrow":"What We Offer","services.title":"Voyages of Purpose",
     "services.lead":"From open-water expeditions to hands-on education, every offering is a chapter in the same story — saving our oceans, one challenge at a time.",
     "services.learn":"Discover More →",
@@ -677,7 +815,7 @@ const dict = {
     "footer.rights":"All rights reserved.","footer.crafted":"Crafted with reverence for the sea."
   },
   de:{
-    "nav.about":"Über uns","nav.services":"Angebote","nav.testimonials":"Stimmen","nav.contact":"Kontakt",
+    "nav.about":"Über uns","nav.services":"Angebote","nav.crew":"Crew","nav.testimonials":"Stimmen","nav.contact":"Kontakt",
     "hero.eyebrow":"Ein luxuriöses Erlebnis für den Schutz der Ozeane",
     "hero.title1":"Aye Maties","hero.title2":"Pirate Challenge",
     "hero.sub":"Eine immersive Reise, bei der Abenteuer auf Sinn trifft — sie vereint Entdecker, Träumer und Macher im Schutz der Ozeane, die uns alle verbinden.",
@@ -688,6 +826,18 @@ const dict = {
     "about.p1":"Aye Maties entstand aus einer einfachen Überzeugung: dass Abenteuer und Verantwortung denselben Kurs segeln können. Was als kleine Gruppe von Meeresliebhabern begann, ist zu einer globalen, piratisch-inspirierten Bewegung gewachsen — die Neugier auf das Meer in echten, messbaren Wandel verwandelt.",
     "about.p2":"Jede Expedition, jeder Workshop und jede Challenge wird mit derselben Absicht gestaltet — das Wasser sauberer zu hinterlassen, die nächste Generation aufzuklären und jeden Gast für immer von dem zu verändern, was unter der Oberfläche liegt.",
     "about.stat1":"Tonnen Meeresmüll gesammelt","about.stat2":"Abgeschlossene Expeditionen","about.stat3":"Unterstützte Küstengemeinden",
+    "manifesto.eyebrow":"Wer wir sind",
+    "manifesto.statement":"Wir sind nicht nur eine Expedition — wir sind eine Bewegung für das Meer.",
+    "manifesto.p":"Wir definieren neu, was Entdecken bedeutet — wir begegnen dem Ozean mit Respekt, ehren seine Tiefen und vereinen neugierige Menschen um ein gemeinsames Ziel: die Gewässer zu schützen, die uns alle verbinden.",
+    "manifesto.badge1":"Werde Teil von","manifesto.badge2":"etwas Großem",
+    "manifesto.caption":"— das Licht findet seinen Weg, selbst in die Tiefe —",
+    "manifesto.band":"Wir glauben, das Meer kennt keine Grenzen",
+    "manifesto.bandsub":"Jede Welle, die wir schützen, jede Küste, die wir wiederherstellen, und jeder Hüter, den wir inspirieren, ist ein Kapitel einer Geschichte, die größer ist als wir — geschrieben für die kommenden Generationen.",
+    "crew.eyebrow":"Lerne die Crew kennen","crew.title":"Die Hände am Steuer",
+    "crew.n1":"Mara Vance","crew.r1":"Expeditionsleitung",
+    "crew.n2":"Eli Nakamura","crew.r2":"Meeresbiologe",
+    "crew.n3":"Théo Marchand","crew.r3":"Tauchlehrer",
+    "crew.n4":"Ada Okafor","crew.r4":"Leitung Naturschutz",
     "services.eyebrow":"Unsere Angebote","services.title":"Reisen mit Sinn",
     "services.lead":"Von Hochsee-Expeditionen bis zu praxisnaher Bildung — jedes Angebot ist ein Kapitel derselben Geschichte: den Ozean zu retten, eine Challenge nach der anderen.",
     "services.learn":"Mehr entdecken →",
@@ -715,7 +865,7 @@ const dict = {
     "footer.rights":"Alle Rechte vorbehalten.","footer.crafted":"Mit Ehrfurcht vor dem Meer gestaltet."
   },
   es:{
-    "nav.about":"Nosotros","nav.services":"Servicios","nav.testimonials":"Voces","nav.contact":"Contacto",
+    "nav.about":"Nosotros","nav.services":"Servicios","nav.crew":"Tripulación","nav.testimonials":"Voces","nav.contact":"Contacto",
     "hero.eyebrow":"Una experiencia de lujo para la conservación del océano",
     "hero.title1":"Aye Maties","hero.title2":"Pirate Challenge",
     "hero.sub":"Un viaje inmersivo donde la aventura encuentra el propósito — uniendo exploradores, soñadores y agentes de cambio para proteger los océanos que nos conectan a todos.",
@@ -726,6 +876,18 @@ const dict = {
     "about.p1":"Aye Maties nació de una creencia simple: que la aventura y la responsabilidad pueden navegar el mismo rumbo. Lo que comenzó como un pequeño grupo de amantes del océano se ha convertido en un movimiento global de espíritu pirata — transformando la curiosidad por el mar en cambios reales y medibles.",
     "about.p2":"Cada expedición, taller y desafío que creamos tiene la misma intención — dejar el agua más limpia, a la próxima generación más consciente, y a cada huésped transformado para siempre por lo que yace bajo la superficie.",
     "about.stat1":"Toneladas de residuos oceánicos recolectados","about.stat2":"Expediciones realizadas","about.stat3":"Comunidades costeras apoyadas",
+    "manifesto.eyebrow":"Quiénes somos",
+    "manifesto.statement":"No somos solo una expedición — somos un movimiento por el mar.",
+    "manifesto.p":"Redefinimos lo que significa explorar — abrazando el océano, honrando sus profundidades y uniendo a almas curiosas en torno a un único propósito compartido: proteger las aguas que nos conectan a todos.",
+    "manifesto.badge1":"Sé parte de","manifesto.badge2":"algo grande",
+    "manifesto.caption":"— la luz encuentra su camino, incluso en las profundidades —",
+    "manifesto.band":"Creemos que el mar no conoce fronteras",
+    "manifesto.bandsub":"Cada ola que protegemos, cada costa que restauramos y cada guardián que inspiramos es un capítulo de una historia mucho mayor que nosotros — escrita para las generaciones que están por venir.",
+    "crew.eyebrow":"Conoce a la tripulación","crew.title":"Las manos al timón",
+    "crew.n1":"Mara Vance","crew.r1":"Líder de expedición",
+    "crew.n2":"Eli Nakamura","crew.r2":"Bióloga marina",
+    "crew.n3":"Théo Marchand","crew.r3":"Instructor de buceo",
+    "crew.n4":"Ada Okafor","crew.r4":"Directora de conservación",
     "services.eyebrow":"Lo que ofrecemos","services.title":"Viajes con propósito",
     "services.lead":"Desde expediciones en alta mar hasta educación práctica, cada propuesta es un capítulo de la misma historia — salvar nuestros océanos, un desafío a la vez.",
     "services.learn":"Descubre más →",
@@ -753,7 +915,7 @@ const dict = {
     "footer.rights":"Todos los derechos reservados.","footer.crafted":"Creado con reverencia por el mar."
   },
   fr:{
-    "nav.about":"À propos","nav.services":"Services","nav.testimonials":"Voix","nav.contact":"Contact",
+    "nav.about":"À propos","nav.services":"Services","nav.crew":"Équipage","nav.testimonials":"Voix","nav.contact":"Contact",
     "hero.eyebrow":"Une expérience de luxe pour la préservation des océans",
     "hero.title1":"Aye Maties","hero.title2":"Pirate Challenge",
     "hero.sub":"Un voyage immersif où l'aventure rencontre le sens — réunissant explorateurs, rêveurs et acteurs du changement pour protéger les océans qui nous unissent tous.",
@@ -764,6 +926,18 @@ const dict = {
     "about.p1":"Aye Maties est né d'une conviction simple : l'aventure et la responsabilité peuvent naviguer le même cap. Ce qui a commencé comme un petit groupe d'amoureux de l'océan est devenu un mouvement mondial à l'esprit pirate — transformant la curiosité pour la mer en changements réels et mesurables.",
     "about.p2":"Chaque expédition, atelier et défi que nous concevons poursuit la même intention — laisser l'eau plus propre, la prochaine génération plus consciente, et chaque invité à jamais transformé par ce qui se cache sous la surface.",
     "about.stat1":"Tonnes de déchets océaniques collectées","about.stat2":"Expéditions réalisées","about.stat3":"Communautés côtières soutenues",
+    "manifesto.eyebrow":"Qui nous sommes",
+    "manifesto.statement":"Nous ne sommes pas qu'une expédition — nous sommes un mouvement pour la mer.",
+    "manifesto.p":"Nous redéfinissons ce que signifie explorer — en embrassant l'océan, en honorant ses profondeurs et en réunissant les âmes curieuses autour d'un seul but commun : protéger les eaux qui nous relient tous.",
+    "manifesto.badge1":"Faites partie de","manifesto.badge2":"quelque chose de grand",
+    "manifesto.caption":"— la lumière trouve son chemin, jusque dans les profondeurs —",
+    "manifesto.band":"Nous croyons que la mer ne connaît aucune frontière",
+    "manifesto.bandsub":"Chaque vague que nous protégeons, chaque rivage que nous restaurons et chaque gardien que nous inspirons est un chapitre d'une histoire bien plus grande que nous — écrite pour les générations à venir.",
+    "crew.eyebrow":"Rencontrez l'équipage","crew.title":"Les mains à la barre",
+    "crew.n1":"Mara Vance","crew.r1":"Cheffe d'expédition",
+    "crew.n2":"Eli Nakamura","crew.r2":"Biologiste marin",
+    "crew.n3":"Théo Marchand","crew.r3":"Maître plongeur",
+    "crew.n4":"Ada Okafor","crew.r4":"Directrice de la conservation",
     "services.eyebrow":"Notre offre","services.title":"Des voyages porteurs de sens",
     "services.lead":"Des expéditions en haute mer à l'éducation pratique, chaque offre est un chapitre de la même histoire — sauver nos océans, un défi à la fois.",
     "services.learn":"En savoir plus →",
