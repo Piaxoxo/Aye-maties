@@ -349,6 +349,81 @@
   .btn-glow:hover::after{opacity:.8;}
   @keyframes spin{to{transform:rotate(360deg);}}
 
+  /* SPONSOR / GENESIS PARTNER */
+  .sponsor{padding:170px 0;background:linear-gradient(180deg,var(--deep) 0%, var(--deep2) 55%, var(--deep) 100%);overflow:hidden;}
+  .sponsor-head{max-width:840px;margin-bottom:64px;}
+  .sponsor-head .lead{margin-top:24px;}
+  .sp-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-bottom:26px;}
+  .sp-kpi{background:linear-gradient(160deg,rgba(216,184,115,.1),rgba(255,255,255,.02));
+    border:1px solid rgba(216,184,115,.25);border-radius:18px;padding:34px 24px;text-align:center;
+    transition:transform .6s var(--ease),border-color .5s;}
+  .sp-kpi:hover{transform:translateY(-8px);border-color:rgba(216,184,115,.55);}
+  .sp-kpi b{display:block;font-family:var(--display);font-size:clamp(28px,3.4vw,46px);color:var(--gold-soft);font-weight:400;line-height:1;}
+  .sp-kpi span{display:block;margin-top:14px;font-size:12px;letter-spacing:.03em;color:var(--muted);line-height:1.5;}
+  .sp-note{font-family:var(--serif);font-style:italic;color:var(--muted);font-size:15px;margin-bottom:96px;opacity:.85;}
+  .sp-block{margin-bottom:96px;}
+  .sp-block h3.sp-h{font-family:var(--display);font-weight:400;text-transform:uppercase;
+    font-size:clamp(24px,3vw,42px);letter-spacing:-.01em;margin-bottom:16px;}
+  .sp-block p.sp-intro{font-family:var(--serif);font-weight:300;color:var(--muted);
+    font-size:clamp(16px,1.6vw,19px);line-height:1.7;max-width:740px;margin-bottom:42px;}
+  /* phases */
+  .sp-phases{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+  .sp-phase{background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.1);border-radius:18px;
+    padding:30px 26px;transition:transform .6s var(--ease),border-color .5s;}
+  .sp-phase:hover{transform:translateY(-10px);border-color:rgba(216,184,115,.4);}
+  .sp-phase .ph-time{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-soft);}
+  .sp-phase h4{font-family:var(--display);font-weight:400;font-size:22px;margin:10px 0 14px;}
+  .sp-phase .ph-goal{font-family:var(--serif);font-weight:300;color:var(--muted);font-size:15px;line-height:1.6;margin-bottom:18px;}
+  .sp-phase .ph-imp{font-size:13px;color:var(--ink);border-top:1px solid rgba(255,255,255,.1);padding-top:16px;}
+  /* platform donut */
+  .sp-platform{display:grid;grid-template-columns:300px 1fr;gap:60px;align-items:center;}
+  .donut{position:relative;width:260px;height:260px;border-radius:50%;margin:0 auto;
+    background:conic-gradient(var(--gold) 0 35%, var(--gold-soft) 35% 63%, var(--ocean-light) 63% 79%,
+      #2f8f7f 79% 88%, #2a4a5e 88% 95%, #6b7d86 95% 100%);box-shadow:0 20px 60px rgba(0,0,0,.4);}
+  .donut::after{content:'';position:absolute;inset:30%;border-radius:50%;background:var(--deep2);box-shadow:inset 0 0 30px rgba(0,0,0,.5);}
+  .donut-c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+  .donut-c b{font-family:var(--display);font-size:30px;color:var(--gold-soft);}
+  .donut-c span{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);}
+  .legend{display:grid;grid-template-columns:1fr 1fr;gap:14px 30px;}
+  .legend li{list-style:none;display:flex;align-items:center;gap:12px;font-size:14px;color:var(--ink);}
+  .legend .sw{width:14px;height:14px;border-radius:4px;flex:0 0 auto;}
+  .legend b{margin-left:auto;color:var(--gold-soft);font-family:var(--display);font-weight:400;}
+  .sp-engage{margin-top:30px;font-family:var(--serif);font-style:italic;color:var(--muted);}
+  /* value + metrics */
+  .sp-values{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+  .sp-val{background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.015));
+    border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:30px 22px;text-align:center;}
+  .sp-val.feat{border-color:rgba(216,184,115,.5);background:linear-gradient(160deg,rgba(216,184,115,.14),rgba(255,255,255,.02));}
+  .sp-val b{display:block;font-family:var(--display);font-size:clamp(24px,2.8vw,38px);color:var(--gold-soft);font-weight:400;}
+  .sp-val span{display:block;margin-top:12px;font-size:12px;color:var(--muted);line-height:1.5;}
+  .sp-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .sp-card{background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.1);border-radius:18px;
+    padding:32px 28px;transition:transform .6s var(--ease),border-color .5s;}
+  .sp-card:hover{transform:translateY(-8px);border-color:rgba(216,184,115,.4);}
+  .sp-card h4{font-family:var(--display);font-weight:400;font-size:20px;margin-bottom:14px;}
+  .sp-card .mn{font-family:var(--serif);font-style:italic;color:var(--gold-soft);font-size:14px;}
+  .sp-card p{font-family:var(--serif);font-weight:300;color:var(--muted);font-size:15px;line-height:1.65;margin-top:10px;}
+  .sp-banner{background:linear-gradient(135deg,rgba(31,85,112,.3),rgba(216,184,115,.08));
+    border:1px solid rgba(216,184,115,.3);border-radius:22px;padding:56px 48px;text-align:center;}
+  .sp-banner h3{margin-bottom:18px;}
+  .sp-banner p{max-width:760px;margin:0 auto;font-family:var(--serif);font-weight:300;
+    font-size:clamp(16px,1.7vw,20px);line-height:1.7;color:var(--ink);opacity:.9;}
+  .sp-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .sp-metric{text-align:center;padding:34px 22px;border:1px solid rgba(255,255,255,.1);border-radius:18px;background:rgba(255,255,255,.03);}
+  .sp-metric b{display:block;font-family:var(--display);font-size:clamp(28px,3.6vw,50px);color:var(--gold-soft);font-weight:400;}
+  .sp-metric span{display:block;margin-top:12px;font-size:13px;color:var(--muted);line-height:1.5;}
+  /* offer */
+  .sp-offer{display:grid;grid-template-columns:1.2fr .8fr;gap:50px;align-items:center;
+    background:linear-gradient(160deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
+    border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:54px 48px;}
+  .sp-offer .lead{margin-bottom:26px;}
+  .sp-mini{display:flex;flex-direction:column;gap:14px;}
+  .sp-mini div{display:flex;align-items:center;gap:14px;font-size:15px;color:var(--ink);}
+  .sp-mini .dot{width:9px;height:9px;border-radius:50%;background:var(--gold);flex:0 0 auto;}
+  .sp-offer-cta{display:flex;flex-direction:column;align-items:flex-start;gap:20px;}
+  .sp-tagline{font-family:var(--display);text-transform:uppercase;font-size:clamp(22px,2.6vw,34px);line-height:1.15;letter-spacing:-.01em;}
+  .sp-cta-note{font-family:var(--serif);font-style:italic;color:var(--muted);font-size:14px;}
+
   /* IMPRESSUM / LEGAL */
   .impressum{padding:150px 0 40px;background:var(--deep);}
   .impressum .wrap{max-width:1100px;}
@@ -466,6 +541,10 @@
     .manifesto-grid{grid-template-columns:1fr;gap:50px;}
     .crew-grid{grid-template-columns:1fr 1fr;}
     .impressum-grid{grid-template-columns:1fr;}
+    .sp-kpis,.sp-phases,.sp-values,.sp-metrics{grid-template-columns:1fr 1fr;}
+    .sp-grid3{grid-template-columns:1fr;}
+    .sp-platform{grid-template-columns:1fr;gap:40px;}
+    .sp-offer{grid-template-columns:1fr;gap:34px;}
     .footer-grid{grid-template-columns:1fr 1fr;}
     .footer-grid > div:first-child{grid-column:1/-1;}
   }
@@ -474,6 +553,9 @@
     .stat-row{gap:34px;}
     .manifesto-band{gap:20px;}
     .crew-grid{grid-template-columns:1fr;}
+    .sp-kpis,.sp-phases,.sp-metrics{grid-template-columns:1fr;}
+    .sp-values{grid-template-columns:1fr 1fr;}
+    .legend{grid-template-columns:1fr;}
     .footer-grid{grid-template-columns:1fr;}
     .footer-bottom{flex-direction:column;align-items:flex-start;}
   }
@@ -496,6 +578,7 @@
     <a href="#services" data-i18n="nav.services">Services</a>
     <a href="#crew" data-i18n="nav.crew">Crew</a>
     <a href="#testimonials" data-i18n="nav.testimonials">Voices</a>
+    <a href="#sponsor" data-i18n="nav.sponsor">Partner</a>
     <a href="#contact" data-i18n="nav.contact">Contact</a>
   </nav>
   <div class="lang-switch" id="langSwitch">
@@ -757,6 +840,138 @@
     </div>
   </section>
 
+  <!-- SPONSOR / GENESIS PARTNER -->
+  <section class="sponsor" id="sponsor">
+    <div class="wrap">
+      <div class="sponsor-head">
+        <span class="eyebrow" data-i18n="sp.eyebrow">Genesis Partnership</span>
+        <h2 class="title" data-reveal data-i18n="sp.title">Become the Genesis Partner</h2>
+        <p class="lead" data-reveal data-i18n="sp.intro">We are not seeking a committee of sponsors. We offer one exclusive partnership to a single entity that recognises the power of narrative over noise — anchoring the complete arc across all seven seasons and international markets.</p>
+      </div>
+
+      <!-- headline KPIs -->
+      <div class="sp-kpis">
+        <div class="sp-kpi" data-reveal><b>85M+</b><span data-i18n="sp.k1l">Impressions in 12 months — social media only</span></div>
+        <div class="sp-kpi" data-reveal><b>~€21M</b><span data-i18n="sp.k2l">Media value over 7 years — social media only</span></div>
+        <div class="sp-kpi" data-reveal><b>300K+</b><span data-i18n="sp.k3l">Active community</span></div>
+        <div class="sp-kpi" data-reveal><b>40M+</b><span data-i18n="sp.k4l">Video views per year</span></div>
+      </div>
+      <p class="sp-note" data-i18n="sp.knote">All figures are social-media only. The TV series is not included — it multiplies the total many times over.</p>
+
+      <!-- phases -->
+      <div class="sp-block">
+        <h3 class="sp-h" data-reveal data-i18n="sp.phHead">Phases & Reach Growth</h3>
+        <p class="sp-intro" data-i18n="sp.phIntro">A successful launch needs at least three months of pre-production. From there, reach grows exponentially through paid ads, influencer multipliers and organic community momentum.</p>
+        <div class="sp-phases">
+          <div class="sp-phase" data-reveal><div class="ph-time">0–3 <span data-i18n="sp.months">months</span></div><h4 data-i18n="sp.ph1t">Pre-Production</h4><p class="ph-goal" data-i18n="sp.ph1g">Brand build · content pool · influencer network</p><div class="ph-imp">0.5M <span data-i18n="sp.imp">impressions</span> · 5,000+ <span data-i18n="sp.fol">followers</span></div></div>
+          <div class="sp-phase" data-reveal><div class="ph-time">3–6 <span data-i18n="sp.months">months</span></div><h4 data-i18n="sp.ph2t">Awareness</h4><p class="ph-goal" data-i18n="sp.ph2g">Visibility · social launch · paid ads</p><div class="ph-imp">12M <span data-i18n="sp.imp">impressions</span> · 50,000+ <span data-i18n="sp.fol">followers</span></div></div>
+          <div class="sp-phase" data-reveal><div class="ph-time">6–9 <span data-i18n="sp.months">months</span></div><h4 data-i18n="sp.ph3t">Community</h4><p class="ph-goal" data-i18n="sp.ph3g">Community build · CRM · brand loyalty</p><div class="ph-imp">35M <span data-i18n="sp.imp">impressions</span> · 150,000+ <span data-i18n="sp.fol">followers</span></div></div>
+          <div class="sp-phase" data-reveal><div class="ph-time">9–12 <span data-i18n="sp.months">months</span></div><h4 data-i18n="sp.ph4t">Scaling</h4><p class="ph-goal" data-i18n="sp.ph4g">Monetisation · expand sponsors · scale</p><div class="ph-imp">85M+ <span data-i18n="sp.imp">impressions</span> · 300,000+ <span data-i18n="sp.fol">followers</span></div></div>
+        </div>
+      </div>
+
+      <!-- platform distribution -->
+      <div class="sp-block">
+        <h3 class="sp-h" data-reveal data-i18n="sp.plHead">Platform Distribution</h3>
+        <div class="sp-platform">
+          <div data-reveal>
+            <div class="donut"><div class="donut-c"><b>6</b><span data-i18n="sp.platforms">Platforms</span></div></div>
+          </div>
+          <div data-reveal>
+            <ul class="legend">
+              <li><span class="sw" style="background:var(--gold)"></span> Instagram <b>35%</b></li>
+              <li><span class="sw" style="background:var(--gold-soft)"></span> TikTok <b>28%</b></li>
+              <li><span class="sw" style="background:var(--ocean-light)"></span> YouTube <b>16%</b></li>
+              <li><span class="sw" style="background:#2f8f7f"></span> Facebook <b>9%</b></li>
+              <li><span class="sw" style="background:#2a4a5e"></span> LinkedIn <b>7%</b></li>
+              <li><span class="sw" style="background:#6b7d86"></span> <span data-i18n="sp.plOther">Other</span> <b>5%</b></li>
+            </ul>
+            <p class="sp-engage" data-i18n="sp.engage">Ø engagement rate 6–9% — versus an industry average of 1–3%.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7-year value -->
+      <div class="sp-block">
+        <h3 class="sp-h" data-reveal data-i18n="sp.vHead">7-Year Media Value</h3>
+        <div class="sp-values">
+          <div class="sp-val" data-reveal><b>€1.2M</b><span data-i18n="sp.v1l">Media value 2026 · social only</span></div>
+          <div class="sp-val" data-reveal><b>€4.8M</b><span data-i18n="sp.v2l">Media value 2032 · social only</span></div>
+          <div class="sp-val" data-reveal><b>~€21M</b><span data-i18n="sp.v3l">Cumulative 7-year value · social only</span></div>
+          <div class="sp-val feat" data-reveal><b>&gt;€40M</b><span data-i18n="sp.v4l">Total 7-year value · incl. TV series</span></div>
+        </div>
+      </div>
+
+      <!-- brand presence -->
+      <div class="sp-block">
+        <h3 class="sp-h" data-reveal data-i18n="sp.prHead">Brand Presence — Every Channel</h3>
+        <p class="sp-intro" data-i18n="sp.prIntro">The sponsor is not advertising — it is part of the story, woven organically across every channel, format and moment.</p>
+        <div class="sp-grid3">
+          <div class="sp-card" data-reveal><h4 data-i18n="sp.pr1t">Social Media Branding</h4><span class="mn">85M+ <span data-i18n="sp.impyr">impressions/yr</span></span><p data-i18n="sp.pr1d">Logo across profiles, covers, posts, stories & highlights on all channels.</p></div>
+          <div class="sp-card" data-reveal><h4 data-i18n="sp.pr2t">Video Naming & Mentions</h4><span class="mn">40M+ <span data-i18n="sp.viewsyr">views/yr</span></span><p data-i18n="sp.pr2d">Active naming and on-screen presence in every Reel, TikTok and YouTube video.</p></div>
+          <div class="sp-card" data-reveal><h4 data-i18n="sp.pr3t">TV Series Integration</h4><span class="mn" data-i18n="sp.multAll">Multiplies everything</span><p data-i18n="sp.pr3d">Presence inside the show itself — maximises reach far beyond social media.</p></div>
+          <div class="sp-card" data-reveal><h4 data-i18n="sp.pr4t">Influencer Network</h4><span class="mn" data-i18n="sp.authentic">Authentic & organic</span><p data-i18n="sp.pr4d">50+ micro & macro creators integrate the brand naturally into their content.</p></div>
+          <div class="sp-card" data-reveal><h4 data-i18n="sp.pr5t">Branded Challenge Content</h4><span class="mn" data-i18n="sp.ugc">User-generated</span><p data-i18n="sp.pr5d">The Pirate Challenge itself carries the sponsor — every entry is branded content.</p></div>
+          <div class="sp-card" data-reveal><h4 data-i18n="sp.pr6t">Events, Merch & CRM</h4><span class="mn" data-i18n="sp.onoff">Online & offline</span><p data-i18n="sp.pr6d">Giveaways, live events, print, merchandise and the direct community carry the branding.</p></div>
+        </div>
+      </div>
+
+      <!-- co-creation banner -->
+      <div class="sp-block">
+        <div class="sp-banner" data-reveal>
+          <h3 class="sp-h" data-i18n="sp.coHead">A Shared Brand Strategy</h3>
+          <p data-i18n="sp.coBody">What makes this partnership unique: we develop a tailor-made presence strategy together. The sponsor's brand is not placed — it is co-directed. Storytelling, visuals, tone and appearances are planned and executed as a joint work. No other format offers this depth of shared brand leadership.</p>
+        </div>
+      </div>
+
+      <!-- brand impact -->
+      <div class="sp-block">
+        <h3 class="sp-h" data-reveal data-i18n="sp.imHead">Brand Impact — 7-Year Main Sponsorship</h3>
+        <p class="sp-intro" data-i18n="sp.imIntro">Long-term, purpose-driven sponsoring shows measurable gains across every relevant brand KPI. After seven years the sponsor is inseparable from the movement.</p>
+        <div class="sp-metrics">
+          <div class="sp-metric" data-reveal><b>+15–35%</b><span data-i18n="sp.im1l">Brand awareness · 36 months</span></div>
+          <div class="sp-metric" data-reveal><b>+40%</b><span data-i18n="sp.im2l">Brand trust vs. classic advertising (18–40 yrs) · 36 months</span></div>
+          <div class="sp-metric" data-reveal><b>+24%</b><span data-i18n="sp.im3l">Purchase intent through purpose alignment · 24 months</span></div>
+          <div class="sp-metric" data-reveal><b>+27%</b><span data-i18n="sp.im4l">Word-of-mouth within the community · 12 months</span></div>
+          <div class="sp-metric" data-reveal><b>+43%</b><span data-i18n="sp.im5l">ESG perception as a sustainable company · 36 months</span></div>
+          <div class="sp-metric" data-reveal><b>x8</b><span data-i18n="sp.im6l">Organic brand mentions · 12 months</span></div>
+        </div>
+      </div>
+
+      <!-- why now -->
+      <div class="sp-block">
+        <h3 class="sp-h" data-reveal data-i18n="sp.wHead">Why Now — The Early-Mover Advantage</h3>
+        <div class="sp-grid3">
+          <div class="sp-card" data-reveal><h4 data-i18n="sp.w1t">Lowest Entry Price</h4><p data-i18n="sp.w1d">2026 has the lowest price at maximum long-term value. Every year gets more expensive.</p></div>
+          <div class="sp-card" data-reveal><h4 data-i18n="sp.w2t">Community Ownership</h4><p data-i18n="sp.w2d">The main sponsor is seen as a co-founder of the movement — not an advertiser.</p></div>
+          <div class="sp-card" data-reveal><h4 data-i18n="sp.w3t">Cumulative Brand Build</h4><p data-i18n="sp.w3d">Seven years of presence compound. By 2032 the brand value is 4× that of 2026.</p></div>
+          <div class="sp-card" data-reveal><h4 data-i18n="sp.w4t">Category Monopoly</h4><p data-i18n="sp.w4d">Seven years with no competitor in your category. This position is gone afterwards.</p></div>
+          <div class="sp-card" data-reveal><h4 data-i18n="sp.w5t">TV Multiplier</h4><p data-i18n="sp.w5d">The series maximises reach far beyond social media — at no extra cost.</p></div>
+        </div>
+      </div>
+
+      <!-- the investment / offer -->
+      <div class="sp-offer" data-reveal>
+        <div>
+          <span class="eyebrow" data-i18n="sp.ofHead">The Investment</span>
+          <p class="lead" data-i18n="sp.ofBody">Bringing this to life requires a committed €3M, released in two phases. Funds are drawn as milestones are met — no upfront lump sum. You receive exclusive category rights, integrated but non-intrusive brand presence and guaranteed prime placement. You enable the story; you do not steer it.</p>
+          <div class="sp-mini">
+            <div><span class="dot"></span> <span data-i18n="sp.ofPhase1">€1M — Phase 1: Vessel, teams & teaser</span></div>
+            <div><span class="dot"></span> <span data-i18n="sp.ofPhase2">€2M — Phase 2: Caribbean shoot, post-production & Season 1 launch</span></div>
+          </div>
+        </div>
+        <div class="sp-offer-cta">
+          <p class="sp-tagline" data-i18n="sp.ofTagline">Not a logo on a banner. Co-found a movement. Build a brand for seven years.</p>
+          <a class="btn btn-glow magnetic" href="mailto:AyeMaties@gmail.com?subject=Genesis%20Partner%20%E2%80%94%20Aye%20Maties">
+            <span data-i18n="sp.cta">Become the Genesis Partner</span>
+            <svg viewBox="0 0 16 10" fill="none"><path d="M1 5h14M10 1l5 4-5 4" stroke="currentColor" stroke-width="1.3"/></svg>
+          </a>
+          <p class="sp-cta-note" data-i18n="sp.ctaNote">First-come, first-serve — the first written commitment secures the position.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA -->
   <section class="cta" id="join">
     <video autoplay muted loop playsinline>
@@ -885,6 +1100,42 @@ const dict = {
     "imp.postHead":"Postal Address","imp.opHead":"Operative Contact","imp.opBy":"c/o Capt. Peter Brucha — Founder, Sail Wisely & Aye Maties",
     "imp.prodHead":"Production Contact","imp.prodBy":"c/o Dr. Dino Stelzl — Director, Sail Wisely CLG @ Aye Maties",
     "imp.soundHead":"Soundtrack","imp.soundPre":"Preview at",
+    "nav.sponsor":"Partner",
+    "sp.eyebrow":"Genesis Partnership","sp.title":"Become the Genesis Partner",
+    "sp.intro":"We are not seeking a committee of sponsors. We offer one exclusive partnership to a single entity that recognises the power of narrative over noise — anchoring the complete arc across all seven seasons and international markets.",
+    "sp.k1l":"Impressions in 12 months — social media only","sp.k2l":"Media value over 7 years — social media only","sp.k3l":"Active community","sp.k4l":"Video views per year",
+    "sp.knote":"All figures are social-media only. The TV series is not included — it multiplies the total many times over.",
+    "sp.phHead":"Phases & Reach Growth","sp.phIntro":"A successful launch needs at least three months of pre-production. From there, reach grows exponentially through paid ads, influencer multipliers and organic community momentum.",
+    "sp.months":"months","sp.imp":"impressions","sp.fol":"followers",
+    "sp.ph1t":"Pre-Production","sp.ph1g":"Brand build · content pool · influencer network",
+    "sp.ph2t":"Awareness","sp.ph2g":"Visibility · social launch · paid ads",
+    "sp.ph3t":"Community","sp.ph3g":"Community build · CRM · brand loyalty",
+    "sp.ph4t":"Scaling","sp.ph4g":"Monetisation · expand sponsors · scale",
+    "sp.plHead":"Platform Distribution","sp.platforms":"Platforms","sp.plOther":"Other",
+    "sp.engage":"Ø engagement rate 6–9% — versus an industry average of 1–3%.",
+    "sp.vHead":"7-Year Media Value",
+    "sp.v1l":"Media value 2026 · social only","sp.v2l":"Media value 2032 · social only","sp.v3l":"Cumulative 7-year value · social only","sp.v4l":"Total 7-year value · incl. TV series",
+    "sp.prHead":"Brand Presence — Every Channel","sp.prIntro":"The sponsor is not advertising — it is part of the story, woven organically across every channel, format and moment.",
+    "sp.impyr":"impressions/yr","sp.viewsyr":"views/yr","sp.multAll":"Multiplies everything","sp.authentic":"Authentic & organic","sp.ugc":"User-generated","sp.onoff":"Online & offline",
+    "sp.pr1t":"Social Media Branding","sp.pr1d":"Logo across profiles, covers, posts, stories & highlights on all channels.",
+    "sp.pr2t":"Video Naming & Mentions","sp.pr2d":"Active naming and on-screen presence in every Reel, TikTok and YouTube video.",
+    "sp.pr3t":"TV Series Integration","sp.pr3d":"Presence inside the show itself — maximises reach far beyond social media.",
+    "sp.pr4t":"Influencer Network","sp.pr4d":"50+ micro & macro creators integrate the brand naturally into their content.",
+    "sp.pr5t":"Branded Challenge Content","sp.pr5d":"The Pirate Challenge itself carries the sponsor — every entry is branded content.",
+    "sp.pr6t":"Events, Merch & CRM","sp.pr6d":"Giveaways, live events, print, merchandise and the direct community carry the branding.",
+    "sp.coHead":"A Shared Brand Strategy","sp.coBody":"What makes this partnership unique: we develop a tailor-made presence strategy together. The sponsor's brand is not placed — it is co-directed. Storytelling, visuals, tone and appearances are planned and executed as a joint work. No other format offers this depth of shared brand leadership.",
+    "sp.imHead":"Brand Impact — 7-Year Main Sponsorship","sp.imIntro":"Long-term, purpose-driven sponsoring shows measurable gains across every relevant brand KPI. After seven years the sponsor is inseparable from the movement.",
+    "sp.im1l":"Brand awareness · 36 months","sp.im2l":"Brand trust vs. classic advertising (18–40 yrs) · 36 months","sp.im3l":"Purchase intent through purpose alignment · 24 months","sp.im4l":"Word-of-mouth within the community · 12 months","sp.im5l":"ESG perception as a sustainable company · 36 months","sp.im6l":"Organic brand mentions · 12 months",
+    "sp.wHead":"Why Now — The Early-Mover Advantage",
+    "sp.w1t":"Lowest Entry Price","sp.w1d":"2026 has the lowest price at maximum long-term value. Every year gets more expensive.",
+    "sp.w2t":"Community Ownership","sp.w2d":"The main sponsor is seen as a co-founder of the movement — not an advertiser.",
+    "sp.w3t":"Cumulative Brand Build","sp.w3d":"Seven years of presence compound. By 2032 the brand value is 4× that of 2026.",
+    "sp.w4t":"Category Monopoly","sp.w4d":"Seven years with no competitor in your category. This position is gone afterwards.",
+    "sp.w5t":"TV Multiplier","sp.w5d":"The series maximises reach far beyond social media — at no extra cost.",
+    "sp.ofHead":"The Investment","sp.ofBody":"Bringing this to life requires a committed €3M, released in two phases. Funds are drawn as milestones are met — no upfront lump sum. You receive exclusive category rights, integrated but non-intrusive brand presence and guaranteed prime placement. You enable the story; you do not steer it.",
+    "sp.ofPhase1":"€1M — Phase 1: Vessel, teams & teaser","sp.ofPhase2":"€2M — Phase 2: Caribbean shoot, post-production & Season 1 launch",
+    "sp.ofTagline":"Not a logo on a banner. Co-found a movement. Build a brand for seven years.",
+    "sp.cta":"Become the Genesis Partner","sp.ctaNote":"First-come, first-serve — the first written commitment secures the position.",
     "manifesto.eyebrow":"Who We Are",
     "manifesto.statement":"We're not just an expedition — we're a movement for the sea.",
     "manifesto.p":"We redefine what it means to explore — embracing the ocean, honouring its depths and uniting curious souls around a single, shared purpose: to protect the waters that connect us all.",
@@ -943,6 +1194,42 @@ const dict = {
     "imp.postHead":"Postanschrift","imp.opHead":"Operativer Kontakt","imp.opBy":"c/o Capt. Peter Brucha — Gründer, Sail Wisely & Aye Maties",
     "imp.prodHead":"Produktionskontakt","imp.prodBy":"c/o Dr. Dino Stelzl — Director, Sail Wisely CLG @ Aye Maties",
     "imp.soundHead":"Soundtrack","imp.soundPre":"Vorschau auf",
+    "nav.sponsor":"Partner",
+    "sp.eyebrow":"Genesis-Partnerschaft","sp.title":"Werde Genesis-Partner",
+    "sp.intro":"Wir suchen kein Sponsoren-Komitee. Wir bieten eine einzige exklusive Partnerschaft – für eine Marke, die die Kraft der Erzählung über den Lärm erkennt und den gesamten Bogen über alle sieben Staffeln und internationalen Märkte hinweg verankert.",
+    "sp.k1l":"Impressions in 12 Monaten — nur Social Media","sp.k2l":"Mediawert über 7 Jahre — nur Social Media","sp.k3l":"Aktive Community","sp.k4l":"Video Views pro Jahr",
+    "sp.knote":"Alle Zahlen basieren ausschließlich auf Social Media. Die TV-Serienreichweite ist NICHT enthalten — sie multipliziert den Gesamtwert um ein Vielfaches.",
+    "sp.phHead":"Phasen & Reichweitenwachstum","sp.phIntro":"Ein erfolgreicher Launch braucht mindestens drei Monate Pre-Production. Danach wächst die Reichweite exponentiell durch Paid Ads, Influencer-Multiplikatoren und organische Community-Dynamik.",
+    "sp.months":"Monate","sp.imp":"Impressions","sp.fol":"Follower",
+    "sp.ph1t":"Pre-Production","sp.ph1g":"Markenaufbau · Content-Pool · Influencer-Netzwerk",
+    "sp.ph2t":"Awareness","sp.ph2g":"Sichtbarkeit · Social-Media-Launch · Paid Ads",
+    "sp.ph3t":"Community","sp.ph3g":"Community-Aufbau · CRM · Markenbindung",
+    "sp.ph4t":"Skalierung","sp.ph4g":"Monetarisierung · Sponsoren ausbauen · skalieren",
+    "sp.plHead":"Plattform-Verteilung","sp.platforms":"Plattformen","sp.plOther":"Sonstige",
+    "sp.engage":"Ø Engagement-Rate 6–9% — gegenüber einem Branchenschnitt von 1–3%.",
+    "sp.vHead":"7-Jahres-Mediawert",
+    "sp.v1l":"Mediawert 2026 · nur Social","sp.v2l":"Mediawert 2032 · nur Social","sp.v3l":"Kumulierter 7-Jahres-Wert · nur Social","sp.v4l":"Gesamtwert 7 Jahre · inkl. TV-Serie",
+    "sp.prHead":"Markenpräsenz — Alle Wege","sp.prIntro":"Der Sponsor ist nicht Werbung — er ist Teil der Geschichte, organisch eingewoben über alle Kanäle, Formate und Momente.",
+    "sp.impyr":"Impressions/J.","sp.viewsyr":"Views/J.","sp.multAll":"Multipliziert alles","sp.authentic":"Authentisch & organisch","sp.ugc":"User-generiert","sp.onoff":"Online & offline",
+    "sp.pr1t":"Social-Media-Branding","sp.pr1d":"Logo in Profilbildern, Covern, Posts, Stories & Highlights aller Kanäle.",
+    "sp.pr2t":"Video-Naming & Mentions","sp.pr2d":"Aktive Nennung & Einblendung in allen Reels, TikToks und YouTube-Videos.",
+    "sp.pr3t":"TV-Serienintegration","sp.pr3d":"Präsenz direkt in der Show — maximiert die Reichweite weit über Social Media hinaus.",
+    "sp.pr4t":"Influencer-Netzwerk","sp.pr4d":"50+ Micro- & Macro-Creator integrieren die Marke authentisch in ihren Content.",
+    "sp.pr5t":"Branded Challenge-Content","sp.pr5d":"Die Pirate Challenge selbst trägt den Sponsor — jede Teilnahme ist branded Content.",
+    "sp.pr6t":"Events, Merch & CRM","sp.pr6d":"Gewinnspiele, Live-Events, Print, Merchandise und die Direct Community tragen das Branding.",
+    "sp.coHead":"Eine gemeinsame Markenstrategie","sp.coBody":"Was diese Partnerschaft einzigartig macht: Wir entwickeln gemeinsam eine maßgeschneiderte Präsenzstrategie. Die Marke des Sponsors wird nicht platziert — sie wird mitinszeniert. Storytelling, Visuals, Tonalität und Auftritte werden als gemeinsames Werk geplant und ausgeführt. Kein anderes Format bietet diese Tiefe der gemeinsamen Markenführung.",
+    "sp.imHead":"Markenwirkung — 7-Jahres-Hauptsponsoring","sp.imIntro":"Langfristiges, purpose-getriebenes Sponsoring zeigt messbare Verbesserungen in allen relevanten Brand-KPIs. Nach sieben Jahren ist der Sponsor untrennbar mit der Bewegung verbunden.",
+    "sp.im1l":"Markenbekanntheit · 36 Monate","sp.im2l":"Markenvertrauen vs. klassische Werbung (18–40 J.) · 36 Monate","sp.im3l":"Kaufbereitschaft durch Purpose-Alignment · 24 Monate","sp.im4l":"Weiterempfehlung in der Community · 12 Monate","sp.im5l":"ESG-Wahrnehmung als nachhaltiges Unternehmen · 36 Monate","sp.im6l":"Organische Markenerwähnungen · 12 Monate",
+    "sp.wHead":"Warum jetzt — Der Vorteil des Early Movers",
+    "sp.w1t":"Günstigster Einstiegspreis","sp.w1d":"2026 hat den niedrigsten Preis bei maximalem Langzeitwert. Jedes Jahr wird teurer.",
+    "sp.w2t":"Community Ownership","sp.w2d":"Der Hauptsponsor wird als Mitbegründer der Bewegung wahrgenommen — nicht als Werber.",
+    "sp.w3t":"Kumulativer Markenaufbau","sp.w3d":"Sieben Jahre Präsenz wirken kumulativ. 2032 hat 4× den Markenwert von 2026.",
+    "sp.w4t":"Kategorie-Monopol","sp.w4d":"Sieben Jahre ohne Mitbewerb in deiner Kategorie. Diese Position ist danach nicht mehr verfügbar.",
+    "sp.w5t":"TV-Multiplikator","sp.w5d":"Die Serie maximiert die Reichweite weit über Social Media hinaus — ohne Extrakosten.",
+    "sp.ofHead":"Die Investition","sp.ofBody":"Um dies zu verwirklichen, braucht es ein Commitment von 3 Mio. €, freigegeben in zwei Phasen. Die Mittel werden bei Erreichen der Meilensteine abgerufen — keine Vorab-Pauschale. Du erhältst exklusive Kategorierechte, integrierte, aber nicht aufdringliche Markenpräsenz und garantierte Prime-Platzierung. Du ermöglichst die Geschichte; du steuerst sie nicht.",
+    "sp.ofPhase1":"1 Mio. € — Phase 1: Schiff, Teams & Teaser","sp.ofPhase2":"2 Mio. € — Phase 2: Karibik-Dreh, Post-Produktion & Launch Staffel 1",
+    "sp.ofTagline":"Kein Logo auf einem Banner. Eine Bewegung mitbegründen. Eine Marke für sieben Jahre bauen.",
+    "sp.cta":"Genesis-Partner werden","sp.ctaNote":"First-come, first-serve — das erste schriftliche Commitment sichert die Position.",
     "manifesto.eyebrow":"Wer wir sind",
     "manifesto.statement":"Wir sind nicht nur eine Expedition — wir sind eine Bewegung für das Meer.",
     "manifesto.p":"Wir definieren neu, was Entdecken bedeutet — wir begegnen dem Ozean mit Respekt, ehren seine Tiefen und vereinen neugierige Menschen um ein gemeinsames Ziel: die Gewässer zu schützen, die uns alle verbinden.",
@@ -1001,6 +1288,42 @@ const dict = {
     "imp.postHead":"Dirección postal","imp.opHead":"Contacto operativo","imp.opBy":"c/o Capt. Peter Brucha — Fundador, Sail Wisely & Aye Maties",
     "imp.prodHead":"Contacto de producción","imp.prodBy":"c/o Dr. Dino Stelzl — Director, Sail Wisely CLG @ Aye Maties",
     "imp.soundHead":"Banda sonora","imp.soundPre":"Escucha en",
+    "nav.sponsor":"Partner",
+    "sp.eyebrow":"Alianza Genesis","sp.title":"Conviértete en el Genesis Partner",
+    "sp.intro":"No buscamos un comité de patrocinadores. Ofrecemos una única alianza exclusiva a una sola entidad que reconoce el poder de la narrativa sobre el ruido — anclando todo el arco a lo largo de las siete temporadas y los mercados internacionales.",
+    "sp.k1l":"Impresiones en 12 meses — solo redes sociales","sp.k2l":"Valor mediático a 7 años — solo redes sociales","sp.k3l":"Comunidad activa","sp.k4l":"Visualizaciones de vídeo al año",
+    "sp.knote":"Todas las cifras corresponden solo a redes sociales. La serie de TV NO está incluida — multiplica el valor total muchas veces.",
+    "sp.phHead":"Fases y crecimiento de alcance","sp.phIntro":"Un lanzamiento exitoso necesita al menos tres meses de preproducción. A partir de ahí, el alcance crece de forma exponencial mediante anuncios pagados, multiplicadores influencer y dinámica orgánica de comunidad.",
+    "sp.months":"meses","sp.imp":"impresiones","sp.fol":"seguidores",
+    "sp.ph1t":"Preproducción","sp.ph1g":"Construcción de marca · pool de contenido · red de influencers",
+    "sp.ph2t":"Awareness","sp.ph2g":"Visibilidad · lanzamiento social · anuncios pagados",
+    "sp.ph3t":"Comunidad","sp.ph3g":"Construcción de comunidad · CRM · fidelización",
+    "sp.ph4t":"Escalado","sp.ph4g":"Monetización · ampliar patrocinadores · escalar",
+    "sp.plHead":"Distribución por plataforma","sp.platforms":"Plataformas","sp.plOther":"Otras",
+    "sp.engage":"Tasa de engagement media 6–9% — frente a una media del sector del 1–3%.",
+    "sp.vHead":"Valor mediático a 7 años",
+    "sp.v1l":"Valor mediático 2026 · solo social","sp.v2l":"Valor mediático 2032 · solo social","sp.v3l":"Valor acumulado a 7 años · solo social","sp.v4l":"Valor total a 7 años · incl. serie de TV",
+    "sp.prHead":"Presencia de marca — Todos los canales","sp.prIntro":"El patrocinador no es publicidad — es parte de la historia, entretejido de forma orgánica en cada canal, formato y momento.",
+    "sp.impyr":"impresiones/año","sp.viewsyr":"visualizaciones/año","sp.multAll":"Multiplica todo","sp.authentic":"Auténtico y orgánico","sp.ugc":"Generado por usuarios","sp.onoff":"Online y offline",
+    "sp.pr1t":"Branding en redes sociales","sp.pr1d":"Logo en perfiles, portadas, posts, stories y destacados de todos los canales.",
+    "sp.pr2t":"Naming y menciones en vídeo","sp.pr2d":"Mención activa y presencia en pantalla en cada Reel, TikTok y vídeo de YouTube.",
+    "sp.pr3t":"Integración en la serie de TV","sp.pr3d":"Presencia dentro del propio programa — maximiza el alcance mucho más allá de las redes.",
+    "sp.pr4t":"Red de influencers","sp.pr4d":"Más de 50 micro y macro creadores integran la marca de forma natural en su contenido.",
+    "sp.pr5t":"Contenido de challenge con marca","sp.pr5d":"La propia Pirate Challenge lleva al patrocinador — cada participación es contenido de marca.",
+    "sp.pr6t":"Eventos, merch y CRM","sp.pr6d":"Sorteos, eventos en directo, impresos, merchandising y la comunidad directa llevan el branding.",
+    "sp.coHead":"Una estrategia de marca compartida","sp.coBody":"Lo que hace única esta alianza: desarrollamos juntos una estrategia de presencia a medida. La marca del patrocinador no se coloca — se co-dirige. Narrativa, visuales, tono y apariciones se planifican y ejecutan como una obra conjunta. Ningún otro formato ofrece esta profundidad de liderazgo de marca compartido.",
+    "sp.imHead":"Impacto de marca — Patrocinio principal a 7 años","sp.imIntro":"El patrocinio a largo plazo y con propósito muestra mejoras medibles en todos los KPIs de marca relevantes. Tras siete años, el patrocinador es inseparable del movimiento.",
+    "sp.im1l":"Notoriedad de marca · 36 meses","sp.im2l":"Confianza de marca vs. publicidad clásica (18–40 años) · 36 meses","sp.im3l":"Intención de compra por alineación con el propósito · 24 meses","sp.im4l":"Boca a boca dentro de la comunidad · 12 meses","sp.im5l":"Percepción ESG como empresa sostenible · 36 meses","sp.im6l":"Menciones orgánicas de marca · 12 meses",
+    "sp.wHead":"Por qué ahora — La ventaja del early mover",
+    "sp.w1t":"Precio de entrada más bajo","sp.w1d":"2026 tiene el precio más bajo con el máximo valor a largo plazo. Cada año es más caro.",
+    "sp.w2t":"Community Ownership","sp.w2d":"El patrocinador principal es percibido como cofundador del movimiento — no como anunciante.",
+    "sp.w3t":"Construcción acumulativa de marca","sp.w3d":"Siete años de presencia se acumulan. En 2032 el valor de marca es 4× el de 2026.",
+    "sp.w4t":"Monopolio de categoría","sp.w4d":"Siete años sin competencia en tu categoría. Esta posición ya no estará disponible después.",
+    "sp.w5t":"Multiplicador de TV","sp.w5d":"La serie maximiza el alcance mucho más allá de las redes — sin coste adicional.",
+    "sp.ofHead":"La inversión","sp.ofBody":"Hacer esto realidad requiere un compromiso de 3 M€, liberado en dos fases. Los fondos se retiran a medida que se alcanzan los hitos — sin suma inicial. Recibes derechos exclusivos de categoría, presencia de marca integrada pero no intrusiva y colocación prioritaria garantizada. Tú haces posible la historia; no la diriges.",
+    "sp.ofPhase1":"1 M€ — Fase 1: Buque, equipos y teaser","sp.ofPhase2":"2 M€ — Fase 2: Rodaje en el Caribe, postproducción y lanzamiento de la Temporada 1",
+    "sp.ofTagline":"No un logo en una valla. Cofundar un movimiento. Construir una marca durante siete años.",
+    "sp.cta":"Conviértete en Genesis Partner","sp.ctaNote":"Por orden de llegada — el primer compromiso por escrito asegura la posición.",
     "manifesto.eyebrow":"Quiénes somos",
     "manifesto.statement":"No somos solo una expedición — somos un movimiento por el mar.",
     "manifesto.p":"Redefinimos lo que significa explorar — abrazando el océano, honrando sus profundidades y uniendo a almas curiosas en torno a un único propósito compartido: proteger las aguas que nos conectan a todos.",
@@ -1059,6 +1382,42 @@ const dict = {
     "imp.postHead":"Adresse postale","imp.opHead":"Contact opérationnel","imp.opBy":"c/o Capt. Peter Brucha — Fondateur, Sail Wisely & Aye Maties",
     "imp.prodHead":"Contact production","imp.prodBy":"c/o Dr. Dino Stelzl — Directeur, Sail Wisely CLG @ Aye Maties",
     "imp.soundHead":"Bande-son","imp.soundPre":"Écouter sur",
+    "nav.sponsor":"Partenaire",
+    "sp.eyebrow":"Partenariat Genesis","sp.title":"Devenez le Genesis Partner",
+    "sp.intro":"Nous ne cherchons pas un comité de sponsors. Nous offrons un unique partenariat exclusif à une seule entité qui reconnaît la force du récit sur le bruit — ancrant l'ensemble de l'arc sur les sept saisons et les marchés internationaux.",
+    "sp.k1l":"Impressions en 12 mois — réseaux sociaux uniquement","sp.k2l":"Valeur média sur 7 ans — réseaux sociaux uniquement","sp.k3l":"Communauté active","sp.k4l":"Vues vidéo par an",
+    "sp.knote":"Tous les chiffres concernent uniquement les réseaux sociaux. La série TV n'est PAS incluse — elle multiplie la valeur totale.",
+    "sp.phHead":"Phases & croissance de l'audience","sp.phIntro":"Un lancement réussi nécessite au moins trois mois de pré-production. Ensuite, l'audience croît de façon exponentielle grâce aux publicités payantes, aux multiplicateurs influenceurs et à la dynamique organique de la communauté.",
+    "sp.months":"mois","sp.imp":"impressions","sp.fol":"abonnés",
+    "sp.ph1t":"Pré-production","sp.ph1g":"Construction de marque · pool de contenu · réseau d'influenceurs",
+    "sp.ph2t":"Awareness","sp.ph2g":"Visibilité · lancement social · publicités payantes",
+    "sp.ph3t":"Communauté","sp.ph3g":"Construction de communauté · CRM · fidélité à la marque",
+    "sp.ph4t":"Mise à l'échelle","sp.ph4g":"Monétisation · développer les sponsors · scaler",
+    "sp.plHead":"Répartition par plateforme","sp.platforms":"Plateformes","sp.plOther":"Autres",
+    "sp.engage":"Taux d'engagement moyen 6–9% — contre une moyenne du secteur de 1–3%.",
+    "sp.vHead":"Valeur média sur 7 ans",
+    "sp.v1l":"Valeur média 2026 · social uniquement","sp.v2l":"Valeur média 2032 · social uniquement","sp.v3l":"Valeur cumulée sur 7 ans · social uniquement","sp.v4l":"Valeur totale sur 7 ans · incl. série TV",
+    "sp.prHead":"Présence de marque — Tous les canaux","sp.prIntro":"Le sponsor n'est pas de la publicité — il fait partie de l'histoire, tissé organiquement à travers chaque canal, format et moment.",
+    "sp.impyr":"impressions/an","sp.viewsyr":"vues/an","sp.multAll":"Multiplie tout","sp.authentic":"Authentique & organique","sp.ugc":"Généré par les utilisateurs","sp.onoff":"En ligne & hors ligne",
+    "sp.pr1t":"Branding réseaux sociaux","sp.pr1d":"Logo sur les profils, couvertures, posts, stories & highlights de tous les canaux.",
+    "sp.pr2t":"Naming & mentions vidéo","sp.pr2d":"Nom cité et présence à l'écran dans chaque Reel, TikTok et vidéo YouTube.",
+    "sp.pr3t":"Intégration série TV","sp.pr3d":"Présence dans l'émission elle-même — maximise l'audience bien au-delà des réseaux sociaux.",
+    "sp.pr4t":"Réseau d'influenceurs","sp.pr4d":"Plus de 50 micro & macro créateurs intègrent la marque naturellement dans leur contenu.",
+    "sp.pr5t":"Contenu Challenge brandé","sp.pr5d":"La Pirate Challenge elle-même porte le sponsor — chaque participation est un contenu brandé.",
+    "sp.pr6t":"Événements, merch & CRM","sp.pr6d":"Jeux-concours, événements live, imprimés, merchandising et communauté directe portent le branding.",
+    "sp.coHead":"Une stratégie de marque partagée","sp.coBody":"Ce qui rend ce partenariat unique : nous développons ensemble une stratégie de présence sur mesure. La marque du sponsor n'est pas placée — elle est co-dirigée. Récit, visuels, tonalité et apparitions sont planifiés et exécutés comme une œuvre commune. Aucun autre format n'offre cette profondeur de direction de marque partagée.",
+    "sp.imHead":"Impact de marque — Sponsoring principal sur 7 ans","sp.imIntro":"Un sponsoring durable et porteur de sens montre des gains mesurables sur tous les KPI de marque pertinents. Après sept ans, le sponsor est indissociable du mouvement.",
+    "sp.im1l":"Notoriété de marque · 36 mois","sp.im2l":"Confiance de marque vs. publicité classique (18–40 ans) · 36 mois","sp.im3l":"Intention d'achat par alignement de sens · 24 mois","sp.im4l":"Bouche-à-oreille au sein de la communauté · 12 mois","sp.im5l":"Perception ESG comme entreprise durable · 36 mois","sp.im6l":"Mentions organiques de marque · 12 mois",
+    "sp.wHead":"Pourquoi maintenant — L'avantage du précurseur",
+    "sp.w1t":"Prix d'entrée le plus bas","sp.w1d":"2026 offre le prix le plus bas pour une valeur maximale à long terme. Chaque année devient plus chère.",
+    "sp.w2t":"Community Ownership","sp.w2d":"Le sponsor principal est perçu comme cofondateur du mouvement — pas comme annonceur.",
+    "sp.w3t":"Construction cumulative de marque","sp.w3d":"Sept ans de présence se cumulent. En 2032, la valeur de marque est 4× celle de 2026.",
+    "sp.w4t":"Monopole de catégorie","sp.w4d":"Sept ans sans concurrent dans votre catégorie. Cette position n'est plus disponible ensuite.",
+    "sp.w5t":"Multiplicateur TV","sp.w5d":"La série maximise l'audience bien au-delà des réseaux sociaux — sans coût supplémentaire.",
+    "sp.ofHead":"L'investissement","sp.ofBody":"Pour donner vie à ce projet, un engagement de 3 M€ est requis, libéré en deux phases. Les fonds sont débloqués au fur et à mesure des jalons — aucune somme forfaitaire initiale. Vous recevez des droits exclusifs de catégorie, une présence de marque intégrée mais non intrusive et un placement premium garanti. Vous rendez l'histoire possible ; vous ne la dirigez pas.",
+    "sp.ofPhase1":"1 M€ — Phase 1 : Navire, équipes & teaser","sp.ofPhase2":"2 M€ — Phase 2 : Tournage aux Caraïbes, post-production & lancement Saison 1",
+    "sp.ofTagline":"Pas un logo sur une bannière. Cofonder un mouvement. Construire une marque pendant sept ans.",
+    "sp.cta":"Devenir Genesis Partner","sp.ctaNote":"Premier arrivé, premier servi — le premier engagement écrit sécurise la position.",
     "manifesto.eyebrow":"Qui nous sommes",
     "manifesto.statement":"Nous ne sommes pas qu'une expédition — nous sommes un mouvement pour la mer.",
     "manifesto.p":"Nous redéfinissons ce que signifie explorer — en embrassant l'océan, en honorant ses profondeurs et en réunissant les âmes curieuses autour d'un seul but commun : protéger les eaux qui nous relient tous.",
