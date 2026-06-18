@@ -12,6 +12,24 @@
     set: (k, v) => { try { localStorage.setItem('aym_' + k, v); } catch (e) {} }
   };
 
+  /* ---------------- Brightness control ---------------- */
+  (function brightness() {
+    const order = ['cinematic', 'balanced', 'readable'];
+    const labels = { cinematic: 'Cinematic', balanced: 'Balanced', readable: 'Readable' };
+    let cur = store.get('bright', 'balanced');
+    if (!order.includes(cur)) cur = 'balanced';
+    function apply() {
+      document.documentElement.dataset.bright = cur;
+      const b = $('#bright');
+      if (b) b.setAttribute('aria-label', 'Brightness: ' + labels[cur] + ' (click to change)');
+    }
+    apply();
+    $('#bright')?.addEventListener('click', () => {
+      cur = order[(order.indexOf(cur) + 1) % order.length];
+      store.set('bright', cur); apply();
+    });
+  })();
+
   /* ---------------- Custom cursor ---------------- */
   (function cursor() {
     const c = $('.cursor'), ring = $('.cursor-ring');
@@ -187,6 +205,8 @@
       });
       widget.bind(SC.Widget.Events.PLAY, () => { playing = true; paint(); });
       widget.bind(SC.Widget.Events.PAUSE, () => { playing = false; paint(); });
+      // loop the soundtrack so it plays continuously while exploring
+      widget.bind(SC.Widget.Events.FINISH, () => { widget.seekTo(0); widget.play(); });
       return widget;
     }
 
