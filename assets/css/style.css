@@ -22,9 +22,9 @@
   --muted-2:#8fb2c1;
 
   /* Readability / brightness control (set by the brightness button) */
-  --media-op:.34;   /* in-section background video opacity */
-  --veil:.40;       /* global dark veil over the WebGL background */
-  --scrim:.86;      /* bottom scrim strength over cinematic media */
+  --media-op:.72;   /* in-section background video opacity — vivid by default */
+  --veil:.06;       /* global dark veil over the WebGL background — minimal */
+  --scrim:.80;      /* bottom scrim strength over cinematic media (text legibility) */
 
   --serif:'Cormorant Garamond', serif;
   --display:'Marcellus', serif;
@@ -39,7 +39,8 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
 body{
-  background:var(--abyss);
+  background:radial-gradient(125% 95% at 50% -12%, #064a6b 0%, #042033 38%, #02101c 68%, var(--abyss) 100%);
+  background-attachment:fixed;
   color:var(--ink);
   font-family:var(--sans);
   overflow-x:hidden;
@@ -86,9 +87,9 @@ html[data-bright="balanced"] .bright-btn .dots i:nth-child(-n+2),
 html[data-bright="cinematic"] .bright-btn .dots i:nth-child(-n+3){background:var(--aqua);}
 
 /* Brightness levels */
-html[data-bright="readable"]{--media-op:.20;--veil:.58;--scrim:.92;}
-html[data-bright="balanced"]{--media-op:.34;--veil:.40;--scrim:.86;}
-html[data-bright="cinematic"]{--media-op:.55;--veil:.14;--scrim:.72;}
+html[data-bright="cinematic"]{--media-op:.74;--veil:.05;--scrim:.78;}
+html[data-bright="balanced"]{--media-op:.56;--veil:.18;--scrim:.85;}
+html[data-bright="readable"]{--media-op:.40;--veil:.34;--scrim:.92;}
 
 /* ---------- Custom cursor ---------- */
 .cursor,.cursor-ring{position:fixed;top:0;left:0;border-radius:50%;pointer-events:none;z-index:9999;}
@@ -254,7 +255,7 @@ h1,h2,h3{font-weight:400;}
 .hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;}
 .hero-media{position:absolute;inset:0;z-index:0;}
 .hero-media video{position:absolute;top:50%;left:50%;min-width:100%;min-height:100%;width:auto;height:auto;
-  transform:translate(-50%,-50%) scale(1.1);object-fit:cover;opacity:var(--media-op);filter:saturate(1.2) hue-rotate(-6deg) brightness(.6);}
+  transform:translate(-50%,-50%) scale(1.1);object-fit:cover;opacity:var(--media-op);filter:saturate(1.35) hue-rotate(-6deg) brightness(.85);}
 .hero-media::after{content:'';position:absolute;inset:0;
   background:linear-gradient(180deg,rgba(1,6,13,.45),rgba(2,9,17,.2) 32%,rgba(1,6,13,var(--scrim))),
              radial-gradient(70% 60% at 50% 30%,rgba(14,107,168,.18),transparent 72%);}
@@ -298,7 +299,7 @@ h1,h2,h3{font-weight:400;}
 
 /* Full-bleed cinematic video interludes */
 .cinema{position:relative;min-height:90svh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;}
-.cinema video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:calc(var(--media-op) + .28);filter:saturate(1.2) brightness(.55);}
+.cinema video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:calc(var(--media-op) + .26);filter:saturate(1.3) brightness(.75);}
 .cinema::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(1,6,13,.6),rgba(2,9,17,.42) 45%,rgba(1,6,13,var(--scrim)));}
 .cinema-inner{position:relative;z-index:2;max-width:980px;padding:0 26px;}
 .cinema q{font-family:var(--serif);font-style:italic;font-weight:300;quotes:none;
@@ -416,7 +417,7 @@ h1,h2,h3{font-weight:400;}
    PAGE HEADER (interior pages)
    ========================================================= */
 .page-hero{position:relative;min-height:74svh;display:flex;align-items:flex-end;overflow:hidden;}
-.page-hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:var(--media-op);filter:saturate(1.2) brightness(.6);}
+.page-hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:calc(var(--media-op) + .1);filter:saturate(1.3) brightness(.78);}
 .page-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(1,6,13,.5),rgba(2,9,17,.3) 38%,rgba(1,6,13,var(--scrim)));}
 .page-hero .wrap{position:relative;z-index:3;padding-bottom:9svh;}
 .page-hero h1{font-family:var(--display);text-transform:uppercase;font-size:clamp(44px,9vw,128px);line-height:.98;}

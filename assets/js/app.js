@@ -16,8 +16,8 @@
   (function brightness() {
     const order = ['cinematic', 'balanced', 'readable'];
     const labels = { cinematic: 'Cinematic', balanced: 'Balanced', readable: 'Readable' };
-    let cur = store.get('bright', 'balanced');
-    if (!order.includes(cur)) cur = 'balanced';
+    let cur = store.get('bright', 'cinematic');
+    if (!order.includes(cur)) cur = 'cinematic';
     function apply() {
       document.documentElement.dataset.bright = cur;
       const b = $('#bright');

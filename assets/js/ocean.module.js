@@ -45,7 +45,7 @@ export function initOcean(opts = {}) {
   /* =========================================================
      UNDERWATER MOTES — drifting marine snow (volumetric field)
      ========================================================= */
-  const MOTES = mobile ? 1400 : 3200;
+  const MOTES = mobile ? 2200 : 5200;
   const mPos = new Float32Array(MOTES * 3);
   const mCol = new Float32Array(MOTES * 3);
   const mSpeed = new Float32Array(MOTES);
@@ -64,8 +64,8 @@ export function initOcean(opts = {}) {
   mGeo.setAttribute('position', new THREE.BufferAttribute(mPos, 3));
   mGeo.setAttribute('color', new THREE.BufferAttribute(mCol, 3));
   const motes = new THREE.Points(mGeo, new THREE.PointsMaterial({
-    size: mobile ? .14 : .12, map: dot, vertexColors: true, transparent: true,
-    depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true, opacity: .9
+    size: mobile ? .16 : .14, map: dot, vertexColors: true, transparent: true,
+    depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true, opacity: 1
   }));
   group.add(motes);
 
@@ -96,7 +96,7 @@ export function initOcean(opts = {}) {
     pGeo.setAttribute('position', new THREE.BufferAttribute(pp, 3));
     pGeo.setAttribute('color', new THREE.BufferAttribute(pc, 3));
     planet = new THREE.Points(pGeo, new THREE.PointsMaterial({
-      size: mobile ? .075 : .06, map: dot, vertexColors: true, transparent: true,
+      size: mobile ? .09 : .075, map: dot, vertexColors: true, transparent: true,
       depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true
     }));
     planet.position.set(mobile ? 0 : 6.5, mobile ? 4 : 2.2, -2);
@@ -149,10 +149,10 @@ export function initOcean(opts = {}) {
 
   /* volumetric god-rays: a few big soft additive sprites up top */
   const rays = new THREE.Group();
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 8; i++) {
     const m = new THREE.Mesh(
-      new THREE.PlaneGeometry(2.2, 60),
-      new THREE.MeshBasicMaterial({ map: dot, color: 0x9ff0ea, transparent: true, opacity: .05, blending: THREE.AdditiveBlending, depthWrite: false })
+      new THREE.PlaneGeometry(2.4, 64),
+      new THREE.MeshBasicMaterial({ map: dot, color: 0x9ff0ea, transparent: true, opacity: .09, blending: THREE.AdditiveBlending, depthWrite: false })
     );
     m.position.set(-18 + i * 9 + Math.random() * 4, 14, -16 - Math.random() * 6);
     m.rotation.z = (Math.random() - .5) * .5;
@@ -223,7 +223,7 @@ export function initOcean(opts = {}) {
         planet.userData.ring.position.copy(planet.position);
         planet.userData.ring.rotation.z = t * 0.05;
       }
-      rays.children.forEach(r => { r.material.opacity = .03 + Math.abs(Math.sin(t * .3 + r.userData.phase)) * .05; });
+      rays.children.forEach(r => { r.material.opacity = .06 + Math.abs(Math.sin(t * .3 + r.userData.phase)) * .1; });
       causticMat.uniforms.uTime.value = t * 0.5;
     }
 
