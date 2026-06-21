@@ -81,12 +81,12 @@
       sEls.forEach(el => {
         const r = el.getBoundingClientRect();
         if (r.bottom < -200 || r.top > vh + 200) return;
-        const speed = parseFloat(el.dataset.parallax) || .15;
+        const speed = (parseFloat(el.dataset.parallax) || .15) * 1.9;
         const center = r.top + r.height / 2 - vh / 2;
         el.style.transform = `translate3d(0, ${(-center * speed).toFixed(1)}px, 0)`;
       });
       dEls.forEach(el => {
-        const d = parseFloat(el.dataset.depth) || 20;
+        const d = (parseFloat(el.dataset.depth) || 20) * 1.7;
         el.style.transform = `translate3d(${(cmx * d).toFixed(1)}px, ${(cmy * d).toFixed(1)}px, 0)`;
       });
       requestAnimationFrame(loop);
@@ -290,6 +290,47 @@
     document.body.style.overflow = 'hidden';
     btn?.addEventListener('click', () => go(true));
     btnMuted?.addEventListener('click', () => go(false));
+  })();
+
+  /* ---------------- Foreground bokeh particles (depth-of-field over video/content) ---------------- */
+  (function bokeh() {
+    if (reduced) return;
+    const cv = document.createElement('canvas'); cv.id = 'ocean-fg'; cv.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(cv);
+    const ctx = cv.getContext('2d');
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    let w, h;
+    function size() { w = cv.width = innerWidth * dpr; h = cv.height = innerHeight * dpr; cv.style.width = innerWidth + 'px'; cv.style.height = innerHeight + 'px'; }
+    size(); addEventListener('resize', size);
+    const COUNT = matchMedia('(hover:none)').matches ? 8 : 18;
+    const cols = ['94,230,218', '223,250,255', '230,197,116'];
+    const ps = [];
+    for (let i = 0; i < COUNT; i++) ps.push({
+      x: Math.random(), y: Math.random(), r: 44 + Math.random() * 90,
+      a: .04 + Math.random() * .11, c: cols[(Math.random() * cols.length) | 0],
+      vx: (Math.random() - .5) * .00007, vy: -(.00003 + Math.random() * .00008),
+      depth: .25 + Math.random() * 1.0, ph: Math.random() * 6.28
+    });
+    let mx = 0, my = 0, cx = 0, cy = 0;
+    addEventListener('mousemove', e => { mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; }, { passive: true });
+    function loop() {
+      cx += (mx - cx) * .05; cy += (my - cy) * .05;
+      ctx.clearRect(0, 0, w, h); ctx.globalCompositeOperation = 'lighter';
+      const now = performance.now();
+      for (const p of ps) {
+        p.x += p.vx; p.y += p.vy;
+        if (p.y < -.15) p.y = 1.15; if (p.x < -.15) p.x = 1.15; if (p.x > 1.15) p.x = -.15;
+        const px = (p.x * innerWidth + cx * 70 * p.depth) * dpr;
+        const py = (p.y * innerHeight + cy * 45 * p.depth) * dpr;
+        const r = p.r * p.depth * dpr;
+        const aa = (p.a * (.7 + .3 * Math.sin(now * .0006 + p.ph))).toFixed(3);
+        const g = ctx.createRadialGradient(px, py, 0, px, py, r);
+        g.addColorStop(0, `rgba(${p.c},${aa})`); g.addColorStop(1, `rgba(${p.c},0)`);
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(px, py, r, 0, 6.2832); ctx.fill();
+      }
+      requestAnimationFrame(loop);
+    }
+    loop();
   })();
 
 })();

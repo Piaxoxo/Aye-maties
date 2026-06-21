@@ -69,6 +69,9 @@ ul{list-style:none;}
 /* Brightness veil — darkens the background (not the text) for readability */
 #bright-veil{position:fixed;inset:0;z-index:1;pointer-events:none;
   background:rgba(2,9,17,var(--veil));transition:background .6s var(--ease);}
+/* Foreground bokeh particles — pass in front of video + content for depth-of-field */
+#ocean-fg{position:fixed;inset:0;z-index:400;pointer-events:none;mix-blend-mode:screen;}
+@media(prefers-reduced-motion:reduce){#ocean-fg{display:none;}}
 .page{position:relative;z-index:2;}
 
 /* Brightness toggle button */
