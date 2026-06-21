@@ -1,0 +1,116 @@
+---
+import '../styles/global.css';
+import Seo from '../components/Seo.astro';
+import { useT, localize, languages, locales, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  path: string;
+  title?: string;
+  description?: string;
+}
+const { lang, path, title, description } = Astro.props;
+const t = useT(lang);
+const pageTitle = title ?? t('site.title');
+const pageDesc = description ?? t('site.desc');
+
+const nav = [
+  ['/about', 'nav.about'],
+  ['/mission', 'nav.mission'],
+  ['/show', 'nav.show'],
+  ['/team', 'nav.team'],
+  ['/blog', 'nav.blog'],
+  ['/sponsors', 'nav.sponsors'],
+  ['/contact', 'nav.contact'],
+] as const;
+---
+<!doctype html>
+<html lang={lang} data-motion="auto">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@500;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Inter:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <Seo title={pageTitle} description={pageDesc} lang={lang} path={path} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-head">
+      <a class="brand" href={localize('/', lang)}>
+        <img src="/logo.png" alt="Aye Maties" width="40" height="40" />
+        <span>Aye&nbsp;Maties</span>
+      </a>
+      <nav class="primary" aria-label="Primary">
+        {nav.map(([p, key]) => (
+          <a href={localize(p, lang)}>{t(key)}</a>
+        ))}
+      </nav>
+      <div class="lang" aria-label="Language">
+        {locales.map((l) => (
+          <a href={localize(path, l)} hreflang={l} aria-current={l === lang ? 'true' : undefined}>{l.toUpperCase()}</a>
+        ))}
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-foot">
+      <div class="wrap foot-grid">
+        <div>
+          <img src="/logo.png" alt="Aye Maties" width="120" height="120" class="foot-logo" />
+          <p class="foot-tag">{t('footer.tag')}</p>
+        </div>
+        <nav aria-label="Footer">
+          <h4 class="label">{t('ui.menu')}</h4>
+          <ul>
+            {nav.map(([p, key]) => (<li><a href={localize(p, lang)}>{t(key)}</a></li>))}
+            <li><a href={localize('/impressum', lang)}>{t('nav.impressum')}</a></li>
+            <li><a href={localize('/privacy', lang)}>{t('nav.privacy')}</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="wrap foot-bottom">
+        <span>© {new Date().getFullYear()} Sail Wisely (Ireland) CLG. {t('footer.rights')}</span>
+        <span class="mono">{t('footer.crafted')}</span>
+      </div>
+    </footer>
+
+    <style>
+      .site-head{position:fixed;top:0;left:0;width:100%;z-index:500;display:flex;align-items:center;
+        justify-content:space-between;gap:24px;padding:20px var(--pad);mix-blend-mode:difference;}
+      .brand{display:flex;align-items:center;gap:12px;font-family:var(--mono);text-transform:uppercase;
+        letter-spacing:.16em;font-size:14px;}
+      .brand img{width:38px;height:38px;object-fit:contain;}
+      .primary{display:flex;gap:26px;}
+      .primary a{font-family:var(--mono);text-transform:uppercase;letter-spacing:.12em;font-size:12px;
+        position:relative;padding-bottom:3px;}
+      .primary a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--aqua);transition:width .4s var(--ease);}
+      .primary a:hover::after{width:100%;}
+      .lang{display:flex;gap:10px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;}
+      .lang a{opacity:.5;transition:opacity .3s;}
+      .lang a[aria-current],.lang a:hover{opacity:1;color:var(--aqua);}
+      @media(max-width:920px){.primary{display:none;}}
+
+      .site-foot{position:relative;z-index:2;border-top:1px solid var(--line);padding:90px 0 40px;
+        background:linear-gradient(180deg,transparent,rgba(3,7,13,.7));}
+      .foot-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:50px;}
+      .foot-logo{width:110px;height:auto;margin-bottom:18px;}
+      .foot-tag{font-family:var(--serif);font-style:italic;color:var(--muted);max-width:42ch;}
+      .site-foot h4{margin-bottom:18px;}
+      .site-foot li{margin-bottom:10px;}
+      .site-foot li a{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--muted);transition:color .3s;}
+      .site-foot li a:hover{color:var(--aqua);}
+      .foot-bottom{margin-top:60px;padding-top:24px;border-top:1px solid var(--line);display:flex;
+        justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:12px;color:var(--muted-2);}
+      @media(max-width:760px){.foot-grid{grid-template-columns:1fr;gap:36px;}}
+    </style>
+  </body>
+</html>
