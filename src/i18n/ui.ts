@@ -29,6 +29,9 @@ export function useT(lang: Lang) {
   return (key: string): string => dict[key] ?? en[key] ?? key;
 }
 
+/** Deployment base path ('' for root, '/Aye-maties' for project Pages). */
+export const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 /** Prefix a path with the locale (default locale stays unprefixed). */
 export function localize(path: string, lang: Lang): string {
   const clean = path.startsWith('/') ? path : `/${path}`;
@@ -36,7 +39,18 @@ export function localize(path: string, lang: Lang): string {
   return clean === '/' ? `/${lang}` : `/${lang}${clean}`;
 }
 
-/** Same logical path in every language — for hreflang alternates. */
+/** Full, base-aware href for an internal page link. */
+export function href(path: string, lang: Lang): string {
+  const p = localize(path, lang);
+  return (BASE + p) || '/';
+}
+
+/** Base-aware URL for a static asset in public/. */
+export function asset(path: string): string {
+  return BASE + (path.startsWith('/') ? path : `/${path}`);
+}
+
+/** Same logical path in every language — for hreflang alternates (base-aware). */
 export function alternates(path: string) {
-  return locales.map((l) => ({ lang: l, href: localize(path, l) }));
+  return locales.map((l) => ({ lang: l, href: BASE + localize(path, l) }));
 }

@@ -4,7 +4,10 @@ import sitemap from '@astrojs/sitemap';
 
 // Aye Maties — premium interactive ocean experience
 export default defineConfig({
-  site: 'https://ayematies.info',
+  // To switch to the custom domain later: set site:'https://ayematies.info',
+  // remove `base`, and add public/CNAME — that's the one-line change.
+  site: 'https://piaxoxo.github.io',
+  base: '/Aye-maties',
   trailingSlash: 'ignore',
   i18n: {
     defaultLocale: 'en',

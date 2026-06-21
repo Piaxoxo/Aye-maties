@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import Seo from '../components/Seo.astro';
-import { useT, localize, languages, locales, type Lang } from '../i18n/ui';
+import { useT, href, asset, locales, type Lang } from '../i18n/ui';
 
 interface Props {
   lang: Lang;
@@ -29,7 +29,7 @@ const nav = [
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <link rel="icon" type="image/png" href="/logo.png" />
+    <link rel="icon" type="image/png" href={asset("/logo.png")} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -42,18 +42,18 @@ const nav = [
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site-head">
-      <a class="brand" href={localize('/', lang)}>
-        <img src="/logo.png" alt="Aye Maties" width="40" height="40" />
+      <a class="brand" href={href("/", lang)}>
+        <img src={asset("/logo.png")} alt="Aye Maties" width="40" height="40" />
         <span>Aye&nbsp;Maties</span>
       </a>
       <nav class="primary" aria-label="Primary">
         {nav.map(([p, key]) => (
-          <a href={localize(p, lang)}>{t(key)}</a>
+          <a href={href(p, lang)}>{t(key)}</a>
         ))}
       </nav>
       <div class="lang" aria-label="Language">
         {locales.map((l) => (
-          <a href={localize(path, l)} hreflang={l} aria-current={l === lang ? 'true' : undefined}>{l.toUpperCase()}</a>
+          <a href={href(path, l)} hreflang={l} aria-current={l === lang ? 'true' : undefined}>{l.toUpperCase()}</a>
         ))}
       </div>
     </header>
@@ -65,15 +65,15 @@ const nav = [
     <footer class="site-foot">
       <div class="wrap foot-grid">
         <div>
-          <img src="/logo.png" alt="Aye Maties" width="120" height="120" class="foot-logo" />
+          <img src={asset("/logo.png")} alt="Aye Maties" width="120" height="120" class="foot-logo" />
           <p class="foot-tag">{t('footer.tag')}</p>
         </div>
         <nav aria-label="Footer">
           <h4 class="label">{t('ui.menu')}</h4>
           <ul>
-            {nav.map(([p, key]) => (<li><a href={localize(p, lang)}>{t(key)}</a></li>))}
-            <li><a href={localize('/impressum', lang)}>{t('nav.impressum')}</a></li>
-            <li><a href={localize('/privacy', lang)}>{t('nav.privacy')}</a></li>
+            {nav.map(([p, key]) => (<li><a href={href(p, lang)}>{t(key)}</a></li>))}
+            <li><a href={href("/impressum", lang)}>{t('nav.impressum')}</a></li>
+            <li><a href={href("/privacy", lang)}>{t('nav.privacy')}</a></li>
           </ul>
         </nav>
       </div>
