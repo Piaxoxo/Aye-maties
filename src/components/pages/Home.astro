@@ -1,20 +1,23 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { useT, type Lang } from '../../i18n/ui';
+import EnterGate from '../EnterGate.astro';
+import SocialTiles from '../SocialTiles.astro';
+import { useT, href, type Lang } from '../../i18n/ui';
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const t = useT(lang);
 ---
 <Base lang={lang} path="/">
-  <section class="hero">
-    <div class="crop tl"></div><div class="crop tr"></div>
-    <div class="crop bl"></div><div class="crop br"></div>
+  <EnterGate lang={lang} />
+
+  <section class="hero" data-home>
+    <div class="crop tl"></div><div class="crop tr"></div><div class="crop bl"></div><div class="crop br"></div>
     <div class="wrap hero-inner">
       <p class="eyebrow label-bracket" data-reveal>{t('hero.eyebrow')}</p>
       <h1 class="display hero-title" data-reveal>{t('hero.title')}</h1>
       <p class="lead hero-sub" data-reveal>{t('hero.sub')}</p>
       <div class="hero-cta" data-reveal>
-        <a class="btn btn-gold" href="#story">
+        <a class="btn btn-gold" href="#story" data-magnetic>
           <span>{t('hero.cta')}</span>
           <svg viewBox="0 0 16 10" fill="none"><path d="M1 5h14M10 1l5 4-5 4" stroke="currentColor" stroke-width="1.3"/></svg>
         </a>
@@ -26,14 +29,19 @@ const t = useT(lang);
   <section class="section" id="story">
     <div class="wrap">
       <p class="eyebrow label-bracket" data-reveal>01 — {t('nav.about')}</p>
-      <h2 class="h-serif" data-reveal style="max-width:18ch">We are not just an expedition — we are a movement for the sea.</h2>
+      <h2 class="h-serif" data-reveal data-parallax="0.05" style="max-width:18ch">We are not just an expedition — we are a movement for the sea.</h2>
+      <p class="lead" data-reveal style="margin-top:28px">{t('hero.sub')}</p>
+      <div data-reveal style="margin-top:34px">
+        <a class="link-arrow" href={href('/about', lang)}>Discover the format →</a>
+      </div>
     </div>
   </section>
+
+  <SocialTiles lang={lang} />
 </Base>
 
 <style>
-  .hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;
-    background:radial-gradient(120% 90% at 50% -10%, #0a3b54 0%, var(--abyss) 60%);}
+  .hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;}
   .hero-inner{padding:0 var(--pad) 14svh;}
   .hero-title{margin:24px 0 28px;max-width:13ch;}
   .hero-sub{max-width:52ch;}

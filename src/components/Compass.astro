@@ -1,0 +1,123 @@
+---
+import { useT, href, type Lang, locales } from '../i18n/ui';
+import { social } from '../data/social';
+interface Props { lang: Lang; path: string; }
+const { lang, path } = Astro.props;
+const t = useT(lang);
+const items: [string, string][] = [
+  ['/', 'nav.home'], ['/about', 'nav.about'], ['/mission', 'nav.mission'],
+  ['/show', 'nav.show'], ['/team', 'nav.team'], ['/blog', 'nav.blog'],
+  ['/partners', 'nav.partners'], ['/sponsors', 'nav.sponsors'],
+  ['/impact', 'nav.impact'], ['/contact', 'nav.contact'],
+];
+---
+<button class="compass-btn" id="compass" aria-label={t('ui.menu')} aria-expanded="false" aria-controls="nav-overlay">
+  <svg viewBox="0 0 100 100" aria-hidden="true">
+    <defs><radialGradient id="cg" cx="50%" cy="42%" r="62%"><stop offset="0%" stop-color="#0a4f6e"/><stop offset="100%" stop-color="#03070d"/></radialGradient></defs>
+    <circle cx="50" cy="50" r="46" fill="url(#cg)" stroke="#e6c574" stroke-width="1.6"/>
+    <circle cx="50" cy="50" r="38" fill="none" stroke="rgba(95,231,218,.45)" stroke-width=".6"/>
+    <g class="rose">
+      <polygon points="50,12 53,47 50,50 47,47" fill="#f3e6bb"/><polygon points="50,88 53,53 50,50 47,53" fill="#7fa6b6"/>
+      <polygon points="12,50 47,47 50,50 47,53" fill="#7fa6b6"/><polygon points="88,50 53,47 50,50 53,53" fill="#7fa6b6"/>
+      <polygon points="26,26 48,48 50,50 46,49" fill="#3a7185"/><polygon points="74,74 52,52 50,50 54,51" fill="#3a7185"/>
+      <polygon points="74,26 52,48 50,50 51,46" fill="#3a7185"/><polygon points="26,74 48,52 50,50 49,54" fill="#3a7185"/>
+    </g>
+    <g class="needle"><polygon points="50,20 46,50 54,50" fill="#e6c574"/><polygon points="50,80 46,50 54,50" fill="#22c7c0"/><circle cx="50" cy="50" r="3.4" fill="#03070d" stroke="#e6c574" stroke-width="1.1"/></g>
+    <text x="50" y="11" text-anchor="middle" font-size="6.5" fill="#e6c574" font-family="serif">N</text>
+  </svg>
+</button>
+
+<nav id="nav-overlay" class="nav-overlay" aria-label="Primary" aria-hidden="true">
+  <div class="veil"></div>
+  <svg class="bg-rose" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="48" fill="none" stroke="#5fe7da" stroke-width=".3"/><circle cx="50" cy="50" r="33" fill="none" stroke="#e6c574" stroke-width=".3"/><polygon points="50,3 54,48 50,50 46,48" fill="#5fe7da"/><polygon points="50,97 54,52 50,50 46,52" fill="#5fe7da"/><polygon points="3,50 48,48 50,50 48,52" fill="#5fe7da"/><polygon points="97,50 52,48 50,50 52,52" fill="#5fe7da"/></svg>
+  <button class="nav-close" aria-label={t('ui.close')}><span class="label">{t('ui.close')}</span> ✕</button>
+  <div class="nav-inner">
+    <ul class="nav-links">
+      {items.map(([p, key], i) => (
+        <li style={`--i:${i}`}><a href={href(p, lang)} aria-current={path === p ? 'page' : undefined}>
+          <span class="idx">{String(i + 1).padStart(2, '0')}</span>{t(key)}
+        </a></li>
+      ))}
+    </ul>
+    <div class="nav-aside">
+      <div class="nav-lang">
+        <span class="label">{t('ui.language')}</span>
+        <div>{locales.map((l) => (<a href={href(path, l)} hreflang={l} aria-current={l === lang ? 'true' : undefined}>{l.toUpperCase()}</a>))}</div>
+      </div>
+      <div class="nav-social">
+        <span class="label">{t('ui.followVoyage')}</span>
+        <div>{social.map((s) => (<a href={s.url} target="_blank" rel="noopener">{s.label}</a>))}</div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const btn = document.getElementById('compass');
+  const overlay = document.getElementById('nav-overlay');
+  if (btn && overlay) {
+    const rose = btn.querySelector('.rose');
+    const needle = btn.querySelector('.needle');
+    let spin = 0;
+    const focusable = () => [...overlay.querySelectorAll('a,button')];
+    function setOpen(open) {
+      overlay.classList.toggle('open', open);
+      overlay.setAttribute('aria-hidden', String(!open));
+      btn.setAttribute('aria-expanded', String(open));
+      document.body.style.overflow = open ? 'hidden' : '';
+      spin += open ? 135 : 90 + Math.round(Math.random() * 40);
+      if (rose) rose.style.transform = `rotate(${spin}deg)`;
+      if (needle) needle.style.transform = `rotate(${spin * 1.4}deg)`;
+      if (open) focusable()[0]?.focus();
+      else btn.focus();
+    }
+    btn.addEventListener('click', () => setOpen(!overlay.classList.contains('open')));
+    overlay.querySelector('.nav-close')?.addEventListener('click', () => setOpen(false));
+    addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && overlay.classList.contains('open')) setOpen(false);
+      if (e.key === 'Tab' && overlay.classList.contains('open')) {
+        const f = focusable(); if (!f.length) return;
+        const first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+  }
+</script>
+
+<style>
+  .compass-btn{position:fixed;top:clamp(14px,2.6vw,26px);right:var(--pad);z-index:600;width:60px;height:60px;
+    border-radius:50%;cursor:pointer;background:transparent;border:1px solid rgba(230,197,116,.5);
+    box-shadow:0 8px 36px rgba(0,0,0,.5),inset 0 0 16px rgba(95,231,218,.16);backdrop-filter:blur(6px);
+    transition:transform .9s var(--ease-out),box-shadow .5s,border-color .5s;padding:0;}
+  .compass-btn:hover{box-shadow:0 8px 46px rgba(34,199,192,.4);border-color:var(--gold);}
+  .compass-btn svg{width:100%;height:100%;}
+  .compass-btn .rose{transform-origin:50% 50%;transition:transform 1.1s var(--ease-out);}
+  .compass-btn .needle{transform-origin:50% 50%;transition:transform 1.1s cubic-bezier(.3,1.4,.4,1);}
+
+  .nav-overlay{position:fixed;inset:0;z-index:590;display:flex;align-items:center;justify-content:center;
+    opacity:0;visibility:hidden;transition:opacity .6s var(--ease),visibility .6s;}
+  .nav-overlay.open{opacity:1;visibility:visible;}
+  .nav-overlay .veil{position:absolute;inset:0;background:rgba(3,7,13,.86);backdrop-filter:blur(18px) saturate(130%);}
+  .bg-rose{position:absolute;width:min(82vmin,760px);height:min(82vmin,760px);opacity:.09;animation:spin 70s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .nav-close{position:absolute;top:clamp(14px,2.6vw,26px);right:var(--pad);z-index:3;background:none;border:none;
+    color:var(--muted);font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;}
+  .nav-close:hover{color:var(--aqua);}
+  .nav-inner{position:relative;z-index:2;display:flex;flex-direction:column;gap:40px;width:min(1100px,90vw);padding:0 var(--pad);}
+  .nav-links{display:flex;flex-direction:column;gap:clamp(4px,1.2vh,12px);}
+  .nav-links a{display:inline-flex;align-items:baseline;gap:18px;font-family:var(--display);text-transform:uppercase;
+    font-size:clamp(30px,6.4vw,76px);line-height:1.02;color:var(--ink);
+    opacity:0;transform:translateY(26px);}
+  .nav-overlay.open .nav-links a{opacity:1;transform:none;
+    transition:opacity .6s var(--ease) calc(var(--i)*.05s + .1s),transform .7s var(--ease) calc(var(--i)*.05s + .1s),color .3s;}
+  .nav-links a:hover{color:var(--aqua);}
+  .nav-links a[aria-current]{color:var(--gold-soft);}
+  .nav-links .idx{font-family:var(--mono);font-size:.26em;color:var(--gold);letter-spacing:.1em;}
+  .nav-aside{display:flex;gap:50px;flex-wrap:wrap;padding-top:24px;border-top:1px solid var(--line);}
+  .nav-aside .label{display:block;margin-bottom:12px;}
+  .nav-lang div,.nav-social div{display:flex;gap:16px;flex-wrap:wrap;}
+  .nav-lang a,.nav-social a{font-family:var(--mono);font-size:13px;letter-spacing:.08em;color:var(--muted);transition:color .3s;}
+  .nav-lang a:hover,.nav-social a:hover,.nav-lang a[aria-current]{color:var(--aqua);}
+  @media(max-width:680px){.nav-links a{font-size:clamp(26px,9vw,40px);}}
+</style>

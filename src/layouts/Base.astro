@@ -1,7 +1,11 @@
 ---
 import '../styles/global.css';
 import Seo from '../components/Seo.astro';
-import { useT, href, asset, locales, type Lang } from '../i18n/ui';
+import OceanGL from '../components/OceanGL.astro';
+import Compass from '../components/Compass.astro';
+import A11yPanel from '../components/A11yPanel.astro';
+import SoundDock from '../components/SoundDock.astro';
+import { useT, href, asset, type Lang } from '../i18n/ui';
 
 interface Props {
   lang: Lang;
@@ -13,23 +17,13 @@ const { lang, path, title, description } = Astro.props;
 const t = useT(lang);
 const pageTitle = title ?? t('site.title');
 const pageDesc = description ?? t('site.desc');
-
-const nav = [
-  ['/about', 'nav.about'],
-  ['/mission', 'nav.mission'],
-  ['/show', 'nav.show'],
-  ['/team', 'nav.team'],
-  ['/blog', 'nav.blog'],
-  ['/sponsors', 'nav.sponsors'],
-  ['/contact', 'nav.contact'],
-] as const;
 ---
 <!doctype html>
-<html lang={lang} data-motion="auto">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <link rel="icon" type="image/png" href={asset("/logo.png")} />
+    <link rel="icon" type="image/png" href={asset('/logo.png')} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -37,26 +31,34 @@ const nav = [
       rel="stylesheet"
     />
     <Seo title={pageTitle} description={pageDesc} lang={lang} path={path} />
+    <script is:inline>
+      // apply saved accessibility prefs before paint (no flash)
+      (function () {
+        try {
+          var g = function (k, d) { return localStorage.getItem('aym_' + k) ?? d; };
+          var r = document.documentElement;
+          r.style.setProperty('--a-font', g('font', '1'));
+          r.style.setProperty('--veil', String((parseFloat(g('veil', '0')) / 100) * 0.55));
+          r.setAttribute('data-contrast', g('contrast', 'normal'));
+          r.setAttribute('data-motion', g('motion', 'auto'));
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
+    <OceanGL />
+
     <header class="site-head">
-      <a class="brand" href={href("/", lang)}>
-        <img src={asset("/logo.png")} alt="Aye Maties" width="40" height="40" />
+      <a class="brand" href={href('/', lang)}>
+        <img src={asset('/logo.png')} alt="Aye Maties" width="38" height="38" />
         <span>Aye&nbsp;Maties</span>
       </a>
-      <nav class="primary" aria-label="Primary">
-        {nav.map(([p, key]) => (
-          <a href={href(p, lang)}>{t(key)}</a>
-        ))}
-      </nav>
-      <div class="lang" aria-label="Language">
-        {locales.map((l) => (
-          <a href={href(path, l)} hreflang={l} aria-current={l === lang ? 'true' : undefined}>{l.toUpperCase()}</a>
-        ))}
-      </div>
     </header>
+
+    <A11yPanel lang={lang} />
+    <Compass lang={lang} path={path} />
 
     <main id="main">
       <slot />
@@ -65,15 +67,20 @@ const nav = [
     <footer class="site-foot">
       <div class="wrap foot-grid">
         <div>
-          <img src={asset("/logo.png")} alt="Aye Maties" width="120" height="120" class="foot-logo" />
+          <img src={asset('/logo.png')} alt="Aye Maties" width="120" height="120" class="foot-logo" />
           <p class="foot-tag">{t('footer.tag')}</p>
         </div>
         <nav aria-label="Footer">
           <h4 class="label">{t('ui.menu')}</h4>
           <ul>
-            {nav.map(([p, key]) => (<li><a href={href(p, lang)}>{t(key)}</a></li>))}
-            <li><a href={href("/impressum", lang)}>{t('nav.impressum')}</a></li>
-            <li><a href={href("/privacy", lang)}>{t('nav.privacy')}</a></li>
+            <li><a href={href('/about', lang)}>{t('nav.about')}</a></li>
+            <li><a href={href('/mission', lang)}>{t('nav.mission')}</a></li>
+            <li><a href={href('/team', lang)}>{t('nav.team')}</a></li>
+            <li><a href={href('/blog', lang)}>{t('nav.blog')}</a></li>
+            <li><a href={href('/sponsors', lang)}>{t('nav.sponsors')}</a></li>
+            <li><a href={href('/contact', lang)}>{t('nav.contact')}</a></li>
+            <li><a href={href('/impressum', lang)}>{t('nav.impressum')}</a></li>
+            <li><a href={href('/privacy', lang)}>{t('nav.privacy')}</a></li>
           </ul>
         </nav>
       </div>
@@ -83,24 +90,25 @@ const nav = [
       </div>
     </footer>
 
+    <SoundDock lang={lang} />
+
+    <script>
+      import { initUI } from '../lib/ui.js';
+      let done = false;
+      const run = () => { if (done) return; done = true; initUI(); };
+      if (document.getElementById('enter')) { addEventListener('aym:enter', run, { once: true }); setTimeout(run, 4500); }
+      else run();
+    </script>
+
     <style>
       .site-head{position:fixed;top:0;left:0;width:100%;z-index:500;display:flex;align-items:center;
-        justify-content:space-between;gap:24px;padding:20px var(--pad);mix-blend-mode:difference;}
+        padding:22px var(--pad);mix-blend-mode:difference;pointer-events:none;}
       .brand{display:flex;align-items:center;gap:12px;font-family:var(--mono);text-transform:uppercase;
-        letter-spacing:.16em;font-size:14px;}
-      .brand img{width:38px;height:38px;object-fit:contain;}
-      .primary{display:flex;gap:26px;}
-      .primary a{font-family:var(--mono);text-transform:uppercase;letter-spacing:.12em;font-size:12px;
-        position:relative;padding-bottom:3px;}
-      .primary a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--aqua);transition:width .4s var(--ease);}
-      .primary a:hover::after{width:100%;}
-      .lang{display:flex;gap:10px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;}
-      .lang a{opacity:.5;transition:opacity .3s;}
-      .lang a[aria-current],.lang a:hover{opacity:1;color:var(--aqua);}
-      @media(max-width:920px){.primary{display:none;}}
+        letter-spacing:.16em;font-size:14px;pointer-events:auto;}
+      .brand img{width:36px;height:36px;object-fit:contain;}
 
       .site-foot{position:relative;z-index:2;border-top:1px solid var(--line);padding:90px 0 40px;
-        background:linear-gradient(180deg,transparent,rgba(3,7,13,.7));}
+        background:linear-gradient(180deg,transparent,rgba(3,7,13,.85));}
       .foot-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:50px;}
       .foot-logo{width:110px;height:auto;margin-bottom:18px;}
       .foot-tag{font-family:var(--serif);font-style:italic;color:var(--muted);max-width:42ch;}

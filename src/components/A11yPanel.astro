@@ -1,0 +1,119 @@
+---
+import { useT, type Lang } from '../i18n/ui';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = useT(lang);
+---
+<button class="a11y-btn" id="a11y-toggle" aria-label={t('ui.access')} aria-expanded="false" aria-controls="a11y-panel">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="4" r="1.6"/><path d="M4 8h16M9 8l1 12M15 8l-1 12M12 8v4"/></svg>
+</button>
+
+<div id="a11y-panel" class="a11y-panel" role="dialog" aria-label={t('ui.access')} aria-hidden="true">
+  <h3 class="label">{t('ui.access')}</h3>
+
+  <div class="row">
+    <span>Text size</span>
+    <div class="ctrl"><button data-font="-" aria-label="Decrease text size">A−</button><b id="a-font-val">100%</b><button data-font="+" aria-label="Increase text size">A+</button></div>
+  </div>
+
+  <div class="row">
+    <span>Brightness</span>
+    <input id="a-bright" type="range" min="0" max="100" value="0" aria-label="Background dim" />
+  </div>
+
+  <div class="row">
+    <span>High contrast</span>
+    <button class="switch" id="a-contrast" role="switch" aria-checked="false"><i></i></button>
+  </div>
+
+  <div class="row">
+    <span>Reduced motion</span>
+    <button class="switch" id="a-motion" role="switch" aria-checked="false"><i></i></button>
+  </div>
+
+  <button class="a-reset" id="a-reset">Reset</button>
+</div>
+
+<script>
+  const root = document.documentElement;
+  const get = (k, d) => { try { return localStorage.getItem('aym_' + k) ?? d; } catch { return d; } };
+  const set = (k, v) => { try { localStorage.setItem('aym_' + k, v); } catch {} };
+
+  const toggle = document.getElementById('a11y-toggle');
+  const panel = document.getElementById('a11y-panel');
+  toggle?.addEventListener('click', () => {
+    const open = panel.classList.toggle('open');
+    panel.setAttribute('aria-hidden', String(!open));
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+  document.addEventListener('click', (e) => {
+    if (panel.classList.contains('open') && !panel.contains(e.target) && e.target !== toggle && !toggle.contains(e.target)) {
+      panel.classList.remove('open'); panel.setAttribute('aria-hidden', 'true'); toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // font size
+  const fontVal = document.getElementById('a-font-val');
+  let font = parseFloat(get('font', '1'));
+  const applyFont = () => { root.style.setProperty('--a-font', String(font)); fontVal.textContent = Math.round(font * 100) + '%'; };
+  applyFont();
+  document.querySelectorAll('[data-font]').forEach((b) => b.addEventListener('click', () => {
+    font = Math.min(1.4, Math.max(0.85, font + (b.dataset.font === '+' ? 0.1 : -0.1)));
+    font = Math.round(font * 100) / 100; set('font', String(font)); applyFont();
+  }));
+
+  // brightness (background dim)
+  const bright = document.getElementById('a-bright');
+  const applyBright = (v) => root.style.setProperty('--veil', String((v / 100) * 0.55));
+  bright.value = get('veil', '0'); applyBright(parseFloat(bright.value));
+  bright.addEventListener('input', () => { set('veil', bright.value); applyBright(parseFloat(bright.value)); });
+
+  // switches
+  function wireSwitch(id, key, attr, on, off) {
+    const el = document.getElementById(id);
+    const cur = get(key, off);
+    const apply = (val) => { root.setAttribute(attr, val); el.setAttribute('aria-checked', String(val === on)); el.classList.toggle('on', val === on); };
+    apply(cur);
+    el.addEventListener('click', () => { const next = el.classList.contains('on') ? off : on; set(key, next); apply(next); });
+  }
+  wireSwitch('a-contrast', 'contrast', 'data-contrast', 'high', 'normal');
+  wireSwitch('a-motion', 'motion', 'data-motion', 'reduce', 'auto');
+
+  document.getElementById('a-reset')?.addEventListener('click', () => {
+    ['font', 'veil', 'contrast', 'motion'].forEach((k) => { try { localStorage.removeItem('aym_' + k); } catch {} });
+    location.reload();
+  });
+</script>
+
+<style>
+  .a11y-btn{position:fixed;top:clamp(14px,2.6vw,26px);right:calc(var(--pad) + 74px);z-index:600;width:52px;height:52px;
+    border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--aqua);
+    background:linear-gradient(150deg,rgba(12,79,110,.5),rgba(3,7,13,.7));border:1px solid rgba(95,231,218,.4);
+    backdrop-filter:blur(6px);box-shadow:0 8px 30px rgba(0,0,0,.5);transition:transform .4s var(--ease),border-color .4s,color .4s;}
+  .a11y-btn:hover{transform:translateY(-2px);border-color:var(--gold);color:var(--gold-soft);}
+  .a11y-btn svg{width:22px;height:22px;}
+  .a11y-panel{position:fixed;top:calc(clamp(14px,2.6vw,26px) + 64px);right:var(--pad);z-index:601;width:300px;max-width:86vw;
+    padding:22px;display:flex;flex-direction:column;gap:16px;border-radius:18px;
+    background:linear-gradient(150deg,rgba(12,79,110,.4),rgba(3,7,13,.82));border:1px solid var(--line);
+    backdrop-filter:blur(18px) saturate(130%);box-shadow:0 24px 70px rgba(0,0,0,.55);
+    opacity:0;visibility:hidden;transform:translateY(-10px);transition:opacity .35s var(--ease),transform .35s var(--ease),visibility .35s;}
+  .a11y-panel.open{opacity:1;visibility:visible;transform:none;}
+  .a11y-panel h3{margin-bottom:2px;}
+  .a11y-panel .row{display:flex;align-items:center;justify-content:space-between;gap:14px;font-size:13px;color:var(--muted);}
+  .a11y-panel .ctrl{display:flex;align-items:center;gap:10px;}
+  .a11y-panel .ctrl button{width:30px;height:30px;border-radius:8px;border:1px solid var(--line);background:none;
+    color:var(--ink);font-family:var(--mono);cursor:pointer;transition:border-color .3s,color .3s;}
+  .a11y-panel .ctrl button:hover{border-color:var(--aqua);color:var(--aqua);}
+  .a11y-panel .ctrl b{font-family:var(--mono);font-size:12px;min-width:42px;text-align:center;color:var(--ink);}
+  .a11y-panel input[type=range]{flex:1;-webkit-appearance:none;appearance:none;height:3px;border-radius:3px;background:rgba(255,255,255,.2);}
+  .a11y-panel input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--turq);box-shadow:0 0 8px var(--turq);cursor:pointer;}
+  .a11y-panel input[type=range]::-moz-range-thumb{width:14px;height:14px;border:none;border-radius:50%;background:var(--turq);cursor:pointer;}
+  .switch{width:46px;height:26px;border-radius:20px;border:1px solid var(--line);background:rgba(255,255,255,.06);position:relative;cursor:pointer;transition:background .3s,border-color .3s;}
+  .switch i{position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;background:var(--muted);transition:transform .3s var(--ease),background .3s;}
+  .switch.on{background:rgba(34,199,192,.3);border-color:var(--turq);}
+  .switch.on i{transform:translateX(20px);background:var(--aqua);}
+  .a-reset{align-self:flex-start;margin-top:4px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--muted-2);background:none;border:none;cursor:pointer;}
+  .a-reset:hover{color:var(--aqua);}
+  @media(max-width:560px){.a11y-btn{right:calc(var(--pad) + 68px);}}
+</style>
