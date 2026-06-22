@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import EnterGate from '../EnterGate.astro';
 import SocialTiles from '../SocialTiles.astro';
-import { useT, href, type Lang } from '../../i18n/ui';
+import { useT, href, asset, type Lang } from '../../i18n/ui';
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const t = useT(lang);
@@ -11,6 +11,11 @@ const t = useT(lang);
   <EnterGate lang={lang} />
 
   <section class="hero" data-home>
+    <div class="hero-media" data-parallax="0.1" aria-hidden="true">
+      <video autoplay muted loop playsinline preload="metadata" poster={asset('/posters/full-sail-sunset.jpg')}>
+        <source src={asset('/videos/full-sail-sunset.mp4')} type="video/mp4" />
+      </video>
+    </div>
     <div class="crop tl"></div><div class="crop tr"></div><div class="crop bl"></div><div class="crop br"></div>
     <div class="wrap hero-inner">
       <p class="eyebrow label-bracket" data-reveal>{t('hero.eyebrow')}</p>
@@ -42,7 +47,12 @@ const t = useT(lang);
 
 <style>
   .hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;}
-  .hero-inner{padding:0 var(--pad) 14svh;}
+  .hero-media{position:absolute;inset:0;z-index:0;}
+  .hero-media video{width:100%;height:100%;object-fit:cover;opacity:calc(.6 - var(--veil));
+    filter:saturate(1.15) brightness(.72);}
+  .hero-media::after{content:'';position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(3,7,13,.4),rgba(3,7,13,.15) 34%,rgba(3,7,13,.92));}
+  .hero-inner{position:relative;z-index:3;padding:0 var(--pad) 14svh;}
   .hero-title{margin:24px 0 28px;max-width:13ch;}
   .hero-sub{max-width:52ch;}
   .hero-cta{display:flex;align-items:center;gap:28px;margin-top:40px;flex-wrap:wrap;}
