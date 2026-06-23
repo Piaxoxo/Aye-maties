@@ -1,0 +1,28 @@
+---
+import Base from '../../layouts/Base.astro';
+import { useT, asset, href, type Lang } from '../../i18n/ui';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = useT(lang);
+---
+<Base lang={lang} path="/blog" title={`${t('blog.title')} — Aye Maties`} description={t('blog.body')}>
+  <section class="page-hero">
+    <video autoplay muted loop playsinline preload="none" poster={asset('/posters/bts-beach.jpg')}>
+      <source src={asset('/videos/bts-beach.mp4')} type="video/mp4" />
+    </video>
+    <div class="wrap">
+      <p class="eyebrow label-bracket" data-reveal>{t('blog.eyebrow')}</p>
+      <h1 data-reveal>{t('blog.title')}</h1>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap" style="max-width:760px">
+      <p class="lead" data-reveal>{t('blog.body')}</p>
+      <div class="glass" data-reveal style="margin-top:40px;padding:40px;text-align:center">
+        <p class="mono" style="letter-spacing:.2em;text-transform:uppercase;color:var(--gold)">{t('blog.soon')}</p>
+        <p class="lead" style="margin:16px auto 0">Follow along on our channels while the first entries are logged.</p>
+        <div style="margin-top:26px"><a class="link-arrow" href={href('/', lang)}>← Back to the voyage</a></div>
+      </div>
+    </div>
+  </section>
+</Base>
