@@ -2,6 +2,8 @@
 import Base from '../../layouts/Base.astro';
 import EnterGate from '../EnterGate.astro';
 import SocialTiles from '../SocialTiles.astro';
+import About from '../chapters/About.astro';
+import Mission from '../chapters/Mission.astro';
 import { useT, href, asset, type Lang } from '../../i18n/ui';
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
@@ -31,16 +33,8 @@ const t = useT(lang);
     </div>
   </section>
 
-  <section class="section" id="story">
-    <div class="wrap">
-      <p class="eyebrow label-bracket" data-reveal>01 — {t('nav.about')}</p>
-      <h2 class="h-serif" data-reveal data-parallax="0.05" style="max-width:18ch">We are not just an expedition — we are a movement for the sea.</h2>
-      <p class="lead" data-reveal style="margin-top:28px">{t('hero.sub')}</p>
-      <div data-reveal style="margin-top:34px">
-        <a class="link-arrow" href={href('/about', lang)}>Discover the format →</a>
-      </div>
-    </div>
-  </section>
+  <About lang={lang} />
+  <Mission lang={lang} />
 
   <SocialTiles lang={lang} />
 </Base>

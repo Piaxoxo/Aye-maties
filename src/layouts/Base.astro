@@ -17,6 +17,7 @@ const { lang, path, title, description } = Astro.props;
 const t = useT(lang);
 const pageTitle = title ?? t('site.title');
 const pageDesc = description ?? t('site.desc');
+const home = href('/', lang);
 ---
 <!doctype html>
 <html lang={lang}>
@@ -73,12 +74,12 @@ const pageDesc = description ?? t('site.desc');
         <nav aria-label="Footer">
           <h4 class="label">{t('ui.menu')}</h4>
           <ul>
-            <li><a href={href('/about', lang)}>{t('nav.about')}</a></li>
-            <li><a href={href('/mission', lang)}>{t('nav.mission')}</a></li>
-            <li><a href={href('/team', lang)}>{t('nav.team')}</a></li>
+            <li><a href={`${home}#about`}>{t('nav.about')}</a></li>
+            <li><a href={`${home}#mission`}>{t('nav.mission')}</a></li>
+            <li><a href={`${home}#team`}>{t('nav.team')}</a></li>
             <li><a href={href('/blog', lang)}>{t('nav.blog')}</a></li>
-            <li><a href={href('/sponsors', lang)}>{t('nav.sponsors')}</a></li>
-            <li><a href={href('/contact', lang)}>{t('nav.contact')}</a></li>
+            <li><a href={`${home}#get-involved`}>{t('nav.getinvolved')}</a></li>
+            <li><a href={`${home}#contact`}>{t('nav.contact')}</a></li>
             <li><a href={href('/impressum', lang)}>{t('nav.impressum')}</a></li>
             <li><a href={href('/privacy', lang)}>{t('nav.privacy')}</a></li>
           </ul>

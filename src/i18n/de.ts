@@ -14,6 +14,7 @@ export const de: Record<string, string> = {
   'nav.partners': 'Partner',
   'nav.sponsors': 'Sponsoren',
   'nav.impact': 'Wirkung',
+  'nav.getinvolved': 'Mitmachen',
   'nav.contact': 'Kontakt',
   'nav.impressum': 'Impressum',
   'nav.privacy': 'Datenschutz',

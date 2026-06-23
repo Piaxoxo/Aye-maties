@@ -1,0 +1,31 @@
+---
+import { useT, href, asset, type Lang } from '../../i18n/ui';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = useT(lang);
+---
+<section class="section" id="about">
+  <div class="wrap split">
+    <div class="media-frame" data-reveal="" data-parallax="0.06" data-tilt>
+      <video autoplay muted loop playsinline preload="none" poster={asset('/posters/mast-rigging.jpg')}>
+        <source src={asset('/videos/mast-rigging.mp4')} type="video/mp4" />
+      </video>
+      <div class="edge"></div>
+      <div class="media-cap">— {t('about.caption')} —</div>
+    </div>
+    <div class="about-text" data-parallax="0.03">
+      <p class="eyebrow label-bracket" data-reveal>02 — {t('about.eyebrow')}</p>
+      <h2 class="display about-title" data-decode>{t('about.title')}</h2>
+      <p class="lead" data-reveal>{t('about.p1')}</p>
+      <p class="lead" data-reveal>{t('about.p2')}</p>
+      <p class="lead" data-reveal>{t('about.p3')}</p>
+      <div data-reveal style="margin-top:8px"><a class="link-arrow" href={`${href('/', lang)}#team`}>Meet the crew →</a></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-title{font-size:clamp(34px,5vw,76px);margin:22px 0 26px;}
+  .about-text .lead{margin-top:18px;}
+  .about-text .lead:first-of-type{margin-top:0;}
+</style>

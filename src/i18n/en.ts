@@ -15,6 +15,7 @@ export const en: Record<string, string> = {
   'nav.partners': 'Partners',
   'nav.sponsors': 'Sponsors',
   'nav.impact': 'Impact',
+  'nav.getinvolved': 'Get Involved',
   'nav.contact': 'Contact',
   'nav.impressum': 'Impressum',
   'nav.privacy': 'Privacy',
@@ -43,6 +44,22 @@ export const en: Record<string, string> = {
   'show.eyebrow': 'Classified',
   'show.title': 'The Show',
   'show.body': 'We can’t tell you yet… Try your best to find out.',
+
+  // about
+  'about.eyebrow': 'About Aye Maties',
+  'about.title': 'What is Aye Maties?',
+  'about.p1': 'Aye Maties — Pirate Challenge is a new cinematic TV and entertainment adventure built around the power of the sea, the thrill of discovery and the strength of a crew facing extraordinary challenges together.',
+  'about.p2': 'Guided by the legendary Cpt. Old Salt, modern-day challengers enter a world of maritime trials, hidden mysteries, teamwork and unforgettable ocean-bound experiences. But behind every adventure lies a greater purpose: drawing attention to the beauty, fragility and protection of our oceans.',
+  'about.p3': 'Combining powerful storytelling, an international entertainment concept and authentic maritime atmosphere, Aye Maties invites audiences to follow an adventure where the greatest treasure is the future of our seas.',
+  'about.caption': 'a real working sailing ship',
+
+  // mission
+  'mission.eyebrow': 'Our Mission',
+  'mission.title': 'A Movement for the Sea',
+  'mission.statement': 'We are not just an expedition — we are a movement for the sea.',
+  'mission.p': 'We redefine what it means to explore — embracing the ocean, honouring its depths and uniting curious souls around a single, shared purpose: to protect the waters that connect us all.',
+  'mission.band': 'Every wave we protect, every shore we restore, is a chapter in a story far larger than ourselves — written for the generations still to come.',
+  'mission.quote': 'We don’t ask people to make time for the ocean — we bring the ocean into the time they already make.',
 
   // footer
   'footer.tag':

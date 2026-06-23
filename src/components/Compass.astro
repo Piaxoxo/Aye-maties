@@ -4,11 +4,18 @@ import { social } from '../data/social';
 interface Props { lang: Lang; path: string; }
 const { lang, path } = Astro.props;
 const t = useT(lang);
-const items: [string, string][] = [
-  ['/', 'nav.home'], ['/about', 'nav.about'], ['/mission', 'nav.mission'],
-  ['/show', 'nav.show'], ['/team', 'nav.team'], ['/blog', 'nav.blog'],
-  ['/partners', 'nav.partners'], ['/sponsors', 'nav.sponsors'],
-  ['/impact', 'nav.impact'], ['/contact', 'nav.contact'],
+const home = href('/', lang);
+const items: { url: string; key: string }[] = [
+  { url: home, key: 'nav.home' },
+  { url: `${home}#about`, key: 'nav.about' },
+  { url: `${home}#mission`, key: 'nav.mission' },
+  { url: href('/blog', lang), key: 'nav.blog' },
+  { url: `${home}#team`, key: 'nav.team' },
+  { url: `${home}#show`, key: 'nav.show' },
+  { url: `${home}#partners`, key: 'nav.partners' },
+  { url: `${home}#impact`, key: 'nav.impact' },
+  { url: `${home}#get-involved`, key: 'nav.getinvolved' },
+  { url: `${home}#contact`, key: 'nav.contact' },
 ];
 ---
 <button class="compass-btn" id="compass" aria-label={t('ui.menu')} aria-expanded="false" aria-controls="nav-overlay">
@@ -33,9 +40,9 @@ const items: [string, string][] = [
   <button class="nav-close" aria-label={t('ui.close')}><span class="label">{t('ui.close')}</span> ✕</button>
   <div class="nav-inner">
     <ul class="nav-links">
-      {items.map(([p, key], i) => (
-        <li style={`--i:${i}`}><a href={href(p, lang)} aria-current={path === p ? 'page' : undefined}>
-          <span class="idx">{String(i + 1).padStart(2, '0')}</span>{t(key)}
+      {items.map((it, i) => (
+        <li style={`--i:${i}`}><a href={it.url}>
+          <span class="idx">{String(i + 1).padStart(2, '0')}</span>{t(it.key)}
         </a></li>
       ))}
     </ul>
@@ -73,6 +80,7 @@ const items: [string, string][] = [
     }
     btn.addEventListener('click', () => setOpen(!overlay.classList.contains('open')));
     overlay.querySelector('.nav-close')?.addEventListener('click', () => setOpen(false));
+    overlay.querySelectorAll('.nav-links a').forEach((a) => a.addEventListener('click', () => setTimeout(() => setOpen(false), 80)));
     addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && overlay.classList.contains('open')) setOpen(false);
       if (e.key === 'Tab' && overlay.classList.contains('open')) {
