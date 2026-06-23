@@ -4,6 +4,13 @@ import EnterGate from '../EnterGate.astro';
 import SocialTiles from '../SocialTiles.astro';
 import About from '../chapters/About.astro';
 import Mission from '../chapters/Mission.astro';
+import BlogTeaser from '../chapters/BlogTeaser.astro';
+import Team from '../chapters/Team.astro';
+import Show from '../chapters/Show.astro';
+import Partners from '../chapters/Partners.astro';
+import Impact from '../chapters/Impact.astro';
+import GetInvolved from '../chapters/GetInvolved.astro';
+import Contact from '../chapters/Contact.astro';
 import { useT, href, asset, type Lang } from '../../i18n/ui';
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
@@ -35,6 +42,13 @@ const t = useT(lang);
 
   <About lang={lang} />
   <Mission lang={lang} />
+  <BlogTeaser lang={lang} />
+  <Team lang={lang} />
+  <Show lang={lang} />
+  <Partners lang={lang} />
+  <Impact lang={lang} />
+  <GetInvolved lang={lang} />
+  <Contact lang={lang} />
 
   <SocialTiles lang={lang} />
 </Base>

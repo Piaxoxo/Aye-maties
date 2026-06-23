@@ -1,0 +1,35 @@
+---
+import { useT, asset, type Lang } from '../../i18n/ui';
+import { crew } from '../../data/team';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = useT(lang);
+---
+<section class="section" id="team">
+  <div class="wrap">
+    <div class="team-head">
+      <p class="eyebrow label-bracket" data-reveal>05 — {t('team.eyebrow')}</p>
+      <h2 class="display team-title" data-decode>{t('team.title')}</h2>
+      <p class="lead" data-reveal>{t('team.lead')}</p>
+    </div>
+    <div class="crew-grid">
+      {crew.map((c) => (
+        <article class="cast" data-reveal data-tilt>
+          <div class="cast-photo">
+            <span class="cast-mono">{c.initials}</span>
+            <img src={asset(`/images/crew/${c.slug}.jpg`)} alt={c.name} loading="lazy" onerror="this.remove()" />
+            <div class="edge"></div>
+          </div>
+          <h3>{c.name}</h3>
+          <div class="role">{c.role}</div>
+          <p>{c.bio}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .team-head{max-width:760px;margin-bottom:64px;}
+  .team-title{font-size:clamp(32px,5vw,72px);margin:20px 0 22px;}
+</style>

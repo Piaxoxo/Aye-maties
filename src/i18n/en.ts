@@ -61,6 +61,47 @@ export const en: Record<string, string> = {
   'mission.band': 'Every wave we protect, every shore we restore, is a chapter in a story far larger than ourselves — written for the generations still to come.',
   'mission.quote': 'We don’t ask people to make time for the ocean — we bring the ocean into the time they already make.',
 
+  // blog
+  'blog.eyebrow': 'Journal',
+  'blog.title': 'From the Voyage',
+  'blog.body': 'News, field notes and behind-the-scenes from the making of Aye Maties.',
+  'blog.cta': 'Read the journal',
+  'blog.soon': 'First entries logging soon',
+
+  // team
+  'team.eyebrow': 'The Crew',
+  'team.title': 'Meet the Faces of Aye Maties',
+  'team.lead': 'A crew of storytellers, artists and adventurers — each bringing their craft and spirit to the world of Aye Maties.',
+
+  // partners
+  'partners.eyebrow': 'Partners',
+  'partners.title': 'Sail With Us',
+  'partners.body': 'We build close, intentional collaborations — brands and partners who believe a story can move people to protect the sea. The deck is open.',
+  'partners.cta': 'Partner with us',
+
+  // impact
+  'impact.eyebrow': 'Impact',
+  'impact.title': 'Why the Ocean Needs Us',
+  'impact.lead': 'Behind every adventure lies a greater purpose. The numbers are why the mission matters.',
+  'impact.f1': 'Plastic waste enters the ocean every year — close to a truckload every single minute.',
+  'impact.f2': 'Of the oxygen we breathe is produced by the ocean and its phytoplankton.',
+  'impact.f3': 'Assessed fish stocks are now fished beyond biologically sustainable limits.',
+  'impact.f4': 'Of the ocean is protected today — far short of the 30% goal for 2030.',
+  'impact.note': 'Indicative figures compiled from UNEP, NOAA, FAO and IUCN.',
+
+  // get involved
+  'gi.eyebrow': 'Get Involved',
+  'gi.title': 'Set Sail With Purpose',
+  'gi.body': 'Become part of a story far larger than ourselves — a movement that turns wonder into action, and the ocean’s future into ours.',
+  'gi.sponsor': 'Become a Sponsor',
+  'gi.contact': 'Get in Touch',
+
+  // contact
+  'contact.eyebrow': 'Contact',
+  'contact.title': 'Let’s Create the New & Next',
+  'contact.email': 'AyeMaties@gmail.com',
+  'contact.address': 'Brunn am Gebirge, Austria',
+
   // footer
   'footer.tag':
     'A cinematic maritime adventure — saving our oceans, one season, one challenge, one wave at a time.',

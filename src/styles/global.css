@@ -126,6 +126,30 @@ html[data-motion="reduce"] [data-reveal]{opacity:1;transform:none;}
 .eyebrow.center{justify-content:center;}
 @media(max-width:900px){.split{grid-template-columns:1fr;gap:44px;}}
 
+/* crew grid */
+.crew-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(28px,4vw,52px) 30px;}
+.cast{display:flex;flex-direction:column;}
+.cast-photo{position:relative;aspect-ratio:4/5;border-radius:8px;overflow:hidden;border:1px solid var(--line);
+  background:radial-gradient(60% 55% at 50% 35%,rgba(12,79,110,.5),rgba(3,7,13,.4));}
+.cast-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;transition:transform 1.2s var(--ease);}
+.cast:hover .cast-photo img{transform:scale(1.05);}
+.cast-mono{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:var(--display);font-size:clamp(40px,5vw,64px);color:rgba(95,231,218,.4);}
+.cast-photo .edge{position:absolute;inset:13px;border:1px solid rgba(230,197,116,.45);z-index:2;pointer-events:none;}
+.cast h3{font-family:var(--display);text-transform:uppercase;font-size:clamp(20px,2vw,26px);color:var(--gold-soft);margin:24px 0 8px;text-align:center;}
+.cast .role{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);opacity:.8;text-align:center;margin-bottom:14px;}
+.cast p{font-family:var(--serif);font-weight:300;font-size:15px;line-height:1.7;color:var(--muted);text-align:center;}
+
+/* facts grid */
+.fact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+.fact{padding:34px 26px;border-radius:18px;border:1px solid rgba(95,231,218,.22);
+  background:linear-gradient(160deg,rgba(12,79,110,.3),rgba(3,7,13,.55));transition:transform .6s var(--ease),border-color .5s;}
+.fact:hover{transform:translateY(-8px);border-color:rgba(95,231,218,.5);}
+.fact b{display:block;font-family:var(--display);font-size:clamp(30px,3.6vw,48px);color:var(--aqua);line-height:1;margin-bottom:14px;}
+.fact span{font-family:var(--serif);font-weight:300;font-size:15px;line-height:1.6;color:var(--muted);}
+@media(max-width:1000px){.crew-grid{grid-template-columns:1fr 1fr;}.fact-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.crew-grid{grid-template-columns:1fr;}.fact-grid{grid-template-columns:1fr;}}
+
 /* crop-marks (studio-dialect motif) */
 .crop{position:absolute;width:14px;height:14px;border:0 solid var(--gold);opacity:.6;pointer-events:none;}
 .crop.tl{top:14px;left:14px;border-top-width:1px;border-left-width:1px;}

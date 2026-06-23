@@ -1,0 +1,32 @@
+---
+import { useT, type Lang } from '../../i18n/ui';
+import { contactEmail } from '../../data/social';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = useT(lang);
+---
+<section class="section partners" id="partners">
+  <div class="wrap">
+    <p class="eyebrow label-bracket" data-reveal>07 — {t('partners.eyebrow')}</p>
+    <h2 class="h-serif" data-decode style="max-width:14ch">{t('partners.title')}</h2>
+    <p class="lead" data-reveal style="margin-top:26px">{t('partners.body')}</p>
+    <div class="partner-slots" data-reveal aria-hidden="true">
+      {[0,1,2,3].map(() => (<span class="slot"><span class="slot-plus">+</span></span>))}
+    </div>
+    <div data-reveal style="margin-top:38px">
+      <a class="btn btn-gold" href={`mailto:${contactEmail}?subject=Partnership%20%E2%80%94%20Aye%20Maties`} data-magnetic>
+        <span>{t('partners.cta')}</span>
+        <svg viewBox="0 0 16 10" fill="none"><path d="M1 5h14M10 1l5 4-5 4" stroke="currentColor" stroke-width="1.3"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .partner-slots{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:46px;}
+  .slot{display:flex;align-items:center;justify-content:center;aspect-ratio:16/9;border-radius:14px;
+    border:1px dashed rgba(95,231,218,.3);background:rgba(12,79,110,.14);transition:border-color .5s,background .5s;}
+  .slot:hover{border-color:var(--gold);background:rgba(230,197,116,.06);}
+  .slot-plus{font-family:var(--display);font-size:34px;color:rgba(95,231,218,.4);}
+  @media(max-width:760px){.partner-slots{grid-template-columns:1fr 1fr;}}
+</style>

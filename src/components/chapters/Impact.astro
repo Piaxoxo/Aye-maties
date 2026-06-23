@@ -1,0 +1,33 @@
+---
+import { useT, asset, type Lang } from '../../i18n/ui';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = useT(lang);
+const facts = [
+  { v: '8–11M t', k: 'impact.f1' },
+  { v: '50%+', k: 'impact.f2' },
+  { v: '1 in 3', k: 'impact.f3' },
+  { v: '~8%', k: 'impact.f4' },
+];
+---
+<section class="section impact" id="impact">
+  <div class="wrap">
+    <div class="impact-head">
+      <p class="eyebrow label-bracket" data-reveal>08 — {t('impact.eyebrow')}</p>
+      <h2 class="display impact-title" data-decode>{t('impact.title')}</h2>
+      <p class="lead" data-reveal>{t('impact.lead')}</p>
+    </div>
+    <div class="fact-grid">
+      {facts.map((f) => (
+        <div class="fact" data-reveal data-tilt><b>{f.v}</b><span>{t(f.k)}</span></div>
+      ))}
+    </div>
+    <p class="impact-note mono" data-reveal>{t('impact.note')}</p>
+  </div>
+</section>
+
+<style>
+  .impact-head{max-width:760px;margin-bottom:50px;}
+  .impact-title{font-size:clamp(32px,5vw,72px);margin:20px 0 22px;}
+  .impact-note{margin-top:28px;font-size:12px;letter-spacing:.06em;color:var(--muted-2);}
+</style>
