@@ -95,18 +95,33 @@ export function initUI() {
     requestAnimationFrame(loop);
   })();
 
-  /* ---- custom cursor ---- */
-  if (!matchMedia('(hover:none)').matches) {
-    const c = document.createElement('div'); c.className = 'cursor';
-    const r = document.createElement('div'); r.className = 'cursor-ring';
-    document.body.append(c, r);
-    let px = 0, py = 0, rx = 0, ry = 0;
-    addEventListener('mousemove', (e) => { px = e.clientX; py = e.clientY; c.style.transform = `translate(${px}px,${py}px)`; });
-    (function ring() { rx += (px - rx) * 0.16; ry += (py - ry) * 0.16; r.style.transform = `translate(${rx}px,${ry}px)`; requestAnimationFrame(ring); })();
+  /* ---- compass cursor ---- */
+  if (matchMedia('(hover:hover) and (pointer:fine)').matches) {
+    const cur = document.createElement('div');
+    cur.className = 'compass-cursor'; cur.setAttribute('aria-hidden', 'true');
+    cur.innerHTML = `<svg viewBox="0 0 40 40">
+      <circle class="cc-ring" cx="20" cy="20" r="16" fill="none" stroke="rgba(95,231,218,.8)" stroke-width="1"/>
+      <circle cx="20" cy="20" r="11" fill="rgba(3,7,13,.35)"/>
+      <g class="cc-needle"><polygon points="20,7 17.5,20 22.5,20" fill="#e6c574"/><polygon points="20,33 17.5,20 22.5,20" fill="#22c7c0"/></g>
+      <circle cx="20" cy="20" r="1.6" fill="#03070d" stroke="#e6c574" stroke-width=".8"/></svg>`;
+    document.body.appendChild(cur);
+    document.documentElement.classList.add('has-compass-cursor');
+    const needle = cur.querySelector('.cc-needle');
+    let px = innerWidth / 2, py = innerHeight / 2, lx = px, ly = py, ang = 0;
+    addEventListener('mousemove', (e) => { px = e.clientX; py = e.clientY; }, { passive: true });
+    (function loop() {
+      lx += (px - lx) * 0.2; ly += (py - ly) * 0.2;
+      const dx = px - lx, dy = py - ly;
+      if (Math.hypot(dx, dy) > 0.6) ang = Math.atan2(dy, dx) * 180 / Math.PI + 90;
+      cur.style.transform = `translate(${lx}px,${ly}px)`;
+      needle.style.transform = `rotate(${ang}deg)`;
+      requestAnimationFrame(loop);
+    })();
     document.addEventListener('mouseover', (e) => {
-      const hot = e.target.closest('a,button,input,[data-tilt],.tile');
-      r.classList.toggle('big', !!hot);
+      cur.classList.toggle('hot', !!e.target.closest('a,button,input,[data-tilt],.tile,.cast'));
     });
+    addEventListener('mouseleave', () => cur.classList.add('hidden'));
+    addEventListener('mouseenter', () => cur.classList.remove('hidden'));
   }
 
   /* ---- magnetic buttons ---- */

@@ -8,7 +8,7 @@ interface Props {
   image?: string;
   type?: string;
 }
-const { title, description, lang, path, image = '/og/cover.jpg', type = 'website' } = Astro.props;
+const { title, description, lang, path, image = '/posters/full-sail-sunset.jpg', type = 'website' } = Astro.props;
 const site = Astro.site ?? new URL('https://piaxoxo.github.io');
 const canonical = new URL(BASE + localize(path, lang), site).href;
 const ogImage = new URL(BASE + image, site).href;
