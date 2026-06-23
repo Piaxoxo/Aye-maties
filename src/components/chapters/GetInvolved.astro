@@ -1,0 +1,32 @@
+---
+import { useT, href, asset, type Lang } from '../../i18n/ui';
+import { contactEmail } from '../../data/social';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = useT(lang);
+---
+<section class="cinema" id="get-involved">
+  <video autoplay muted loop playsinline preload="none" poster={asset('/posters/ship-grey-sea.jpg')}>
+    <source src={asset('/videos/ship-grey-sea.mp4')} type="video/mp4" />
+  </video>
+  <div class="cinema-inner">
+    <p class="eyebrow label-bracket center" data-reveal>09 — {t('gi.eyebrow')}</p>
+    <h2 class="display gi-title" data-decode>{t('gi.title')}</h2>
+    <p class="lead" data-reveal style="margin:24px auto 36px;text-align:center">{t('gi.body')}</p>
+    <div class="gi-cta" data-reveal>
+      <a class="btn btn-gold" href={href('/sponsors', lang)} data-magnetic>
+        <span>{t('gi.sponsor')}</span>
+        <svg viewBox="0 0 16 10" fill="none"><path d="M1 5h14M10 1l5 4-5 4" stroke="currentColor" stroke-width="1.3"/></svg>
+      </a>
+      <a class="btn" href={`mailto:${contactEmail}`}>
+        <span>{t('gi.contact')}</span>
+        <svg viewBox="0 0 16 10" fill="none"><path d="M1 5h14M10 1l5 4-5 4" stroke="currentColor" stroke-width="1.3"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .gi-title{font-size:clamp(40px,8vw,108px);}
+  .gi-cta{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;}
+</style>

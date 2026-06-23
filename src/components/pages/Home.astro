@@ -1,0 +1,68 @@
+---
+import Base from '../../layouts/Base.astro';
+import EnterGate from '../EnterGate.astro';
+import SocialTiles from '../SocialTiles.astro';
+import About from '../chapters/About.astro';
+import Mission from '../chapters/Mission.astro';
+import BlogTeaser from '../chapters/BlogTeaser.astro';
+import Team from '../chapters/Team.astro';
+import Show from '../chapters/Show.astro';
+import Partners from '../chapters/Partners.astro';
+import Impact from '../chapters/Impact.astro';
+import GetInvolved from '../chapters/GetInvolved.astro';
+import Contact from '../chapters/Contact.astro';
+import { useT, href, asset, type Lang } from '../../i18n/ui';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = useT(lang);
+---
+<Base lang={lang} path="/">
+  <EnterGate lang={lang} />
+
+  <section class="hero" data-home>
+    <div class="hero-media" data-parallax="0.1" aria-hidden="true">
+      <video autoplay muted loop playsinline preload="metadata" poster={asset('/posters/full-sail-sunset.jpg')}>
+        <source src={asset('/videos/full-sail-sunset.mp4')} type="video/mp4" />
+      </video>
+    </div>
+    <div class="crop tl"></div><div class="crop tr"></div><div class="crop bl"></div><div class="crop br"></div>
+    <div class="wrap hero-inner">
+      <p class="eyebrow label-bracket" data-reveal>{t('hero.eyebrow')}</p>
+      <h1 class="display hero-title" data-reveal>{t('hero.title')}</h1>
+      <p class="lead hero-sub" data-reveal>{t('hero.sub')}</p>
+      <div class="hero-cta" data-reveal>
+        <a class="btn btn-gold" href="#story" data-magnetic>
+          <span>{t('hero.cta')}</span>
+          <svg viewBox="0 0 16 10" fill="none"><path d="M1 5h14M10 1l5 4-5 4" stroke="currentColor" stroke-width="1.3"/></svg>
+        </a>
+        <span class="scroll-cue mono">{t('ui.scroll')}</span>
+      </div>
+    </div>
+  </section>
+
+  <About lang={lang} />
+  <Mission lang={lang} />
+  <BlogTeaser lang={lang} />
+  <Team lang={lang} />
+  <Show lang={lang} />
+  <Partners lang={lang} />
+  <Impact lang={lang} />
+  <GetInvolved lang={lang} />
+  <Contact lang={lang} />
+
+  <SocialTiles lang={lang} />
+</Base>
+
+<style>
+  .hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;}
+  .hero-media{position:absolute;inset:0;z-index:0;}
+  .hero-media video{width:100%;height:100%;object-fit:cover;opacity:calc(.6 - var(--veil));
+    filter:saturate(1.15) brightness(.72);}
+  .hero-media::after{content:'';position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(3,7,13,.4),rgba(3,7,13,.15) 34%,rgba(3,7,13,.92));}
+  .hero-inner{position:relative;z-index:3;padding:0 var(--pad) 14svh;}
+  .hero-title{margin:24px 0 28px;max-width:13ch;}
+  .hero-sub{max-width:52ch;}
+  .hero-cta{display:flex;align-items:center;gap:28px;margin-top:40px;flex-wrap:wrap;}
+  .scroll-cue{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted-2);}
+</style>

@@ -1,0 +1,61 @@
+---
+import Base from '../../layouts/Base.astro';
+import { useT, asset, type Lang } from '../../i18n/ui';
+import { contactEmail } from '../../data/social';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = useT(lang);
+const kpis = [
+  ['85M+', 'Impressions in 12 months · social only'],
+  ['~€21M', 'Media value over 7 years · social only'],
+  ['300K+', 'Active community'],
+  ['40M+', 'Video views per year'],
+];
+const phases = [
+  ['0–3 mo', 'Pre-Production', 'Brand build · content pool · influencer network'],
+  ['3–6 mo', 'Awareness', 'Visibility · social launch · paid ads'],
+  ['6–9 mo', 'Community', 'Community build · CRM · brand loyalty'],
+  ['9–12 mo', 'Scaling', 'Monetisation · expand · scale'],
+];
+---
+<Base lang={lang} path="/sponsors" title="Genesis Partner — Aye Maties" description="Become the Genesis Partner of Aye Maties — one exclusive partnership across seven seasons.">
+  <section class="page-hero">
+    <video autoplay muted loop playsinline preload="none" poster={asset('/posters/aerial-cliff.jpg')}>
+      <source src={asset('/videos/aerial-cliff.mp4')} type="video/mp4" />
+    </video>
+    <div class="wrap">
+      <p class="eyebrow label-bracket" data-reveal>Genesis Partnership</p>
+      <h1 data-reveal>Become the<br>Genesis Partner</h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="lead" data-reveal style="max-width:62ch">We are not seeking a committee of sponsors. We offer one exclusive partnership to a single visionary entity that recognises the power of narrative over noise — anchoring the complete arc across all seven seasons and international markets.</p>
+
+      <div class="kpi-grid" data-reveal style="margin-top:50px">
+        {kpis.map(([v, l]) => (<div class="kpi"><b>{v}</b><span>{l}</span></div>))}
+      </div>
+      <p class="mono" data-reveal style="margin-top:18px;font-size:12px;color:var(--muted-2)">All figures are social-media only. The TV series multiplies the total many times over.</p>
+
+      <h2 class="h-serif" data-reveal data-decode style="margin-top:90px">Phases &amp; Reach Growth</h2>
+      <div class="sp-cards" data-reveal style="margin-top:34px">
+        {phases.map(([time, h, p]) => (<div class="sp-card"><span class="t">{time}</span><h4>{h}</h4><p>{p}</p></div>))}
+      </div>
+
+      <h2 class="h-serif" data-reveal data-decode style="margin-top:90px">The Investment</h2>
+      <p class="lead" data-reveal style="margin-top:20px;max-width:62ch">Bringing this to life requires a committed €3M, released in two phases as milestones are met — no upfront lump sum. You receive exclusive category rights, integrated but non-intrusive brand presence and guaranteed prime placement. You enable the story; you do not steer it.</p>
+      <ul class="prose" data-reveal style="margin-top:18px">
+        <li><strong>€1M — Phase 1:</strong> Vessel, teams &amp; teaser</li>
+        <li><strong>€2M — Phase 2:</strong> Caribbean shoot, post-production &amp; Season 1 launch</li>
+      </ul>
+      <p class="h-serif" data-reveal style="margin-top:40px;font-size:clamp(22px,3vw,38px)">Not a logo on a banner. Co-found a movement.</p>
+      <div data-reveal style="margin-top:30px">
+        <a class="btn btn-gold" href={`mailto:${contactEmail}?subject=Genesis%20Partner%20%E2%80%94%20Aye%20Maties`} data-magnetic>
+          <span>Become the Genesis Partner</span>
+          <svg viewBox="0 0 16 10" fill="none"><path d="M1 5h14M10 1l5 4-5 4" stroke="currentColor" stroke-width="1.3"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>

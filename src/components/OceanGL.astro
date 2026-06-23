@@ -1,0 +1,26 @@
+---
+// Global fixed WebGL ocean background. Full scroll choreography on [data-home].
+---
+<canvas id="ocean-gl" aria-hidden="true"></canvas>
+<div class="depth-haze" aria-hidden="true"></div>
+
+<script>
+  import { initOcean } from '../lib/ocean.js';
+  const choreograph = !!document.querySelector('[data-home]');
+  // start once the enter-gate is gone (homepage) or immediately (interior pages)
+  const start = () => initOcean({ choreograph });
+  if (document.getElementById('enter')) {
+    window.addEventListener('aym:enter', start, { once: true });
+    // safety: start anyway after a few seconds if the gate is skipped
+    setTimeout(() => { if (!window.__oceanStarted) { window.__oceanStarted = true; start(); } }, 4000);
+    window.addEventListener('aym:enter', () => { window.__oceanStarted = true; }, { once: true });
+  } else {
+    start();
+  }
+</script>
+
+<style>
+  #ocean-gl{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;}
+  .depth-haze{position:fixed;inset:0;z-index:1;pointer-events:none;
+    background:radial-gradient(120% 90% at 50% 16%, transparent 36%, rgba(2,8,15,calc(.4 + var(--veil))) 100%);}
+</style>

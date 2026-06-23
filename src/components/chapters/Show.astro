@@ -1,0 +1,29 @@
+---
+import { useT, asset, type Lang } from '../../i18n/ui';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = useT(lang);
+---
+<section class="cinema show" id="show">
+  <video autoplay muted loop playsinline preload="none" poster={asset('/posters/stormy-sea.jpg')}>
+    <source src={asset('/videos/stormy-sea.mp4')} type="video/mp4" />
+  </video>
+  <div class="show-grain" aria-hidden="true"></div>
+  <div class="cinema-inner">
+    <p class="eyebrow label-bracket center" data-reveal>06 — {t('show.eyebrow')}</p>
+    <h2 class="display show-title" data-decode>{t('show.title')}</h2>
+    <p class="show-body" data-reveal>{t('show.body')}</p>
+    <p class="show-coords mono" data-reveal aria-hidden="true">[ 43.2°N · 13.8°E · TRANSMISSION LOCKED ]</p>
+  </div>
+</section>
+
+<style>
+  .show::after{background:linear-gradient(180deg,rgba(3,7,13,.78),rgba(3,7,13,.6) 45%,rgba(3,7,13,.9));}
+  .show > video{opacity:calc(.32 - var(--veil));filter:grayscale(.4) brightness(.5) contrast(1.1);}
+  .show-grain{position:absolute;inset:0;z-index:1;opacity:.06;pointer-events:none;mix-blend-mode:overlay;
+    background-image:repeating-linear-gradient(0deg,#fff 0 1px,transparent 1px 3px);}
+  .show-title{font-size:clamp(56px,13vw,180px);color:var(--ink);text-shadow:0 0 40px rgba(95,231,218,.25);}
+  .show-body{margin-top:24px;font-family:var(--serif);font-style:italic;font-size:clamp(20px,2.6vw,34px);
+    color:var(--aqua);max-width:24ch;margin-inline:auto;line-height:1.4;}
+  .show-coords{margin-top:30px;font-size:12px;letter-spacing:.24em;color:var(--gold);opacity:.7;}
+</style>

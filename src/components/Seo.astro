@@ -1,0 +1,57 @@
+---
+import { alternates, defaultLang, localize, BASE, type Lang } from '../i18n/ui';
+interface Props {
+  title: string;
+  description: string;
+  lang: Lang;
+  path: string;          // logical path, e.g. '/about'
+  image?: string;
+  type?: string;
+}
+const { title, description, lang, path, image = '/posters/full-sail-sunset.jpg', type = 'website' } = Astro.props;
+const site = Astro.site ?? new URL('https://piaxoxo.github.io');
+const canonical = new URL(BASE + localize(path, lang), site).href;
+const ogImage = new URL(BASE + image, site).href;
+const alts = alternates(path);
+const orgLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Aye Maties',
+  url: new URL(BASE + '/', site).href,
+  logo: new URL(BASE + '/logo.png', site).href,
+  description,
+  sameAs: [
+    'https://www.instagram.com/ayematies/',
+    'https://www.facebook.com/profile.php?id=61576482268567',
+    'https://www.tiktok.com/@aye.maties',
+    'https://www.youtube.com/@AyeMaties',
+    'https://soundcloud.com/ayematies',
+  ],
+};
+---
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+
+{/* hreflang alternates */}
+{alts.map((a) => (
+  <link rel="alternate" hreflang={a.lang} href={new URL(a.href, site).href} />
+))}
+<link rel="alternate" hreflang="x-default" href={new URL(BASE + path, site).href} />
+
+{/* Open Graph */}
+<meta property="og:type" content={type} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:site_name" content="Aye Maties" />
+<meta property="og:locale" content={lang} />
+
+{/* Twitter */}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<script type="application/ld+json" set:html={JSON.stringify(orgLd)} />

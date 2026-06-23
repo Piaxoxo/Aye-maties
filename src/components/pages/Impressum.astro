@@ -1,0 +1,24 @@
+---
+import Base from '../../layouts/Base.astro';
+import { useT, type Lang } from '../../i18n/ui';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = useT(lang);
+---
+<Base lang={lang} path="/impressum" title="Impressum — Aye Maties" description="Legal notice for Aye Maties — Pirate Challenge.">
+  <section class="page-hero" style="min-height:48svh">
+    <div class="wrap"><p class="eyebrow label-bracket" data-reveal>Legal</p><h1 data-reveal>Impressum</h1></div>
+  </section>
+  <section class="section">
+    <div class="wrap" style="max-width:1000px">
+      <div class="legal-grid">
+        <div class="legal-card span2" data-reveal><h4>Trademark &amp; Intellectual Property</h4><p><strong>„Aye Maties"</strong> (Font: „Ariston") is a trademark and IP of <strong>Sail Wisely (Ireland) CLG</strong> — an Irish Company Limited by Guarantee.</p></div>
+        <div class="legal-card" data-reveal><h4>Legal Representation</h4><p><strong>Mason Hayes &amp; Curran</strong><br>Barrow Street, Dublin 4, D04 TR29, Ireland<br>+353 1 614 5000 · <a href="https://www.mhc.ie" target="_blank" rel="noopener">MHC.ie</a><br>Represented by Claire Lord / Partner</p></div>
+        <div class="legal-card" data-reveal><h4>Postal Address</h4><p>c/o Capt. Peter Brucha<br>Jubiläumstrasse 19<br>2345 Brunn/Geb., Austria</p></div>
+        <div class="legal-card" data-reveal><h4>Operative Contact</h4><p><a href="mailto:AyeMaties@gmail.com">AyeMaties@gmail.com</a><br>c/o Capt. Peter Brucha — Founder<br><a href="tel:+4369910861086">+43 699 1086 1086</a></p></div>
+        <div class="legal-card" data-reveal><h4>Production Contact</h4><p><a href="mailto:AyeMaties@proton.me">AyeMaties@proton.me</a><br>c/o Dr. Dino Stelzl — Director</p></div>
+        <div class="legal-card span2" data-reveal><h4>Soundtrack</h4><p>Preview at <a href="https://soundcloud.com/ayematies" target="_blank" rel="noopener">soundcloud.com/ayematies</a></p></div>
+      </div>
+    </div>
+  </section>
+</Base>

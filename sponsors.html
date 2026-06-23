@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aye Maties — Genesis Partner · Sponsors</title>
+<meta name="description" content="Become the Genesis Partner of Aye Maties — one exclusive partnership across seven seasons. Reach, media value and brand impact for a single visionary entity.">
+<link rel="icon" type="image/png" href="assets/images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Marcellus&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div id="dive"><span class="ring"></span></div>
+<canvas id="ocean-gl"></canvas>
+<div class="depth-haze"></div>
+<div id="bright-veil"></div>
+<div class="cursor"></div><div class="cursor-ring"></div>
+
+<a href="index.html" class="brand-mark"><span class="pip"></span> Aye&nbsp;Maties</a>
+<button class="compass-btn" id="compass" aria-label="Open navigation">
+  <svg viewBox="0 0 100 100" aria-hidden="true">
+    <defs><radialGradient id="cg" cx="50%" cy="42%" r="62%"><stop offset="0%" stop-color="#0a4f73"/><stop offset="100%" stop-color="#02080f"/></radialGradient></defs>
+    <circle cx="50" cy="50" r="46" fill="url(#cg)" stroke="#e6c574" stroke-width="1.6"/>
+    <circle cx="50" cy="50" r="38" fill="none" stroke="rgba(94,230,218,.45)" stroke-width=".6"/>
+    <g class="compass-rose">
+      <polygon points="50,12 53,47 50,50 47,47" fill="#f3e6bb"/><polygon points="50,88 53,53 50,50 47,53" fill="#7fa6b6"/>
+      <polygon points="12,50 47,47 50,50 47,53" fill="#7fa6b6"/><polygon points="88,50 53,47 50,50 53,53" fill="#7fa6b6"/>
+      <polygon points="26,26 48,48 50,50 46,49" fill="#3a7185"/><polygon points="74,74 52,52 50,50 54,51" fill="#3a7185"/>
+      <polygon points="74,26 52,48 50,50 51,46" fill="#3a7185"/><polygon points="26,74 48,52 50,50 49,54" fill="#3a7185"/>
+    </g>
+    <g class="compass-needle"><polygon points="50,20 46,50 54,50" fill="#e6c574"/><polygon points="50,80 46,50 54,50" fill="#23c6c0"/><circle cx="50" cy="50" r="3.4" fill="#02080f" stroke="#e6c574" stroke-width="1.1"/></g>
+    <text x="50" y="11" text-anchor="middle" font-size="6.5" fill="#e6c574" font-family="serif">N</text>
+  </svg>
+</button>
+<button class="bright-btn" id="bright" aria-label="Brightness">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.2v2.4M12 19.4v2.4M2.2 12h2.4M19.4 12h2.4M5 5l1.7 1.7M17.3 17.3l1.7 1.7M19 5l-1.7 1.7M6.7 17.3 5 19"/></svg>
+  <span class="dots"><i></i><i></i><i></i></span>
+</button>
+
+<nav id="nav-overlay" aria-label="Primary">
+  <div class="veil"></div>
+  <video autoplay muted loop playsinline preload="none"><source src="assets/videos/ocean-vertical.mp4" type="video/mp4"></video>
+  <svg class="nav-rose" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="48" fill="none" stroke="#5ee6da" stroke-width=".4"/><circle cx="50" cy="50" r="34" fill="none" stroke="#e6c574" stroke-width=".4"/><polygon points="50,4 54,48 50,50 46,48" fill="#5ee6da"/><polygon points="50,96 54,52 50,50 46,52" fill="#5ee6da"/><polygon points="4,50 48,48 50,50 48,52" fill="#5ee6da"/><polygon points="96,50 52,48 50,50 52,52" fill="#5ee6da"/></svg>
+  <span class="nav-close">Close ✕</span>
+  <div class="nav-links">
+    <a href="index.html"><span class="idx">01</span>About</a>
+    <a href="index.html#crew"><span class="idx">02</span>The Crew</a>
+    <a href="index.html#soundtrack"><span class="idx">03</span>Soundtrack</a>
+    <a href="ocean.html"><span class="idx">04</span>The Ocean</a>
+    <a href="#top"><span class="idx">05</span>Sponsors</a>
+    <a href="legal.html"><span class="idx">06</span>Legal</a>
+  </div>
+  <div class="nav-foot">
+    <a href="https://soundcloud.com/ayematies" target="_blank" rel="noopener">SoundCloud</a>
+    <a href="https://www.youtube.com/@AyeMaties" target="_blank" rel="noopener">YouTube</a>
+    <a href="mailto:AyeMaties@gmail.com">Contact</a>
+  </div>
+</nav>
+
+<main class="page" id="top">
+
+  <section class="page-hero">
+    <video autoplay muted loop playsinline preload="auto"><source src="assets/videos/open-sea.mp4" type="video/mp4"></video>
+    <div class="motif planet" data-depth="34" style="top:10%;right:8%;opacity:.45"></div>
+    <div class="wrap">
+      <span class="eyebrow" data-hero>Genesis Partnership</span>
+      <h1 data-reveal>Become the<br>Genesis Partner</h1>
+      <p class="lead" data-reveal style="margin-top:26px">We are not seeking a committee of sponsors. We offer one exclusive partnership to a single visionary entity that recognises the power of narrative over noise — anchoring the complete arc across all seven seasons and international markets.</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+
+      <!-- headline KPIs -->
+      <div class="kpi-grid stagger" data-reveal style="margin-bottom:26px">
+        <div class="kpi"><b>85M+</b><span>Impressions in 12 months — social media only</span></div>
+        <div class="kpi"><b>~€21M</b><span>Media value over 7 years — social media only</span></div>
+        <div class="kpi"><b>300K+</b><span>Active community</span></div>
+        <div class="kpi"><b>40M+</b><span>Video views per year</span></div>
+      </div>
+      <p class="note" data-reveal style="margin-bottom:clamp(70px,9vh,110px)">All figures are social-media only. The TV series is not included — it multiplies the total many times over.</p>
+
+      <!-- phases -->
+      <div class="block">
+        <h3 data-reveal>Phases &amp; Reach Growth</h3>
+        <p class="intro" data-reveal>A successful launch needs at least three months of pre-production. From there, reach grows exponentially through paid ads, influencer multipliers and organic community momentum.</p>
+        <div class="cards c4 stagger" data-reveal>
+          <div class="card" data-tilt="6"><div class="ph-time">0–3 months</div><h4>Pre-Production</h4><p class="goal">Brand build · content pool · influencer network</p><div class="imp">0.5M impressions · 5,000+ followers</div></div>
+          <div class="card" data-tilt="6"><div class="ph-time">3–6 months</div><h4>Awareness</h4><p class="goal">Visibility · social launch · paid ads</p><div class="imp">12M impressions · 50,000+ followers</div></div>
+          <div class="card" data-tilt="6"><div class="ph-time">6–9 months</div><h4>Community</h4><p class="goal">Community build · CRM · brand loyalty</p><div class="imp">35M impressions · 150,000+ followers</div></div>
+          <div class="card" data-tilt="6"><div class="ph-time">9–12 months</div><h4>Scaling</h4><p class="goal">Monetisation · expand · scale</p><div class="imp">85M+ impressions · 300,000+ followers</div></div>
+        </div>
+      </div>
+
+      <!-- platform distribution -->
+      <div class="block">
+        <h3 data-reveal>Platform Distribution</h3>
+        <div class="split" style="align-items:center">
+          <div data-reveal="scale"><div class="donut" data-tilt="8"><div class="donut-c"><b>6</b><span>Platforms</span></div></div></div>
+          <div data-reveal>
+            <ul class="legend">
+              <li><span class="sw" style="background:var(--gold)"></span> Instagram <b>35%</b></li>
+              <li><span class="sw" style="background:var(--gold-soft)"></span> TikTok <b>28%</b></li>
+              <li><span class="sw" style="background:var(--blue)"></span> YouTube <b>16%</b></li>
+              <li><span class="sw" style="background:var(--teal)"></span> Facebook <b>9%</b></li>
+              <li><span class="sw" style="background:var(--marine)"></span> LinkedIn <b>7%</b></li>
+              <li><span class="sw" style="background:var(--muted-2)"></span> Other <b>5%</b></li>
+            </ul>
+            <p class="note" style="margin-top:28px">Ø engagement rate 6–9% — versus an industry average of 1–3%.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7-year value -->
+      <div class="block">
+        <h3 data-reveal>7-Year Media Value</h3>
+        <div class="cards c4 stagger" data-reveal>
+          <div class="metric"><b>€1.2M</b><span>Media value 2026 · social only</span></div>
+          <div class="metric"><b>€4.8M</b><span>Media value 2032 · social only</span></div>
+          <div class="metric"><b>~€21M</b><span>Cumulative 7-year value · social only</span></div>
+          <div class="metric feat"><b>&gt;€40M</b><span>Total 7-year value · incl. TV series</span></div>
+        </div>
+      </div>
+
+      <!-- brand presence -->
+      <div class="block">
+        <h3 data-reveal>Brand Presence — Every Channel</h3>
+        <p class="intro" data-reveal>The sponsor is not advertising — it is part of the story, woven organically across every channel, format and moment.</p>
+        <div class="cards c3 stagger" data-reveal>
+          <div class="card" data-tilt="6"><span class="mn">85M+ impressions/yr</span><h4>Social Media Branding</h4><p>Logo across profiles, covers, posts, stories &amp; highlights on all channels.</p></div>
+          <div class="card" data-tilt="6"><span class="mn">40M+ views/yr</span><h4>Video Naming &amp; Mentions</h4><p>Active naming and on-screen presence in every Reel, TikTok and YouTube video.</p></div>
+          <div class="card" data-tilt="6"><span class="mn">Multiplies everything</span><h4>TV Series Integration</h4><p>Presence inside the show itself — reach far beyond social media.</p></div>
+          <div class="card" data-tilt="6"><span class="mn">Authentic &amp; organic</span><h4>Influencer Network</h4><p>50+ micro &amp; macro creators integrate the brand naturally into their content.</p></div>
+          <div class="card" data-tilt="6"><span class="mn">User-generated</span><h4>Branded Challenge Content</h4><p>The Pirate Challenge itself carries the sponsor — every entry is branded content.</p></div>
+          <div class="card" data-tilt="6"><span class="mn">Online &amp; offline</span><h4>Events, Merch &amp; CRM</h4><p>Giveaways, live events, print, merchandise and the direct community carry the branding.</p></div>
+        </div>
+      </div>
+
+      <!-- co-creation -->
+      <div class="block">
+        <div class="glass glass-edge" data-reveal style="padding:56px 48px;text-align:center">
+          <h3 style="margin-bottom:18px">A Shared Brand Strategy</h3>
+          <p class="lead" style="margin:0 auto;text-align:center">What makes this partnership unique: we develop a tailor-made presence strategy together. The sponsor's brand is not placed — it is co-directed. Storytelling, visuals, tone and appearances are planned and executed as a joint work. No other format offers this depth of shared brand leadership.</p>
+        </div>
+      </div>
+
+      <!-- brand impact -->
+      <div class="block">
+        <h3 data-reveal>Brand Impact — 7-Year Main Sponsorship</h3>
+        <p class="intro" data-reveal>Long-term, purpose-driven sponsoring shows measurable gains across every relevant brand KPI. After seven years the sponsor is inseparable from the movement.</p>
+        <div class="cards c3 stagger" data-reveal>
+          <div class="metric"><b>+15–35%</b><span>Brand awareness · 36 months</span></div>
+          <div class="metric"><b>+40%</b><span>Brand trust vs. classic advertising (18–40) · 36 months</span></div>
+          <div class="metric"><b>+24%</b><span>Purchase intent through purpose alignment · 24 months</span></div>
+          <div class="metric"><b>+27%</b><span>Word-of-mouth within the community · 12 months</span></div>
+          <div class="metric"><b>+43%</b><span>ESG perception as a sustainable company · 36 months</span></div>
+          <div class="metric"><b>×8</b><span>Organic brand mentions · 12 months</span></div>
+        </div>
+      </div>
+
+      <!-- why now -->
+      <div class="block">
+        <h3 data-reveal>Why Now — The Early-Mover Advantage</h3>
+        <div class="cards c3 stagger" data-reveal>
+          <div class="card" data-tilt="6"><h4>Lowest Entry Price</h4><p>2026 has the lowest price at maximum long-term value. Every year gets more expensive.</p></div>
+          <div class="card" data-tilt="6"><h4>Community Ownership</h4><p>The main sponsor is seen as a co-founder of the movement — not an advertiser.</p></div>
+          <div class="card" data-tilt="6"><h4>Cumulative Brand Build</h4><p>Seven years of presence compound. By 2032 the brand value is 4× that of 2026.</p></div>
+          <div class="card" data-tilt="6"><h4>Category Monopoly</h4><p>Seven years with no competitor in your category. This position is gone afterwards.</p></div>
+          <div class="card" data-tilt="6"><h4>TV Multiplier</h4><p>The series maximises reach far beyond social media — at no extra cost.</p></div>
+          <div class="card" data-tilt="6"><h4>Purpose That Lasts</h4><p>An ocean mission audiences believe in — emotional equity money can't buy later.</p></div>
+        </div>
+      </div>
+
+      <!-- the investment / offer -->
+      <div class="glass offer glass-edge" data-reveal>
+        <div>
+          <span class="eyebrow">The Investment</span>
+          <p class="lead">Bringing this to life requires a committed €3M, released in two phases. Funds are drawn as milestones are met — no upfront lump sum. You receive exclusive category rights, integrated but non-intrusive brand presence and guaranteed prime placement. You enable the story; you do not steer it.</p>
+          <div class="mini">
+            <div><span class="pip"></span> €1M — Phase 1: Vessel, teams &amp; teaser</div>
+            <div><span class="pip"></span> €2M — Phase 2: Caribbean shoot, post-production &amp; Season 1 launch</div>
+          </div>
+        </div>
+        <div class="offer-cta">
+          <p class="tagline">Not a logo on a banner. Co-found a movement. Build a brand for seven years.</p>
+          <a class="btn btn-gold" href="mailto:AyeMaties@gmail.com?subject=Genesis%20Partner%20%E2%80%94%20Aye%20Maties"><span>Become the Genesis Partner</span><svg viewBox="0 0 16 10" fill="none"><path d="M1 5h14M10 1l5 4-5 4" stroke="currentColor" stroke-width="1.3"/></svg></a>
+          <p class="note">First-come, first-serve — the first written commitment secures the position.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="site-footer" id="contact">
+    <div class="footer-glow"></div>
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <img class="footer-logo" src="assets/images/logo.png" alt="Aye Maties">
+          <small>A cinematic maritime adventure — saving our oceans, one season, one challenge, one wave at a time.</small>
+          <div class="social">
+            <a href="https://soundcloud.com/ayematies" target="_blank" rel="noopener" aria-label="SoundCloud">SC</a>
+            <a href="https://www.youtube.com/@AyeMaties" target="_blank" rel="noopener" aria-label="YouTube">YT</a>
+            <a href="mailto:AyeMaties@gmail.com" aria-label="Email">@</a>
+          </div>
+        </div>
+        <div><h4>Explore</h4><ul><li><a href="index.html">About</a></li><li><a href="index.html#crew">The Crew</a></li><li><a href="index.html#soundtrack">Soundtrack</a></li><li><a href="ocean.html">The Ocean</a></li></ul></div>
+        <div><h4>More</h4><ul><li><a href="sponsors.html">Sponsors</a></li><li><a href="legal.html">Impressum</a></li><li><a href="legal.html#privacy">Privacy</a></li><li><a href="legal.html#cookies">Cookies</a></li></ul></div>
+        <div><h4>Contact</h4><ul><li><a href="mailto:AyeMaties@gmail.com">AyeMaties@gmail.com</a></li><li><a href="tel:+4369910861086">+43 699 1086 1086</a></li><li><span style="color:var(--muted-2);font-size:14px">Brunn am Gebirge, Austria</span></li></ul></div>
+      </div>
+      <div class="footer-bottom"><span>© 2026 Sail Wisely (Ireland) CLG. All rights reserved.</span><span>Profit is a tool — not the objective.</span></div>
+    </div>
+  </footer>
+</main>
+
+<div id="sound-dock">
+  <div class="sound-ctrl"><button id="sound-mute" aria-label="Mute">🔊</button><input id="sound-vol" class="vol" type="range" min="0" max="100" value="70" aria-label="Volume"></div>
+  <button class="sound-btn" id="sound-btn" aria-label="Toggle soundtrack">
+    <span class="sound-ico"><span class="glow"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M2 12c2-3 4-3 6 0s4 3 6 0 4-3 6 0"/><path d="M2 17c2-3 4-3 6 0s4 3 6 0 4-3 6 0" opacity=".5"/></svg></span>
+    <span class="eq"><i></i><i></i><i></i><i></i></span><span class="label-off">Soundtrack</span><span class="label-on">Sound On</span>
+  </button>
+</div>
+<iframe id="sc-frame" title="Aye Maties soundtrack" allow="autoplay" frameborder="0"
+  src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fon.soundcloud.com%2F15aMZLYq4tEnsPrDNo&color=%23e6c574&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
+
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }</script>
+<script type="module">import { initOcean } from './assets/js/ocean.module.js'; initOcean({ planet: true });</script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

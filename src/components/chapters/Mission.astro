@@ -1,0 +1,36 @@
+---
+import { useT, asset, type Lang } from '../../i18n/ui';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = useT(lang);
+---
+<section class="cinema" id="mission">
+  <video autoplay muted loop playsinline preload="none" poster={asset('/posters/turtle.jpg')}>
+    <source src={asset('/videos/turtle.mp4')} type="video/mp4" />
+  </video>
+  <div class="cinema-inner">
+    <p class="eyebrow label-bracket center" data-reveal>03 — {t('mission.eyebrow')}</p>
+    <h2 class="h-serif" data-decode style="margin:18px 0 0">{t('mission.statement')}</h2>
+    <p class="lead" data-reveal style="margin:26px auto 0;text-align:center">{t('mission.p')}</p>
+  </div>
+</section>
+
+<section class="section mission-band">
+  <div class="wrap">
+    <span class="band-num display">04</span>
+    <div class="band-text">
+      <h3 class="h-serif" data-reveal data-parallax="0.05">{t('mission.band')}</h3>
+      <p class="quote" data-reveal>“{t('mission.quote')}”</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .mission-band .wrap{display:flex;gap:clamp(24px,5vw,64px);align-items:flex-start;}
+  .band-num{font-size:clamp(48px,7vw,120px);color:rgba(95,231,218,.18);line-height:1;}
+  .band-text{flex:1;}
+  .band-text h3{max-width:20ch;}
+  .quote{margin-top:30px;font-family:var(--serif);font-style:italic;color:var(--muted);
+    font-size:clamp(17px,1.8vw,22px);max-width:52ch;line-height:1.6;}
+  @media(max-width:760px){.mission-band .wrap{flex-direction:column;gap:14px;}}
+</style>

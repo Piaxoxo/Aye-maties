@@ -1,0 +1,37 @@
+---
+import Base from '../../layouts/Base.astro';
+import { useT, type Lang } from '../../i18n/ui';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = useT(lang);
+---
+<Base lang={lang} path="/privacy" title="Privacy & Cookies — Aye Maties" description="Privacy Policy and Cookie Policy for Aye Maties.">
+  <section class="page-hero" style="min-height:48svh">
+    <div class="wrap"><p class="eyebrow label-bracket" data-reveal>Legal</p><h1 data-reveal>Privacy &amp; Cookies</h1></div>
+  </section>
+  <section class="section">
+    <div class="wrap prose">
+      <p>This Privacy &amp; Cookie Policy explains how <strong>Sail Wisely (Ireland) CLG</strong> (“Aye Maties”, “we”) handles personal data on this website, in line with the EU GDPR.</p>
+      <h3>1. Controller</h3>
+      <p>Sail Wisely (Ireland) CLG · c/o Capt. Peter Brucha, Jubiläumstrasse 19, 2345 Brunn am Gebirge, Austria · <a href="mailto:AyeMaties@gmail.com">AyeMaties@gmail.com</a>.</p>
+      <h3>2. What we process</h3>
+      <ul>
+        <li><strong>Server logs:</strong> our host may briefly process technical data (IP, browser, time) to deliver the site securely — legitimate interest (Art. 6(1)(f)).</li>
+        <li><strong>Local preferences:</strong> your soundtrack, volume and accessibility choices are stored in your browser’s <em>localStorage</em>, on your device only — never sent to us.</li>
+        <li><strong>Email contact:</strong> if you write to us we use your message and details solely to reply.</li>
+      </ul>
+      <h3>3. Third-party services &amp; embeds</h3>
+      <p>To deliver the experience we load a few external resources that may receive your IP and set their own cookies when active:</p>
+      <ul>
+        <li><strong>SoundCloud</strong> — the soundtrack player loads/plays only after you start it. <a href="https://soundcloud.com/pages/cookies" target="_blank" rel="noopener">Cookie policy</a>.</li>
+        <li><strong>Google Fonts</strong> — typography. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy</a>.</li>
+        <li>Outbound links to Instagram, Facebook, TikTok and YouTube open under their own policies.</li>
+      </ul>
+      <h3>4. Cookies</h3>
+      <p>This site sets <strong>no advertising or analytics cookies</strong> of its own. Preferences use localStorage, not tracking cookies. You can clear them anytime in your browser settings (this resets your sound/accessibility choices).</p>
+      <h3>5. Your rights</h3>
+      <p>You have the right to access, rectification, erasure, restriction, portability and objection, and to complain to a supervisory authority (in Austria: the Datenschutzbehörde). Contact <a href="mailto:AyeMaties@gmail.com">AyeMaties@gmail.com</a>.</p>
+      <p style="color:var(--muted-2);font-style:italic">Last updated: June 2026.</p>
+    </div>
+  </section>
+</Base>

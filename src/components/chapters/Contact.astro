@@ -1,0 +1,42 @@
+---
+import { useT, type Lang } from '../../i18n/ui';
+import { social, contactEmail } from '../../data/social';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = useT(lang);
+---
+<section class="section contact" id="contact">
+  <div class="wrap">
+    <p class="eyebrow label-bracket" data-reveal>10 — {t('contact.eyebrow')}</p>
+    <a class="contact-mail display" href={`mailto:${contactEmail}`} data-decode>{contactEmail}</a>
+    <p class="h-serif contact-sub" data-reveal>{t('contact.title')}</p>
+    <div class="contact-meta">
+      <div data-reveal>
+        <span class="label">{t('contact.eyebrow')}</span>
+        <a class="contact-line" href={`mailto:${contactEmail}`}>{contactEmail}</a>
+        <span class="contact-line">{t('contact.address')}</span>
+      </div>
+      <div data-reveal>
+        <span class="label">{t('ui.followVoyage')}</span>
+        <div class="contact-social">
+          {social.map((s) => (<a href={s.url} target="_blank" rel="noopener">{s.label}</a>))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-mail{display:block;font-size:clamp(30px,6.5vw,104px);line-height:1.02;word-break:break-word;
+    color:var(--ink);margin:18px 0;transition:color .4s;}
+  .contact-mail:hover{color:var(--aqua);}
+  .contact-sub{font-style:italic;color:var(--muted);max-width:20ch;}
+  .contact-meta{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:60px;padding-top:30px;border-top:1px solid var(--line);}
+  .contact-meta .label{display:block;margin-bottom:14px;}
+  .contact-line{display:block;font-family:var(--mono);font-size:14px;color:var(--muted);margin-bottom:8px;}
+  a.contact-line:hover{color:var(--aqua);}
+  .contact-social{display:flex;flex-wrap:wrap;gap:16px;}
+  .contact-social a{font-family:var(--mono);font-size:13px;letter-spacing:.06em;color:var(--muted);transition:color .3s;}
+  .contact-social a:hover{color:var(--aqua);}
+  @media(max-width:600px){.contact-meta{grid-template-columns:1fr;gap:28px;}}
+</style>

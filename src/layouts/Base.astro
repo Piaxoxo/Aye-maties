@@ -1,0 +1,125 @@
+---
+import '../styles/global.css';
+import Seo from '../components/Seo.astro';
+import OceanGL from '../components/OceanGL.astro';
+import Compass from '../components/Compass.astro';
+import A11yPanel from '../components/A11yPanel.astro';
+import SoundDock from '../components/SoundDock.astro';
+import { useT, href, asset, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  path: string;
+  title?: string;
+  description?: string;
+}
+const { lang, path, title, description } = Astro.props;
+const t = useT(lang);
+const pageTitle = title ?? t('site.title');
+const pageDesc = description ?? t('site.desc');
+const home = href('/', lang);
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <link rel="icon" type="image/png" href={asset('/logo.png')} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@500;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Inter:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <Seo title={pageTitle} description={pageDesc} lang={lang} path={path} />
+    <script is:inline>
+      // apply saved accessibility prefs before paint (no flash)
+      (function () {
+        try {
+          var g = function (k, d) { return localStorage.getItem('aym_' + k) ?? d; };
+          var r = document.documentElement;
+          r.style.setProperty('--a-font', g('font', '1'));
+          r.style.setProperty('--veil', String((parseFloat(g('veil', '0')) / 100) * 0.55));
+          r.setAttribute('data-contrast', g('contrast', 'normal'));
+          r.setAttribute('data-motion', g('motion', 'auto'));
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <OceanGL />
+
+    <header class="site-head">
+      <a class="brand" href={href('/', lang)}>
+        <img src={asset('/logo.png')} alt="Aye Maties" width="38" height="38" />
+        <span>Aye&nbsp;Maties</span>
+      </a>
+    </header>
+
+    <A11yPanel lang={lang} />
+    <Compass lang={lang} path={path} />
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-foot">
+      <div class="wrap foot-grid">
+        <div>
+          <img src={asset('/logo.png')} alt="Aye Maties" width="120" height="120" class="foot-logo" />
+          <p class="foot-tag">{t('footer.tag')}</p>
+        </div>
+        <nav aria-label="Footer">
+          <h4 class="label">{t('ui.menu')}</h4>
+          <ul>
+            <li><a href={`${home}#about`}>{t('nav.about')}</a></li>
+            <li><a href={`${home}#mission`}>{t('nav.mission')}</a></li>
+            <li><a href={`${home}#team`}>{t('nav.team')}</a></li>
+            <li><a href={href('/blog', lang)}>{t('nav.blog')}</a></li>
+            <li><a href={`${home}#get-involved`}>{t('nav.getinvolved')}</a></li>
+            <li><a href={`${home}#contact`}>{t('nav.contact')}</a></li>
+            <li><a href={href('/impressum', lang)}>{t('nav.impressum')}</a></li>
+            <li><a href={href('/privacy', lang)}>{t('nav.privacy')}</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="wrap foot-bottom">
+        <span>© {new Date().getFullYear()} Sail Wisely (Ireland) CLG. {t('footer.rights')}</span>
+        <span class="mono">{t('footer.crafted')}</span>
+      </div>
+    </footer>
+
+    <SoundDock lang={lang} />
+
+    <script>
+      import { initUI } from '../lib/ui.js';
+      let done = false;
+      const run = () => { if (done) return; done = true; initUI(); };
+      if (document.getElementById('enter')) { addEventListener('aym:enter', run, { once: true }); setTimeout(run, 4500); }
+      else run();
+    </script>
+
+    <style>
+      .site-head{position:fixed;top:0;left:0;width:100%;z-index:500;display:flex;align-items:center;
+        padding:22px var(--pad);mix-blend-mode:difference;pointer-events:none;}
+      .brand{display:flex;align-items:center;gap:12px;font-family:var(--mono);text-transform:uppercase;
+        letter-spacing:.16em;font-size:14px;pointer-events:auto;}
+      .brand img{width:36px;height:36px;object-fit:contain;}
+
+      .site-foot{position:relative;z-index:2;border-top:1px solid var(--line);padding:90px 0 40px;
+        background:linear-gradient(180deg,transparent,rgba(3,7,13,.85));}
+      .foot-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:50px;}
+      .foot-logo{width:110px;height:auto;margin-bottom:18px;}
+      .foot-tag{font-family:var(--serif);font-style:italic;color:var(--muted);max-width:42ch;}
+      .site-foot h4{margin-bottom:18px;}
+      .site-foot li{margin-bottom:10px;}
+      .site-foot li a{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--muted);transition:color .3s;}
+      .site-foot li a:hover{color:var(--aqua);}
+      .foot-bottom{margin-top:60px;padding-top:24px;border-top:1px solid var(--line);display:flex;
+        justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:12px;color:var(--muted-2);}
+      @media(max-width:760px){.foot-grid{grid-template-columns:1fr;gap:36px;}}
+    </style>
+  </body>
+</html>
